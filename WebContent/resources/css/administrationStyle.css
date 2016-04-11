@@ -1,0 +1,79 @@
+body {
+	background: #eacda3; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, #eacda3, #d6ae7b);
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to left, #eacda3, #d6ae7b);
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* ng-cloak */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+.userList-Table {
+	margin: 40px 0;
+}
+
+.nav-tabs>li>a {
+	background-color: #efefef;
+}
+
+.nav-tabs>li>a:hover {
+	background-color: #2A2A2A !important;
+	color: white !important;
+}
+
+.nav-tabs>li.active>a {
+	background-color: #2A2A2A !important;
+	color: #fff !important;
+}
+
+.addNewUserBtn {
+	margin: 30px 20px;
+}
+
+#deleteUser1 {
+	margin-left: 5px !important;
+}
+
+#deleteUser2 {
+	margin-left: -100px !important;
+}
+
+/* Data Table CSS */
+.dataTables_info {
+	color : red !important;
+}
+
+.paginate_button{
+	color : #000;
+}
+
+.paginate_button current {
+	background-color: black !important;
+}
+
+@media ( max-width : 767px) {
+	.addNewUserBtn {
+		margin-right: 50px;
+	}
+	#deleteUser1 {
+		margin-left: -5px;
+	}
+	#deleteUser2 {
+		margin-left: -80px;
+	}
+}
+
+@media ( min-width : 768px) and (max-width: 991px) {
+	.addNewUserBtn {
+		margin-right: 210px;
+	}
+	#deleteUser1 {
+		margin-left: -5px;
+	}
+	#deleteUser2 {
+		margin-left: -80px;
+	}
+}

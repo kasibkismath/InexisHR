@@ -1,0 +1,13 @@
+.nav-tabs>li>a {
+	background-color: #efefef;
+}
+
+.nav-tabs>li>a:hover {
+	background-color: #2A2A2A !important;
+	color: white !important;
+}
+
+.nav-tabs>li.active>a {
+	background-color: #2A2A2A !important;
+	color: #fff !important;
+}
