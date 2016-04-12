@@ -2,7 +2,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<form class="form-horizontal" ng-init="getUserDetails()" name="editUserSettingsForm">
+				<form class="form-horizontal" ng-init="getUserDetails()" name="updateUserSettingsForm">
 					<div>
 						<h4 id="userSettingsModalTitle">Profile</h4>
 						<hr>
@@ -14,7 +14,7 @@
 								ng-model="getUsername" disabled>
 						</div>
 					</div>
-					<div ng-messages="editUserSettingsForm.email.$error" role="alert">
+					<div ng-messages="updateUserSettingsForm.email.$error" role="alert">
 							<div ng-message="required" class="alert alert-danger padded">
 								<strong>Error!</strong> Email is required
 							</div>
@@ -34,7 +34,7 @@
 						<button type="button" class="btn btn-danger" ng-click="resetToDefault()">
 						<i class="fa fa-times fa-lg"></i> Reset To Default</button>
 						<button type="button" class="btn btn-success" 
-						ng-click="editUserSettingsForm.$valid && updateUserSettingsProfile(getUsername, getEmail)">
+						ng-click="updateUserSettingsForm.$valid && updateUserSettingsProfile(getUsername, getEmail)">
 						<i class="fa fa-floppy-o fa-lg"></i> Save Changes</button>
 					</div>
 				</form>

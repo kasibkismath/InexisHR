@@ -77,4 +77,12 @@ public class UserDAO {
 		updatedUser.setEmail(user.getEmail());
 		session().saveOrUpdate(updatedUser);
 	}
+
+	public void updateUserPassword(User user) {
+		Criteria crit = session().createCriteria(User.class);
+		crit.add(Restrictions.eq("username", user.getUsername()));
+		User updatedUser = (User)crit.uniqueResult();
+		updatedUser.setPassword(user.getPassword());
+		session().saveOrUpdate(updatedUser);
+	}
 }

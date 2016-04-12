@@ -49,4 +49,8 @@ public class UserService {
 		userDao.updateUserSettings(user);
 		
 	}
+
+	public void updateUserPassword(User user) {
+		userDao.updateUserPassword(user);	
+	}
 }

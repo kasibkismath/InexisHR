@@ -59,4 +59,11 @@ public class LoginController {
 	}
 	
 	
+	@RequestMapping(value="/user/settings/updateUserPassword", method=RequestMethod.POST, 
+			produces="application/json" )
+	@ResponseBody
+	public void updateUserPassword(@RequestBody User user)  {
+		userService.updateUserPassword(user);
+	}
+	
 }
