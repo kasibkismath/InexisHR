@@ -61,7 +61,7 @@
 				<button type="button" class="btn btn-danger" data-dismiss="modal">
 					<i class="fa fa-times fa-lg"></i> Close
 				</button>
-				<button type="button" class="btn btn-success" ng-click="updateEditUser(getEditUsername, getEditEmail, getEditAuthority, getEditEnabled)">
+				<button type="button" class="btn btn-success" ng-click="editUserForm.$valid && updateEditUser(getEditUsername, getEditEmail, getEditAuthority, getEditEnabled)">
 					<i class="fa fa-check fa-lg"></i> Save changes
 				</button>
 			</div>

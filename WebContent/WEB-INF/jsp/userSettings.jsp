@@ -21,6 +21,9 @@
 <link
 	href="${pageContext.request.contextPath}/static/css/userSettingsStyle.css"
 	rel="stylesheet">
+	
+<!-- Angular Toastar CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
 
 </head>
 <body ng-controller="mainController">
@@ -56,7 +59,9 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- toaster -->
+	<toaster-container></toaster-container>
+	
 	<!-- JS-->
 	<script>var username = "${loggedInUser}" </script>
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
@@ -64,6 +69,8 @@
 		src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
+	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/ng-caps-lock.min.js"></script>
 	<script

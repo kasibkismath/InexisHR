@@ -69,4 +69,12 @@ public class UserDAO {
 		User fetchedUser = (User)crit.uniqueResult(); 
 		return fetchedUser;
 	}
+
+	public void updateUserSettings(User user) {
+		Criteria crit = session().createCriteria(User.class);
+		crit.add(Restrictions.eq("username", user.getUsername()));
+		User updatedUser = (User)crit.uniqueResult();
+		updatedUser.setEmail(user.getEmail());
+		session().saveOrUpdate(updatedUser);
+	}
 }

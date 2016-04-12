@@ -27,6 +27,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/user/settings/getUser"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/user/settings/updateUser"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"

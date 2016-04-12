@@ -32,3 +32,8 @@ body {
 #userSettingsModalTitle{
 	padding-top: 10px;
 }
+
+/* Validation Error Message Border Radius */
+.padded {
+	border-radius: 25px 25px;
+}

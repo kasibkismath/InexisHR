@@ -52,5 +52,11 @@ public class LoginController {
 		return fetchedUser;
 	}
 	
+	@RequestMapping(value="/user/settings/updateUser", method=RequestMethod.POST, produces="application/json" )
+	@ResponseBody
+	public void updateUser(@RequestBody User user)  {
+		userService.updateUserSettings(user);
+	}
+	
 	
 }
