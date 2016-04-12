@@ -42,7 +42,7 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 			});		
 	}
 	
-	$scope.UpdateChangePassword = function (password) {
+	$scope.UpdateChangePassword = function (password, email) {
 		var user = {
 				username : username,
 				password : password
@@ -50,6 +50,7 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 		
 		$http.post($scope.baseURL + '/user/settings/updateUserPassword', user)
 		 .success(function (result) {
+			$scope.sendMail(email);
 			toaster.pop('success', "Notification", "Password was changed successfully");
 			setTimeout(function () {
 				$window.location.href = contextPath + '/';
@@ -59,9 +60,21 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 		 .error(function(data, status){
 			 toaster.pop('error', "Notification", "Password was not changed");
 			 console.log(data);
-		});		
+		});
 		
 	}
+	
+	$scope.sendMail = function (email) {
+		console.log(email);
+		$http.post($scope.baseURL + '/sendChangePasswordMail', {"email" : email})
+		 .success(function (result) {
+				
+			 })
+			 .error(function(data, status){
+				toaster.pop('error', "Notification", "Sending password changed email failed");
+				console.log(data);
+			});		
+	} 
 	
 	$scope.resetToDefault = function () {
 		toaster.pop('success', "Notification", "User details were reset to default");

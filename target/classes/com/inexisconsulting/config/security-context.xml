@@ -31,6 +31,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/user/settings/updateUserPassword"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/sendChangePasswordMail"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"

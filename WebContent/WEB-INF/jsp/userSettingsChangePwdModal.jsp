@@ -3,6 +3,10 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<form class="form-horizontal" name="updateChangePasswordForm">
+					<div class="col-sm-10">
+							<input type="hidden" class="form-control" 
+							name="email" ng-model="getEmail">
+					</div>
 					<div>
 						<h4 id="userSettingsModalTitle">Change Password</h4>
 						<hr>
@@ -48,7 +52,7 @@
 						<i class="fa fa-times fa-lg"></i> Reset To Default</button>
 						
 						<button type="button" class="btn btn-success" 
-						ng-click="UpdateChangePassword(changePassword)">
+						ng-click="UpdateChangePassword(changePassword, getEmail)">
 						<i class="fa fa-floppy-o fa-lg"></i> Save Changes</button>
 					</div>
 				</form>

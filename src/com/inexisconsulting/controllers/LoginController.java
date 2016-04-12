@@ -1,9 +1,12 @@
 package com.inexisconsulting.controllers;
 
 import java.security.Principal;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +22,9 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MailSender mailSender;
 	
 	@RequestMapping(value="/")
 	public String showLogin(){
@@ -64,6 +70,28 @@ public class LoginController {
 	@ResponseBody
 	public void updateUserPassword(@RequestBody User user)  {
 		userService.updateUserPassword(user);
+	}
+	
+	@RequestMapping(value="/sendChangePasswordMail", method=RequestMethod.POST, 
+			produces="application/json")
+	@ResponseBody
+	public void sendMessage(@RequestBody User data){
+		
+		String email = data.getEmail();
+		
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setFrom("kasibtest@gmail.com");
+		mail.setTo(email);
+		mail.setSubject("Password Changed --  Inexis HR");
+		mail.setText("Your Password has been changed please visit InexisHR for more info" + "\nFrom : " + "admin@inexisconsutling.com");
+		
+		try{
+			mailSender.send(mail);
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Sending email failed");
+		}
+		
 	}
 	
 }
