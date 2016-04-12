@@ -19,6 +19,7 @@
 	href="${pageContext.request.contextPath}/static/css/administrationStyle.css"
 	rel="stylesheet">
 	
+<!-- Angular Toastar CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
 
 <!-- Glyphicons -->
@@ -29,7 +30,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
-<!-- Data Table -->
+<!-- Angular Data Table CSS-->
 <link
 	href="${pageContext.request.contextPath}/static/css/angular-datatables.min.css"
 	rel="stylesheet">
@@ -104,22 +105,20 @@
 	</div>
 	</div>
 	</div>
+	<!-- toaster -->
 	<toaster-container></toaster-container>
+	
 	<!-- JS-->
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
 	<script src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
 	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/angular-datatables.min.js"></script>
-	<script src="//code.angularjs.org/1.4.3/angular-route.min.js"></script>
-	<script src="//code.angularjs.org/1.4.3/angular-resource.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/ng-caps-lock.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/angular-validation-match.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
 	<script

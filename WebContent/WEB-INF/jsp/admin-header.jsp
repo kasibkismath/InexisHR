@@ -16,7 +16,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"><img id="inexisBrand"
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-dashboard"><img id="inexisBrand"
 				class="img-responsive" alt="brand"
 				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
 		</div>
@@ -29,7 +29,7 @@
 					data-toggle="dropdown"><i class="fa fa-user fa-2x"></i>
 						Welcome, ${loggedInUser}</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Settings <span
+						<li><a href="${pageContext.request.contextPath}/user/settings">Settings <span
 								class="glyphicon glyphicon-cog pull-right"></span></a></li>
 						<li class="divider"></li>
 						<li><a href="<c:url value='/j_spring_security_logout'></c:url>">Sign Out<span

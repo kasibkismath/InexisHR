@@ -40,4 +40,8 @@ public class UserService {
 		return userDao.checkUserExists(user);
 		
 	}
+
+	public User getUser(User user) {
+		return userDao.getUser(user);
+	}
 }

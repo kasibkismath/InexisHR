@@ -1,6 +1,6 @@
 var administration = 
 	angular.module('administration', ['ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 'validation.match',
-	                                  	'datatables', 'ngRoute']);
+	                                  	'datatables']);
 /* Directives */
 	// unique username
 administration.directive('ngUnique', ['$http', function (async) {
@@ -24,8 +24,8 @@ administration.directive('ngUnique', ['$http', function (async) {
 
 // controller
 administration.controller('mainController', 
-			['$scope', '$http', '$compile', '$route', 'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
-            function ($scope, $http, $compile, $route, toaster, DTOptionsBuilder, DTColumnBuilder) {
+			['$scope', '$http', '$compile', 'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
+            function ($scope, $http, $compile, toaster, DTOptionsBuilder, DTColumnBuilder) {
 				
 	
 				

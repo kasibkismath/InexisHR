@@ -62,4 +62,11 @@ public class UserDAO {
 		User userExists = (User)crit.uniqueResult();
 		return userExists == null;
 	}
+
+	public User getUser(User user) {
+		Criteria crit = session().createCriteria(User.class);
+		crit.add(Restrictions.eq("username", user.getUsername()));
+		User fetchedUser = (User)crit.uniqueResult(); 
+		return fetchedUser;
+	}
 }

@@ -23,6 +23,10 @@
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/admin-dashboard"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/user/settings"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/user/settings/getUser"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"
