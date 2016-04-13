@@ -53,9 +53,8 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 			$scope.sendMail(email);
 			toaster.pop('success', "Notification", "Password was changed successfully");
 			setTimeout(function () {
-				$window.location.href = contextPath + '/';
+				$window.location.href = contextPath + "/";
             }, 2000);
-			
 		 })
 		 .error(function(data, status){
 			 toaster.pop('error', "Notification", "Password was not changed");
@@ -65,10 +64,8 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 	}
 	
 	$scope.sendMail = function (email) {
-		console.log(email);
 		$http.post($scope.baseURL + '/sendChangePasswordMail', {"email" : email})
 		 .success(function (result) {
-				
 			 })
 			 .error(function(data, status){
 				toaster.pop('error', "Notification", "Sending password changed email failed");

@@ -33,6 +33,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/sendChangePasswordMail"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/backupDatabase"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"

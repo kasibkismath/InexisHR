@@ -63,7 +63,7 @@ administration.controller('mainController',
 		.success(function(result){
 			$scope.users = result;
 			// for enabled checkbox
-			$scope.viewUserEnabled = result.enabled;
+			//$scope.viewUserEnabled = result.enabled;
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -158,5 +158,29 @@ administration.controller('mainController',
 				toaster.pop('error', "Notification", "Creating new user failed");
 			});
 	};
+	
+	// Backup Database - backup.jsp page
+	$scope.backupDatabase = function () {
+		var data = 
+			{
+				"dumpExePath" : "mysqldump",
+				"host" : "localhost",
+				"port" : "3306",
+				"user" : "root",
+				"password" : "RootAdmin@123",
+				"database" : "inexis-hr",
+				"backupPath" : "F:\\"
+			}
+		$http.post(contextPath + '/backupDatabase', data)
+		.success(function(status) {
+			toaster.pop('success', "Notification", "Database Backup was taken successfully");
+			console.log(status);
+		})
+		.error(function(data, status){
+			console.log(data);
+			toaster.pop('error', "Notification", "Database Backup FAILED");
+		});
+	};
+	
 	$scope.getAllUsers();
 }]);

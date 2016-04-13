@@ -54,6 +54,11 @@ body {
 	background-color: black !important;
 }
 
+/* Backup Page CSS */
+.topPad {
+	margin : 40px 0;
+}
+
 @media ( max-width : 767px) {
 	.addNewUserBtn {
 		margin-right: 50px;

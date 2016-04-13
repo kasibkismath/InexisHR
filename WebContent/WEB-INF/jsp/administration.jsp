@@ -60,7 +60,10 @@
 		<div class="row">
 			<div class="col-xs-6 col-lg-12">
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane fade" id="backup">...</div>
+					<div role="tabpanel" class="tab-pane fade" id="backup">
+							<!-- Backup Page : JSP  -->
+							<jsp:include page="backup.jsp"></jsp:include>
+					</div>
 					<div role="tabpanel" class="tab-pane fade in active" id="users">
 						<div class="pull-right addNewUserBtn">
 							<button class="btn btn-warning" id="" data-toggle="modal" data-target="#addNewUserModal">Add New User <i class="fa fa-plus fa-lg"></i></button>
