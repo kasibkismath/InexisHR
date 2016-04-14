@@ -35,6 +35,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/backupDatabase"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/restoreDatabase"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"

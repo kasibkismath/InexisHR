@@ -27,8 +27,6 @@ administration.controller('mainController',
 			['$scope', '$http', '$compile', 'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
             function ($scope, $http, $compile, toaster, DTOptionsBuilder, DTColumnBuilder) {
 				
-	
-				
 	// Angular Data Table configuration
 				
 	$scope.dtColumns = [
@@ -163,12 +161,26 @@ administration.controller('mainController',
 	$scope.backupDatabase = function () {
 		$http.get(contextPath + '/backupDatabase')
 		.success(function(status) {
-			toaster.pop('success', "Notification", "Database Backup was taken successfully");
+			toaster.pop('success', "Notification", "Database Backup was taken successfully. The backup was created in the DOWNLOADS folder.");
 			console.log(status);
 		})
 		.error(function(data, status){
 			console.log(data);
 			toaster.pop('error', "Notification", "Database Backup FAILED");
+		});
+	};
+	
+	// Restore Database
+	$scope.restoreDatabase = function () {
+		var fileName = $('input[type=file]')[0].files[0].name;
+		$http.post(contextPath + '/restoreDatabase', {fileName : fileName})
+		.success(function(status) {
+			toaster.pop('success', "Notification", "Database was restored successfully.");
+			console.log(status);
+		})
+		.error(function(data, status){
+			console.log(data);
+			toaster.pop('error', "Notification", "Database restore FAILED");
 		});
 	};
 	

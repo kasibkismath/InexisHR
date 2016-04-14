@@ -54,9 +54,15 @@ body {
 	background-color: black !important;
 }
 
-/* Backup Page CSS */
-.topPad {
-	margin : 40px 0;
+/* Backup and Restore Page CSS */
+.backupDBSection{
+	padding-top: 40px;
+}
+.restoreDBSection {
+	padding-top: 60px;
+}
+.paddedRestoreDBBtn {
+	margin-top: 15px;
 }
 
 @media ( max-width : 767px) {

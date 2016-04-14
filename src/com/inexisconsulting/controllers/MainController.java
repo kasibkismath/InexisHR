@@ -36,14 +36,14 @@ public class MainController {
 		String port = "3306";
 		String user = "root";
 		String password = "RootAdmin@123";
-		String database = "inexis-hr";
+		String database = "test";
 		String backupPath = System.getProperty("user.home")+"\\Downloads\\";
 		
 		boolean status = false;
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			Date date = new Date();
-			String filepath = "Inexis-HR-DB-Backup-" + dateFormat.format(date) + ".sql";
+			String filepath =  database + "-DB-Backup-" + dateFormat.format(date) + ".sql";
 			
 			String batchCommand = "";
 			if (password != "") {
@@ -71,22 +71,28 @@ public class MainController {
 		return Collections.singletonMap("success", status);
 	}
 	
-	public boolean restoreDatabase(String dbUserName, String dbPassword, String source) {
+	@RequestMapping(value = "/restoreDatabase", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Map<String, Boolean> restoreDatabase(@RequestBody Map<String, Object> data) {
+		String dbUserName = "root";
+		String dbPassword = "RootAdmin@123";
+		String database = "test";
+		String source = "C:\\Users\\Kasib\\Downloads\\" + data.get("fileName").toString();
 		 
         String[] executeCmd = new String[]{"mysql", "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
- 
+        
+        boolean status = false;
         Process runtimeProcess;
         try {
             runtimeProcess = Runtime.getRuntime().exec(executeCmd);
             int processComplete = runtimeProcess.waitFor();
  
             if (processComplete == 0) {
-               
-                return true;
+                status = true;
             }
         } catch (Exception ex) {
            System.out.println(ex);
         }
-        return false;
+        return Collections.singletonMap("success", status);
     }
 }
