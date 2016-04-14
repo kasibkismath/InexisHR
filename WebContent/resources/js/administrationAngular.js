@@ -161,17 +161,7 @@ administration.controller('mainController',
 	
 	// Backup Database - backup.jsp page
 	$scope.backupDatabase = function () {
-		var data = 
-			{
-				"dumpExePath" : "mysqldump",
-				"host" : "localhost",
-				"port" : "3306",
-				"user" : "root",
-				"password" : "RootAdmin@123",
-				"database" : "inexis-hr",
-				"backupPath" : "F:\\"
-			}
-		$http.post(contextPath + '/backupDatabase', data)
+		$http.get(contextPath + '/backupDatabase')
 		.success(function(status) {
 			toaster.pop('success', "Notification", "Database Backup was taken successfully");
 			console.log(status);

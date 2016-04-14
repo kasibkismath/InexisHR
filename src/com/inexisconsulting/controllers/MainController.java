@@ -27,29 +27,29 @@ public class MainController {
 		return "header";
 	}
 
-	@RequestMapping(value = "/backupDatabase", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/backupDatabase", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Map<String, Boolean> backupDataWithDatabase(@RequestBody Map<String, Object> data) {
+	public Map<String, Boolean> backupDataWithDatabase() {
 
-		String dumpExePath = data.get("dumpExePath").toString();
-		String host = data.get("host").toString();
-		String port = data.get("port").toString();
-		String user = data.get("user").toString();
-		String password = data.get("password").toString();
-		String database = data.get("database").toString();
-		String backupPath = data.get("backupPath").toString();
-
+		String dumpExePath = "mysqldump";
+		String host = "localhost";
+		String port = "3306";
+		String user = "root";
+		String password = "RootAdmin@123";
+		String database = "inexis-hr";
+		String backupPath = System.getProperty("user.home")+"\\Downloads\\";
+		
 		boolean status = false;
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			Date date = new Date();
-			String filepath = "Inexis-HR-DB-Backup2-" + dateFormat.format(date) + ".sql";
-
+			String filepath = "Inexis-HR-DB-Backup-" + dateFormat.format(date) + ".sql";
+			
 			String batchCommand = "";
 			if (password != "") {
 				// Backup with database
-				batchCommand = dumpExePath + " -u " + user + " -p " + password + " " + database
-						+ ">" + backupPath + filepath;
+				batchCommand = dumpExePath + " -h " + host + " --port " + port + " -u " + user +" -p" + password
+						+ " --add-drop-database -B " + database + " -r \"" + backupPath + "" + filepath + "\"";
 			} else {
 				batchCommand = dumpExePath + " -h " + host + " --port " + port + " -u " + user
 						+ " --add-drop-database -B " + database + " -r \"" + backupPath + "" + filepath + "\"";
@@ -62,7 +62,7 @@ public class MainController {
 				status = true;
 			} else {
 				status = false;
-			}
+			} 
 		} catch (IOException ioe) {
 			System.out.println(ioe);
 		} catch (Exception e) {
@@ -70,4 +70,23 @@ public class MainController {
 		}
 		return Collections.singletonMap("success", status);
 	}
+	
+	public boolean restoreDatabase(String dbUserName, String dbPassword, String source) {
+		 
+        String[] executeCmd = new String[]{"mysql", "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
+ 
+        Process runtimeProcess;
+        try {
+            runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            int processComplete = runtimeProcess.waitFor();
+ 
+            if (processComplete == 0) {
+               
+                return true;
+            }
+        } catch (Exception ex) {
+           System.out.println(ex);
+        }
+        return false;
+    }
 }
