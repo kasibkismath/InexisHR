@@ -41,7 +41,7 @@ public class MainController {
 		
 		boolean status = false;
 		try {
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy 'at time' HH-mm-ss");
 			Date date = new Date();
 			String filepath =  database + "-DB-Backup-" + dateFormat.format(date) + ".sql";
 			
@@ -77,7 +77,7 @@ public class MainController {
 		String dbUserName = "root";
 		String dbPassword = "RootAdmin@123";
 		String database = "test";
-		String source = "C:\\Users\\Kasib\\Downloads\\" + data.get("fileName").toString();
+		String source = "C:\\Users\\Kasib\\Desktop\\" + data.get("fileName").toString();
 		 
         String[] executeCmd = new String[]{"mysql", "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
         

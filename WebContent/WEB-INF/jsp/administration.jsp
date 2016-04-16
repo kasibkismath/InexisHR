@@ -52,7 +52,7 @@
 					<li role="presentation" class="active"><a href="#users"
 						aria-controls="users" role="tab" data-toggle="tab">Manage Users</a></li>
 					<li role="presentation"><a href="#backup"
-						aria-controls="backup" role="tab" data-toggle="tab">Backup</a></li>
+						aria-controls="backup" role="tab" data-toggle="tab">Backup and Restore</a></li>
 				</ul>
 			</div>
 	<!-- Tab panes -->

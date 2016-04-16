@@ -24,9 +24,9 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav"></ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><i class="fa fa-bell fa-lg"></i> Notifications  <span class="badge">2</span></a></li>
+				<li><a href="${pageContext.request.contextPath}/admin-dashboard"><i class="fa fa-home fa-lg"></i> Go to Main Menu</a></li>
 				<li class="dropdown"><a id="userDropDown" href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><i class="fa fa-user fa-2x"></i>
+					data-toggle="dropdown"><img src="${pageContext.request.contextPath}/static/images/user-icon-small.png">
 						Welcome, ${loggedInUser}</a>
 					<ul class="dropdown-menu">
 						<li><a href="${pageContext.request.contextPath}/user/settings">Settings <span
