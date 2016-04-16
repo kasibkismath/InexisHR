@@ -38,7 +38,7 @@
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
-	<jsp:include page="admin-header.jsp"></jsp:include>
+	<jsp:include page="../admin-header.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">

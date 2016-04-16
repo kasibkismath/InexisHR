@@ -17,7 +17,7 @@ $(function() {
 		$('#employee-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-dashboard');
+			$(location).attr('href', myContextPath + '/employeeProfile');
 		}, 630);
 	});
 	$('#employee-tile').css({

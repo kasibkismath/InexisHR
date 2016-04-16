@@ -27,7 +27,7 @@ public class AdministrationController {
 		String loggedInUser = principal.getName();
 		model.addAttribute("loggedInUser", loggedInUser);
 
-		return "administration";
+		return "Administration/administration";
 	}
 	
 	@RequestMapping(value="/administration/user/all", method=RequestMethod.GET, produces="application/json" )
