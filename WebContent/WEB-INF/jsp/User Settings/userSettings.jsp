@@ -8,7 +8,7 @@
 
 <!-- CSS -->
 <link
-	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
@@ -19,7 +19,7 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 <link
-	href="${pageContext.request.contextPath}/static/css/userSettingsStyle.css"
+	href="${pageContext.request.contextPath}/static/css/User Settings/userSettingsStyle.css"
 	rel="stylesheet">
 	
 <!-- Angular Toastar CSS -->
@@ -28,7 +28,7 @@
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
-	<jsp:include page="admin-header.jsp"></jsp:include>
+	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -66,19 +66,19 @@
 	<script>var username = "${loggedInUser}" </script>
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/ng-caps-lock.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/angular-validation-match.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/angular-validation-match.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/userSettingsAngular.js"></script>
+		src="${pageContext.request.contextPath}/static/js/User Settings/userSettingsAngular.js"></script>
 
 </body>
 </html>

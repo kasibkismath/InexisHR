@@ -12,7 +12,7 @@
 
 <!-- CSS -->
 <link
-	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
 	rel="stylesheet">
 
 </head>
@@ -74,61 +74,11 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
-	<div class="container">
-		<div id="container"
-			style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-	</div>
+
 	<!-- JS-->
 	<script
-		src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script>
-		$(function() {
-			$('#container').highcharts(
-					{
-						title : {
-							text : 'No of leaves per day',
-							x : 10
-						//center
-						},
-						subtitle : {
-							text : '',
-							x : -20
-						},
-						xAxis : {
-							categories : [ '1', '2', '3', '4', '5',
-									'6', '7', '8', '9', '10', '12',
-									'13', '14' ]
-						},
-						yAxis : {
-							title : {
-								text : 'No of Employees'
-							},
-							plotLines : [ {
-								value : 0,
-								width : 1,
-								color : '#808080'
-							} ]
-						},
-						tooltip : {
-							valueSuffix : ' Employee/s'
-						},
-						legend : {
-							layout: 'vertical',
-				            align: 'right',
-				            verticalAlign: 'middle',
-				            borderWidth: 0
-						},
-						series : [ {
-							name : 'Leaves',
-							data : [ 1, 2, 3, 4, 0, 2, 0, 0, 0, 1],
-							color: 'purple'
-						}]
-					});
-		});
-	</script>
+		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 </body>
 </html>

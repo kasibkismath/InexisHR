@@ -11,11 +11,11 @@
 
 <!-- CSS -->
 <link
-	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/static/css/loginStyle.css"
+	href="${pageContext.request.contextPath}/static/css/Login/loginStyle.css"
 	rel="stylesheet" type="text/css">
 
 <!-- Glyphicon CDNs -->
@@ -42,8 +42,9 @@
 									action="${pageContext.request.contextPath}/j_spring_security_check"
 									method="post">
 									<c:if test="${param.error != null}">
-										<div class="alert alert-danger" role="alert">Login
-											Failed! Check your username or password.</div>
+										<div class="alert alert-danger" role="alert">
+										<strong>Error!</strong>
+										Login Failed! Check your username or password.</div>
 									</c:if>
 									<div class="form-group" id="username">
 										<input type="text" id="loginUsername"
@@ -86,13 +87,13 @@
 	</div>
 	<!-- JS-->
 	<script
-		src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script>
 		var error = ${param.error != null};
 	</script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/loginScript.js"></script>
+		src="${pageContext.request.contextPath}/static/js/Login/loginScript.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 </body>
 </html>

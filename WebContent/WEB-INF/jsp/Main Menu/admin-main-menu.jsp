@@ -11,11 +11,11 @@
 
 <!-- CSS -->
 <link
-	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/static/css/admin-dashboardStyle.css"
+	href="${pageContext.request.contextPath}/static/css/Main Menu/admin-dashboardStyle.css"
 	rel="stylesheet">
 
 <link
@@ -33,7 +33,7 @@
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="admin-header.jsp"></jsp:include>
+	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
 	<!-- Dashboard Tiles -->
 	<div class="container-fluid dashboard-main">
@@ -90,15 +90,15 @@
 	<div id="loader"></div>
 		<!-- JS-->
 		<script
-			src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
+			src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 		<script
-			src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+			src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 		<script>
 			var myContextPath = "${pageContext.request.contextPath}"
 		</script>
 		<script
-			src="${pageContext.request.contextPath}/static/js/loadingoverlay.js"></script>
+			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
 		<script
-			src="${pageContext.request.contextPath}/static/js/admin-dashboardScript.js"></script>
+			src="${pageContext.request.contextPath}/static/js/Main Menu/admin-dashboardScript.js"></script>
 </body>
 </html>

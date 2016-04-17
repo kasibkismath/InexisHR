@@ -12,11 +12,11 @@
 
 <!-- CSS -->
 <link
-	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/static/css/administrationStyle.css"
+	href="${pageContext.request.contextPath}/static/css/Administration/administrationStyle.css"
 	rel="stylesheet">
 
 <!-- Glyphicons -->
@@ -30,7 +30,7 @@
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="admin-header.jsp"></jsp:include>
+	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
@@ -52,8 +52,8 @@
 	
 	<!-- JS-->
 	<script
-		src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 </body>
 </html>

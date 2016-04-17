@@ -12,11 +12,11 @@
 
 <!-- CSS -->
 <link
-	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/static/css/administrationStyle.css"
+	href="${pageContext.request.contextPath}/static/css/Administration/administrationStyle.css"
 	rel="stylesheet">
 	
 <!-- Angular Toastar CSS -->
@@ -32,13 +32,13 @@
 	
 <!-- Angular Data Table CSS-->
 <link
-	href="${pageContext.request.contextPath}/static/css/angular-datatables.min.css"
+	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
 	rel="stylesheet">
 
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
-	<jsp:include page="../admin-header.jsp"></jsp:include>
+	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
@@ -113,20 +113,18 @@
 	
 	<!-- JS-->
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
-	<script src="${pageContext.request.contextPath}/static/js/jquery-1.12.2.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/angular-datatables.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/ng-caps-lock.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/angular-validation-match.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-validation-match.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/administrationScript.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/administrationAngular.js"></script>
+		src="${pageContext.request.contextPath}/static/js/Administration/administrationAngular.js"></script>
 </body>
 </html>

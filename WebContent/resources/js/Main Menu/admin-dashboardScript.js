@@ -5,11 +5,15 @@ $(function() {
 		image : "",
 		fontawesome : "fa fa-spinner fa-spin"
 	});
+	
+	// set on the browser cursor loading
+	$("body").css("cursor", "progress");
 
-	// Hide it after 3 seconds
+	// Hide it after 2 seconds
 	setTimeout(function() {
 		$.LoadingOverlay("hide");
-	}, 3000);
+		$("body").css("cursor", "default");
+	}, 2000);
 	
 	
 	// employee tile
@@ -29,7 +33,7 @@ $(function() {
 		$('#leave-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-dashboard');
+			$(location).attr('href', myContextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#leave-tile').css({
@@ -44,7 +48,7 @@ $(function() {
 
 				setTimeout(function() {
 					$(location)
-							.attr('href', myContextPath + '/admin-dashboard');
+							.attr('href', myContextPath + '/admin-main-menu');
 				}, 630);
 			});
 	$('#performanceAppraisal-tile').css({
@@ -59,7 +63,7 @@ $(function() {
 
 				setTimeout(function() {
 					$(location)
-							.attr('href', myContextPath + '/admin-dashboard');
+							.attr('href', myContextPath + '/admin-main-menu');
 				}, 630);
 			});
 	$('#projectTeamMember-tile').css({
@@ -71,7 +75,7 @@ $(function() {
 		$('#recruitment-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-dashboard');
+			$(location).attr('href', myContextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#recruitment-tile').css({
@@ -83,7 +87,7 @@ $(function() {
 		$('#contracts-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-dashboard');
+			$(location).attr('href', myContextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#contracts-tile').css({
@@ -95,7 +99,7 @@ $(function() {
 		$('#reports-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-dashboard');
+			$(location).attr('href', myContextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#reports-tile').css({
@@ -120,7 +124,7 @@ $(function() {
 		$('#attendance-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-dashboard');
+			$(location).attr('href', myContextPath + '/admin-main-menu');
 		}, 630);
 
 	});

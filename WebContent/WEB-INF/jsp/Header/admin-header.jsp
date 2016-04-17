@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 <link
-	href="${pageContext.request.contextPath}/static/css/headerStyle.css"
+	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
 	rel="stylesheet">
 </head>
 <!-- Navbar -->
@@ -16,7 +16,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-dashboard"><img id="inexisBrand"
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-main-menu"><img id="inexisBrand"
 				class="img-responsive" alt="brand"
 				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
 		</div>
@@ -24,7 +24,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav"></ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${pageContext.request.contextPath}/admin-dashboard"><i class="fa fa-home fa-lg"></i> Go to Main Menu</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin-main-menu"><i class="fa fa-home fa-lg"></i> Go to Main Menu</a></li>
 				<li class="dropdown"><a id="userDropDown" href="#" class="dropdown-toggle"
 					data-toggle="dropdown"><img src="${pageContext.request.contextPath}/static/images/user-icon-small.png">
 						Welcome, ${loggedInUser}</a>

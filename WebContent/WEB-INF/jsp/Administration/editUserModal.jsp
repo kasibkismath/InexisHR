@@ -1,6 +1,6 @@
 <head>
 	<link
-	href="${pageContext.request.contextPath}/static/css/editUserModalStyle.css"
+	href="${pageContext.request.contextPath}/static/css/Administration/editUserModalStyle.css"
 	rel="stylesheet">
 </head>
 <div class="modal fade" tabindex="-1" role="dialog" id="editUserModal">

@@ -60,7 +60,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if (isUser) {
             return "/user-dashboard";
         } else if (isAdmin) {
-            return "/admin-dashboard";
+            return "/admin-main-menu";
         } else {
             throw new IllegalStateException();
         }
