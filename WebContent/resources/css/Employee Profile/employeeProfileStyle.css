@@ -5,3 +5,35 @@ body {
 	background: linear-gradient(to left, #eacda3, #d6ae7b);
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+/* Tab Style */
+.nav-tabs>li>a {
+	background-color: #efefef;
+}
+
+.nav-tabs>li>a:hover {
+	background-color: #2A2A2A !important;
+	color: white !important;
+}
+
+.nav-tabs>li.active>a {
+	background-color: #2A2A2A !important;
+	color: #fff !important;
+}
+
+/* Employee Page */
+.headingPad{
+	padding: 10px 0;
+}
+.customList {
+	margin: 15px 0;
+	border-radius: 25px 25px !important;
+}
+
+.employee-image {
+	width: 100px; 
+	height: 100px;
+}
+
+.colored {
+	background-color: #efefef;
+}

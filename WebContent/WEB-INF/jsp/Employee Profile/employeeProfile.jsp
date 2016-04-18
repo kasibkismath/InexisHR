@@ -39,6 +39,72 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
+	<!-- Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="headingPad">
+					<i class="fa fa-users fa-lg"></i> Employee Profiles
+				</h3>
+				<hr>
+				<!-- List Group Start -->
+				<ul class="list-group">
+					<!-- List Group Item Start -->
+					<li class="list-group-item colored customList">
+						<div class="row">
+							<br>
+							<div class="col-md-2 col-sm-3 text-center">
+								<a href="#"><img alt=""
+									src="${pageContext.request.contextPath}/static/images/man-face.jpg"
+									class="img-circle employee-image"></a>
+							</div>
+							<div class="col-md-10 col-sm-9">
+								<div class="row">
+									<div class="col-xs-9">
+										<h3>Adam Jacob</h3>
+										<h4>
+											<span class="label label-default">Software Engineer</span>
+										</h4>
+										<h5>
+											<small class="text-muted"><a href="#"
+												class="btn btn-info">For more info</a></small>
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+					</li>
+					<li class="list-group-item colored customList">
+						<div class="row">
+							<br>
+							<div class="col-md-2 col-sm-3 text-center">
+								<a href="#"><img alt=""
+									src="${pageContext.request.contextPath}/static/images/woman-face.jpg"
+									class="img-circle employee-image"></a>
+							</div>
+							<div class="col-md-10 col-sm-9">
+								<div class="row">
+									<div class="col-xs-9">
+										<h3>Sarah Mandy</h3>
+										<h4>
+											<span class="label label-default">Business Analyst</span>
+										</h4>
+										<h5>
+											<small class="text-muted"><a href="#"
+												class="btn btn-info">For more info</a></small>
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
 	<!-- Scripts -->
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
