@@ -27,14 +27,14 @@ public class Employee {
 	private Date birthday;
 	private String education;
 	private String pastWork;
-	private MultipartFile image;
+	private byte[] image;
 
 	public Employee() {
 	}
 
 	public Employee(int id, String firstName, String lastName, String email, String phoneNumber, String mobileNumber,
 			Date hireDate, String designation, String employmentType, Date birthday, String education, String pastWork,
-			MultipartFile image) {
+			byte[] image) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -146,11 +146,11 @@ public class Employee {
 		this.pastWork = pastWork;
 	}
 
-	public MultipartFile getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(MultipartFile image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 

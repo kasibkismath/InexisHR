@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="empProfile">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
@@ -35,7 +35,7 @@
 	rel="stylesheet">
 
 </head>
-<body>
+<body ng-controller="mainController">
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
@@ -106,6 +106,7 @@
 	</div>
 
 	<!-- Scripts -->
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
@@ -122,5 +123,7 @@
 		src="${pageContext.request.contextPath}/static/js/General/angular-validation-match.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/js/Employee Profile/employeeProfileAngular.js"></script>
 </body>
 </html>
