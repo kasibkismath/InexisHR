@@ -1,7 +1,10 @@
-var empProfile = angular.module('empProfile', []);
+var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination']);
 
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', function($scope, $http){
+	
+	// Pagination Page Size
+	$scope.pageSize = 10;
 	
 	$scope.baseURL = contextPath;
 	
