@@ -85,7 +85,7 @@
 									<span class="label label-default" ng-cloak>{{employee.designation}}</span>
 								</h4>
 								<h5>
-									<small class="text-muted"><a href="#"
+									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
 										class="btn btn-info" ng-cloak>For more info</a></small>
 								</h5>
 							</div>
