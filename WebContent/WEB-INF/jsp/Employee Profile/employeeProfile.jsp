@@ -50,24 +50,24 @@
 				<!-- List Group Start -->
 				<ul class="list-group">
 					<!-- List Group Item Start -->
-					<li class="list-group-item colored customList">
+					<li class="list-group-item colored customList" ng-repeat="employee in employees">
 						<div class="row">
 							<br>
 							<div class="col-md-2 col-sm-3 text-center">
 								<a href="#"><img alt=""
-									src="${pageContext.request.contextPath}/static/images/man-face.jpg"
+									ng-src="${pageContext.request.contextPath}/static/images/Emp Profile Images/{{employee.imageURL}}"
 									class="img-circle employee-image"></a>
 							</div>
 							<div class="col-md-10 col-sm-9">
 								<div class="row">
 									<div class="col-xs-9">
-										<h3>Adam Jacob</h3>
+										<h3 class="empName" ng-cloak>{{employee.firstName}} {{employee.lastName}}</h3>
 										<h4>
-											<span class="label label-default">Software Engineer</span>
+											<span class="label label-default" ng-cloak>{{employee.designation}}</span>
 										</h4>
 										<h5>
 											<small class="text-muted"><a href="#"
-												class="btn btn-info">For more info</a></small>
+												class="btn btn-info" ng-cloak>For more info</a></small>
 										</h5>
 									</div>
 								</div>
@@ -80,7 +80,7 @@
 							<br>
 							<div class="col-md-2 col-sm-3 text-center">
 								<a href="#"><img alt=""
-									src="${pageContext.request.contextPath}/static/images/woman-face.jpg"
+									src="${pageContext.request.contextPath}/static/images/Emp Profile Images/woman-face.jpg"
 									class="img-circle employee-image"></a>
 							</div>
 							<div class="col-md-10 col-sm-9">

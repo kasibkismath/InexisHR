@@ -14,8 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class Employee {
 
 	@Id
-	@Column(name = "id")
-	private int id;
+	@Column(name = "emp_id")
+	private int emp_id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -27,15 +27,15 @@ public class Employee {
 	private Date birthday;
 	private String education;
 	private String pastWork;
-	private byte[] image;
+	private String imageURL;
 
 	public Employee() {
 	}
 
-	public Employee(int id, String firstName, String lastName, String email, String phoneNumber, String mobileNumber,
+	public Employee(int emp_id, String firstName, String lastName, String email, String phoneNumber, String mobileNumber,
 			Date hireDate, String designation, String employmentType, Date birthday, String education, String pastWork,
-			byte[] image) {
-		this.id = id;
+			String imageURL) {
+		this.emp_id = emp_id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -47,15 +47,15 @@ public class Employee {
 		this.birthday = birthday;
 		this.education = education;
 		this.pastWork = pastWork;
-		this.image = image;
+		this.imageURL = imageURL;
 	}
 
-	public int getId() {
-		return id;
+	public int getEmpId() {
+		return emp_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmpId(int emp_id) {
+		this.emp_id = emp_id;
 	}
 
 	public String getFirstName() {
@@ -146,12 +146,12 @@ public class Employee {
 		this.pastWork = pastWork;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
 }

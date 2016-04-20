@@ -51,7 +51,9 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/checkUserExists"
 			access="isAuthenticated()" />
-			<security:intercept-url pattern="/employeeProfile"
+		<security:intercept-url pattern="/employeeProfile"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
 			access="isAuthenticated()" />
