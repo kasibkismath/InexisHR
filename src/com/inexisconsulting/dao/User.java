@@ -3,6 +3,8 @@ package com.inexisconsulting.dao;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,17 +19,23 @@ public class User {
 	private String authority;
 	private String email;
 	private boolean enabled;
+	
+	@OneToOne
+	@JoinColumn(name="emp_id")
+	private Employee employee;
 
 	public User() {
 	}
 
-	public User(int id, String username, String password, String authority, String email, boolean enabled) {
+	public User(int id, String username, String password, String authority, String email, boolean enabled,
+			Employee employee) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.authority = authority;
 		this.email = email;
 		this.enabled = enabled;
+		this.employee = employee;
 	}
 
 	public int getId() {
@@ -78,4 +86,11 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 }

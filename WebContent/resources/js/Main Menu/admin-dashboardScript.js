@@ -131,4 +131,17 @@ $(function() {
 	$('#attendance-tile').css({
 		"cursor" : "pointer"
 	});
+	
+	// training tile
+	$('#training-tile').click(function() {
+		$('#training-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
+
+		setTimeout(function() {
+			$(location).attr('href', myContextPath + '/admin-main-menu');
+		}, 630);
+
+	});
+	$('#training-tile').css({
+		"cursor" : "pointer"
+	});
 });

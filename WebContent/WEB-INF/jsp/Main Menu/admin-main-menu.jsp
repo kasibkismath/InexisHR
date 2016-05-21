@@ -83,6 +83,11 @@
 				<span class="dashboard-title"><i
 					class="fa fa-file-pdf-o fa-lg"></i> Reports</span>
 			</div>
+			<div class="col-sm-12 col-md-4 col-lg-4 dashboard-tile"
+				id="training-tile">
+				<span class="dashboard-title"><i
+					class="fa fa-table fa-lg"></i> Training</span>
+			</div>
 		</div>
 	</div>
 
