@@ -1,5 +1,7 @@
 package com.inexisconsulting.dao;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,10 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "users")
 public class User {
-
+	
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -28,7 +33,7 @@ public class User {
 	}
 
 	public User(int id, String username, String password, String authority, String email, boolean enabled,
-			Employee employee) {
+			Employee employee, int emp_id) {
 		this.id = id;
 		this.username = username;
 		this.password = password;

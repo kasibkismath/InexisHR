@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
@@ -13,6 +14,7 @@
 				authorities-by-username-query="select username, authority from users where binary username=?"
 				users-by-username-query="select username, password, enabled from users where binary username=?"
 				id="JDBCAuthManager" />
+			<!-- <security:password-encoder ref="encoder"></security:password-encoder> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 
@@ -71,4 +73,8 @@
 			user-service-ref="JDBCAuthManager" />
 	</security:http>
 
+	<!-- <bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg name="strength" value="11"></constructor-arg>
+	</bean> -->
 </beans>

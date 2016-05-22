@@ -60,6 +60,7 @@ administration.controller('mainController',
 		$http.get(contextPath + '/administration/user/all')
 		.success(function(result){
 			$scope.users = result;
+			console.log($scope.users);
 			// for enabled checkbox
 			//$scope.viewUserEnabled = result.enabled;
 		})
@@ -67,6 +68,16 @@ administration.controller('mainController',
 			console.log(data);
 		});
 	};
+	
+	// gets all employee
+	$http.get(contextPath + '/employeeProfile/employee/all')
+	.success(function(result) {
+		$scope.employees = result;
+		console.log($scope.employees);
+	})
+	.error(function(data, status) {
+		console.log(data);
+	})
 	
 	// deleteUserMain function from the administration.jsp #deleteuser1 button
 	$scope.deleteUserMain = function (id) {
@@ -133,14 +144,15 @@ administration.controller('mainController',
 	$scope.saveNewEnabled = true;
 	
 	// add new user
-	$scope.addNewUser = function (username, password, email, authority, enabled) {
-		//console.log(username + " " + email + " " + authority + " " + enabled);
+	$scope.addNewUser = function (username, password, email, authority, empId, enabled) {
+		//console.log(username + " " + email + " " + authority + " " + enabled + " " + emp_id);
 		var user = {
 				username : username,
 				password: password,
 				email : email,
 				authority : authority,
-				enabled : enabled
+				enabled : enabled,
+				employee : {empId: empId}
 			};
 			$http.post(contextPath + '/administration/user/addNewUser', user)
 			.success(function(result){

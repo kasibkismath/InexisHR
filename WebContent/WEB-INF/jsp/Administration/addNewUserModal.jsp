@@ -10,7 +10,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" name="addNewUserForm" 
-					ng-submit="addNewUserForm.$valid && addNewUser(saveNewUsername, saveNewPassword, saveNewEmail, saveNewAuthority, saveNewEnabled)">
+					ng-submit="addNewUserForm.$valid && addNewUser(saveNewUsername, saveNewPassword, saveNewEmail, saveNewAuthority, saveNewEmployee, saveNewEnabled)">
 					
 					<!-- Alerts when caps lock is on -->
 					<div role="alert" class="alert alert-warning padded" 
@@ -100,6 +100,19 @@
 								<option value="ROLE_CEO">ROLE_CEO</option>
 								<option value="ROLE_HR">ROLE_HR</option>
 								<option value="ROLE_USER" >ROLE_USER</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="addNewUserForm.employee.$error.required" ng-if="addNewUserForm.employee.$dirty">
+							<strong>Error!</strong> Employee is required, please select one.
+						</div>
+						<label class="col-sm-2 control-label">Employee</label>
+						<div class="col-sm-10">
+							<select ng-model="saveNewEmployee" name="employee" class="form-control" required>
+								<option value="" >Select an employee</option>
+								<option ng-repeat="employee in employees" value="{{employee.empId}}">{{employee.firstName}} {{employee.lastName}}</option>
 							</select>
 						</div>
 					</div>
