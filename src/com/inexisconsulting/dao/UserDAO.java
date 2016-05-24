@@ -9,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +19,8 @@ public class UserDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	//@Autowired
-	//private BCryptPasswordEncoder encoder;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	public Session session() {
 		return sessionFactory.getCurrentSession();
@@ -57,7 +56,7 @@ public class UserDAO {
 
 	public void addNewUser(User user) {
 		if(checkUserExists(user) == true){
-			//user.setPassword(encoder.encode(user.getPassword()));
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			session().saveOrUpdate(user);
 		}
 	}
