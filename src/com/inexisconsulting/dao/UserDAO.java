@@ -87,7 +87,7 @@ public class UserDAO {
 		Criteria crit = session().createCriteria(User.class);
 		crit.add(Restrictions.eq("username", user.getUsername()));
 		User updatedUser = (User)crit.uniqueResult();
-		updatedUser.setPassword(user.getPassword());
+		updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		session().saveOrUpdate(updatedUser);
 	}
 }
