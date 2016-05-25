@@ -22,6 +22,21 @@ administration.directive('ngUnique', ['$http', function (async) {
     }
 }]);
 
+//covert to number -- updateUser Employee Field
+administration.directive('convertToNumber', function() {
+	  return {
+	    require: 'ngModel',
+	    link: function(scope, element, attrs, ngModel) {
+	      ngModel.$parsers.push(function(val) {
+	        return val ? parseInt(val, 10) : null;
+	      });
+	      ngModel.$formatters.push(function(val) {
+	        return val ? '' + val : null;
+	      });
+	    }
+	  };
+	});
+
 // controller
 administration.controller('mainController', 
 			['$scope', '$http', '$compile', 'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
@@ -110,6 +125,7 @@ administration.controller('mainController',
 			$scope.getEditEmail = result.email;
 			$scope.getEditAuthority = result.authority;
 			$scope.getEditEnabled = result.enabled;
+			$scope.getEditEmpId = result.employee.empId;
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -117,13 +133,14 @@ administration.controller('mainController',
 	};
 	
 	// update user detail edits
-	$scope.updateEditUser = function (username, email, authority, enabled){
+	$scope.updateEditUser = function (username, email, authority, enabled, empId){
 		//console.log(username, email, authority, enabled);
 		var user = {
 			username : username,
 			email : email,
 			authority : authority,
-			enabled : enabled
+			enabled : enabled,
+			employee : {empId : empId}
 		};
 		$http.post(contextPath + '/administration/user/updateEditUser', user)
 		.success(function(result){

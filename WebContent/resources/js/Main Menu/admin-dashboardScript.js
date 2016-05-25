@@ -21,7 +21,7 @@ $(function() {
 		$('#employee-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/employeeProfile');
+			$(location).attr('href', contextPath + '/employeeProfile');
 		}, 630);
 	});
 	$('#employee-tile').css({
@@ -33,7 +33,7 @@ $(function() {
 		$('#leave-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-main-menu');
+			$(location).attr('href', contextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#leave-tile').css({
@@ -48,7 +48,7 @@ $(function() {
 
 				setTimeout(function() {
 					$(location)
-							.attr('href', myContextPath + '/admin-main-menu');
+							.attr('href', contextPath + '/admin-main-menu');
 				}, 630);
 			});
 	$('#performanceAppraisal-tile').css({
@@ -63,7 +63,7 @@ $(function() {
 
 				setTimeout(function() {
 					$(location)
-							.attr('href', myContextPath + '/admin-main-menu');
+							.attr('href', contextPath + '/admin-main-menu');
 				}, 630);
 			});
 	$('#projectTeamMember-tile').css({
@@ -75,7 +75,7 @@ $(function() {
 		$('#recruitment-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-main-menu');
+			$(location).attr('href', contextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#recruitment-tile').css({
@@ -87,7 +87,7 @@ $(function() {
 		$('#contracts-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-main-menu');
+			$(location).attr('href', contextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#contracts-tile').css({
@@ -99,7 +99,7 @@ $(function() {
 		$('#reports-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-main-menu');
+			$(location).attr('href', contextPath + '/admin-main-menu');
 		}, 630);
 	});
 	$('#reports-tile').css({
@@ -111,7 +111,7 @@ $(function() {
 		$('#administration-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/administration');
+			$(location).attr('href', contextPath + '/administration');
 		}, 630);
 
 	});
@@ -124,7 +124,7 @@ $(function() {
 		$('#attendance-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-main-menu');
+			$(location).attr('href', contextPath + '/admin-main-menu');
 		}, 630);
 
 	});
@@ -137,7 +137,7 @@ $(function() {
 		$('#training-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
 
 		setTimeout(function() {
-			$(location).attr('href', myContextPath + '/admin-main-menu');
+			$(location).attr('href', contextPath + '/admin-main-menu');
 		}, 630);
 
 	});

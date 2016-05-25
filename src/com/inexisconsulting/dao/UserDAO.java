@@ -51,6 +51,7 @@ public class UserDAO {
 		updatedUser.setAuthority(user.getAuthority());
 		updatedUser.setEmail(user.getEmail());
 		updatedUser.setEnabled(user.isEnabled());
+		updatedUser.setEmployee(user.getEmployee());
 		session().saveOrUpdate(updatedUser);
 	}
 

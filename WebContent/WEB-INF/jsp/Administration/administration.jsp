@@ -39,7 +39,7 @@
 <body ng-controller="mainController">
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
-
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">

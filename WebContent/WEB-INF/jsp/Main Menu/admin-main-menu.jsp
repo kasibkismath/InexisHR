@@ -99,11 +99,12 @@
 		<script
 			src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 		<script>
-			var myContextPath = "${pageContext.request.contextPath}"
+			var contextPath = "${pageContext.request.contextPath}"
 		</script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Main Menu/admin-dashboardScript.js"></script>
+		<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 </body>
 </html>

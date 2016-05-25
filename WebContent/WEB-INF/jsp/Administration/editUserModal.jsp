@@ -51,6 +51,19 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="editUserForm.employee.$error.required" ng-if="editUserForm.employee.$dirty">
+							<strong>Error!</strong> Employee is required, please select one.
+						</div>
+						<label class="col-sm-2 control-label">Employee</label>
+						<div class="col-sm-10">
+							<select ng-model="getEditEmpId" name="employee" class="form-control"  convert-to-number required>
+								<option value="" >Select an employee</option>
+								<option ng-repeat="employee in employees" value="{{employee.empId}}">{{employee.firstName}} {{employee.lastName}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-sm-2 control-label">Enabled</label>
 						<div class="col-sm-10">
 							<input type="checkbox" class="checkbox" ng-model="getEditEnabled">
@@ -61,7 +74,7 @@
 				<button type="button" class="btn btn-danger" data-dismiss="modal">
 					<i class="fa fa-times fa-lg"></i> Close
 				</button>
-				<button type="button" class="btn btn-success" ng-click="editUserForm.$valid && updateEditUser(getEditUsername, getEditEmail, getEditAuthority, getEditEnabled)">
+				<button type="button" class="btn btn-success" ng-click="editUserForm.$valid && updateEditUser(getEditUsername, getEditEmail, getEditAuthority, getEditEnabled, getEditEmpId)">
 					<i class="fa fa-check fa-lg"></i> Save changes
 				</button>
 			</div>
