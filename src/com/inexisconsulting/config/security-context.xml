@@ -41,6 +41,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration"
 			access="isAuthenticated()" />
+			<security:intercept-url pattern="/administration/user/currentUser"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/delete"

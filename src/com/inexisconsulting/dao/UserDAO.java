@@ -72,7 +72,7 @@ public class UserDAO {
 	public User getUser(User user) {
 		Criteria crit = session().createCriteria(User.class);
 		crit.add(Restrictions.eq("username", user.getUsername()));
-		User fetchedUser = (User)crit.uniqueResult(); 
+		User fetchedUser = (User)crit.uniqueResult();
 		return fetchedUser;
 	}
 

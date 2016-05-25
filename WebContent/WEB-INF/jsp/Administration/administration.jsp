@@ -36,7 +36,7 @@
 	rel="stylesheet">
 
 </head>
-<body ng-controller="mainController">
+<body ng-controller="mainController" ng-init="getCurrentUser()">
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
@@ -113,6 +113,7 @@
 	
 	<!-- JS-->
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
+	<script>var currentUser = "${loggedInUser}"</script>
 	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>

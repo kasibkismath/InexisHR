@@ -35,6 +35,14 @@ public class AdministrationController {
 
 		return "Administration/administration";
 	}
+	
+	@RequestMapping(value = "/administration/user/currentUser", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public User getCurrentUser(@RequestBody User user) {
+		User currUser = userService.getCurrentUser(user);
+		return currUser;
+	}
+	
 
 	@RequestMapping(value = "/administration/user/all", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

@@ -26,7 +26,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="${pageContext.request.contextPath}/admin-main-menu"><i class="fa fa-home fa-lg"></i> Go to Main Menu</a></li>
 				<li class="dropdown"><a id="userDropDown" href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><img src="${pageContext.request.contextPath}/static/images/user-icon-small.png">
+					data-toggle="dropdown">
+					<img src="${pageContext.request.contextPath}/static/images/Emp Profile Images/{{userImage}}"  class="img-circle" width="25" height="30">
 						Welcome, ${loggedInUser}</a>
 					<ul class="dropdown-menu">
 						<li><a href="${pageContext.request.contextPath}/user/settings">Settings <span

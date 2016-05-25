@@ -67,6 +67,24 @@ administration.controller('mainController',
       })
      .withPaginationType('full_numbers')
      .withDisplayLength(10);
+	 
+	 /**
+	  * Custom Angular Codes
+	  */
+	 
+	 // loggedIn User details - loggedIn User Image
+	 $scope.getCurrentUser = function() {
+		 var user = {
+			 username : currentUser
+		 };
+		 $http.post(contextPath + '/administration/user/currentUser', user)
+			.success(function(result){
+				$scope.userImage = result.employee.imageURL;
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+	 }
 	 	 
 	 
 	// gets all users

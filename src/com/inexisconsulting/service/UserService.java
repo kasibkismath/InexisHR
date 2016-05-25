@@ -53,4 +53,8 @@ public class UserService {
 	public void updateUserPassword(User user) {
 		userDao.updateUserPassword(user);	
 	}
+
+	public User getCurrentUser(User user) {
+		return userDao.getUser(user);
+	}
 }
