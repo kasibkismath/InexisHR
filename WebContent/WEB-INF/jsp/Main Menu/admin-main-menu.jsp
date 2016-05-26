@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="adminHeader">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +16,10 @@
 
 <link
 	href="${pageContext.request.contextPath}/static/css/Main Menu/admin-dashboardStyle.css"
+	rel="stylesheet">
+	
+<link
+	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
 	rel="stylesheet">
 
 <link
@@ -101,10 +105,13 @@
 		<script>
 			var contextPath = "${pageContext.request.contextPath}"
 		</script>
+		<script>var currentUser = "${loggedInUser}"</script>
+		<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Main Menu/admin-dashboardScript.js"></script>
-		<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 </body>
 </html>

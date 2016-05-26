@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="userSetting">
+<html ng-modules="userSetting, adminHeader">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Settings</title>
@@ -20,6 +20,10 @@
 
 <link
 	href="${pageContext.request.contextPath}/static/css/User Settings/userSettingsStyle.css"
+	rel="stylesheet">
+	
+<link
+	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
 	rel="stylesheet">
 	
 <!-- Angular Toastar CSS -->
@@ -63,7 +67,7 @@
 	<toaster-container></toaster-container>
 	
 	<!-- JS-->
-	<script>var username = "${loggedInUser}" </script>
+	<script>var currentUser = "${loggedInUser}" </script>
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
@@ -71,6 +75,7 @@
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
 	<script
@@ -79,6 +84,8 @@
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/User Settings/userSettingsAngular.js"></script>
+	<script
+			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 
 </body>
 </html>

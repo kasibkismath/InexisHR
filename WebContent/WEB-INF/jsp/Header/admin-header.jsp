@@ -1,11 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<head>
-<link
-	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
-	rel="stylesheet">
-</head>
 <!-- Navbar -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" ng-controller="headerController" ng-init="getCurrentUser()">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -27,7 +22,7 @@
 				<li><a href="${pageContext.request.contextPath}/admin-main-menu"><i class="fa fa-home fa-lg"></i> Go to Main Menu</a></li>
 				<li class="dropdown"><a id="userDropDown" href="#" class="dropdown-toggle"
 					data-toggle="dropdown">
-					<img src="${pageContext.request.contextPath}/static/images/Emp Profile Images/{{userImage}}"  class="img-circle" width="25" height="30">
+					<img src="${pageContext.request.contextPath}/static/images/Emp Profile Images/{{userImage}}"  class="img-circle" id="loggedInUserImg">
 						Welcome, ${loggedInUser}</a>
 					<ul class="dropdown-menu">
 						<li><a href="${pageContext.request.contextPath}/user/settings">Settings <span

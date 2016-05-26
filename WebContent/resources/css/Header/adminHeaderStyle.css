@@ -5,3 +5,8 @@
 .loggedInUsername {
 	padding-top: 5px;
 }
+
+#loggedInUserImg{
+	width: 25px !important;
+	height: 30px !important;
+}

@@ -73,7 +73,7 @@ administration.controller('mainController',
 	  */
 	 
 	 // loggedIn User details - loggedIn User Image
-	 $scope.getCurrentUser = function() {
+	 /*$scope.getCurrentUser = function() {
 		 var user = {
 			 username : currentUser
 		 };
@@ -84,7 +84,7 @@ administration.controller('mainController',
 			.error(function(data, status){
 				console.log(data);
 			});
-	 }
+	 };*/
 	 	 
 	 
 	// gets all users

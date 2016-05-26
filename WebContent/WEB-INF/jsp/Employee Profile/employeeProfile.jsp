@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="empProfile">
+<html ng-modules="empProfile, adminHeader">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
@@ -14,6 +14,10 @@
 <!-- Custom CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/Employee Profile/employeeProfileStyle.css"
+	rel="stylesheet">
+	
+<link
+	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
 	rel="stylesheet">
 
 <!-- Glyphicons -->
@@ -52,15 +56,15 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="input-group">
-					<span class="input-group-addon"><i
+					<span class="input-group-addon" id="searchBoxGlyp"><i
 						class="fa fa-search fa-lg"></i></span> <input type="text"
-						class="form-control" ng-model="q" placeholder="Search">
+						class="form-control" ng-model="q" placeholder="Search" id="searchBox">
 				</div>
 			</div>
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="input-group">
-					<span class="input-group-addon">No of Items</span> <input type="number" min="1"
-						max="100" class="form-control" ng-model="pageSize">
+					<span class="input-group-addon" id="showListGlyp">No of Items</span> <input type="number" min="1"
+						max="100" class="form-control" ng-model="pageSize" id="showListBox">
 				</div>
 			</div>
 		</div>
@@ -104,6 +108,7 @@
 	<script>
 		var contextPath = "${pageContext.request.contextPath}"
 	</script>
+	<script>var currentUser = "${loggedInUser}" </script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
@@ -111,6 +116,7 @@
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script
@@ -121,5 +127,7 @@
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/Employee Profile/employeeProfileAngular.js"></script>
+	<script
+			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
                         function ($scope, $http, toaster, $window) {
 	
 	// username from userSettings.jsp
-	$scope.username = username;
+	$scope.username = currentUser;
 	
 	// application base url
 	$scope.baseURL = contextPath;
