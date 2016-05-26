@@ -1,9 +1,10 @@
 body {
-	background: #517fa4; /* fallback for old browsers */
+	/* background: #517fa4; fallback for old browsers
 	background: -webkit-linear-gradient(to left, #517fa4, #243949);
-	/* Chrome 10-25, Safari 5.1-6 */
+	Chrome 10-25, Safari 5.1-6
 	background: linear-gradient(to left, #517fa4, #243949);
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background-color: #efefef;
 }
 
 .dashboard-main {
@@ -19,8 +20,12 @@ body {
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	width: 320px;
 	height: 150px;
-	border: 2px solid #525252;
+	/*border: 2px solid #525252;*/
+	border-radius: 35px;
 	padding: 40px 10px 0 0px;
+	margin-left: 65px;
+	margin-bottom: 20px;
+	margin-top: 20px;
 	background: -webkit-linear-gradient(to left, #457fca, #5691c8);
 	/* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to left, #457fca, #5691c8);
