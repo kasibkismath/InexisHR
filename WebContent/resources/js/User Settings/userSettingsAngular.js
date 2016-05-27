@@ -27,7 +27,7 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 	$scope.updateUserSettingsProfile = function (username, email) {
 		
 		var user = {
-					username : username,
+					username : currentUser,
 					email : email
 				};
 		
@@ -44,7 +44,7 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 	
 	$scope.UpdateChangePassword = function (password, email) {
 		var user = {
-				username : username,
+				username : currentUser,
 				password : password
 		};
 		

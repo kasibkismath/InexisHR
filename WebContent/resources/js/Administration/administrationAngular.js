@@ -70,22 +70,7 @@ administration.controller('mainController',
 	 
 	 /**
 	  * Custom Angular Codes
-	  */
-	 
-	 // loggedIn User details - loggedIn User Image
-	 /*$scope.getCurrentUser = function() {
-		 var user = {
-			 username : currentUser
-		 };
-		 $http.post(contextPath + '/administration/user/currentUser', user)
-			.success(function(result){
-				$scope.userImage = result.employee.imageURL;
-			})
-			.error(function(data, status){
-				console.log(data);
-			});
-	 };*/
-	 	 
+	  */	 
 	 
 	// gets all users
 	$scope.getAllUsers = function () {
@@ -94,8 +79,6 @@ administration.controller('mainController',
 		.success(function(result){
 			$scope.users = result;
 			console.log($scope.users);
-			// for enabled checkbox
-			//$scope.viewUserEnabled = result.enabled;
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -152,7 +135,6 @@ administration.controller('mainController',
 	
 	// update user detail edits
 	$scope.updateEditUser = function (username, email, authority, enabled, empId){
-		//console.log(username, email, authority, enabled);
 		var user = {
 			username : username,
 			email : email,
@@ -180,7 +162,6 @@ administration.controller('mainController',
 	
 	// add new user
 	$scope.addNewUser = function (username, password, email, authority, empId, enabled) {
-		//console.log(username + " " + email + " " + authority + " " + enabled + " " + emp_id);
 		var user = {
 				username : username,
 				password: password,

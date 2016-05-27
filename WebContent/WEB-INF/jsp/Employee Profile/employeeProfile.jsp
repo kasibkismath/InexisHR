@@ -33,15 +33,12 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
 
-<!-- Angular Data Table CSS-->
-<link
-	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
-	rel="stylesheet">
-
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
+	
+	<jsp:include page="addNewEmpModal.jsp"></jsp:include>
 
 	<!-- Content -->
 	<div class="container">
@@ -52,7 +49,7 @@
 				</h3>
 			</div>
 			<div class="row">
-			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" id="" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee <i class="fa fa-plus-circle fa-lg"></i></button></div>
+			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" id="" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee &nbsp;<i class="fa fa-plus-circle fa-lg"></i></button></div>
 		</div>
 		</div>
 		<hr>
@@ -122,10 +119,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/General/angular-validation-match.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
