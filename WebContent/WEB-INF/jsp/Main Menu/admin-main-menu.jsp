@@ -44,7 +44,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="administration-tile">
-				<span class="dashboard-title"><i class="fa fa-cogs fa-2x"></i>
+				<span class="dashboard-title"><i class="fa fa-cogs fa-3x"></i>
 					Administration</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
@@ -54,43 +54,43 @@
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="contracts-tile">
-				<span class="dashboard-title"><i class="fa fa-files-o fa-2x"></i>
+				<span class="dashboard-title"><i class="fa fa-files-o fa-3x"></i>
 					Contracts</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="employee-tile">
-				<span class="dashboard-title"><i class="fa fa-user fa-2x"></i>
+				<span class="dashboard-title"><i class="fa fa-user fa-3x"></i>
 					Employee</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="leave-tile">
-				<span class="dashboard-title"><i class="fa fa-bed fa-2x"></i>
+				<span class="dashboard-title"><i class="fa fa-bed fa-3x"></i>
 					Leave</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="performanceAppraisal-tile">
-				<span class="dashboard-title"><i class="fa fa-rocket fa-2x"></i>
+				<span class="dashboard-title"><i class="fa fa-rocket fa-3x"></i>
 					Performance</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="projectTeamMember-tile">
-				<span class="dashboard-title"><i class="fa fa-users fa-2x"></i>
+				<span class="dashboard-title"><i class="fa fa-users fa-3x"></i>
 					Projects &amp; Teams</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="recruitment-tile">
 				<span class="dashboard-title"><i
-					class="fa fa-user-plus fa-2x"></i> Recruitment</span>
+					class="fa fa-user-plus fa-3x"></i> Recruitment</span>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="reports-tile">
 				<span class="dashboard-title"><i
-					class="fa fa-file-pdf-o fa-2x"></i> Reports</span>
+					class="fa fa-file-pdf-o fa-3x"></i> Reports</span>
 			</div>
 			<div class="col-sm-12 col-md-offset-4 col-md-3 col-md-offset-5 col-lg-4 dashboard-tile"
 				id="training-tile">
 				<span class="dashboard-title"><i
-					class="fa fa-table fa-2x"></i> Training</span>
+					class="fa fa-table fa-3x"></i> Training</span>
 			</div>
 		</div>
 	</div>

@@ -14,11 +14,11 @@
 								ng-model="getUsername" disabled>
 						</div>
 					</div>
-					<div ng-messages="updateUserSettingsForm.email.$error" role="alert">
+					<div ng-cloak ng-messages="updateUserSettingsForm.email.$error" role="alert">
 							<div ng-message="required" class="alert alert-danger padded">
 								<strong>Error!</strong> Email is required
 							</div>
-							<div ng-message="pattern" class="alert alert-danger padded">
+							<div ng-cloak ng-message="pattern" class="alert alert-danger padded">
 								<strong>Error!</strong> Invalid Email
 							</div>
 					</div>

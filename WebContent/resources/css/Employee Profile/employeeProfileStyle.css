@@ -1,10 +1,16 @@
 body {
-	background: #eacda3; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to left, #eacda3, #d6ae7b);
-	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, #eacda3, #d6ae7b);
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: #f8f8f8 !important;
 }
+
+hr {
+	border-color: #ccc !important;
+}
+
+/* ng-cloak */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
 /* Tab Style */
 .nav-tabs>li>a {
 	background-color: #efefef;
@@ -24,9 +30,15 @@ body {
 .headingPad{
 	padding: 10px 0;
 }
+
+#addNewEmpBtn {
+	margin-top: 40px !important;
+}
+
 .customList {
-	margin: 15px 0;
+	margin: 25px;
 	border-radius: 25px 25px !important;
+	background: #efefef !important;
 }
 
 .employee-image {
