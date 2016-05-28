@@ -1,4 +1,5 @@
-var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination']);
+var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination', 
+                                               'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', '720kb.datepicker']);
 
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', function($scope, $http){

@@ -68,6 +68,10 @@ hr {
 	margin-right: 10px;
 }
 
+.warningPad {
+	border-radius: 25px;
+}
+
 /* Add Emp Modal */
 .modal-dialog{
     overflow-y: initial !important

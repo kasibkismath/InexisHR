@@ -5,7 +5,7 @@ $(function() {
 		image : "",
 		fontawesome : "fa fa-spinner fa-spin"
 	});
-	
+
 	// set on the browser cursor loading
 	$("body").css("cursor", "progress");
 
@@ -14,15 +14,10 @@ $(function() {
 		$.LoadingOverlay("hide");
 		$("body").css("cursor", "default");
 	}, 2000);
-	
-	
+
 	// employee tile
 	$('#employee-tile').click(function() {
-		$('#employee-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/employeeProfile');
-		}, 630);
+		$(location).attr('href', contextPath + '/employeeProfile');
 	});
 	$('#employee-tile').css({
 		"cursor" : "pointer"
@@ -30,27 +25,16 @@ $(function() {
 
 	// leave tile
 	$('#leave-tile').click(function() {
-		$('#leave-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/admin-main-menu');
-		}, 630);
+		$(location).attr('href', contextPath + '/admin-main-menu');
 	});
 	$('#leave-tile').css({
 		"cursor" : "pointer"
 	});
 
 	// performance appraisal tile
-	$('#performanceAppraisal-tile').click(
-			function() {
-				$('#performanceAppraisal-tile').slideUp(700).delay(500).fadeTo(
-						"slow", 0.6);
-
-				setTimeout(function() {
-					$(location)
-							.attr('href', contextPath + '/admin-main-menu');
-				}, 630);
-			});
+	$('#performanceAppraisal-tile').click(function() {
+		$(location).attr('href', contextPath + '/admin-main-menu');
+	});
 	$('#performanceAppraisal-tile').css({
 		"cursor" : "pointer"
 	});
@@ -58,13 +42,7 @@ $(function() {
 	// projects and team member tile
 	$('#projectTeamMember-tile').click(
 			function() {
-				$('#projectTeamMember-tile').slideUp(700).delay(500).fadeTo(
-						"slow", 0.6);
-
-				setTimeout(function() {
-					$(location)
-							.attr('href', contextPath + '/admin-main-menu');
-				}, 630);
+				$(location).attr('href', contextPath + '/admin-main-menu');
 			});
 	$('#projectTeamMember-tile').css({
 		"cursor" : "pointer"
@@ -72,11 +50,7 @@ $(function() {
 
 	// recruitment tile
 	$('#recruitment-tile').click(function() {
-		$('#recruitment-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/admin-main-menu');
-		}, 630);
+		$(location).attr('href', contextPath + '/admin-main-menu');
 	});
 	$('#recruitment-tile').css({
 		"cursor" : "pointer"
@@ -84,11 +58,7 @@ $(function() {
 
 	// contracts tile
 	$('#contracts-tile').click(function() {
-		$('#contracts-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/admin-main-menu');
-		}, 630);
+		$(location).attr('href', contextPath + '/admin-main-menu');
 	});
 	$('#contracts-tile').css({
 		"cursor" : "pointer"
@@ -96,11 +66,7 @@ $(function() {
 
 	// reports tile
 	$('#reports-tile').click(function() {
-		$('#reports-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/admin-main-menu');
-		}, 630);
+		$(location).attr('href', contextPath + '/admin-main-menu');
 	});
 	$('#reports-tile').css({
 		"cursor" : "pointer"
@@ -108,12 +74,7 @@ $(function() {
 
 	// administration tile
 	$('#administration-tile').click(function() {
-		$('#administration-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/administration');
-		}, 630);
-
+		$(location).attr('href', contextPath + '/administration');
 	});
 	$('#administration-tile').css({
 		"cursor" : "pointer"
@@ -121,25 +82,15 @@ $(function() {
 
 	// attendance tile
 	$('#attendance-tile').click(function() {
-		$('#attendance-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/admin-main-menu');
-		}, 630);
-
+		$(location).attr('href', contextPath + '/admin-main-menu');
 	});
 	$('#attendance-tile').css({
 		"cursor" : "pointer"
 	});
-	
+
 	// training tile
 	$('#training-tile').click(function() {
-		$('#training-tile').slideUp(700).delay(500).fadeTo("slow", 0.6);
-
-		setTimeout(function() {
-			$(location).attr('href', contextPath + '/admin-main-menu');
-		}, 630);
-
+		$(location).attr('href', contextPath + '/admin-main-menu');
 	});
 	$('#training-tile').css({
 		"cursor" : "pointer"

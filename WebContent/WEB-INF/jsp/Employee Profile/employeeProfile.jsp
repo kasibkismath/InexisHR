@@ -33,12 +33,13 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
 
+<!-- DatePicker -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-datepicker.min.css"/>
+
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
-	
-	<jsp:include page="addNewEmpModal.jsp"></jsp:include>
 
 	<!-- Content -->
 	<div class="container">
@@ -99,6 +100,9 @@
 				<hr>
 			</li>
 		</ul>
+		
+		<jsp:include page="addNewEmpModal.jsp"></jsp:include>
+		
 		<div class="text-center">
           <dir-pagination-controls boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>
           </div>
@@ -113,10 +117,13 @@
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script
+		src="${pageContext.request.contextPath}/static/js/General/moment.min.js"></script>
+	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-datepicker.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>

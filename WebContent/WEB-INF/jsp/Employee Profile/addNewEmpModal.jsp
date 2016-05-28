@@ -13,7 +13,7 @@
 					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName)">
 					
 					<!-- Alerts when caps lock is on -->
-					<div role="alert" class="alert alert-warning padded" 
+					<div role="alert" class="alert alert-warning warningPad" 
 							ng-show='isCapsLockOn'>
 							<strong>Warning!</strong> Caps Lock is ON
 					</div>
@@ -75,10 +75,10 @@
 					<div class="form-group">
 						<div ng-messages="addNewEmpForm.phoneNumber.$error" role="alert" ng-if="addNewEmpForm.phoneNumber.$dirty">
 							<div ng-message="minlength, maxlength" class="alert alert-danger padded">
-								<strong>Error!</strong> Phone Number must be at least 10 characters long 
+								<strong>Error!</strong> Phone Number must be only 10 characters long 
 							</div>
 							<div ng-message="pattern" class="alert alert-danger padded">
-								<strong>Error!</strong> Phone Number should only contain numeric
+								<strong>Error!</strong> Phone Number should be numeric
 							</div>
 						</div>
 						<label class="col-sm-2 control-label">Phone Number</label>
@@ -86,6 +86,38 @@
 							<input type="text" class="form-control" placeholder="Phone Number"
 								name="phoneNumber" ng-model="saveNewPhoneNo" ng-minlength="10" 
 								ng-maxlength="10" ng-pattern="/^\d+$/">
+						</div>
+					</div>
+					<div class="form-group">
+						<div ng-messages="addNewEmpForm.mobileNumber.$error" role="alert" ng-if="addNewEmpForm.mobileNumber.$dirty">
+							<div ng-message="required" class="alert alert-danger padded">
+								<strong>Error!</strong> Mobile Number is required
+							</div>
+							<div ng-message="minlength, maxlength" class="alert alert-danger padded">
+								<strong>Error!</strong> Mobile Number must be only 10 characters long 
+							</div>
+							<div ng-message="pattern" class="alert alert-danger padded">
+								<strong>Error!</strong> Mobile Number should be numeric
+							</div>
+						</div>
+						<label class="col-sm-2 control-label">Mobile Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="Mobile Number"
+								name="mobileNumber" ng-model="saveNewMobileNo" ng-minlength="10" 
+								ng-maxlength="10" ng-pattern="/^\d+$/" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Hire Date</label>
+						<div class="col-sm-10">
+							<datepicker date-format="yyyy-MM-dd" selector="form-control">
+							    <div class="input-group">
+							        <input class="form-control" placeholder="Choose a date"/>
+							        <span class="input-group-addon" style="cursor: pointer">
+							        <i class="fa fa-lg fa-calendar"></i>
+							        </span>
+							    </div>
+							</datepicker>
 						</div>
 					</div>
 					<div class="modal-footer">
