@@ -117,8 +117,6 @@
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/static/js/General/moment.min.js"></script>
-	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
