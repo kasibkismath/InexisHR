@@ -5,9 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "employee")
@@ -22,8 +22,13 @@ public class Employee {
 	private String phoneNumber;
 	private String mobileNumber;
 	private Date hireDate;
-	private String designation;
+
+	@OneToOne
+	@JoinColumn(name = "designation_id")
+	private Designation designation;
+
 	private String employmentType;
+	private int salary;
 	private Date birthday;
 	private String education;
 	private String pastWork;
@@ -32,9 +37,9 @@ public class Employee {
 	public Employee() {
 	}
 
-	public Employee(int emp_id, String firstName, String lastName, String email, String phoneNumber, String mobileNumber,
-			Date hireDate, String designation, String employmentType, Date birthday, String education, String pastWork,
-			String imageURL) {
+	public Employee(int emp_id, String firstName, String lastName, String email, String phoneNumber,
+			String mobileNumber, Date hireDate, Designation designation, String employmentType, int salary,
+			Date birthday, String education, String pastWork, String imageURL) {
 		this.emp_id = emp_id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -44,6 +49,7 @@ public class Employee {
 		this.hireDate = hireDate;
 		this.designation = designation;
 		this.employmentType = employmentType;
+		this.salary = salary;
 		this.birthday = birthday;
 		this.education = education;
 		this.pastWork = pastWork;
@@ -106,11 +112,11 @@ public class Employee {
 		this.hireDate = hireDate;
 	}
 
-	public String getDesignation() {
+	public Designation getDesignation() {
 		return designation;
 	}
 
-	public void setDesignation(String designation) {
+	public void setDesignation(Designation designation) {
 		this.designation = designation;
 	}
 
@@ -152,6 +158,14 @@ public class Employee {
 
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
+	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
 	}
 
 }

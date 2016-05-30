@@ -1,26 +1,34 @@
 package com.inexisconsulting.dao;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "designation")
 public class Designation {
 
-	private int id;
+	@Id
+	@Column(name = "designation_id")
+	private int designation_id;
 	private String name;
+	
+	public Designation(){
+		
+	}
 
-	public Designation(int id, String name) {
-		this.id = id;
+	public Designation(int designation_id, String name) {
+		this.designation_id = designation_id;
 		this.name = name;
 	}
 
-	public int getId() {
-		return id;
+	public int getDesignationId() {
+		return designation_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDesignationId(int designation_id) {
+		this.designation_id = designation_id;
 	}
 
 	public String getName() {

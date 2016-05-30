@@ -129,27 +129,7 @@
 						<div class="col-sm-10">
 							<select ng-model="saveNewDesignation" name="designation" class="form-control" required>
 								<option value="" >Select a designation</option>
-								<option value="Software Architect">Software Architect</option>
-								<option value="Associate Software Consultant">Associate Software Consultant</option>
-								<option value="Software Consultant">Software Consultant</option>
-								<option value="Senior Software Consultant">Senior Software Consultant</option>
-								<option value="Associate Software Engineer">Associate Software Engineer</option>
-								<option value="Software Engineer">Software Engineer</option>
-								<option value="Senior Software Engineer">Senior Software Engineer</option>
-								<option value="Technical Lead Software">Technical Lead Software</option>
-								<option value="Associate Software Quality Engineer">Associate Software Quality Engineer</option>
-								<option value="Software Quality Engineer">Software Quality Engineer</option>
-								<option value="Senior Software Quality Engineer">Senior Software Quality Engineer</option>
-								<option value="Technical Lead Software Quality Assurance">Technical Lead Software Quality Assurance</option>
-								<option value="Junior Business Analyst">Junior Business Analyst</option>
-								<option value="Business Analyst">Business Analyst</option>
-								<option value="Senior Business Analyst">Senior Business Analyst</option>
-								<option value="Associate UI/UX Engineer">Associate UI/UX Engineer</option>
-								<option value="UI/UX Engineer">UI/UX Engineer</option>
-								<option value="Senior UI/UX Engineer">Senior UI/UX Engineer</option>
-								<option value="Technical Lead UI/UX">Technical Lead UI/UX</option>
-								<option value="Technical Support">Technical Support</option>
-								<option value="Trainee">Trainee</option>
+								<option ng-repeat="designation in designations" value="{{designation.designationId}}">{{designation.name}}</option>
 							</select>
 						</div>
 					</div>
