@@ -10,7 +10,10 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" name="addNewEmpForm" 
-					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName)">
+					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName, saveNewLastName, 
+					saveNewEmail, saveNewPhoneNo, saveNewMobileNo, saveNewHireDate, saveNewDesignation,
+					saveNewEmploymentType, saveNewSalary, saveNewBirthday, saveNewEducation, saveNewPastWork,
+					file)">
 					
 					<!-- Alerts when caps lock is on -->
 					<div role="alert" class="alert alert-warning warningPad" 
@@ -196,6 +199,25 @@
 								ng-model="saveNewPastWork" ng-maxlength="5000" char-count warning-count="25" danger-count="10"></textarea>
 						</div>
 					</div>
+					<div class="form-group">
+						<div ng-messages="addNewEmpForm.file.$error" role="alert" ng-if="addNewEmpForm.file.$dirty">
+								<div ng-message="required" class="alert alert-danger padded">
+								<strong>Error!</strong> Image is required
+								</div>
+						</div>
+						<label class="col-sm-2 control-label">Image Upload</label>
+						<div class="col-sm-10">
+							<input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+   								 ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="50" 
+    							 ngf-resize="{width: 200, height: 150}" required>
+						</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label">Image Preview</label>
+							<div class="col-sm-10">
+								<img ngf-thumbnail="file">
+							</div>
+						</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">
 							<i class="fa fa-times fa-lg"></i> Close
