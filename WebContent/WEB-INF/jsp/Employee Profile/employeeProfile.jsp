@@ -129,6 +129,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-character-count.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-file-upload.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-capitalize.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script

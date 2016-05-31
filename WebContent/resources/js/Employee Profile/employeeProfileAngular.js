@@ -1,9 +1,11 @@
 var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination', 
                                                'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 
-                                               '720kb.datepicker', 'angular-character-count', 'ngFileUpload']);
+                                               '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
+                                               'angular-capitalize']);
 
 /* Controllers */
-empProfile.controller('mainController', ['$scope', '$http', 'Upload', function($scope, $http, Upload){
+empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 
+                                         function($scope, $http, Upload, capitalizeFilter){
 	
 	// Pagination Page Size
 	$scope.pageSize = 10;
@@ -29,24 +31,76 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', function($
 		console.log(data);
 	});
 	
+	
+	// add new employee
 	 $scope.addNewEmp = function(firstName, lastName, email, phoneNo, mobileNo, hireDate, designation,
 			 employmentType, salary, birthday, education, pastWork, file) {
-	      /*if ($scope.form.file.$valid && $scope.file) {
+	      
+		 
+		/* if ($scope.form.file.$valid && $scope.file) {
 	        $scope.upload($scope.file);
 	      }*/
 		 
 		 $scope.fileType = file.type;
 		 $scope.newFileType = $scope.fileType.substring(6);
+		 $scope.fileName = firstName + "-" + lastName + "." + $scope.newFileType;
 		 
 		 if(phoneNo === undefined) {
 			 phoneNo = "";
-		 }
+		 };
+		 
+		 if(hireDate === undefined) {
+			 hireDate = "";
+		 };
+		 
+		 if(salary === undefined) {
+			 salary = 0;
+		 };
+		 
+		 if(birthday === undefined) {
+			 birthday = "";
+		 };
+		 
+		 if(education === undefined) {
+			 education = "";
+		 };
+		 
+		 if(pastWork === undefined) {
+			 pastWork = "";
+		 };
+		 
+		 if(firstName != null) {
+			 console.log(capitalizeFilter(firstName));
+		 };
+		 
+		 if(lastName != null) {
+			 console.log(capitalizeFilter(lastName));
+		 };
+		 
+		 if(education != null) {
+			 console.log(capitalizeFilter(education));
+		 };
+		 
+		 if(pastWork != null) {
+			 console.log(capitalizeFilter(pastWork));
+		 };
+		 
 		  
-		 $scope.fileName = firstName + "-" + lastName + "." + $scope.newFileType;
-	      
-	      console.log(firstName + " " +  lastName + " " +  email + " " +  phoneNo + " " + mobileNo + " " +  
-	    		  hireDate + " " + designation + " " + employmentType + " " +  salary + " " +  birthday + " " +  
-	    		  education + " " +  pastWork + " " +  file.name + " " + $scope.fileName);
+		var employee = {
+			firstName : firstName,
+			lastName : lastName,
+			email : email,
+			phoneNo : phoneNo,
+			mobileNo : mobileNo,
+			hireDate : hireDate,
+			designation : {desginationId : designation},
+			employmentType : employmentType,
+			salary : salary,
+			birthday : birthday,
+			education : education,
+			pastWork : pastWork,
+			imageURL : $scope.fileName
+		}
 	 };
 	
 	// image upload
