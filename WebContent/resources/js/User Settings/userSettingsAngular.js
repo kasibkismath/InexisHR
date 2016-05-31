@@ -74,7 +74,7 @@ userSetting.controller('mainController', ['$scope', '$http', 'toaster', '$window
 	} 
 	
 	$scope.resetToDefault = function () {
-		toaster.pop('success', "Notification", "User details were reset to default");
+		toaster.pop('success', "Notification", "Cleared the data");
 		$scope.getUserDetails();
 	}
 	

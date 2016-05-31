@@ -36,6 +36,8 @@
 <!-- DatePicker -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-datepicker.min.css"/>
 
+<!-- Character Count -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
@@ -125,6 +127,7 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-character-count.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script

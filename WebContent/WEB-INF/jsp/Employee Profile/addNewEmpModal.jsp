@@ -133,6 +133,69 @@
 							</select>
 						</div>
 					</div>
+					<div class="form-group">
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="addNewEmpForm.employmentType.$error.required" ng-if="addNewEmpForm.employmentType.$dirty">
+							<strong>Error!</strong> Employment Type is required, please select one.
+						</div>
+						<label class="col-sm-2 control-label">Type of Employment</label>
+						<div class="col-sm-10">
+							<select ng-model="saveNewEmploymentType" name="employmentType" class="form-control" required>
+								<option value="" >Select an employment type</option>
+								<option value="Permanent">Permanent</option>
+								<option value="Temporary">Temporary</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div ng-messages="addNewEmpForm.salary.$error" role="alert" ng-if="addNewEmpForm.salary.$dirty">
+							<div ng-message="pattern" class="alert alert-danger padded">
+								<strong>Error!</strong> Salary should be positive integer
+							</div>
+						</div>
+						<label class="col-sm-2 control-label">Salary</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="Salary"
+								name="salary" ng-model="saveNewSalary" ng-pattern="/^(0|[1-9][0-9]*)$/">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Birthday</label>
+						<div class="col-sm-10">
+							<datepicker date-format="yyyy-MM-dd" selector="form-control">
+							    <div class="input-group">
+							        <input class="form-control" placeholder="Choose a date" ng-model="saveNewBirthday"/>
+							        <span class="input-group-addon" style="cursor: pointer">
+							        <i class="fa fa-lg fa-calendar"></i>
+							        </span>
+							    </div>
+							</datepicker>
+						</div>
+					</div>
+					<div class="form-group">
+						<div ng-messages="addNewEmpForm.education.$error" role="alert" ng-if="addNewEmpForm.education.$dirty">
+							<div ng-message="maxlength" class="alert alert-danger padded">
+								<strong>Error!</strong> Education should be not more than 1000 characters
+							</div>
+						</div>
+						<label class="col-sm-2 control-label">Education</label>
+						<div class="col-sm-10">
+							<textarea rows="8" class="form-control" name="education" placeholder="Education" 
+								ng-model="saveNewEducation" ng-maxlength="1000" char-count warning-count="25" danger-count="10"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div ng-messages="addNewEmpForm.pastWork.$error" role="alert" ng-if="addNewEmpForm.pastWork.$dirty">
+								<div ng-message="maxlength" class="alert alert-danger padded">
+								<strong>Error!</strong> Work Experience should be not more than 5000 characters
+							</div>
+						</div>
+						<label class="col-sm-2 control-label">Work Experience</label>
+						<div class="col-sm-10">
+							<textarea rows="15" class="form-control" name="pastWork" placeholder="Work Experience" 
+								ng-model="saveNewPastWork" ng-maxlength="5000" char-count warning-count="25" danger-count="10"></textarea>
+						</div>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">
 							<i class="fa fa-times fa-lg"></i> Close

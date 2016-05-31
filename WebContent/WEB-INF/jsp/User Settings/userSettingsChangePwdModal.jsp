@@ -49,7 +49,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" 
 						ng-click="resetToDefaultPassword()">
-						<i class="fa fa-times fa-lg"></i> Reset To Default</button>
+						<i class="fa fa-times fa-lg"></i> Clear</button>
 						
 						<button type="button" class="btn btn-success" 
 						ng-click="UpdateChangePassword(changePassword, getEmail)">

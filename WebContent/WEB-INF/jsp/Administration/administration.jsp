@@ -132,6 +132,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-caps-lock.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-validation-match.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script

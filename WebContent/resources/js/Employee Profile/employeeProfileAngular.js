@@ -1,21 +1,6 @@
 var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination', 
-                                               'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', '720kb.datepicker']);
-
-//covert to number -- select option
-empProfile.directive('convertToNumber', function() {
-	  return {
-	    require: 'ngModel',
-	    link: function(scope, element, attrs, ngModel) {
-	      ngModel.$parsers.push(function(val) {
-	        return val ? parseInt(val, 10) : null;
-	      });
-	      ngModel.$formatters.push(function(val) {
-	        return val ? '' + val : null;
-	      });
-	    }
-	  };
-	});
-
+                                               'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 
+                                               '720kb.datepicker', 'angular-character-count']);
 
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', function($scope, $http){

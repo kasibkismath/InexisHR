@@ -1,6 +1,6 @@
 var administration = 
 	angular.module('administration', ['ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 'validation.match',
-	                                  	'datatables']);
+	                                  	'datatables', 'angular-convert-to-number']);
 /* Directives */
 	// unique username
 administration.directive('ngUnique', ['$http', function (async) {
@@ -21,21 +21,6 @@ administration.directive('ngUnique', ['$http', function (async) {
         }
     }
 }]);
-
-//covert to number -- updateUser Employee Field
-administration.directive('convertToNumber', function() {
-	  return {
-	    require: 'ngModel',
-	    link: function(scope, element, attrs, ngModel) {
-	      ngModel.$parsers.push(function(val) {
-	        return val ? parseInt(val, 10) : null;
-	      });
-	      ngModel.$formatters.push(function(val) {
-	        return val ? '' + val : null;
-	      });
-	    }
-	  };
-	});
 
 // controller
 administration.controller('mainController', 

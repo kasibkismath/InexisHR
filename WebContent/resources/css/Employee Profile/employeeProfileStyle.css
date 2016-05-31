@@ -80,3 +80,9 @@ hr {
     height: 450px;
     overflow-y: auto;
 }
+
+@media ( min-width : 992px) {
+	.modal-content {
+		width: 700px;
+	}
+}
