@@ -11,10 +11,16 @@ hr {
 	display: none !important;
 }
 
+/* 720kb date picker calendar */
+._720kb-datepicker-calendar._720kb-datepicker-open {
+	width: 400px;
+}
+
 /* Tab Style */
 .nav-tabs>li>a {
 	background-color: #efefef;
 }
+
 
 .nav-tabs>li>a:hover {
 	background-color: #2A2A2A !important;

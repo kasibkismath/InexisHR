@@ -12,6 +12,14 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	
 	$scope.baseURL = contextPath;
 	
+	
+	//hireDate max limit date
+	$scope.hireDate = new Date();
+	
+	//birthday max limit date
+	$scope.birthday = new Date();
+
+	
 	// get all employees
 	$http.get($scope.baseURL + '/employeeProfile/employee/all')
 	.success(function(result) {

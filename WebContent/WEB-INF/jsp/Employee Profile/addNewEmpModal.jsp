@@ -111,9 +111,13 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<div role="alert" class="alert alert-warning warningPad" 
+							ng-show='error'>
+							<strong>Error!</strong> {{error}}
+						</div>
 						<label class="col-sm-2 control-label">Hire Date</label>
 						<div class="col-sm-10">
-							<datepicker date-format="yyyy-MM-dd" selector="form-control">
+							<datepicker date-format="yyyy-MM-dd" selector="form-control" date-max-limit="{{hireDate | date:'yyyy-MM-dd'}}">
 							    <div class="input-group">
 							        <input class="form-control" placeholder="Choose a date" ng-model="saveNewHireDate"/>
 							        <span class="input-group-addon" style="cursor: pointer">
@@ -165,7 +169,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Birthday</label>
 						<div class="col-sm-10">
-							<datepicker date-format="yyyy-MM-dd" selector="form-control">
+							<datepicker date-format="yyyy-MM-dd" selector="form-control" date-max-limit="{{birthday | date:'yyyy-MM-dd'}}">
 							    <div class="input-group">
 							        <input class="form-control" placeholder="Choose a date" ng-model="saveNewBirthday"/>
 							        <span class="input-group-addon" style="cursor: pointer">
