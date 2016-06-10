@@ -18,7 +18,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	
 	//birthday max limit date
 	$scope.birthday = new Date();
-
 	
 	// get all employees
 	$http.get($scope.baseURL + '/employeeProfile/employee/all')
@@ -44,14 +43,12 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	 $scope.addNewEmp = function(firstName, lastName, email, phoneNo, mobileNo, hireDate, designation,
 			 employmentType, salary, birthday, education, pastWork, file) {
 	      
-		 
-		/* if ($scope.form.file.$valid && $scope.file) {
-	        $scope.upload($scope.file);
-	      }*/
+
 		 
 		 $scope.fileType = file.type;
 		 $scope.newFileType = $scope.fileType.substring(6);
 		 $scope.fileName = firstName + "-" + lastName + "." + $scope.newFileType;
+		 
 		 
 		 if(phoneNo === undefined) {
 			 phoneNo = "";
@@ -93,7 +90,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			 console.log(capitalizeFilter(pastWork));
 		 };
 		 
-		  
 		var employee = {
 			firstName : firstName,
 			lastName : lastName,
@@ -109,12 +105,16 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			pastWork : pastWork,
 			imageURL : $scope.fileName
 		}
+		
+		 if ($scope.addNewEmpForm.file.$valid && $scope.file) {
+        	$scope.upload($scope.file);
+      }
 	 };
 	
 	// image upload
 	$scope.upload = function (file) {
         Upload.upload({
-            url: 'upload/url',
+            url: contextPath + '/FileUpload',
             method: 'POST',
             data: {file: file}
         }).then(function (resp) {

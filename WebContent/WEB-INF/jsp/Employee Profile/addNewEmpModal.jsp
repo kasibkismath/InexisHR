@@ -13,7 +13,7 @@
 					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName, saveNewLastName, 
 					saveNewEmail, saveNewPhoneNo, saveNewMobileNo, saveNewHireDate, saveNewDesignation,
 					saveNewEmploymentType, saveNewSalary, saveNewBirthday, saveNewEducation, saveNewPastWork,
-					file)">
+					file)" enctype="multipart/form-data">
 					
 					<!-- Alerts when caps lock is on -->
 					<div role="alert" class="alert alert-warning warningPad" 
@@ -205,15 +205,19 @@
 					</div>
 					<div class="form-group">
 						<div ng-messages="addNewEmpForm.file.$error" role="alert" ng-if="addNewEmpForm.file.$dirty">
+								<div ng-message="pattern" class="alert alert-danger padded">
+								<strong>Error!</strong> Image Type should be .jpg
+								</div>
 								<div ng-message="required" class="alert alert-danger padded">
 								<strong>Error!</strong> Image is required
 								</div>
 						</div>
 						<label class="col-sm-2 control-label">Image Upload</label>
+						<span class="imageTypeDesc">Image Type should be: .jpg</span>
 						<div class="col-sm-10">
-							<input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+							<input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'.jpg'"
    								 ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="50" 
-    							 ngf-resize="{width: 200, height: 150}" required>
+    							 ngf-resize="{width: 200, height: 150}" onchange="angular.element(this).scope().imageFileType(this)" required>
 						</div>
 					</div>
 					<div class="form-group">

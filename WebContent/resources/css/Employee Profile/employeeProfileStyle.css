@@ -78,6 +78,12 @@ hr {
 	border-radius: 25px;
 }
 
+.imageTypeDesc {
+	font-weight: bold;
+	color: maroon;
+	padding-left: 15px;
+}
+
 /* Add Emp Modal */
 .modal-dialog{
     overflow-y: initial !important

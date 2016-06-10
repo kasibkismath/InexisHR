@@ -51,7 +51,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h3>Administration</h3>
+				<h3><i class="fa fa-cogs fa-lg"></i> Administration</h3>
 				<hr>
 			</div>
 			<div class="col-lg-12">

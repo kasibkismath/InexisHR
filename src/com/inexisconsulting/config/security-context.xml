@@ -61,6 +61,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/FileUpload"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/" access="permitAll" />
