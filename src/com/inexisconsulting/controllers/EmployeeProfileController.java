@@ -1,11 +1,14 @@
 package com.inexisconsulting.controllers;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +36,12 @@ public class EmployeeProfileController {
 	public List<Employee> getAllEmployees(){
 		List<Employee> allEmployees = employeeService.getAllEmployees();
 		return allEmployees;
+	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/addNewEmp", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addNewEmployee(@RequestBody Employee employee) {
+		employeeService.addNewEmployee(employee);
 	}
 
 }

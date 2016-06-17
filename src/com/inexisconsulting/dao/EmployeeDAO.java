@@ -24,4 +24,9 @@ public class EmployeeDAO {
 		return session().createQuery("from Employee").list();
 	}
 
+	public void addNewEmployee(Employee employee) {
+		session().saveOrUpdate(employee);
+		
+	}
+
 }

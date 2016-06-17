@@ -1,9 +1,14 @@
 package com.inexisconsulting.controllers;
 
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,40 +18,40 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class FileUploadController {
+	
+	@Autowired
+	ServletContext servletContext;
 
 	@RequestMapping(value="/FileUpload", method=RequestMethod.POST)
 	@ResponseBody
-	public void fileUpload(@RequestParam("file") MultipartFile file){
-	
+	public void fileUpload(@RequestParam("fileName") String fileName,
+			@RequestParam("file") MultipartFile file, HttpServletRequest request){
+		
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-				String rootPath = System.getProperty("catalina.home");
-				System.out.println(rootPath);
-				/*File dir = new File(rootPath + File.separator + "tmpFiles");
-				if (!dir.exists())
-					dir.mkdirs();
+		
+				String fullPath = "E:\\Eclipse Mars Working Files\\InexisHR\\WebContent"
+						+ "\\resources\\images\\Emp Profile Images\\";
 
 				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath()
-						+ File.separator + name);
+				File serverFile = new File(fullPath
+						+ File.separator + fileName);
+				
 				BufferedOutputStream stream = new BufferedOutputStream(
 						new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
 
-				logger.info("Server File Location="
-						+ serverFile.getAbsolutePath());
-
-				return "You successfully uploaded file=" + name;*/
 			} catch (Exception e) {
-				//return "You failed to upload " + name + " => " + e.getMessage();
+				System.out.println(e);
 			}
 		} else {
-			//return "You failed to upload " + name
-				//	+ " because the file was empty.";
+			System.out.println("Couldn't upload file");
 		}
 	}
+	
+	
 }
+
+

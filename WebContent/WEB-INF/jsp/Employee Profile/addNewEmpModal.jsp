@@ -217,7 +217,7 @@
 						<div class="col-sm-10">
 							<input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'.jpg'"
    								 ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="50" 
-    							 ngf-resize="{width: 200, height: 150}" onchange="angular.element(this).scope().imageFileType(this)" required>
+    							 ngf-resize="{width: 200, height: 150}" required>
 						</div>
 					</div>
 					<div class="form-group">

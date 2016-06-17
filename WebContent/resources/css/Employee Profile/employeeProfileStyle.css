@@ -1,14 +1,18 @@
+/* ng-cloak */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+[ng-cloak].filterCount {
+    display: block !important;
+}
+
 body {
 	background: #f8f8f8 !important;
 }
 
 hr {
 	border-color: #ccc !important;
-}
-
-/* ng-cloak */
-[ng\:cloak], [ng-cloak], .ng-cloak {
-	display: none !important;
 }
 
 /* 720kb date picker calendar */
@@ -84,6 +88,11 @@ hr {
 	padding-left: 15px;
 }
 
+/* Dir Pagination */
+#employeeDirPagination {
+	margin-right: 60px;
+}
+
 /* Add Emp Modal */
 .modal-dialog{
     overflow-y: initial !important
@@ -96,5 +105,17 @@ hr {
 @media ( min-width : 992px) {
 	.modal-content {
 		width: 700px;
+	}
+}
+
+@media (max-width: 767px) {
+	#noOfItems {
+		margin-top: 20px;
+	}
+	
+	#addNewEmpBtn {
+		float: right !important;
+		margin-top: 0px;
+		margin-right: 10px;
 	}
 }

@@ -4,11 +4,11 @@ var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagin
                                                'angular-capitalize']);
 
 /* Controllers */
-empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 
-                                         function($scope, $http, Upload, capitalizeFilter){
+empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster', 
+                                         function($scope, $http, Upload, capitalizeFilter, toaster){
 	
 	// Pagination Page Size
-	$scope.pageSize = 10;
+	$scope.pageSize = 4;
 	
 	$scope.baseURL = contextPath;
 	
@@ -40,22 +40,22 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	
 	
 	// add new employee
-	 $scope.addNewEmp = function(firstName, lastName, email, phoneNo, mobileNo, hireDate, designation,
+	 $scope.addNewEmp = function(firstName, lastName, email, phoneNumber, mobileNumber, hireDate, designationId,
 			 employmentType, salary, birthday, education, pastWork, file) {
 	      
-
-		 
 		 $scope.fileType = file.type;
 		 $scope.newFileType = $scope.fileType.substring(6);
-		 $scope.fileName = firstName + "-" + lastName + "." + $scope.newFileType;
+		 
+		 if($scope.newFileType === 'jpeg')
+			 $scope.imageFileType = 'jpg';
 		 
 		 
-		 if(phoneNo === undefined) {
-			 phoneNo = "";
+		 if(phoneNumber === undefined) {
+			 phoneNumber = "";
 		 };
 		 
 		 if(hireDate === undefined) {
-			 hireDate = "";
+			 hireDate = new Date();
 		 };
 		 
 		 if(salary === undefined) {
@@ -63,7 +63,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		 };
 		 
 		 if(birthday === undefined) {
-			 birthday = "";
+			 birthday = new Date();;
 		 };
 		 
 		 if(education === undefined) {
@@ -75,11 +75,11 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		 };
 		 
 		 if(firstName != null) {
-			 console.log(capitalizeFilter(firstName));
+			 firstName = capitalizeFilter(firstName);
 		 };
 		 
 		 if(lastName != null) {
-			 console.log(capitalizeFilter(lastName));
+			 lastName = capitalizeFilter(lastName);
 		 };
 		 
 		 if(education != null) {
@@ -90,33 +90,49 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			 console.log(capitalizeFilter(pastWork));
 		 };
 		 
+		 $scope.imageURL = firstName + "-" + lastName + ".jpg";
+		 
+		if ($scope.addNewEmpForm.file.$valid && $scope.file) {
+	        	$scope.upload($scope.file, $scope.imageURL);
+	     };
+		 
 		var employee = {
 			firstName : firstName,
 			lastName : lastName,
 			email : email,
-			phoneNo : phoneNo,
-			mobileNo : mobileNo,
+			phoneNumber : phoneNumber,
+			mobileNumber : mobileNumber,
 			hireDate : hireDate,
-			designation : {desginationId : designation},
+			designation : {designationId: designationId},
 			employmentType : employmentType,
 			salary : salary,
 			birthday : birthday,
 			education : education,
 			pastWork : pastWork,
-			imageURL : $scope.fileName
-		}
+			imageURL : $scope.imageURL
+		};
 		
-		 if ($scope.addNewEmpForm.file.$valid && $scope.file) {
-        	$scope.upload($scope.file);
-      }
+		$http.post(contextPath + '/employeeProfile/employee/addNewEmp', employee)
+		.success(function(result){
+			$('#addNewEmpModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee created successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 2000);
+		})
+		.error(function(data, status){
+			console.log(data);
+			$('#addNewEmpModal').modal('hide');
+			toaster.pop('error', "Notification", "Creating new employee failed");
+		});
 	 };
 	
 	// image upload
-	$scope.upload = function (file) {
+	$scope.upload = function (file, fileName) {
         Upload.upload({
             url: contextPath + '/FileUpload',
             method: 'POST',
-            data: {file: file}
+            data: {file: file, fileName: fileName}
         }).then(function (resp) {
             console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
         }, function (resp) {

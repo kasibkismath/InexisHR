@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-modules="empProfile, adminHeader" class="ng-cloak">
+<html ng-modules="empProfile, adminHeader">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
@@ -38,6 +38,10 @@
 
 <!-- Character Count -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
+
+<!-- Angular Scripts -->
+
+
 </head>
 <body ng-controller="mainController">
 	<!-- Header -->
@@ -52,7 +56,7 @@
 				</h3>
 			</div>
 			<div class="row">
-			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" id="" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee &nbsp;<i class="fa fa-plus-circle fa-lg"></i></button></div>
+			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee &nbsp;<i class="fa fa-plus-circle fa-lg"></i></button></div>
 		</div>
 		</div>
 		<hr>
@@ -64,7 +68,7 @@
 						class="form-control" ng-model="q" placeholder="Search" id="searchBox">
 				</div>
 			</div>
-			<div class="col-sm-4 col-sm-offset-4">
+			<div class="col-sm-4 col-sm-offset-4" id="noOfItems">
 				<div class="input-group">
 					<span class="input-group-addon" id="showListGlyp">No of Items</span> <input type="number" min="10"
 						max="100" class="form-control" ng-model="pageSize" id="showListBox">
@@ -75,7 +79,7 @@
 		<ul class="list-group">
 			<!-- List Group Item Start -->
 			<li class="list-group-item colored customList col-md-offset-1 col-md-5"
-				dir-paginate="employee in employees | filter:q | itemsPerPage: pageSize">
+				dir-paginate="employee in count = (employees | filter:q ) | itemsPerPage: pageSize">
 				<div class="row">
 					<br>
 					<div class="col-md-3 col-sm-3 text-center">
@@ -102,21 +106,23 @@
 				<hr>
 			</li>
 		</ul>
-		
+		<div ng-hide="count.length" class="alert alert-warning padded" ng-cloak>
+			<span class=""><strong>Warning!</strong> Cannot find the employee.</span>
+		</div>
 		<jsp:include page="addNewEmpModal.jsp"></jsp:include>
-		
-		<div class="text-center">
-          <dir-pagination-controls boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>
-          </div>
 	</div>
+	<div class="text-center">
+          <dir-pagination-controls id="employeeDirPagination" boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+	<!-- toaster -->
+	<toaster-container></toaster-container>
 	
 	<!-- Scripts -->
 	<script>
 		var contextPath = "${pageContext.request.contextPath}"
 	</script>
 	<script>var currentUser = "${loggedInUser}" </script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
