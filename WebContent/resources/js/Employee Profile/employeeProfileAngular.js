@@ -4,9 +4,9 @@ var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagin
                                                'angular-capitalize']);
 
 /* Controllers */
-empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster', 
+empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster',
                                          function($scope, $http, Upload, capitalizeFilter, toaster){
-	
+	$scope.saveNewNicNo = '';
 	// Pagination Page Size
 	$scope.pageSize = 4;
 	
@@ -18,6 +18,31 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	
 	//birthday max limit date
 	$scope.birthday = new Date();
+	
+	// current year for NIC Number Issue Date
+	$scope.currentYear = parseInt(new Date().getFullYear());
+	
+	// validate nic no
+	$scope.saveNewNicNo = '';
+	$scope.nicPatternMatch = false;
+	
+	$scope.$watch('saveNewNicNo', function (newValue) {
+		var pattern10 = /^[0-9]{9}[vVxX]$/;
+		var pattern12 = /^[0-9]{12}$/;
+		
+		if(newValue === undefined) {
+			$scope.nicPatternMatch = false;
+		}
+		else if(newValue.length == 10 && newValue.match(pattern10)) { 
+			$scope.nicPatternMatch = true;
+		}
+		else if (newValue.length == 12 && newValue.match(pattern12)) {
+			$scope.nicPatternMatch = true;
+		} else {
+			$scope.nicPatternMatch = false;
+		}
+	});
+	
 	
 	// get all employees
 	$http.get($scope.baseURL + '/employeeProfile/employee/all')

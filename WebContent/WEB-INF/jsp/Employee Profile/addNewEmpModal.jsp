@@ -60,6 +60,26 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<div role="alert" class="alert alert-danger padded" ng-if="addNewEmpForm.nicNo.$dirty"
+							ng-show="nicPatternMatch === false">
+							<strong>Error!</strong> Invalid NIC Number
+						</div>
+						<div ng-messages="addNewEmpForm.nicNo.$error" role="alert" ng-if="addNewEmpForm.nicNo.$dirty">
+							<div ng-message="required" class="alert alert-danger padded">
+								<strong>Error!</strong> NIC Number is required
+							</div>
+							<div ng-message="minlength, maxlength" class="alert alert-danger padded">
+								<strong>Error!</strong> NIC Number should be 10 or 12 characters long 
+							</div>
+						</div>
+						<label class="col-sm-2 control-label">NIC Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="NIC Number"
+								name="nicNo" ng-model="saveNewNicNo" ng-minlength="10" 
+								ng-maxlength="12" required>
+						</div>
+					</div>
+					<div class="form-group">
 						<div ng-messages="addNewEmpForm.email.$error" role="alert" ng-if="addNewEmpForm.email.$dirty">
 							<div ng-message="required" class="alert alert-danger padded">
 								<strong>Error!</strong> Email is required
