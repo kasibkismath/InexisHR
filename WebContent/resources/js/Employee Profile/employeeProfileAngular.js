@@ -3,6 +3,27 @@ var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagin
                                                '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
                                                'angular-capitalize']);
 
+/* Directives */
+// unique employee - nicNo
+empProfile.directive('ngUnique', ['$http', function (async) {
+return {
+    require: 'ngModel',
+    link: function (scope, elem, attrs, ctrl) {
+        elem.on('keyup', function (evt) {
+            scope.$apply(function () {                   
+                var val = elem.val();
+                var req = { "nicNo": val }
+                var ajaxConfiguration = { method: 'POST', url: contextPath + '/employeeProfile/employee/checkEmpExists', data: req };
+                async(ajaxConfiguration)
+                    .success(function(data, status, headers, config) {   
+                    		ctrl.$setValidity('unique', data);
+                    });
+            });
+        });
+    }
+}
+}]);
+
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster',
                                          function($scope, $http, Upload, capitalizeFilter, toaster){
@@ -11,7 +32,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	$scope.pageSize = 4;
 	
 	$scope.baseURL = contextPath;
-	
 	
 	//hireDate max limit date
 	$scope.hireDate = new Date();
@@ -43,7 +63,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		}
 	});
 	
-	
 	// get all employees
 	$http.get($scope.baseURL + '/employeeProfile/employee/all')
 	.success(function(result) {
@@ -65,7 +84,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	
 	
 	// add new employee
-	 $scope.addNewEmp = function(firstName, lastName, email, phoneNumber, mobileNumber, hireDate, designationId,
+	 $scope.addNewEmp = function(firstName, lastName, nicNo, email, phoneNumber, mobileNumber, hireDate, designationId,
 			 employmentType, salary, birthday, education, pastWork, file) {
 	      
 		 $scope.fileType = file.type;
@@ -124,6 +143,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		var employee = {
 			firstName : firstName,
 			lastName : lastName,
+			nicNo : nicNo,
 			email : email,
 			phoneNumber : phoneNumber,
 			mobileNumber : mobileNumber,

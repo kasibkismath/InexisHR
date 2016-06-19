@@ -21,4 +21,8 @@ public class EmployeeService {
 	public void addNewEmployee(Employee employee) {
 		employeeDao.addNewEmployee(employee);
 	}
+
+	public boolean checkEmpExists(Employee employee) {
+		return employeeDao.checkEmpExists(employee);
+	}
 }

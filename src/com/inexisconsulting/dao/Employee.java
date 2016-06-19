@@ -18,6 +18,7 @@ public class Employee {
 	private int emp_id;
 	private String firstName;
 	private String lastName;
+	private String nicNo;
 	private String email;
 	private String phoneNumber;
 	private String mobileNumber;
@@ -37,12 +38,13 @@ public class Employee {
 	public Employee() {
 	}
 
-	public Employee(int emp_id, String firstName, String lastName, String email, String phoneNumber,
+	public Employee(int emp_id, String firstName, String lastName, String nicNo, String email, String phoneNumber,
 			String mobileNumber, Date hireDate, Designation designation, String employmentType, int salary,
 			Date birthday, String education, String pastWork, String imageURL) {
 		this.emp_id = emp_id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.nicNo = nicNo;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.mobileNumber = mobileNumber;
@@ -78,6 +80,14 @@ public class Employee {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getNicNo() {
+		return nicNo;
+	}
+
+	public void setNicNo(String nicNo) {
+		this.nicNo = nicNo;
 	}
 
 	public String getEmail() {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.User;
 import com.inexisconsulting.service.EmployeeService;
 
 @Controller
@@ -42,6 +43,12 @@ public class EmployeeProfileController {
 	@ResponseBody
 	public void addNewEmployee(@RequestBody Employee employee) {
 		employeeService.addNewEmployee(employee);
+	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/checkEmpExists", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkEmpExists(@RequestBody Employee employee) {
+		return employeeService.checkEmpExists(employee);
 	}
 
 }

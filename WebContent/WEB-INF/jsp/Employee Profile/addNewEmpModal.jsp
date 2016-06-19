@@ -10,7 +10,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" name="addNewEmpForm" 
-					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName, saveNewLastName, 
+					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName, saveNewLastName, saveNewNicNo,
 					saveNewEmail, saveNewPhoneNo, saveNewMobileNo, saveNewHireDate, saveNewDesignation,
 					saveNewEmploymentType, saveNewSalary, saveNewBirthday, saveNewEducation, saveNewPastWork,
 					file)" enctype="multipart/form-data">
@@ -60,6 +60,11 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="addNewEmpForm.nicNo.$error.unique"
+							ng-if="addNewEmpForm.nicNo.$dirty">
+							<strong>Error!</strong> Employee with this NIC Number already exists
+						</div>
 						<div role="alert" class="alert alert-danger padded" ng-if="addNewEmpForm.nicNo.$dirty"
 							ng-show="nicPatternMatch === false">
 							<strong>Error!</strong> Invalid NIC Number
@@ -76,7 +81,7 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" placeholder="NIC Number"
 								name="nicNo" ng-model="saveNewNicNo" ng-minlength="10" 
-								ng-maxlength="12" required>
+								ng-maxlength="12" ng-unique required>
 						</div>
 					</div>
 					<div class="form-group">
