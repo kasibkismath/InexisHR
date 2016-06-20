@@ -63,6 +63,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/employee/checkEmpExists"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/getById"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/getEditEmp"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"

@@ -25,4 +25,8 @@ public class EmployeeService {
 	public boolean checkEmpExists(Employee employee) {
 		return employeeDao.checkEmpExists(employee);
 	}
+
+	public Employee getEditEmployee(Employee employee) {
+		return employeeDao.getEditEmployee(employee);
+	}
 }

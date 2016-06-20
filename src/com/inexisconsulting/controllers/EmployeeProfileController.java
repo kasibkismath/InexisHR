@@ -1,8 +1,6 @@
 package com.inexisconsulting.controllers;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.Employee;
@@ -49,6 +48,26 @@ public class EmployeeProfileController {
 	@ResponseBody
 	public boolean checkEmpExists(@RequestBody Employee employee) {
 		return employeeService.checkEmpExists(employee);
+	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/getById", method = RequestMethod.GET)
+	public String showEmployeeProfileById(@RequestParam("EmpID") int empId, Model model, Principal principal) {
+		// get logged in username
+		String loggedInUser = principal.getName();
+		model.addAttribute("loggedInUser", loggedInUser);
+		
+		// pass empId to employeeProfileAngular
+		model.addAttribute("empId", empId);
+		
+				
+		return "Employee Profile/showEmployee";
+	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/getEditEmp", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Employee getEditEmployee(@RequestBody Employee employee) {
+		Employee getEditEmp = employeeService.getEditEmployee(employee);
+		return getEditEmp;
 	}
 
 }

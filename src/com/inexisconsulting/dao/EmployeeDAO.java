@@ -39,4 +39,11 @@ public class EmployeeDAO {
 		
 	}
 
+	public Employee getEditEmployee(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("id", employee.getEmpId()));
+		Employee getEditEmp = (Employee)crit.uniqueResult(); 
+		return getEditEmp;
+	}
+
 }

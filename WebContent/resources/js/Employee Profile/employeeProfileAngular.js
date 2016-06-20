@@ -1,7 +1,7 @@
 var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination', 
                                                'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 
                                                '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
-                                               'angular-capitalize']);
+                                               'angular-capitalize', 'angular-convert-to-number']);
 
 /* Directives */
 // unique employee - nicNo
@@ -26,8 +26,7 @@ return {
 
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster',
-                                         function($scope, $http, Upload, capitalizeFilter, toaster){
-	$scope.saveNewNicNo = '';
+                                       function($scope, $http, Upload, capitalizeFilter, toaster){
 	// Pagination Page Size
 	$scope.pageSize = 4;
 	
@@ -39,10 +38,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	//birthday max limit date
 	$scope.birthday = new Date();
 	
-	// current year for NIC Number Issue Date
-	$scope.currentYear = parseInt(new Date().getFullYear());
-	
-	// validate nic no
+	// validate nic no - Add New Employee
 	$scope.saveNewNicNo = '';
 	$scope.nicPatternMatch = false;
 	
@@ -60,6 +56,27 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			$scope.nicPatternMatch = true;
 		} else {
 			$scope.nicPatternMatch = false;
+		}
+	});
+	
+	// Nic No Validation - Edit Employee
+	$scope.editGetNicNo = '';
+	$scope.nicPatternMatchEdit = false;
+	
+	$scope.$watch('editGetNicNo', function (newValue) {
+		var patternEdit10 = /^[0-9]{9}[vVxX]$/;
+		var patternEdit12 = /^[0-9]{12}$/;
+		
+		if(newValue === undefined) {
+			$scope.nicPatternMatchEdit = false;
+		}
+		else if(newValue.length == 10 && newValue.match(patternEdit10)) { 
+			$scope.nicPatternMatchEdit = true;
+		}
+		else if (newValue.length == 12 && newValue.match(patternEdit12)) {
+			$scope.nicPatternMatchEdit = true;
+		} else {
+			$scope.nicPatternMatchEdit = false;
 		}
 	});
 	
@@ -99,7 +116,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		 };
 		 
 		 if(hireDate === undefined) {
-			 hireDate = new Date();
+			 hireDate = null;
 		 };
 		 
 		 if(salary === undefined) {
@@ -107,7 +124,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		 };
 		 
 		 if(birthday === undefined) {
-			 birthday = new Date();;
+			 birthday = null;
 		 };
 		 
 		 if(education === undefined) {
@@ -170,6 +187,30 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			$('#addNewEmpModal').modal('hide');
 			toaster.pop('error', "Notification", "Creating new employee failed");
 		});
+	 };
+	 
+	 $scope.editEmployee = function (empId) {
+		 var employee = {empId:empId};
+		 
+		 $http.post(contextPath + '/employeeProfile/employee/getEditEmp', employee)
+			.success(function(result){
+				$scope.editGetEmpId = result.empId;
+				$scope.editGetFirstName = result.firstName;
+				$scope.editGetLastName = result.lastName;
+				$scope.editGetNicNo = result.nicNo;
+				$scope.editGetEmail = result.email;
+				$scope.editGetPhoneNo = result.phoneNumber;
+				$scope.editGetMobileNo = result.mobileNumber;
+				$scope.editGetHireDate = result.hireDate;
+				$scope.editGetDesignation = result.designation.designationId;
+				$scope.editGetEmpType = result.employmentType;
+				$scope.editGetSalary = result.Salary;
+				$scope.editGetBirthday = result.birthday;
+				$scope.editGetImageURL = result.imageURL;
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
 	 };
 	
 	// image upload

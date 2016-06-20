@@ -97,7 +97,9 @@
 								</h4>
 								<h5>
 									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
-										class="btn btn-info" ng-cloak>For more info</a></small>
+										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>
+										<small class="text-muted"><a href=""
+										class="btn btn-danger" ng-cloak><i class="fa fa-trash"></i> Delete</a></small>
 								</h5>
 							</div>
 						</div>
@@ -136,6 +138,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-character-count.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-file-upload.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-capitalize.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
