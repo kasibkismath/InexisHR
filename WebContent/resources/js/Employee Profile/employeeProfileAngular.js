@@ -25,8 +25,8 @@ return {
 }]);
 
 /* Controllers */
-empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster',
-                                       function($scope, $http, Upload, capitalizeFilter, toaster){
+empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload', 'capitalizeFilter', 'toaster',
+                                       function($scope, $http, $timeout, Upload, capitalizeFilter, toaster){
 	// Pagination Page Size
 	$scope.pageSize = 4;
 	
@@ -79,6 +79,39 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			$scope.nicPatternMatchEdit = false;
 		}
 	});
+	
+	// checks for unsaved work while navigating panels
+	$timeout(function () {
+		$scope.isBasicInfoDirty = $scope.editEmpForm.$dirty;
+		
+	});
+	
+	$scope.$watch('editEmpForm.$dirty', function(newValue) {
+		$scope.isBasicInfoDirty = newValue;
+	})
+	
+	$('#education').on('show.bs.collapse', function () {
+		if($scope.isBasicInfoDirty == true) {
+			var confirmMsg = confirm('You have unsaved work. Do you wish to proceed?');
+			if(!confirmMsg) {
+				('#basicInfo').collapse({
+					collapse: true
+				})
+			} 
+		}
+	});
+	
+	$('#workHistory').on('show.bs.collapse', function () {
+		if($scope.isBasicInfoDirty == true) {
+			var confirmMsg = confirm('You have unsaved work. Do you wish to proceed?');
+			if(!confirmMsg) {
+				('#basicInfo').collapse({
+					collapse: true
+				})
+			} 
+		}
+	});
+	
 	
 	// get all employees
 	$http.get($scope.baseURL + '/employeeProfile/employee/all')

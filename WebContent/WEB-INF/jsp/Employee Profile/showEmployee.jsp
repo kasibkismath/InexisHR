@@ -66,17 +66,17 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a class="accordian-toggle" data-toggle="collapse" data-parent="#accordian"
-								href="#basicInfo"><i class="fa fa-info-circle"></i> Employee Basic Information
+								href="#basicInfo" aria-expanded="true"><i class="fa fa-info-circle"></i> Employee Basic Information
 								</a>
 							</h4>
 						</div>
-						<div id="basicInfo" class="panel-collapse collapse">
+						<div id="basicInfo" class="panel-collapse collapse in">
 							<div class="panel-body">
-								<form ng-submit="editGetEmpId, editGetFirstName, editGetLastName, 
+								<form name="editEmpForm"
+									ng-submit="updateEmpDetails(editGetEmpId, editGetFirstName, editGetLastName, 
 									editGetNicNo, editGetEmail, editGetPhoneNo, editGetMobileNo, 
 									editGetHireDate, editGetDesignation, editGetEmpType, editGetSalary, 
-									editGetBirthday, editGetFile" enctype="multipart/form-data" 
-									name="editEmpForm">
+									editGetBirthday, editGetFile)" enctype="multipart/form-data">
 									
 									<!-- Alerts when caps lock is on -->
 									<div role="alert" class="alert alert-warning warningPad" 
@@ -267,7 +267,7 @@
   										<img ngf-thumbnail="editGetFile">
   									</div>
   									<div class="pull-right">
-	  									<button type="button" class="btn btn-danger">
+	  									<button type="reset" class="btn btn-danger">
 											<i class="fa fa-times fa-lg"></i> Clear
 										</button>
 										<button type="submit" class="btn btn-success" id="editEmpSaveBtn">
