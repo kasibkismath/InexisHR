@@ -69,5 +69,11 @@ public class EmployeeProfileController {
 		Employee getEditEmp = employeeService.getEditEmployee(employee);
 		return getEditEmp;
 	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/updateEditBasicInfoEmp", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateEditBasicInfoEmp(@RequestBody Employee employee) {
+		employeeService.updateEditBasicInfoEmp(employee);
+	}
 
 }

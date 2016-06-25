@@ -46,4 +46,23 @@ public class EmployeeDAO {
 		return getEditEmp;
 	}
 
+	public void updateEditBasicInfoEmp(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee updatedEmp = (Employee)crit.uniqueResult();
+		updatedEmp.setFirstName(employee.getFirstName());
+		updatedEmp.setLastName(employee.getLastName());
+		updatedEmp.setNicNo(employee.getNicNo());
+		updatedEmp.setEmail(employee.getEmail());
+		updatedEmp.setPhoneNumber(employee.getPhoneNumber());
+		updatedEmp.setMobileNumber(employee.getMobileNumber());
+		updatedEmp.setHireDate(employee.getHireDate());
+		updatedEmp.setDesignation(employee.getDesignation());
+		updatedEmp.setEmploymentType(employee.getEmploymentType());
+		updatedEmp.setSalary(employee.getSalary());
+		updatedEmp.setBirthday(employee.getBirthday());
+		updatedEmp.setImageURL(employee.getImageURL());
+		session().saveOrUpdate(updatedEmp);
+	}
+
 }

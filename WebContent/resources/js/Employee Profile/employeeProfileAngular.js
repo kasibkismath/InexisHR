@@ -3,6 +3,8 @@ var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagin
                                                '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
                                                'angular-capitalize', 'angular-convert-to-number']);
 
+
+
 /* Directives */
 // unique employee - nicNo
 empProfile.directive('ngUnique', ['$http', function (async) {
@@ -25,8 +27,13 @@ return {
 }]);
 
 /* Controllers */
-empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload', 'capitalizeFilter', 'toaster',
-                                       function($scope, $http, $timeout, Upload, capitalizeFilter, toaster){
+empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster',
+                                       function($scope, $http, Upload, capitalizeFilter, toaster){
+	// Main ng-init function
+	$scope.mainInit = function () {
+		$scope.getAllEmployees();
+	};
+	
 	// Pagination Page Size
 	$scope.pageSize = 4;
 	
@@ -80,15 +87,28 @@ empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload'
 		}
 	});
 	
-	// checks for unsaved work while navigating panels
-	$timeout(function () {
-		$scope.isBasicInfoDirty = $scope.editEmpForm.$dirty;
-		
+	
+	// force update for ng-src images
+	$scope.safeApply = function(fn) {
+		  var phase = this.$root.$$phase;
+		  if(phase == '$apply' || phase == '$digest') {
+		    if(fn && (typeof(fn) === 'function')) {
+		      fn();
+		    }
+		  } else {
+		    this.$apply(fn);
+		  }
+		};
+	
+	$scope.safeApply(function () {
+	    $scope.imageUrl = $scope.baseURL + '/static/images/Emp Profile Images/Irfan-Faiz.jpg' + '?' + new Date().getTime();
 	});
 	
+	// check whether the editEmpForm is dirty to prompt unsaved data
+	// while navigating between panels
 	$scope.$watch('editEmpForm.$dirty', function(newValue) {
 		$scope.isBasicInfoDirty = newValue;
-	})
+	});
 	
 	$('#education').on('show.bs.collapse', function () {
 		if($scope.isBasicInfoDirty == true) {
@@ -112,26 +132,28 @@ empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload'
 		}
 	});
 	
+	$scope.getAllEmployees = function(){
+		// get all employees
+		$http.get($scope.baseURL + '/employeeProfile/employee/all')
+		.success(function(result) {
+			$scope.employees = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
 	
-	// get all employees
-	$http.get($scope.baseURL + '/employeeProfile/employee/all')
-	.success(function(result) {
-		$scope.employees = result;
-	})
-	.error(function(data, status) {
-		console.log(data);
-	});
-	
-	// get all designations
-	$http.get($scope.baseURL + '/desgination/all')
-	.success(function(result) {
-		$scope.designations = result;
-		console.log($scope.designations);
-	})
-	.error(function(data, status) {
-		console.log(data);
-	});
-	
+	$scope.getAllDesignations = function () {
+		// get all designations
+		$http.get($scope.baseURL + '/desgination/all')
+		.success(function(result) {
+			$scope.designations = result;
+			console.log($scope.designations);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
 	
 	// add new employee
 	 $scope.addNewEmp = function(firstName, lastName, nicNo, email, phoneNumber, mobileNumber, hireDate, designationId,
@@ -223,6 +245,10 @@ empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload'
 	 };
 	 
 	 $scope.editEmployee = function (empId) {
+		 
+		 // call the getAllDesignations function
+		 $scope.getAllDesignations();
+		 
 		 var employee = {empId:empId};
 		 
 		 $http.post(contextPath + '/employeeProfile/employee/getEditEmp', employee)
@@ -245,6 +271,78 @@ empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload'
 				console.log(data);
 			});
 	 };
+	 
+	 // update changes to employee
+	 $scope.updateEmpDetails = function (empId, firstName, lastName, nicNo, email, phoneNumber, mobileNumber,
+			 					hireDate, designationId, employmentType, salary, birthday, file) {
+		 
+		 if(file != undefined) {
+			 $scope.fileType = file.type;
+			 $scope.newFileType = $scope.fileType.substring(6);
+		 }
+		 		 
+		 if($scope.newFileType === 'jpeg')
+			 $scope.imageFileType = 'jpg';
+		 
+		 
+		 if(phoneNumber === undefined) {
+			 phoneNumber = "";
+		 };
+		 
+		 if(hireDate === undefined) {
+			 hireDate = null;
+		 };
+		 
+		 if(salary === undefined) {
+			 salary = 0;
+		 };
+		 
+		 if(birthday === undefined) {
+			 birthday = null;
+		 };
+		 
+		 if(firstName != null) {
+			 firstName = capitalizeFilter(firstName);
+		 };
+		 
+		 if(lastName != null) {
+			 lastName = capitalizeFilter(lastName);
+		 };
+		 
+		 $scope.imageURL = firstName + "-" + lastName + ".jpg";
+		 
+		if ($scope.editEmpForm.file.$valid && $scope.editGetFile) {
+	        	$scope.upload($scope.editGetFile, $scope.imageURL);
+	     };
+		 
+		var employee = {
+			empId : empId,
+			firstName : firstName,
+			lastName : lastName,
+			nicNo : nicNo,
+			email : email,
+			phoneNumber : phoneNumber,
+			mobileNumber : mobileNumber,
+			hireDate : hireDate,
+			designation : {designationId: designationId},
+			employmentType : employmentType,
+			salary : salary,
+			birthday : birthday,
+			imageURL : $scope.imageURL
+		};
+		
+		$http.post(contextPath + '/employeeProfile/employee/updateEditBasicInfoEmp', employee)
+		.success(function(result){
+			toaster.pop('success', "Notification", "Employee details were updated");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status){
+			console.log(data);
+			toaster.pop('error', "Notification", "Employee details were not updated");
+		});
+	 };
 	
 	// image upload
 	$scope.upload = function (file, fileName) {
@@ -261,5 +359,11 @@ empProfile.controller('mainController', ['$scope', '$http', '$timeout', 'Upload'
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });
     };
+    
+    // reset basic form to it's original state
+    $scope.resetBasicForm = function (empId) {
+		toaster.pop('success', "Notification", "Data was resetted");
+		$scope.editEmployee(empId);
+	};
 	
 }]);

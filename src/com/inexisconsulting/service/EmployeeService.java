@@ -29,4 +29,8 @@ public class EmployeeService {
 	public Employee getEditEmployee(Employee employee) {
 		return employeeDao.getEditEmployee(employee);
 	}
+
+	public void updateEditBasicInfoEmp(Employee employee) {
+		employeeDao.updateEditBasicInfoEmp(employee);
+	}
 }

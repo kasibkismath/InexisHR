@@ -43,7 +43,7 @@
 
 
 </head>
-<body ng-controller="mainController">
+<body ng-controller="mainController" ng-init="mainInit()">
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
