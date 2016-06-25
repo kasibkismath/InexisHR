@@ -84,7 +84,7 @@
 					<br>
 					<div class="col-md-3 col-sm-3 text-center">
 						<a href="#"><img alt=""
-							ng-src="${pageContext.request.contextPath}/static/images/Emp Profile Images/{{employee.imageURL}}"
+							ng-src="${pageContext.request.contextPath}/static/images/EmpProfileImages/{{employee.imageURL}}"
 							class="img-circle employee-image"></a>
 					</div>
 					<div class="col-md-9 col-sm-9">

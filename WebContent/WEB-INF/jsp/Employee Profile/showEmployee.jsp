@@ -53,7 +53,7 @@
 			<div class="col-sm-12 pull-left">
 				<h3 class="headingPad">
 					<a href="#"><img alt=""
-							ng-src="{{imageUrl}}"
+							ng-src="${pageContext.request.contextPath}/static/images/EmpProfileImages/{{editGetImageURL}}"
 							class="img-circle employee-image-individual"></a> &nbsp; {{editGetFirstName}} {{editGetLastName}}
 				</h3>
 				<hr>

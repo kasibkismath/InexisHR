@@ -336,7 +336,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			toaster.pop('success', "Notification", "Employee details were updated");
 			setTimeout(function () {
                 window.location.reload();
-            }, 1000);
+            }, 3000);
 		})
 		.error(function(data, status){
 			console.log(data);

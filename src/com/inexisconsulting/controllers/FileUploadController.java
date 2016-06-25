@@ -32,7 +32,7 @@ public class FileUploadController {
 				byte[] bytes = file.getBytes();
 		
 				String fullPath = "E:\\Eclipse Mars Working Files\\InexisHR\\WebContent"
-						+ "\\resources\\images\\Emp Profile Images\\";
+						+ "\\resources\\images\\EmpProfileImages\\";
 
 				// Create the file on server
 				File serverFile = new File(fullPath

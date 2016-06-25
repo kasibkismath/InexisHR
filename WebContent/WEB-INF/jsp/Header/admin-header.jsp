@@ -22,7 +22,7 @@
 				<li><a href="${pageContext.request.contextPath}/admin-main-menu"><i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a></li>
 				<li class="dropdown"><a id="userDropDown" href="#" class="dropdown-toggle"
 					data-toggle="dropdown">
-					<img ng-src="${pageContext.request.contextPath}/static/images/Emp Profile Images/{{userImage}}"  class="img-circle" id="loggedInUserImg">
+					<img ng-src="${pageContext.request.contextPath}/static/images/EmpProfileImages/{{userImage}}"  class="img-circle" id="loggedInUserImg">
 						Welcome, ${loggedInUser}</a>
 					<ul class="dropdown-menu">
 						<li><a href="${pageContext.request.contextPath}/user/settings">Settings <span
