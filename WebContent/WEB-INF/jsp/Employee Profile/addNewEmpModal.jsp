@@ -10,7 +10,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" name="addNewEmpForm" 
-					ng-submit="addNewEmpForm.$valid && addNewEmp(saveNewFirstName, saveNewLastName, saveNewNicNo,
+					ng-submit="addNewEmpForm.$valid && addNewEmp(${maxEmpId}, saveNewFirstName, saveNewLastName, saveNewNicNo,
 					saveNewEmail, saveNewPhoneNo, saveNewMobileNo, saveNewHireDate, saveNewDesignation,
 					saveNewEmploymentType, saveNewSalary, saveNewBirthday, saveNewEducation, saveNewPastWork,
 					file)" enctype="multipart/form-data">

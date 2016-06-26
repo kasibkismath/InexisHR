@@ -1,5 +1,6 @@
 									<form name="editEmpForm"
-									ng-submit="editEmpForm.$valid && updateEmpDetails(editGetEmpId, editGetFirstName, editGetLastName, 
+									ng-submit="editEmpForm.$valid && updateEmpDetails(editGetEmpId, 
+									editGetFirstName, editGetLastName, 
 									editGetNicNo, editGetEmail, editGetPhoneNo, editGetMobileNo, 
 									editGetHireDate, editGetDesignation, editGetEmpType, editGetSalary, 
 									editGetBirthday, editGetFile)" enctype="multipart/form-data">
@@ -190,7 +191,7 @@
   										<img ngf-thumbnail="editGetFile">
   									</div>
   									<div class="pull-right">
-	  									<button type="button" class="btn btn-danger" ng-click="resetBasicForm(${empId})">
+	  									<button type="button" class="btn btn-danger" ng-click="resetEmpData(${empId})">
 											<i class="fa fa-times fa-lg"></i> Reset
 										</button>
 										<button type="submit" class="btn btn-success" id="editEmpSaveBtn">

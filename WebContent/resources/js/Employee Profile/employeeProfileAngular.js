@@ -32,6 +32,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	// Main ng-init function
 	$scope.mainInit = function () {
 		$scope.getAllEmployees();
+		$scope.getAllDesignations();
 	};
 	
 	// Pagination Page Size
@@ -156,7 +157,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	};
 	
 	// add new employee
-	 $scope.addNewEmp = function(firstName, lastName, nicNo, email, phoneNumber, mobileNumber, hireDate, designationId,
+	 $scope.addNewEmp = function(empId, firstName, lastName, nicNo, email, phoneNumber, mobileNumber, hireDate, designationId,
 			 employmentType, salary, birthday, education, pastWork, file) {
 	      
 		 $scope.fileType = file.type;
@@ -206,11 +207,10 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			 console.log(capitalizeFilter(pastWork));
 		 };
 		 
-		 $scope.imageURL = firstName + "-" + lastName + ".jpg";
+		 // next empId = empId++
+		 empId = empId + 1;
 		 
-		if ($scope.addNewEmpForm.file.$valid && $scope.file) {
-	        	$scope.upload($scope.file, $scope.imageURL);
-	     };
+		 $scope.imageURL = firstName + "-" + lastName + "-" + empId +  ".jpg";
 		 
 		var employee = {
 			firstName : firstName,
@@ -231,6 +231,9 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		
 		$http.post(contextPath + '/employeeProfile/employee/addNewEmp', employee)
 		.success(function(result){
+			if ($scope.addNewEmpForm.file.$valid && $scope.file) {
+	        	$scope.upload($scope.file, $scope.imageURL);
+			};
 			$('#addNewEmpModal').modal('hide');
 			toaster.pop('success', "Notification", "Employee created successfully");
 			setTimeout(function () {
@@ -266,6 +269,8 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 				$scope.editGetSalary = result.Salary;
 				$scope.editGetBirthday = result.birthday;
 				$scope.editGetImageURL = result.imageURL;
+				$scope.editGetEducation = result.education;
+				$scope.editGetPastWork = result.pastWork;
 			})
 			.error(function(data, status){
 				console.log(data);
@@ -309,11 +314,9 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			 lastName = capitalizeFilter(lastName);
 		 };
 		 
-		 $scope.imageURL = firstName + "-" + lastName + ".jpg";
 		 
-		if ($scope.editEmpForm.file.$valid && $scope.editGetFile) {
-	        	$scope.upload($scope.editGetFile, $scope.imageURL);
-	     };
+		 $scope.imageURL = firstName + "-" + lastName + "-" + empId + ".jpg";
+		 
 		 
 		var employee = {
 			empId : empId,
@@ -333,6 +336,9 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		
 		$http.post(contextPath + '/employeeProfile/employee/updateEditBasicInfoEmp', employee)
 		.success(function(result){
+			if ($scope.editEmpForm.file.$valid && $scope.editGetFile) {
+	        	$scope.upload($scope.editGetFile, $scope.imageURL);
+			};
 			toaster.pop('success', "Notification", "Employee details were updated");
 			setTimeout(function () {
                 window.location.reload();
@@ -343,6 +349,30 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			toaster.pop('error', "Notification", "Employee details were not updated");
 		});
 	 };
+	 
+	 // update employee education details
+	 $scope.updateEmpEduDetails = function(empId, education) {
+		 
+		 // capitalize education details
+		 education = capitalizeFilter(education);
+		 
+		 var employee = {
+			empId : empId,
+			education : education
+		 };
+		 
+		 $http.post(contextPath + '/employeeProfile/employee/updateEditEduFormDetails', employee)
+			.success(function(result){
+				toaster.pop('success', "Notification", "Employee education details was updated");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 3000);
+			})
+			.error(function(data, status){
+				console.log(data);
+				toaster.pop('error', "Notification", "Employee education details was not updated");
+			});
+		 };
 	
 	// image upload
 	$scope.upload = function (file, fileName) {
@@ -360,8 +390,8 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
         });
     };
     
-    // reset basic form to it's original state
-    $scope.resetBasicForm = function (empId) {
+    // reset Emp data to it's original state
+    $scope.resetEmpData = function (empId) {
 		toaster.pop('success', "Notification", "Data was resetted");
 		$scope.editEmployee(empId);
 	};

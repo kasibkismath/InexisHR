@@ -33,4 +33,12 @@ public class EmployeeService {
 	public void updateEditBasicInfoEmp(Employee employee) {
 		employeeDao.updateEditBasicInfoEmp(employee);
 	}
+
+	public void updateEditEduFormEmp(Employee employee) {
+		employeeDao.updateEditEduFormEmp(employee);
+	}
+	
+	public Integer getMaxEmpId() {
+		return employeeDao.getMaxEmpId();
+	}
 }

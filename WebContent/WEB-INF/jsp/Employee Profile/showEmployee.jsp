@@ -86,7 +86,7 @@
 						</div>
 						<div id="education" class="panel-collapse collapse">
 							<div class="panel-body">
-								
+								<jsp:include page="educationForm.jsp"></jsp:include>
 							</div>
 						</div>
 					</div>

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.Employee;
-import com.inexisconsulting.dao.User;
 import com.inexisconsulting.service.EmployeeService;
 
 @Controller
@@ -27,6 +26,9 @@ public class EmployeeProfileController {
 		// get logged in username
 		String loggedInUser = principal.getName();
 		model.addAttribute("loggedInUser", loggedInUser);
+		
+		Integer maxEmpId = employeeService.getMaxEmpId();
+		model.addAttribute("maxEmpId", maxEmpId);
 
 		return "Employee Profile/employeeProfile";
 	}
@@ -75,5 +77,10 @@ public class EmployeeProfileController {
 	public void updateEditBasicInfoEmp(@RequestBody Employee employee) {
 		employeeService.updateEditBasicInfoEmp(employee);
 	}
-
+	
+	@RequestMapping(value = "/employeeProfile/employee/updateEditEduFormDetails", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateEditEduFormEmp(@RequestBody Employee employee) {
+		employeeService.updateEditEduFormEmp(employee);
+	}
 }

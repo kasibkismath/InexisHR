@@ -50,8 +50,6 @@ public class FileUploadController {
 			System.out.println("Couldn't upload file");
 		}
 	}
-	
-	
 }
 
 

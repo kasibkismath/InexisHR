@@ -5,6 +5,9 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,6 +66,22 @@ public class EmployeeDAO {
 		updatedEmp.setBirthday(employee.getBirthday());
 		updatedEmp.setImageURL(employee.getImageURL());
 		session().saveOrUpdate(updatedEmp);
+	}
+
+	public void updateEditEduFormEmp(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee updatedEmp = (Employee)crit.uniqueResult();
+		updatedEmp.setEducation(employee.getEducation());
+		session().saveOrUpdate(updatedEmp);
+	}
+	
+	public Integer getMaxEmpId() {
+		Criteria criteria = session()
+			    .createCriteria(Employee.class)
+			    .setProjection(Projections.max("emp_id"));
+		 Integer maxEmpId = (Integer)criteria.uniqueResult();
+		 return maxEmpId;
 	}
 
 }
