@@ -123,6 +123,7 @@
 	<script>
 		var contextPath = "${pageContext.request.contextPath}"
 	</script>
+	<script>var empId = "${empIdNew}"</script>
 	<script>var currentUser = "${loggedInUser}" </script>
 	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>

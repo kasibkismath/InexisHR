@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -14,10 +16,13 @@ import javax.persistence.Table;
 public class Employee {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "emp_id")
 	private int emp_id;
 	private String firstName;
 	private String lastName;
+	
+	@Column(unique = true)
 	private String nicNo;
 	private String email;
 	private String phoneNumber;

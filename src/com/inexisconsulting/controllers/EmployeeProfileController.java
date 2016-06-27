@@ -27,8 +27,9 @@ public class EmployeeProfileController {
 		String loggedInUser = principal.getName();
 		model.addAttribute("loggedInUser", loggedInUser);
 		
-		Integer maxEmpId = employeeService.getMaxEmpId();
-		model.addAttribute("maxEmpId", maxEmpId);
+		int empId = EmployeeService.getEmpId();
+		model.addAttribute("empIdNew", empId);
+		System.err.println("From Employee Controller : " + empId);
 
 		return "Employee Profile/employeeProfile";
 	}

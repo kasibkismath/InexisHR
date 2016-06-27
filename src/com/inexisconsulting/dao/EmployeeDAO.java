@@ -20,6 +20,8 @@ public class EmployeeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	static int employeeInsertedKey;
+	
 	public Session session(){
 		return sessionFactory.getCurrentSession();
 	}
@@ -30,8 +32,12 @@ public class EmployeeDAO {
 	}
 
 	public void addNewEmployee(Employee employee) {
-		session().saveOrUpdate(employee);
-		
+		if(checkEmpExists(employee)) {
+			session().saveOrUpdate(employee);
+			employeeInsertedKey = employee.getEmpId();
+			System.err.println(employeeInsertedKey);
+			getEmpId();
+		}
 	}
 
 	public boolean checkEmpExists(Employee employee) {
@@ -76,12 +82,9 @@ public class EmployeeDAO {
 		session().saveOrUpdate(updatedEmp);
 	}
 	
-	public Integer getMaxEmpId() {
-		Criteria criteria = session()
-			    .createCriteria(Employee.class)
-			    .setProjection(Projections.max("emp_id"));
-		 Integer maxEmpId = (Integer)criteria.uniqueResult();
-		 return maxEmpId;
+	public static int getEmpId() {
+		System.err.println("From GetEmpId() " + employeeInsertedKey);
+		return employeeInsertedKey;
 	}
 
 }

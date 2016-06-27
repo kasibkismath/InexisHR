@@ -38,7 +38,7 @@ public class EmployeeService {
 		employeeDao.updateEditEduFormEmp(employee);
 	}
 	
-	public Integer getMaxEmpId() {
-		return employeeDao.getMaxEmpId();
+	public static int getEmpId() {
+		return EmployeeDAO.getEmpId();
 	}
 }

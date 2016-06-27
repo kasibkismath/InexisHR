@@ -11,7 +11,7 @@ empProfile.directive('ngUnique', ['$http', function (async) {
 return {
     require: 'ngModel',
     link: function (scope, elem, attrs, ctrl) {
-        elem.on('keyup', function (evt) {
+        elem.on('input', function (evt) {
             scope.$apply(function () {                   
                 var val = elem.val();
                 var req = { "nicNo": val }
@@ -207,9 +207,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			 console.log(capitalizeFilter(pastWork));
 		 };
 		 
-		 // next empId = empId++
-		 empId = empId + 1;
-		 
 		 $scope.imageURL = firstName + "-" + lastName + "-" + empId +  ".jpg";
 		 
 		var employee = {
@@ -229,6 +226,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			imageURL : $scope.imageURL
 		};
 		
+		
 		$http.post(contextPath + '/employeeProfile/employee/addNewEmp', employee)
 		.success(function(result){
 			if ($scope.addNewEmpForm.file.$valid && $scope.file) {
@@ -236,9 +234,9 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			};
 			$('#addNewEmpModal').modal('hide');
 			toaster.pop('success', "Notification", "Employee created successfully");
-			setTimeout(function () {
+			/*setTimeout(function () {
                 window.location.reload();
-            }, 2000);
+            }, 2000);*/
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -342,7 +340,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			toaster.pop('success', "Notification", "Employee details were updated");
 			setTimeout(function () {
                 window.location.reload();
-            }, 3000);
+            }, 5000);
 		})
 		.error(function(data, status){
 			console.log(data);

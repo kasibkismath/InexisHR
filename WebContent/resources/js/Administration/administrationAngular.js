@@ -7,7 +7,7 @@ administration.directive('ngUnique', ['$http', function (async) {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
-            elem.on('keyup', function (evt) {
+            elem.on('input', function (evt) {
                 scope.$apply(function () {                   
                     var val = elem.val();
                     var req = { "username": val }
