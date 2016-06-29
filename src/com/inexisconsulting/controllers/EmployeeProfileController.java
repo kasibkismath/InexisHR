@@ -91,4 +91,10 @@ public class EmployeeProfileController {
 	public void updateEditEduFormEmp(@RequestBody Employee employee) {
 		employeeService.updateEditEduFormEmp(employee);
 	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/updateWorkHistory", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateWorkHistory(@RequestBody Employee employee) {
+		employeeService.updateWorkHistory(employee);
+	}
 }

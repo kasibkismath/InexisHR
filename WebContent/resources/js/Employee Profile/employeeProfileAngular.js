@@ -111,11 +111,54 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		$scope.isBasicInfoDirty = newValue;
 	});
 	
+	// check education form is dirty
+	$scope.$watch('educationForm.$dirty', function(newValue) {
+		$scope.isEducationDirty = newValue;
+	});
+	
+	// check work history form is dirty
+	$scope.$watch('workHistoryForm.$dirty', function(newValue) {
+		$scope.isWorkHistoryDirty = newValue;
+	});
+	
+	$('#basicInfo').on('show.bs.collapse', function () {
+		// checks for education form
+		if($scope.isEducationDirty == true) {
+			var confirmMsg = confirm('You have unsaved work in Education. Do you wish to proceed?');
+			if(!confirmMsg) {
+				('#education').collapse({
+					collapse: true
+				})
+			} 
+		}
+		
+		// checks for work history form
+		if($scope.isWorkHistoryDirty == true) {
+			var confirmMsg = confirm('You have unsaved work in Work History. Do you wish to proceed?');
+			if(!confirmMsg) {
+				('#workHistory').collapse({
+					collapse: true
+				})
+			} 
+		}
+	});
+	
 	$('#education').on('show.bs.collapse', function () {
+		// checks for basic info form
 		if($scope.isBasicInfoDirty == true) {
-			var confirmMsg = confirm('You have unsaved work. Do you wish to proceed?');
+			var confirmMsg = confirm('You have unsaved work in Basic Information. Do you wish to proceed?');
 			if(!confirmMsg) {
 				('#basicInfo').collapse({
+					collapse: true
+				})
+			} 
+		}
+		
+		// checks for work history form
+		if($scope.isWorkHistoryDirty == true) {
+			var confirmMsg = confirm('You have unsaved work in Work History. Do you wish to proceed?');
+			if(!confirmMsg) {
+				('#workHistory').collapse({
 					collapse: true
 				})
 			} 
@@ -123,10 +166,20 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	});
 	
 	$('#workHistory').on('show.bs.collapse', function () {
+		// checks for basic info form
 		if($scope.isBasicInfoDirty == true) {
-			var confirmMsg = confirm('You have unsaved work. Do you wish to proceed?');
+			var confirmMsg = confirm('You have unsaved work in Basic Information. Do you wish to proceed?');
 			if(!confirmMsg) {
 				('#basicInfo').collapse({
+					collapse: true
+				})
+			} 
+		}
+		// checks for education form
+		if($scope.isEducationDirty == true) {
+			var confirmMsg = confirm('You have unsaved work in Education. Do you wish to proceed?');
+			if(!confirmMsg) {
+				('#education').collapse({
 					collapse: true
 				})
 			} 
@@ -358,6 +411,32 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 				toaster.pop('error', "Notification", "Employee education details was not updated");
 			});
 		 };
+		 
+	// update work history
+	$scope.updateWorkHistory = function(empId, pastWork) {
+		
+		// capitalize pastWork
+		pastWork = capitalizeFilter(pastWork);
+		 
+		 var employee = {
+			empId : empId,
+			pastWork : pastWork
+		 };
+		 
+		 $http.post(contextPath + '/employeeProfile/employee/updateWorkHistory', employee)
+			.success(function(result){
+				toaster.pop('success', "Notification", "Employee work history was updated");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 3000);
+			})
+			.error(function(data, status){
+				console.log(data);
+				toaster.pop('error', "Notification", "Employee work history was not updated");
+			});
+		 
+		 
+	};
 	
 	// image upload
 	$scope.upload = function (file, fileName) {
@@ -395,6 +474,9 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
     $scope.resetEmpData = function (empId) {
 		toaster.pop('success', "Notification", "Data was resetted");
 		$scope.editEmployee(empId);
+		setTimeout(function () {
+            window.location.reload();
+        }, 1000);
 	};
 	
 }]);

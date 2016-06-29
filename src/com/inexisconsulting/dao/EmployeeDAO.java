@@ -83,8 +83,15 @@ public class EmployeeDAO {
 		session().saveOrUpdate(updatedEmp);
 	}
 	
+	public void updateWorkHistory(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee updatedEmp = (Employee)crit.uniqueResult();
+		updatedEmp.setPastWork(employee.getPastWork());
+		session().saveOrUpdate(updatedEmp);
+	}
+	
 	public static int getEmpId() {
-		System.err.println("From GetEmpId() " + employeeInsertedKey);
 		return employeeInsertedKey;
 	}
 
@@ -95,5 +102,4 @@ public class EmployeeDAO {
 		updatedEmpImageURL.setImageURL(employee.getImageURL());
 		session().saveOrUpdate(updatedEmpImageURL);
 	}
-
 }

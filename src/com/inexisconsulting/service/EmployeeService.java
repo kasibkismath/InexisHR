@@ -45,4 +45,8 @@ public class EmployeeService {
 	public void updateImageURL(Employee employee) {
 		employeeDao.updateImageURL(employee);
 	}
+
+	public void updateWorkHistory(Employee employee) {
+		employeeDao.updateWorkHistory(employee);
+	}
 }

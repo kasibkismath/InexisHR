@@ -100,7 +100,7 @@
 						</div>
 						<div id="workHistory" class="panel-collapse collapse">
 							<div class="panel-body">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar pulvinar blandit. Mauris sed imperdiet ex. Suspendisse sed ligula in ex vestibulum gravida. Nulla aliquam erat accumsan ante commodo malesuada. Cras tincidunt rutrum tellus, id placerat neque vestibulum efficitur. Nunc placerat magna et nisl lacinia, id laoreet nisi commodo. Nullam fermentum semper nulla vel volutpat. Nunc placerat sed est mollis feugiat. Etiam sagittis lacus sed augue ultricies, ac aliquet ligula efficitur. Aliquam convallis imperdiet nisi sed porttitor. Sed vitae vehicula quam. Sed lacinia ornare ante sit amet maximus. Sed tellus libero, efficitur id orci sed, cursus ultricies odio. Integer et dapibus justo. Nam porttitor magna ac dui ornare, ut accumsan sapien tincidunt.
+								<jsp:include page="workHistory.jsp"></jsp:include>
 							</div>
 						</div>
 					</div>

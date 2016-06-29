@@ -73,6 +73,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/employee/updateEditEduFormDetails"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/updateWorkHistory"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
