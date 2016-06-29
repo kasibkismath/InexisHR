@@ -3,6 +3,7 @@ package com.inexisconsulting.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -89,6 +90,12 @@ public class EmployeeDAO {
 		Employee updatedEmp = (Employee)crit.uniqueResult();
 		updatedEmp.setPastWork(employee.getPastWork());
 		session().saveOrUpdate(updatedEmp);
+	}
+	
+	public void deleteEmployee(Employee employee) {
+		Query query = session().createQuery("delete from Employee where emp_id=:emp_id");
+		query.setInteger("emp_id", employee.getEmpId());
+		query.executeUpdate();
 	}
 	
 	public static int getEmpId() {

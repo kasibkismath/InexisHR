@@ -438,6 +438,28 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		 
 	};
 	
+	// delete employee
+	$scope.deleteEmployee = function(empId) {
+		$scope.deleteEmp = function () {
+			
+			var employee = {
+				empId: empId
+			};
+			
+			$http.post(contextPath + '/employeeProfile/employee/deleteEmployee', employee)
+			.success(function(result){
+				$('#empDeleteModal').modal('hide');
+				toaster.pop('success', "Notification", "Employee was deleted sucessfully");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 2000);
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+		}
+	};
+	
 	// image upload
 	$scope.upload = function (file, fileName) {
         Upload.upload({

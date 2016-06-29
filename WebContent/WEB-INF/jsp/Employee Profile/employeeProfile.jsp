@@ -99,19 +99,20 @@
 									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
 										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>
 										<small class="text-muted"><a href=""
-										class="btn btn-danger" ng-cloak><i class="fa fa-trash"></i> Delete</a></small>
+										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i> Delete</a></small>
 								</h5>
 							</div>
 						</div>
 					</div>
 				</div>
 				<hr>
+				<jsp:include page="addNewEmpModal.jsp"></jsp:include>
+				<jsp:include page="employeeDeleteModal.jsp"></jsp:include>
 			</li>
 		</ul>
 		<div ng-hide="count.length" class="alert alert-warning padded" ng-cloak>
 			<span class=""><strong>Warning!</strong> Cannot find the employee.</span>
 		</div>
-		<jsp:include page="addNewEmpModal.jsp"></jsp:include>
 	</div>
 	<div class="text-center">
           <dir-pagination-controls id="employeeDirPagination" boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>

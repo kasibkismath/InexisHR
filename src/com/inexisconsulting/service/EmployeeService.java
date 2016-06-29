@@ -49,4 +49,8 @@ public class EmployeeService {
 	public void updateWorkHistory(Employee employee) {
 		employeeDao.updateWorkHistory(employee);
 	}
+
+	public void deleteEmployee(Employee employee) {
+		employeeDao.deleteEmployee(employee);
+	}
 }

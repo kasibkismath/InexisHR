@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.User;
 import com.inexisconsulting.service.EmployeeService;
 
 @Controller
@@ -96,5 +97,12 @@ public class EmployeeProfileController {
 	@ResponseBody
 	public void updateWorkHistory(@RequestBody Employee employee) {
 		employeeService.updateWorkHistory(employee);
+	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/deleteEmployee", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Employee deleteEmployee(@RequestBody Employee employee) {
+		employeeService.deleteEmployee(employee);
+		return employee;
 	}
 }

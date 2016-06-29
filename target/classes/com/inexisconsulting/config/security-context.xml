@@ -75,6 +75,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/employee/updateWorkHistory"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/deleteEmployee"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"

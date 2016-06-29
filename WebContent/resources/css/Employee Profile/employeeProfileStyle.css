@@ -103,6 +103,15 @@ hr {
     overflow-y: auto;
 }
 
+/* Delete Employee */
+#empDeleteModal {
+	padding-top: 70px;
+}
+
+#empDeleteModal .modal-body{
+	height: 150px;
+}
+
 /* show employee page style */
 .employee-image-individual {
 	width: 75px;
