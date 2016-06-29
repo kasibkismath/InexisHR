@@ -43,8 +43,15 @@ public class EmployeeProfileController {
 	
 	@RequestMapping(value = "/employeeProfile/employee/addNewEmp", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public void addNewEmployee(@RequestBody Employee employee) {
-		employeeService.addNewEmployee(employee);
+	public int addNewEmployee(@RequestBody Employee employee) {
+		return employeeService.addNewEmployee(employee);
+		 
+	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/updateImageURL", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateImageURL(@RequestBody Employee employee) {
+		employeeService.updateImageURL(employee);
 	}
 	
 	@RequestMapping(value = "/employeeProfile/employee/checkEmpExists", method = RequestMethod.POST, produces = "application/json")

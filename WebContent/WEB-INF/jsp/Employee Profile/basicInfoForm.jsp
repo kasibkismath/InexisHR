@@ -3,7 +3,7 @@
 									editGetFirstName, editGetLastName, 
 									editGetNicNo, editGetEmail, editGetPhoneNo, editGetMobileNo, 
 									editGetHireDate, editGetDesignation, editGetEmpType, editGetSalary, 
-									editGetBirthday, editGetFile)" enctype="multipart/form-data">
+									editGetBirthday, editGetFile, editGetImageURL)" enctype="multipart/form-data">
 									
 									<!-- Alerts when caps lock is on -->
 									<div role="alert" class="alert alert-warning warningPad" 
@@ -189,6 +189,10 @@
   									<div class="form-group">
   										<label>Image Preview</label>
   										<img ngf-thumbnail="editGetFile">
+  									</div>
+  									<div class="form-group">
+    									<label></label>
+   										<input type="hidden" ng-model="editGetImageURL" class="form-control">
   									</div>
   									<div class="pull-right">
 	  									<button type="button" class="btn btn-danger" ng-click="resetEmpData(${empId})">

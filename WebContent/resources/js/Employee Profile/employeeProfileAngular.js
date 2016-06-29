@@ -160,13 +160,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	 $scope.addNewEmp = function(empId, firstName, lastName, nicNo, email, phoneNumber, mobileNumber, hireDate, designationId,
 			 employmentType, salary, birthday, education, pastWork, file) {
 	      
-		 $scope.fileType = file.type;
-		 $scope.newFileType = $scope.fileType.substring(6);
-		 
-		 if($scope.newFileType === 'jpeg')
-			 $scope.imageFileType = 'jpg';
-		 
-		 
 		 if(phoneNumber === undefined) {
 			 phoneNumber = "";
 		 };
@@ -229,14 +222,21 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		
 		$http.post(contextPath + '/employeeProfile/employee/addNewEmp', employee)
 		.success(function(result){
+			// corrected image name with first name, last name and empId
+			$scope.updateImageName = firstName + "-" + lastName + "-" + result + ".jpg";
+			
+			// callupdateImageURL function
+			$scope.updateImageURL(result, $scope.updateImageName);
+			
+			// upload the image
 			if ($scope.addNewEmpForm.file.$valid && $scope.file) {
-	        	$scope.upload($scope.file, $scope.imageURL);
+	        	$scope.upload($scope.file, $scope.updateImageName);
 			};
 			$('#addNewEmpModal').modal('hide');
 			toaster.pop('success', "Notification", "Employee created successfully");
-			/*setTimeout(function () {
+			setTimeout(function () {
                 window.location.reload();
-            }, 2000);*/
+            }, 4000);
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -277,16 +277,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	 
 	 // update changes to employee
 	 $scope.updateEmpDetails = function (empId, firstName, lastName, nicNo, email, phoneNumber, mobileNumber,
-			 					hireDate, designationId, employmentType, salary, birthday, file) {
-		 
-		 if(file != undefined) {
-			 $scope.fileType = file.type;
-			 $scope.newFileType = $scope.fileType.substring(6);
-		 }
-		 		 
-		 if($scope.newFileType === 'jpeg')
-			 $scope.imageFileType = 'jpg';
-		 
+			 					hireDate, designationId, employmentType, salary, birthday, file, imageURL) {
 		 
 		 if(phoneNumber === undefined) {
 			 phoneNumber = "";
@@ -312,10 +303,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			 lastName = capitalizeFilter(lastName);
 		 };
 		 
-		 
-		 $scope.imageURL = firstName + "-" + lastName + "-" + empId + ".jpg";
-		 
-		 
 		var employee = {
 			empId : empId,
 			firstName : firstName,
@@ -329,13 +316,13 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 			employmentType : employmentType,
 			salary : salary,
 			birthday : birthday,
-			imageURL : $scope.imageURL
+			imageURL : imageURL
 		};
 		
 		$http.post(contextPath + '/employeeProfile/employee/updateEditBasicInfoEmp', employee)
 		.success(function(result){
 			if ($scope.editEmpForm.file.$valid && $scope.editGetFile) {
-	        	$scope.upload($scope.editGetFile, $scope.imageURL);
+	        	$scope.upload($scope.editGetFile, imageURL);
 			};
 			toaster.pop('success', "Notification", "Employee details were updated");
 			setTimeout(function () {
@@ -387,6 +374,22 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });
     };
+    
+    // update imageURL in the database
+    $scope.updateImageURL = function(empId, imageURL) {
+    	var employee = {
+    			empId: empId,
+    			imageURL: imageURL
+    	}
+    	$http.post(contextPath + '/employeeProfile/employee/updateImageURL', employee)
+		.success(function(result){
+			toaster.pop('success', "Notification", "Update Employee Image URL");
+		})
+		.error(function(data, status){
+			console.log(data);
+			toaster.pop('error', "Notification", "Cannot Update Employee Image URL");
+		});
+    }
     
     // reset Emp data to it's original state
     $scope.resetEmpData = function (empId) {

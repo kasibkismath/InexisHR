@@ -18,8 +18,8 @@ public class EmployeeService {
 		return employeeDao.getAllEmployees();
 	}
 
-	public void addNewEmployee(Employee employee) {
-		employeeDao.addNewEmployee(employee);
+	public int addNewEmployee(Employee employee) {
+		return employeeDao.addNewEmployee(employee);
 	}
 
 	public boolean checkEmpExists(Employee employee) {
@@ -40,5 +40,9 @@ public class EmployeeService {
 	
 	public static int getEmpId() {
 		return EmployeeDAO.getEmpId();
+	}
+
+	public void updateImageURL(Employee employee) {
+		employeeDao.updateImageURL(employee);
 	}
 }

@@ -31,12 +31,13 @@ public class EmployeeDAO {
 		return session().createQuery("from Employee").list();
 	}
 
-	public void addNewEmployee(Employee employee) {
+	public int addNewEmployee(Employee employee) {
 		if(checkEmpExists(employee)) {
 			session().saveOrUpdate(employee);
 			employeeInsertedKey = employee.getEmpId();
-			System.err.println(employeeInsertedKey);
-			getEmpId();
+			return getEmpId();
+		} else {
+			return 0;
 		}
 	}
 
@@ -85,6 +86,14 @@ public class EmployeeDAO {
 	public static int getEmpId() {
 		System.err.println("From GetEmpId() " + employeeInsertedKey);
 		return employeeInsertedKey;
+	}
+
+	public void updateImageURL(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee updatedEmpImageURL = (Employee)crit.uniqueResult();
+		updatedEmpImageURL.setImageURL(employee.getImageURL());
+		session().saveOrUpdate(updatedEmpImageURL);
 	}
 
 }
