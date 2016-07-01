@@ -105,7 +105,7 @@ administration.controller('mainController',
 	$scope.editUserMain= function (id) {
 		var user = {id: id};
 		
-		$http.post(contextPath + '/employeeProfile/employee/getEditEmp', user)
+		$http.post(contextPath + '/administration/user/getEditUser', user)
 		.success(function(result){
 			$scope.getEditUsername = result.username;
 			$scope.getEditEmail = result.email;

@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
 
+<!-- Angular Script -->
+<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+
 <!-- CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
@@ -43,22 +46,25 @@
 
 
 </head>
-<body ng-controller="mainController" ng-init="editEmployee(${empId})">
+<body ng-controller="mainController" ng-init="editEmployee(${empId})" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
 	<!-- Content -->
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12 pull-left">
-				<h3 class="headingPad">
+			<div class="col-sm-12">
+				<h3 class="headingPad pull-left">
 					<a href="#"><img alt=""
 							ng-src="${pageContext.request.contextPath}/static/images/EmpProfileImages/{{editGetImageURL}}"
 							class="img-circle employee-image-individual"></a> &nbsp; {{editGetFirstName}} {{editGetLastName}}
 				</h3>
-				<hr>
+				<a href="${pageContext.request.contextPath}/employeeProfile" class="empProfileLink btn btn-primary pull-right">
+					<i class="fa fa-undo"></i> Back To Employee Profiles
+				</a>
 			</div>
 		</div>
+		<hr>
 		<div class="row">
 			<div class="col-sm-12 topPad">
 				<div class="panel-group" id="accordian">
@@ -118,7 +124,6 @@
 	</script>
 	<script>var currentUser = "${loggedInUser}" </script>
 	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>

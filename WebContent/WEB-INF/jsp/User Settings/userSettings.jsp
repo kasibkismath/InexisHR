@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Settings</title>
 
+<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+
 <!-- CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
@@ -30,7 +32,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
 
 </head>
-<body ng-controller="mainController">
+<body ng-controller="mainController" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	<div class="container">
@@ -71,7 +73,6 @@
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>

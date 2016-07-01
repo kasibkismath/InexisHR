@@ -1,10 +1,6 @@
 /* ng-cloak */
-[ng\:cloak], [ng-cloak], .ng-cloak {
+[ng-cloak] {
   display: none !important;
-}
-
-[ng-cloak].filterCount {
-    display: block !important;
 }
 
 body {
@@ -91,7 +87,7 @@ hr {
 
 /* Dir Pagination */
 #employeeDirPagination {
-	margin-right: 60px;
+	float:right
 }
 
 /* Add Emp Modal */
@@ -134,6 +130,10 @@ hr {
 	margin-top: 50px;
 }
 
+.empProfileLink {
+	margin-top: 50px;
+}
+
 
 @media ( min-width : 992px) {
 	.modal-content {
@@ -150,5 +150,8 @@ hr {
 		float: right !important;
 		margin-top: 0px;
 		margin-right: 10px;
+	}
+	.empProfileLink {
+		margin-top: 0px;
 	}
 }

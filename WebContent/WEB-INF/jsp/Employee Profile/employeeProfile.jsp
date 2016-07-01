@@ -6,18 +6,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
 
+<!-- Angular Scripts -->
+<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+
 <!-- CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
+	rel="stylesheet">
+	
+<link
+	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/Employee Profile/employeeProfileStyle.css"
-	rel="stylesheet">
-	
-<link
-	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
 	rel="stylesheet">
 
 <!-- Glyphicons -->
@@ -39,84 +42,40 @@
 <!-- Character Count -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
 
-<!-- Angular Scripts -->
-
-
 </head>
-<body ng-controller="mainController" ng-init="mainInit()">
+<body ng-controller="mainController" ng-init="mainInit()" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
 	<!-- Content -->
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-6">
-				<h3 class="headingPad">
-					<i class="fa fa-users fa-lg"></i> Employee Profiles
-				</h3>
-			</div>
+	<div class="row">
+		<div class="col-lg-12">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#empProfile"
+						aria-controls="backup" role="tab" data-toggle="tab">Employee Profile</a></li>
+					<li role="presentation"><a href="#summaryEmpDesig"
+						aria-controls="users" role="tab" data-toggle="tab">Summary</a></li>
+				</ul>
+		</div>
+		<!-- Tab panes -->
+		<div class="container">
 			<div class="row">
-			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee &nbsp;<i class="fa fa-plus-circle fa-lg"></i></button></div>
-		</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="input-group">
-					<span class="input-group-addon" id="searchBoxGlyp"><i
-						class="fa fa-search fa-lg"></i></span> <input type="text"
-						class="form-control" ng-model="q" placeholder="Search" id="searchBox">
-				</div>
-			</div>
-			<div class="col-sm-4 col-sm-offset-4" id="noOfItems">
-				<div class="input-group">
-					<span class="input-group-addon" id="showListGlyp">No of Items</span> <input type="number" min="10"
-						max="100" class="form-control" ng-model="pageSize" id="showListBox">
-				</div>
-			</div>
-		</div>
-		<!-- List Group Start -->
-		<ul class="list-group">
-			<!-- List Group Item Start -->
-			<li class="list-group-item colored customList col-md-offset-1 col-md-5"
-				dir-paginate="employee in count = (employees | filter:q ) | itemsPerPage: pageSize">
-				<div class="row">
-					<br>
-					<div class="col-md-3 col-sm-3 text-center">
-						<a href="#"><img alt=""
-							ng-src="${pageContext.request.contextPath}/static/images/EmpProfileImages/{{employee.imageURL}}"
-							class="img-circle employee-image"></a>
-					</div>
-					<div class="col-md-9 col-sm-9">
-						<div class="row">
-							<div class="col-xs-12">
-								<h3 class="empName" ng-cloak>{{employee.firstName}}
-									{{employee.lastName}}</h3>
-								<h4>
-									<span class="label label-default" ng-cloak>{{employee.designation.name}}</span>
-								</h4>
-								<h5>
-									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
-										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>
-										<small class="text-muted"><a href=""
-										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i> Delete</a></small>
-								</h5>
-							</div>
+				<div class="col-xs-6 col-lg-12">
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="empProfile" ng-cloak>
+							<jsp:include page="innerEmployeeProfile.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="summaryEmpDesig">
+							<jsp:include page="test.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
-				<hr>
-				<jsp:include page="addNewEmpModal.jsp"></jsp:include>
-				<jsp:include page="employeeDeleteModal.jsp"></jsp:include>
-			</li>
-		</ul>
-		<div ng-hide="count.length" class="alert alert-warning padded" ng-cloak>
-			<span class=""><strong>Warning!</strong> Cannot find the employee.</span>
+			</div>
+		</div>
 		</div>
 	</div>
-	<div class="text-center">
-          <dir-pagination-controls id="employeeDirPagination" boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>
-    </div>
 	<!-- toaster -->
 	<toaster-container></toaster-container>
 	
@@ -127,7 +86,6 @@
 	<script>var empId = "${empIdNew}"</script>
 	<script>var currentUser = "${loggedInUser}" </script>
 	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
