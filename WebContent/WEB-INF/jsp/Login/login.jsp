@@ -42,14 +42,14 @@
 									action="${pageContext.request.contextPath}/j_spring_security_check"
 									method="post">
 									<c:if test="${param.error != null}">
-										<div class="alert alert-danger" role="alert">
+										<div class="alert alert-danger padded" role="alert">
 										<strong>Error!</strong>
-										Login Failed! Check your username or password.</div>
+										Check your username or password. Otherwise, contact your Administrator to enable your account</div>
 									</c:if>
 									<div class="form-group" id="username">
 										<input type="text" id="loginUsername"
 											class="form-control input-lg" placeholder="Username"
-											name="j_username">
+											name="j_username" ng-model="loginUsername">
 									</div>
 									<div class="form-group" id="password">
 										<input type="password" id="loginPassword"

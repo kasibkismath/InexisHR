@@ -26,3 +26,7 @@ body {
 	border-radius: 25px 25px;
 	width: 100px;
 }
+
+.padded {
+	border-radius: 25px 25px;
+}
