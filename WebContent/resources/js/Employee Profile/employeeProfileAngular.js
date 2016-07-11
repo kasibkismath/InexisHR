@@ -1,7 +1,7 @@
 var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination', 
                                                'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 
                                                '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
-                                               'angular-capitalize', 'angular-convert-to-number']);
+                                               'angular-capitalize', 'angular-convert-to-number', 'chart.js']);
 
 
 
@@ -46,6 +46,15 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	//birthday max limit date
 	$scope.birthday = new Date();
 	
+	// chartjs chart
+	$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Mail-Order Sales1", "Mail-Order Sales2"];
+	$scope.data = [300, 500, 100, 350, 25];
+	$scope.options = {
+		animateScale:true,
+		maintainAspectRatio: false,
+		responsive: true
+	};
+	
 	// validate nic no - Add New Employee
 	$scope.saveNewNicNo = '';
 	$scope.nicPatternMatch = false;
@@ -86,23 +95,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		} else {
 			$scope.nicPatternMatchEdit = false;
 		}
-	});
-	
-	
-	// force update for ng-src images
-	$scope.safeApply = function(fn) {
-		  var phase = this.$root.$$phase;
-		  if(phase == '$apply' || phase == '$digest') {
-		    if(fn && (typeof(fn) === 'function')) {
-		      fn();
-		    }
-		  } else {
-		    this.$apply(fn);
-		  }
-		};
-	
-	$scope.safeApply(function () {
-	    $scope.imageUrl = $scope.baseURL + '/static/images/Emp Profile Images/Irfan-Faiz.jpg' + '?' + new Date().getTime();
 	});
 	
 	// check whether the editEmpForm is dirty to prompt unsaved data

@@ -137,6 +137,8 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-file-upload.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-capitalize.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script

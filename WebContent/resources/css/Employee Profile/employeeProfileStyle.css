@@ -126,6 +126,17 @@ hr {
 	margin-left: 4px;
 }
 
+/* chartJS */
+
+.empDesigChart .chart-container {
+	padding-top: 10px;
+    height: 400px;
+}
+
+.empDesigTitle {
+	padding-top: 20px;
+}
+
 #imageErrorMsg, #designationErrorMsg {
 	margin-top: 50px;
 }

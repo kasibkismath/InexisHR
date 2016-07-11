@@ -35,6 +35,8 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
+	
+<link href="${pageContext.request.contextPath}/static/css/General/angular-chart.min.css" rel="stylesheet">
 
 <!-- DatePicker -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-datepicker.min.css"/>
@@ -53,10 +55,10 @@
 		<div class="col-lg-12">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#empProfile"
-						aria-controls="backup" role="tab" data-toggle="tab">Employee Profile</a></li>
-					<li role="presentation"><a href="#summaryEmpDesig"
+					<li role="presentation" class="active"><a href="#summaryEmpDesig"
 						aria-controls="users" role="tab" data-toggle="tab">Summary</a></li>
+					<li role="presentation"><a href="#empProfile"
+						aria-controls="backup" role="tab" data-toggle="tab">Employee Profile</a></li>
 				</ul>
 		</div>
 		<!-- Tab panes -->
@@ -64,11 +66,11 @@
 			<div class="row">
 				<div class="col-xs-6 col-lg-12">
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="empProfile" ng-cloak>
-							<jsp:include page="innerEmployeeProfile.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in active" id="summaryEmpDesig">
+							<jsp:include page="employeeDesignationSummary.jsp"></jsp:include>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="summaryEmpDesig">
-							<jsp:include page="test.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade" id="empProfile" ng-cloak>
+							<jsp:include page="innerEmployeeProfile.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
@@ -85,9 +87,11 @@
 	</script>
 	<script>var empId = "${empIdNew}"</script>
 	<script>var currentUser = "${loggedInUser}" </script>
+	
 	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
@@ -99,6 +103,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/ng-file-upload.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-capitalize.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
