@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Settings</title>
 
+<!-- JS -->
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 
 <!-- CSS -->

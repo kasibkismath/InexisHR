@@ -36,6 +36,13 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
 	
+<!-- Angular Data Table and JQuery Data Table CSS-->
+<link
+	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
+	rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
+	
 <!-- Angular ChartJS CSS -->
 <link href="${pageContext.request.contextPath}/static/css/General/angular-chart.min.css" rel="stylesheet">
 
@@ -57,9 +64,11 @@
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#summaryEmpDesig"
-						aria-controls="users" role="tab" data-toggle="tab">Summary</a></li>
+						aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
 					<li role="presentation"><a href="#empProfile"
-						aria-controls="backup" role="tab" data-toggle="tab">Employee Profile</a></li>
+						aria-controls="empProfile" role="tab" data-toggle="tab">Employee Profile</a></li>
+					<li role="presentation"><a href="#designations"
+						aria-controls="designations" role="tab" data-toggle="tab">Designations</a></li>
 				</ul>
 		</div>
 		<!-- Tab panes -->
@@ -72,6 +81,9 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="empProfile" ng-cloak>
 							<jsp:include page="innerEmployeeProfile.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="designations" ng-cloak>
+							<jsp:include page="designations.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
@@ -95,6 +107,8 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-datepicker.min.js"></script>
 	<script

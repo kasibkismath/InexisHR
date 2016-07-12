@@ -145,6 +145,19 @@ hr {
 	margin-top: 50px;
 }
 
+/*Designations Tab*/
+.tpad{
+	padding-top: 20px;
+}
+
+.tpad-table {
+	padding-top: 50px;
+}
+
+#editDesig {
+	float: right !important;
+}
+
 
 @media ( min-width : 992px) {
 	.modal-content {

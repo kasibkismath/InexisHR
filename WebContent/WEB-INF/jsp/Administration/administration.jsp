@@ -10,6 +10,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Administration</title>
 
+<!-- JS -->
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
+
 <!-- CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
@@ -34,10 +40,12 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
-<!-- Angular Data Table CSS-->
+<!-- Angular Data Table and JQuery Data Table CSS-->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
 	rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
 	
 <link
 	href="${pageContext.request.contextPath}/static/css/Header/adminHeaderStyle.css"
@@ -88,7 +96,6 @@
 								<th>Role</th>
 								<th></th>
 								<th></th>
-								<th></th>
 							</tr>
 							</thead>
 							<tbody>
@@ -100,9 +107,8 @@
 									<input type="checkbox" ng-if="user.enabled == false" disabled>
 								</td>
 								<td ng-cloak>{{user.authority}}</td>
-								<td ng-cloak><button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain(user.username)">Edit</button></td>
-								<td ng-cloak><button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(user.username)" ng-if="user.authority != 'ROLE_ADMIN'">Delete</button></td>							
-								<td ng-cloak><button class="btn btn-danger" id="deleteUser2" disabled ng-if="user.authority == 'ROLE_ADMIN'">Delete</button></td>
+								<td ng-cloak><button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain(user.username)"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
+								<td ng-cloak><button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(user.username)" ng-if="user.authority != 'ROLE_ADMIN'"><i class="fa fa-trash fa-lg"></i> Delete</button></td>							
 							</tr>
 							</tbody>
 						</table>
@@ -122,10 +128,6 @@
 	<!-- JS-->
 	<script>var contextPath = "${pageContext.request.contextPath}" </script>
 	<script>var currentUser = "${loggedInUser}"</script>
-	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-	<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
