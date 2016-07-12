@@ -6,8 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
 
-<!-- Angular Scripts -->
+<!-- JS Scripts -->
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 
 <!-- CSS -->
 <link
@@ -101,14 +104,11 @@
 	<script>var empId = "${empIdNew}"</script>
 	<script>var currentUser = "${loggedInUser}" </script>
 	
-	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
-	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-datepicker.min.js"></script>
 	<script

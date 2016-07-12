@@ -1,7 +1,8 @@
 var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagination', 
                                                'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 
                                                '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
-                                               'angular-capitalize', 'angular-convert-to-number', 'chart.js']);
+                                               'angular-capitalize', 'angular-convert-to-number', 'chart.js',
+                                               'datatables']);
 
 
 
@@ -27,8 +28,35 @@ return {
 }]);
 
 /* Controllers */
-empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitalizeFilter', 'toaster',
-                                       function($scope, $http, Upload, capitalizeFilter, toaster){
+empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload', 'capitalizeFilter', 
+                                         'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
+                                         function($scope, $http, $compile, Upload, capitalizeFilter, toaster, 
+                                        		 DTOptionsBuilder, DTColumnBuilder){
+	// Angular Designation Data Table configuration
+	
+	$scope.dtColumns = [
+	                    //here We will add .withOption('name','column_name') for send column name to the server 
+	                    DTColumnBuilder.newColumn("designationId", "ID").withOption('name', 'designationId'),
+	                    DTColumnBuilder.newColumn("name", "Designation").withOption('name', 'name'),
+	                    DTColumnBuilder.newColumn(null).withTitle('Actions')
+	                    	.renderWith(function(data, type, full, meta) {
+	                        return '<button class="btn btn-primary" id="editDesig" data-toggle="modal" data-target="#editDesigModal" ng-click="editDesigMain('+ data.designationId +')"><i class="fa fa-pencil fa-lg"></i> Edit</button>' +
+	                            '<button class="btn btn-danger" id="deleteDesig" data-toggle="modal" data-target="#deleteDesigModal" ng-click="deleteDesigMain(' + data.designationId + ')"><i class="fa fa-trash fa-lg"></i> Delete</button>';
+	                    })
+	                ];
+	
+	 $scope.dtOptions = DTOptionsBuilder.newOptions()
+	 .withOption('ajax', {
+         url: contextPath + '/desgination/all',
+         type:"GET"
+     })
+     .withOption('createdRow', function(row, data, dataIndex) {
+              $compile(angular.element(row).contents())($scope);
+      })
+     .withPaginationType('full_numbers')
+     .withDisplayLength(10);
+	
+	
 	// Main ng-init function
 	$scope.mainInit = function () {
 		$scope.getAllEmployees();
@@ -51,7 +79,13 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	$scope.options = {
 		responsive: true,
 		animateScale:true,
-		maintainAspectRatio: false
+		maintainAspectRatio: false,
+		tooltipEvents: [],
+		showTooltips: true,
+		tooltipCaretSize: 0,
+		onAnimationComplete: function () {
+			this.showTooltip(this.segments, true);
+		},
 	};
 	
 		//get employee designation chart labels

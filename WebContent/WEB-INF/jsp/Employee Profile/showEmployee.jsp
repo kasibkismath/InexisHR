@@ -6,8 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
 
-<!-- Angular Script -->
+<!-- JS -->
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 
 <!-- CSS -->
 <link
@@ -123,7 +126,7 @@
 		var contextPath = "${pageContext.request.contextPath}"
 	</script>
 	<script>var currentUser = "${loggedInUser}" </script>
-	<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+	
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/dirPagination.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
