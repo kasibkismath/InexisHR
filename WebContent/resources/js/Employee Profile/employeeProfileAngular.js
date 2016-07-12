@@ -33,6 +33,7 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	$scope.mainInit = function () {
 		$scope.getAllEmployees();
 		$scope.getAllDesignations();
+		$scope.getEmpDesigChartData();
 	};
 	
 	// Pagination Page Size
@@ -46,13 +47,28 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 	//birthday max limit date
 	$scope.birthday = new Date();
 	
-	// chartjs chart
-	$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Mail-Order Sales1", "Mail-Order Sales2"];
-	$scope.data = [300, 500, 100, 350, 25];
+	// employee designation chart data and configs
 	$scope.options = {
+		responsive: true,
 		animateScale:true,
-		maintainAspectRatio: false,
-		responsive: true
+		maintainAspectRatio: false
+	};
+	
+		//get employee designation chart labels
+	$scope.getEmpDesigChartData = function () {
+		// get chart labels
+		$http.get($scope.baseURL + '/employeeProfile/employee/getEmpDesignationData')
+		.success(function(result) {
+			$scope.labels = [];
+			$scope.data = [];
+			angular.forEach(result, function(value, key) {
+				$scope.labels.push(value[0]);
+				$scope.data.push(value[1]);
+			});
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
 	};
 	
 	// validate nic no - Add New Employee
@@ -194,7 +210,6 @@ empProfile.controller('mainController', ['$scope', '$http', 'Upload', 'capitaliz
 		$http.get($scope.baseURL + '/desgination/all')
 		.success(function(result) {
 			$scope.designations = result;
-			console.log($scope.designations);
 		})
 		.error(function(data, status) {
 			console.log(data);

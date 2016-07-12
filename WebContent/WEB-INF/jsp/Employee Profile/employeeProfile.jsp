@@ -36,6 +36,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
 	
+<!-- Angular ChartJS CSS -->
 <link href="${pageContext.request.contextPath}/static/css/General/angular-chart.min.css" rel="stylesheet">
 
 <!-- DatePicker -->

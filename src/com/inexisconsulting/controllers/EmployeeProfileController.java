@@ -105,4 +105,11 @@ public class EmployeeProfileController {
 		employeeService.deleteEmployee(employee);
 		return employee;
 	}
+	
+	@RequestMapping(value="/employeeProfile/employee/getEmpDesignationData", method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public List<Object[]> getEmpDesignationData(){
+		List<Object[]> data = employeeService.getEmpDesignationData();
+		return data;
+	}
 }

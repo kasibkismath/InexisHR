@@ -6,9 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -108,5 +107,16 @@ public class EmployeeDAO {
 		Employee updatedEmpImageURL = (Employee)crit.uniqueResult();
 		updatedEmpImageURL.setImageURL(employee.getImageURL());
 		session().saveOrUpdate(updatedEmpImageURL);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getEmpDesignationData() {
+		String hql = "select d.name as designation, count(e.emp_id) as count " + 
+		"from Employee e inner join e.designation as d group by d.name";
+		
+		Query query = session().createQuery(hql);
+		List<Object[]> listResult = query.list();
+	
+		return listResult;
 	}
 }

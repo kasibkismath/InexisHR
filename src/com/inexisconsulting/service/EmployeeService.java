@@ -53,4 +53,8 @@ public class EmployeeService {
 	public void deleteEmployee(Employee employee) {
 		employeeDao.deleteEmployee(employee);
 	}
+	
+	public List<Object[]> getEmpDesignationData() {
+		return employeeDao.getEmpDesignationData();
+	}
 }
