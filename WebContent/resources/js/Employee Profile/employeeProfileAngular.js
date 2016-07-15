@@ -27,6 +27,26 @@ return {
 }
 }]);
 
+// check for duplicate designation name
+empProfile.directive('ngUniqueDesignation', ['$http', function (async) {
+	return {
+	    require: 'ngModel',
+	    link: function (scope, elem, attrs, ctrl) {
+	        elem.on('input', function (evt) {
+	            scope.$apply(function () {                   
+	                var val = elem.val();
+	                var req = { "name": val }
+	                var ajaxConfiguration = { method: 'POST', url: contextPath + '/designation/checkDesignationExists', data: req };
+	                async(ajaxConfiguration)
+	                    .success(function(data, status, headers, config) {   
+	                    		ctrl.$setValidity('unique', data);
+	                    });
+	            });
+	        });
+	    }
+	}
+	}]);
+
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload', 'capitalizeFilter', 
                                          'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
@@ -540,6 +560,20 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		setTimeout(function () {
             window.location.reload();
         }, 1000);
+	};
+	
+	// designation update modal data
+	$scope.editDesigMain = function(id) {
+		var designation = {designationId : id};
+		
+		$http.post($scope.baseURL + '/designation/getDesignationById', designation)
+		.success(function(result){
+			$scope.getEditDesignationId = result.designationId;
+			$scope.getEditDesignationName = result.name;
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
 	};
 	
 }]);

@@ -6,19 +6,25 @@
         <h4 class="modal-title">Update Designation</h4>
       </div>
       <div class="modal-body">
-	      <form class="form-horizontal">
+	      <form class="form-horizontal" name="updateDesignationForm">
 	      	<div class="form-group">
 				<label class="col-sm-2 control-label">ID</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" placeholder="ID"
-						name="id" disabled>
+						name="id" ng-model="getEditDesignationId" disabled>
 				</div>
 			</div>
 			<div class="form-group">
+				<div role="alert" class="alert alert-danger padded" 
+							ng-show="updateDesignationForm.designation.$error.unique"
+							ng-if="updateDesignationForm.designation.$dirty">
+							<i class="fa fa-frown-o fa-lg"></i>
+							This designation already exists, try again.
+				</div>
 				<label class="col-sm-2 control-label">Designation</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" placeholder="Designation"
-						name="designation">
+						name="designation" ng-model="getEditDesignationName" ng-unique-designation>
 				</div>
 			</div>
 		  	<div class="modal-footer">

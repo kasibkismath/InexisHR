@@ -12,10 +12,18 @@ import com.inexisconsulting.dao.DesignationDAO;
 public class DesignationService {
 	
 	@Autowired
-	private DesignationDAO desginationDao;
+	private DesignationDAO designationDao;
 	
 	public List<Designation> getDesignations(){
-		return desginationDao.getDesignations();
+		return designationDao.getDesignations();
+	}
+
+	public Designation getDesignationById(Designation designation) {
+		return designationDao.getDesignationById(designation);
+	}
+
+	public boolean checkDesignationExists(Designation designation) {
+		return designationDao.checkDesignationExists(designation);
 	}
 
 }

@@ -81,6 +81,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/designation/getDesignationById"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/designation/checkDesignationExists"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
