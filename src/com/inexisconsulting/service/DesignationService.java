@@ -33,4 +33,8 @@ public class DesignationService {
 	public void deleteDesignationById(Designation designation) {
 		designationDao.deleteDesingationById(designation);
 	}
+
+	public void addDesignation(Designation designation) {
+		designationDao.addDesignation(designation);
+	}
 }

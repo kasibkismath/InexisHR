@@ -55,4 +55,11 @@ public class DesignationController {
 	public void deleteDesignationById(@RequestBody Designation designation) {
 		designationService.deleteDesignationById(designation);
 	}
+	
+	@RequestMapping(value = "/designation/addDesignation", method = RequestMethod.POST, 
+			produces = "application/json")
+	@ResponseBody
+	public void addDesignation(@RequestBody Designation designation) {
+		designationService.addDesignation(designation); 
+	}
 }

@@ -617,4 +617,21 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			});
 		};
 	}
+	
+	// add designation
+	$scope.addDesignation = function(name) {
+		var designation = {name: name};
+		
+		$http.post($scope.baseURL + '/designation/addDesignation', designation)
+		.success(function(result){
+			$('#addDesigModal').modal('hide');
+			toaster.pop('success', "Notification", "Designation Added");
+			setTimeout(function () {
+                window.location.reload();
+            }, 2000);
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
+	};
 }]);

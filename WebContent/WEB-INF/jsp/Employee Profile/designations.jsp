@@ -1,6 +1,11 @@
 <div class="row">
 	<div class="col-sm-12 tpad">
 		<span><h3><i class="fa fa-check-circle fa-lg"></i> Designations</h3></span>
+	</div class="col-sm-12 tpad">
+		<button class="btn btn-success pull-right" data-toggle="modal" data-target="#addDesigModal">
+			<i class="fa fa-plus-circle fa-lg"></i> Add Designation
+		</button>
+	<div>
 	</div>
 	<div class="col-sm-12 tpad-table">
 		<table datatable="" dt-options="dtOptions" dt-columns="dtColumns"
@@ -25,5 +30,6 @@
 		<!-- Modals -->
 		<jsp:include page="editDesigModal.jsp"></jsp:include>
 		<jsp:include page="deleteDesigModal.jsp"></jsp:include>
+		<jsp:include page="addDesigModal.jsp"></jsp:include>
 	</div>
 </div>

@@ -42,6 +42,9 @@
 								<h4>
 									<span class="label label-default" ng-cloak>{{employee.designation.name}}</span>
 								</h4>
+								<h4>
+									<span class="label label-success" ng-cloak>Active : Yes</span>
+								</h4>
 								<h5>
 									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
 										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>

@@ -56,4 +56,10 @@ public class DesignationDAO {
 		query.setInteger("designation_id", designation.getDesignationId());
 		query.executeUpdate();
 	}
+
+	public void addDesignation(Designation designation) {
+		if(checkDesignationExists(designation)) {
+			session().saveOrUpdate(designation);
+		}
+	}
 }

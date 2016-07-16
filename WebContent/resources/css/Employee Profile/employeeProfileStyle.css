@@ -176,6 +176,15 @@ hr {
 	height: 180px;
 }
 
+/* Add Designation Modal */
+#addDesigModal {
+	padding-top: 70px;
+}
+
+#addDesigModal .modal-body {
+	height: 240px;
+}
+
 @media ( min-width : 992px) {
 	.modal-content {
 		width: 700px;
