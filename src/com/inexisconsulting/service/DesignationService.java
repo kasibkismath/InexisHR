@@ -26,4 +26,11 @@ public class DesignationService {
 		return designationDao.checkDesignationExists(designation);
 	}
 
+	public void updateDesignation(Designation designation) {
+		designationDao.updateDesignation(designation);
+	}
+
+	public void deleteDesignationById(Designation designation) {
+		designationDao.deleteDesingationById(designation);
+	}
 }

@@ -3,6 +3,7 @@ package com.inexisconsulting.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -40,4 +41,19 @@ public class DesignationDAO {
 		return designationExists == null;
 	}
 
+	public void updateDesignation(Designation designation) {
+		Criteria crit = session().createCriteria(Designation.class);
+		crit.add(Restrictions.eq("designation_id", designation.getDesignationId()));
+		
+		Designation updatedDesignation = (Designation)crit.uniqueResult();
+		updatedDesignation.setName(designation.getName());
+		
+		session().saveOrUpdate(updatedDesignation);
+	}
+	
+	public void deleteDesingationById(Designation designation) {
+		Query query = session().createQuery("delete from Designation where designation_id=:designation_id");
+		query.setInteger("designation_id", designation.getDesignationId());
+		query.executeUpdate();
+	}
 }

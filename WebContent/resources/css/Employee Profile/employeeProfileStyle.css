@@ -145,7 +145,7 @@ hr {
 	margin-top: 50px;
 }
 
-/*Designations Tab*/
+/* Designations Tab */
 .tpad{
 	padding-top: 20px;
 }
@@ -158,11 +158,34 @@ hr {
 	margin-right: 15px;
 }
 
+/* Update Designation Modal */
+#editDesigModal {
+	padding-top: 70px;
+}
+
+#editDesigModal .modal-body {
+	height: 240px;
+}
+
+/* Delete Designation Modal */
+#deleteDesigModal {
+	padding-top: 70px;
+}
+
+#deleteDesigModal .modal-body {
+	height: 180px;
+}
 
 @media ( min-width : 992px) {
 	.modal-content {
 		width: 700px;
 	}
+}
+
+/* Designation Deletion Modal */
+.desigDeletionInfo {
+	padding-top: 30px;
+	font-weight: bold;
 }
 
 @media (max-width: 767px) {

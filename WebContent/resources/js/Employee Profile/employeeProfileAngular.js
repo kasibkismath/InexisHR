@@ -562,7 +562,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
         }, 1000);
 	};
 	
-	// designation update modal data
+	// designation update modal data retrival
 	$scope.editDesigMain = function(id) {
 		var designation = {designationId : id};
 		
@@ -576,4 +576,45 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		});
 	};
 	
+	// update designation details
+	$scope.updateDesignation = function (designationId, name) {
+		
+		var designation = {
+			designationId: designationId,
+			name: name
+		};
+		
+		$http.post($scope.baseURL + '/designation/updateDesignation', designation)
+		.success(function(result){
+			$('#editDesigModal').modal('hide');
+			toaster.pop('success', "Notification", "Updated Designation");
+			setTimeout(function () {
+                window.location.reload();
+            }, 2000);
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
+	}
+	
+	// designation delete
+	$scope.deleteDesigMain = function(designationId){
+		$scope.deleteDesignation = function() {
+			var designation = {
+				designationId : designationId
+			};
+			
+			$http.post($scope.baseURL + '/designation/deleteDesignationById', designation)
+			.success(function(result){
+				$('#deleteDesigModal').modal('hide');
+				toaster.pop('success', "Notification", "Designation Deleted");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 2000);
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+		};
+	}
 }]);

@@ -41,4 +41,18 @@ public class DesignationController {
 	public boolean checkDesignationExists(@RequestBody Designation designation) {
 		return designationService.checkDesignationExists(designation);
 	}
+	
+	@RequestMapping(value = "/designation/updateDesignation", method = RequestMethod.POST, 
+			produces = "application/json")
+	@ResponseBody
+	public void updateDesignation(@RequestBody Designation designation) {
+		designationService.updateDesignation(designation);
+	}
+	
+	@RequestMapping(value = "/designation/deleteDesignationById", method = RequestMethod.POST, 
+			produces = "application/json")
+	@ResponseBody
+	public void deleteDesignationById(@RequestBody Designation designation) {
+		designationService.deleteDesignationById(designation);
+	}
 }

@@ -8,6 +8,7 @@
 
 <!-- JS Scripts -->
 <script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-ui.min.js"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
@@ -65,7 +66,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
+				<ul class="nav nav-tabs" role="tablist" id="employeeProfileTabs">
 					<li role="presentation" class="active"><a href="#summaryEmpDesig"
 						aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
 					<li role="presentation"><a href="#empProfile"

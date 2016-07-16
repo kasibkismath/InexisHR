@@ -6,11 +6,12 @@
         <h4 class="modal-title">Update Designation</h4>
       </div>
       <div class="modal-body">
-	      <form class="form-horizontal" name="updateDesignationForm">
+	      <form class="form-horizontal" name="updateDesignationForm"
+	      	ng-submit="updateDesignationForm.$valid && 
+	      		updateDesignation(getEditDesignationId, getEditDesignationName)">
 	      	<div class="form-group">
-				<label class="col-sm-2 control-label">ID</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" placeholder="ID"
+					<input type="hidden" class="form-control" placeholder="ID"
 						name="id" ng-model="getEditDesignationId" disabled>
 				</div>
 			</div>
@@ -21,15 +22,26 @@
 							<i class="fa fa-frown-o fa-lg"></i>
 							This designation already exists, try again.
 				</div>
+				<div ng-messages="updateDesignationForm.designation.$error" role="alert" 
+					ng-if="updateDesignationForm.designation.$dirty">
+					<div ng-message="required" class="alert alert-danger padded">
+						<i class="fa fa-frown-o fa-lg"></i> Designation is required
+					</div>
+				</div>
 				<label class="col-sm-2 control-label">Designation</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" placeholder="Designation"
-						name="designation" ng-model="getEditDesignationName" ng-unique-designation>
+						name="designation" ng-model="getEditDesignationName" ng-unique-designation
+						required>
 				</div>
 			</div>
 		  	<div class="modal-footer">
-		  		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		  		<button type="button" class="btn btn-danger" data-dismiss="modal">
+		  			<i class="fa fa-times fa-lg"></i> Close
+		  		</button>
+		        <button type="submit" class="btn btn-success">
+		        	<i class="fa fa-check fa-lg"></i>Save
+		        </button>
 		    </div>
 		   </form>
       </div>
