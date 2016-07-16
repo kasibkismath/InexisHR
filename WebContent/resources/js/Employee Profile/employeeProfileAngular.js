@@ -579,6 +579,9 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 	// update designation details
 	$scope.updateDesignation = function (designationId, name) {
 		
+		// make every first letter of name as uppercase
+		name = capitalizeFilter(name)
+		
 		var designation = {
 			designationId: designationId,
 			name: name
@@ -620,6 +623,10 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 	
 	// add designation
 	$scope.addDesignation = function(name) {
+		
+		// make every first letter of name as uppercase
+		name = capitalizeFilter(name)
+		
 		var designation = {name: name};
 		
 		$http.post($scope.baseURL + '/designation/addDesignation', designation)
