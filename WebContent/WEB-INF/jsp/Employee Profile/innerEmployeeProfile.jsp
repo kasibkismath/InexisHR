@@ -35,21 +35,24 @@
 							class="img-circle employee-image"></a>
 					</div>
 					<div class="col-md-9 col-sm-9">
-						<div class="row">
-							<div class="col-xs-12">
+						<div class="">
+							<div class="">
 								<h3 class="empName" ng-cloak>{{employee.firstName}}
 									{{employee.lastName}}</h3>
 								<h4>
 									<span class="label label-default" ng-cloak>{{employee.designation.name}}</span>
 								</h4>
-								<h4>
-									<span class="label label-success" ng-cloak>Active : Yes</span>
+								<h4> 
+									<span class="label label-success" ng-show="isEnabled === true"> Status: Enabled</span>
+									<span class="label label-warning" ng-show="isEnabled != true"> Status: Disabled</span>
 								</h4>
 								<h5>
 									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
 										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>
 										<small class="text-muted"><a href=""
 										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i> Delete</a></small>
+										<small class="text-muted"><a href=""
+										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmployee(employee.empId)"><i class="fa fa-ban"></i> Disable</a></small>
 								</h5>
 							</div>
 						</div>
@@ -63,6 +66,7 @@
 	    </div>
 		<jsp:include page="addNewEmpModal.jsp"></jsp:include>
 		<jsp:include page="employeeDeleteModal.jsp"></jsp:include>
+		<jsp:include page="employeeDisableModal.jsp"></jsp:include>
 		<div ng-hide="count.length" class="alert alert-warning padded">
 			<span class=""><strong>Warning!</strong> Cannot find the employee.</span>
 		</div>

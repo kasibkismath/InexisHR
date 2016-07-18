@@ -24,6 +24,7 @@ public class Employee {
 	
 	@Column(unique = true)
 	private String nicNo;
+	private boolean status;
 	private String email;
 	private String phoneNumber;
 	private String mobileNumber;
@@ -43,13 +44,15 @@ public class Employee {
 	public Employee() {
 	}
 
-	public Employee(int emp_id, String firstName, String lastName, String nicNo, String email, String phoneNumber,
+	public Employee(int emp_id, String firstName, String lastName, String nicNo, boolean status,
+			String email, String phoneNumber,
 			String mobileNumber, Date hireDate, Designation designation, String employmentType, int salary,
 			Date birthday, String education, String pastWork, String imageURL) {
 		this.emp_id = emp_id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.nicNo = nicNo;
+		this.status = status;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.mobileNumber = mobileNumber;
@@ -93,6 +96,14 @@ public class Employee {
 
 	public void setNicNo(String nicNo) {
 		this.nicNo = nicNo;
+	}
+	
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public String getEmail() {
@@ -182,5 +193,5 @@ public class Employee {
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
-
+	
 }

@@ -2,7 +2,7 @@ var empProfile = angular.module('empProfile', ['angularUtils.directives.dirPagin
                                                'ngMessages', 'toaster', 'ngAnimate', 'ngCapsLock', 
                                                '720kb.datepicker', 'angular-character-count', 'ngFileUpload',
                                                'angular-capitalize', 'angular-convert-to-number', 'chart.js',
-                                               'datatables']);
+                                               'datatables', 'toggle-switch']);
 
 
 
@@ -76,13 +76,24 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
      .withPaginationType('full_numbers')
      .withDisplayLength(10);
 	
-	
 	// Main ng-init function
 	$scope.mainInit = function () {
 		$scope.getAllEmployees();
 		$scope.getAllDesignations();
 		$scope.getEmpDesigChartData();
 	};
+	
+	// init add new employee status switch
+	$scope.saveNewEmpIsEnabled = true;
+	
+	// disable employee switch
+	$scope.isEnabled = true;
+	
+	if(!$scope.isEnabled) {
+		$scope.isEnabledText = 'Disabled';
+	} else {
+		$scope.isEnabledText = 'Enabled';
+	}
 	
 	// Pagination Page Size
 	$scope.pageSize = 4;
@@ -271,7 +282,8 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 	};
 	
 	// add new employee
-	 $scope.addNewEmp = function(empId, firstName, lastName, nicNo, email, phoneNumber, mobileNumber, hireDate, designationId,
+	 $scope.addNewEmp = function(empId, firstName, lastName, nicNo, status, 
+			 email, phoneNumber, mobileNumber, hireDate, designationId,
 			 employmentType, salary, birthday, education, pastWork, file) {
 	      
 		 if(phoneNumber === undefined) {
@@ -316,10 +328,12 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		 
 		 $scope.imageURL = firstName + "-" + lastName + "-" + empId +  ".jpg";
 		 
+		 
 		var employee = {
 			firstName : firstName,
 			lastName : lastName,
 			nicNo : nicNo,
+			status : status,
 			email : email,
 			phoneNumber : phoneNumber,
 			mobileNumber : mobileNumber,

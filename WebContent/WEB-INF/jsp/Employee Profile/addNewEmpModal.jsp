@@ -10,8 +10,10 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" name="addNewEmpForm" 
-					ng-submit="addNewEmpForm.$valid && addNewEmp(${empIdNew}, saveNewFirstName, saveNewLastName, saveNewNicNo,
-					saveNewEmail, saveNewPhoneNo, saveNewMobileNo, saveNewHireDate, saveNewDesignation,
+					ng-submit="addNewEmpForm.$valid && addNewEmp(${empIdNew}, saveNewFirstName, 
+					saveNewLastName, saveNewNicNo,
+					saveNewEmpIsEnabled, saveNewEmail,
+					saveNewPhoneNo, saveNewMobileNo, saveNewHireDate, saveNewDesignation,
 					saveNewEmploymentType, saveNewSalary, saveNewBirthday, saveNewEducation, saveNewPastWork,
 					file)" enctype="multipart/form-data">
 					
@@ -84,6 +86,18 @@
 								ng-maxlength="12" ng-unique required>
 						</div>
 					</div>
+					<div class="form-group" id="addEmpToggleSwitch">
+	       				<label>Status</label>
+	       				<toggle-switch
+	       					id="switchControl"
+		             		ng-model="saveNewEmpIsEnabled"
+		              		on-label="Enabled"
+		              		off-label="Disabled"
+		              		knob-label="Status"
+		              		class="switch-primary"
+		              		is-disabled="true">
+	            		</toggle-switch>
+       				</div>
 					<div class="form-group">
 						<div ng-messages="addNewEmpForm.email.$error" role="alert" ng-if="addNewEmpForm.email.$dirty">
 							<div ng-message="required" class="alert alert-danger padded">

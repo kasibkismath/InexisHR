@@ -6,12 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
 
-<!-- JS -->
-<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
-
 <!-- CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
@@ -33,6 +27,11 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+<!-- Bootstrap Switch -->
+<link
+	href="${pageContext.request.contextPath}/static/css/General/angular-toggle-switch-bootstrap-3.css"
+	rel="stylesheet">
 
 <!-- Angular Toastar CSS -->
 <link
@@ -45,7 +44,13 @@
 <!-- Character Count -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
 
-<!-- Angular Scripts -->
+<!-- JS -->
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-toggle-switch.min.js"></script>
 
 
 </head>
@@ -142,8 +147,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-bootstrap-switch.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/Employee Profile/employeeProfileAngular.js"></script>
 	<script

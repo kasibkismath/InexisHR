@@ -6,13 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Employee Profile</title>
 
-<!-- JS Scripts -->
-<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/General/jquery-ui.min.js"></script>
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
-
 <!-- CSS -->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/bootstrap.min.css"
@@ -40,6 +33,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
 	
+<!-- Angular Toggle Switch -->
+<link
+	href="${pageContext.request.contextPath}/static/css/General/angular-toggle-switch-bootstrap-3.css"
+	rel="stylesheet">
+	
 <!-- Angular Data Table and JQuery Data Table CSS-->
 <link
 	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
@@ -55,6 +53,14 @@
 
 <!-- Character Count -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
+
+<!-- JS Scripts -->
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-toggle-switch.min.js"></script>
 
 </head>
 <body ng-controller="mainController" ng-init="mainInit()" ng-cloak>
@@ -120,8 +126,6 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-capitalize.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/Employee Profile/employeeProfileAngular.js"></script>
 	<script
