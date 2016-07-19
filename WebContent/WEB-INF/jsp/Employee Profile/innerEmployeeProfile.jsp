@@ -43,8 +43,8 @@
 									<span class="label label-default" ng-cloak>{{employee.designation.name}}</span>
 								</h4>
 								<h4> 
-									<span class="label label-success" ng-show="isEnabled === true"> Status: Enabled</span>
-									<span class="label label-warning" ng-show="isEnabled != true"> Status: Disabled</span>
+									<span class="label label-success" ng-show="employee.status === true"> Status: Enabled</span>
+									<span class="label label-warning" ng-show="employee.status === false"> Status: Disabled</span>
 								</h4>
 								<h5>
 									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
@@ -52,7 +52,7 @@
 										<small class="text-muted"><a href=""
 										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i> Delete</a></small>
 										<small class="text-muted"><a href=""
-										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmployee(employee.empId)"><i class="fa fa-ban"></i> Disable</a></small>
+										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i> Disable</a></small>
 								</h5>
 							</div>
 						</div>

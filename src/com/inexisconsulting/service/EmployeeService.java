@@ -57,4 +57,8 @@ public class EmployeeService {
 	public List<Object[]> getEmpDesignationData() {
 		return employeeDao.getEmpDesignationData();
 	}
+
+	public void disableEmployee(Employee employee) {
+		employeeDao.disableEmployee(employee);
+	}
 }

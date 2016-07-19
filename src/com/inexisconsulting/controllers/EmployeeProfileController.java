@@ -112,4 +112,11 @@ public class EmployeeProfileController {
 		List<Object[]> data = employeeService.getEmpDesignationData();
 		return data;
 	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/disable",
+			method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void disableEmployee(@RequestBody Employee employee) {
+		employeeService.disableEmployee(employee);
+	}
 }

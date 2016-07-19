@@ -112,11 +112,56 @@ public class EmployeeDAO {
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getEmpDesignationData() {
 		String hql = "select d.name as designation, count(e.emp_id) as count " + 
-		"from Employee e inner join e.designation as d group by d.name";
+		"from Employee e inner join e.designation as d where e.status=true group by d.name";
 		
 		Query query = session().createQuery(hql);
 		List<Object[]> listResult = query.list();
 	
 		return listResult;
 	}
+	
+	public Long countUserByEmpId(Employee employee) {
+		return (Long) session().createCriteria(User.class)
+				.add(Restrictions.eq("employee.emp_id", employee.getEmpId()))
+				.setProjection(Projections.rowCount()).uniqueResult();
+	}
+	
+
+	public void disableEmployee(Employee employee) {
+		
+		if(countUserByEmpId(employee) >= 1) {
+			// update employee status
+			Criteria crit = session().createCriteria(Employee.class);
+			crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+			
+			Employee disabledEmp = (Employee)crit.uniqueResult();
+			disabledEmp.setStatus(employee.isStatus());
+			
+			session().saveOrUpdate(disabledEmp);
+			
+			// update user status
+			Criteria crit2 = session().createCriteria(User.class);
+			crit2.add(Restrictions.eq("employee.emp_id", employee.getEmpId()));
+			
+			User disabledUser = (User)crit2.uniqueResult();
+			
+			if(employee.isStatus()) {
+				disabledUser.setEnabled(true);
+			} else {
+				disabledUser.setEnabled(false);
+			}
+			
+			session().saveOrUpdate(disabledUser);
+		} else {
+			// update employee status
+			Criteria crit = session().createCriteria(Employee.class);
+			crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+						
+			Employee disabledEmp = (Employee)crit.uniqueResult();
+			disabledEmp.setStatus(employee.isStatus());
+						
+			session().saveOrUpdate(disabledEmp);
+		}
+	}
+	
 }

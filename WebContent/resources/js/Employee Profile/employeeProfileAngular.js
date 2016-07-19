@@ -397,6 +397,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 				$scope.editGetImageURL = result.imageURL;
 				$scope.editGetEducation = result.education;
 				$scope.editGetPastWork = result.pastWork;
+				$scope.editGetStatus = result.status;
 			})
 			.error(function(data, status){
 				console.log(data);
@@ -655,4 +656,27 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			console.log(data);
 		});
 	};
+	
+	$scope.disableEmpMain = function(empId)  {
+		$scope.disableEmp = function (isEnabled) {
+			var employee = {
+				empId : empId,
+				status : isEnabled
+			};
+			
+			console.log(employee);
+			
+			$http.post($scope.baseURL + '/employeeProfile/employee/disable', employee)
+			.success(function(result){
+				$('#empDisableModal').modal('hide');
+				toaster.pop('success', "Notification", "Employee Status Update");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 2000);
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+		}
+	}
 }]);

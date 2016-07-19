@@ -112,7 +112,7 @@
 						<div class="col-sm-10">
 							<select ng-model="saveNewEmployee" name="employee" class="form-control" required>
 								<option value="" >Select an employee</option>
-								<option ng-repeat="employee in employees" value="{{employee.empId}}">{{employee.firstName}} {{employee.lastName}}</option>
+								<option ng-repeat="employee in employees" ng-show="employee.status === true" value="{{employee.empId}}">{{employee.firstName}} {{employee.lastName}}</option>
 							</select>
 						</div>
 					</div>

@@ -6,7 +6,7 @@
         <h4 class="modal-title">Disable Employee</h4>
       </div>
       <div class="modal-body">
-       	<form>
+       	<form name="disableEmpForm">
        		<div class="form-group">
        			<input type="hidden">
        		</div>
