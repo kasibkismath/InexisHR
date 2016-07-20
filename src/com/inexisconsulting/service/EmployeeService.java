@@ -61,4 +61,8 @@ public class EmployeeService {
 	public void disableEmployee(Employee employee) {
 		employeeDao.disableEmployee(employee);
 	}
+
+	public Employee getStatus(Employee employee) {
+		return employeeDao.getStatus(employee);
+	}
 }

@@ -79,6 +79,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/employee/getEmpDesignationData"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/getStatus"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/employee/disable"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"

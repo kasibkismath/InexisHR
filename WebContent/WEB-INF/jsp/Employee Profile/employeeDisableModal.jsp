@@ -8,12 +8,12 @@
       <div class="modal-body">
        	<form name="disableEmpForm">
        		<div class="form-group">
-       			<input type="hidden">
+       			<input type="hidden" ng-model="getStatusEmpId">
        		</div>
        		<div class="form-group">
        			<label>Status</label>
        			<toggle-switch
-             		ng-model="isEnabled"
+             		ng-model="getEmpStatus"
               		on-label="Enabled"
               		off-label="Disabled"
               		knob-label="Status"
@@ -26,7 +26,7 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal">
         	<i class="fa fa-times fa-lg"></i> Close
         </button>
-        <button type="button" class="btn btn-success" ng-click="disableEmp(isEnabled)">
+        <button type="button" class="btn btn-success" ng-click="disableEmp(getStatusEmpId, getEmpStatus)">
         	<i class="fa fa-check fa-lg"></i> Save
         </button>
       </div>

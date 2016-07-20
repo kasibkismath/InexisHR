@@ -119,4 +119,11 @@ public class EmployeeProfileController {
 	public void disableEmployee(@RequestBody Employee employee) {
 		employeeService.disableEmployee(employee);
 	}
+	
+	@RequestMapping(value = "/employeeProfile/employee/getStatus",
+			method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Employee getStatus(@RequestBody Employee employee) {
+		return employeeService.getStatus(employee);
+	}
 }

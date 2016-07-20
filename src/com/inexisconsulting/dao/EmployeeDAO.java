@@ -128,40 +128,36 @@ public class EmployeeDAO {
 	
 
 	public void disableEmployee(Employee employee) {
-		
 		if(countUserByEmpId(employee) >= 1) {
-			// update employee status
-			Criteria crit = session().createCriteria(Employee.class);
-			crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
-			
-			Employee disabledEmp = (Employee)crit.uniqueResult();
-			disabledEmp.setStatus(employee.isStatus());
-			
-			session().saveOrUpdate(disabledEmp);
-			
 			// update user status
-			Criteria crit2 = session().createCriteria(User.class);
-			crit2.add(Restrictions.eq("employee.emp_id", employee.getEmpId()));
-			
-			User disabledUser = (User)crit2.uniqueResult();
+			Query query = session().createQuery("update User set enabled = :enabled" +
+    				" where employee.emp_id = :emp_id");
 			
 			if(employee.isStatus()) {
-				disabledUser.setEnabled(true);
+				query.setParameter("enabled", true);
 			} else {
-				disabledUser.setEnabled(false);
+				query.setParameter("enabled", false);
 			}
 			
-			session().saveOrUpdate(disabledUser);
-		} else {
-			// update employee status
-			Criteria crit = session().createCriteria(Employee.class);
-			crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
-						
-			Employee disabledEmp = (Employee)crit.uniqueResult();
-			disabledEmp.setStatus(employee.isStatus());
-						
-			session().saveOrUpdate(disabledEmp);
+			query.setParameter("emp_id", employee.getEmpId());
+			query.executeUpdate();
 		}
+		
+		// update employee status
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+					
+		Employee disabledEmp = (Employee)crit.uniqueResult();
+		disabledEmp.setStatus(employee.isStatus());
+					
+		session().saveOrUpdate(disabledEmp);
+	}
+
+	public Employee getStatus(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee empStatus = (Employee)crit.uniqueResult(); 
+		return empStatus;
 	}
 	
 }

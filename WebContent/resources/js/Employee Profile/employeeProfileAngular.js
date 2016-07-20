@@ -83,18 +83,6 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		$scope.getEmpDesigChartData();
 	};
 	
-	// init add new employee status switch
-	$scope.saveNewEmpIsEnabled = true;
-	
-	// disable employee switch
-	$scope.isEnabled = true;
-	
-	if(!$scope.isEnabled) {
-		$scope.isEnabledText = 'Disabled';
-	} else {
-		$scope.isEnabledText = 'Enabled';
-	}
-	
 	// Pagination Page Size
 	$scope.pageSize = 4;
 	
@@ -105,6 +93,9 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 	
 	//birthday max limit date
 	$scope.birthday = new Date();
+	
+	// init add new employee status switch
+	$scope.saveNewEmpIsEnabled = true;
 	
 	// employee designation chart data and configs
 	$scope.options = {
@@ -259,7 +250,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		}
 	});
 	
-	$scope.getAllEmployees = function(){
+	$scope.getAllEmployees = function() {
 		// get all employees
 		$http.get($scope.baseURL + '/employeeProfile/employee/all')
 		.success(function(result) {
@@ -657,26 +648,41 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		});
 	};
 	
+	// get employee status
 	$scope.disableEmpMain = function(empId)  {
-		$scope.disableEmp = function (isEnabled) {
-			var employee = {
-				empId : empId,
-				status : isEnabled
-			};
-			
-			console.log(employee);
-			
-			$http.post($scope.baseURL + '/employeeProfile/employee/disable', employee)
-			.success(function(result){
-				$('#empDisableModal').modal('hide');
-				toaster.pop('success', "Notification", "Employee Status Update");
-				setTimeout(function () {
-	                window.location.reload();
-	            }, 2000);
-			})
-			.error(function(data, status){
-				console.log(data);
-			});
-		}
+		var employee = {
+			empId : empId
+		};
+		
+		$http.post($scope.baseURL + '/employeeProfile/employee/getStatus', employee)
+		.success(function(result){
+			$scope.getStatusEmpId = result.empId;
+			$scope.getEmpStatus = result.status;
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
+	}
+	
+	// update employee status
+	$scope.disableEmp = function (empId, status) {
+		var employee = {
+			empId : empId,
+			status : status
+		};
+		
+		console.log(employee);
+		
+		$http.post($scope.baseURL + '/employeeProfile/employee/disable', employee)
+		.success(function(result){
+			$('#empDisableModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee Status Updated");
+			setTimeout(function () {
+                window.location.reload();
+            }, 2000);
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
 	}
 }]);
