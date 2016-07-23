@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.EmployeeDAO;
+import com.inexisconsulting.dao.User;
 
 @Service("employeeService")
 public class EmployeeService {
@@ -64,5 +65,9 @@ public class EmployeeService {
 
 	public Employee getStatus(Employee employee) {
 		return employeeDao.getStatus(employee);
+	}
+
+	public User getEmployeeByUsername(User user) {
+		return employeeDao.getEmployeeByUsername(user);
 	}
 }

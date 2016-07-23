@@ -107,6 +107,7 @@
 									<input type="checkbox" ng-if="user.enabled == false" disabled>
 								</td>
 								<td ng-cloak>{{user.authority}}</td>
+								<td ng-cloak>{{user.employee.firstName}}</td>
 								<td ng-cloak><button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain(user.username)"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
 								<td ng-cloak><button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(user.username)" ng-if="user.authority != 'ROLE_ADMIN'"><i class="fa fa-trash fa-lg"></i> Delete</button></td>							
 							</tr>

@@ -39,4 +39,14 @@ public class LoginController {
 
 		return "Main Menu/admin-main-menu";
 	}
+	
+	@RequestMapping("/user-main-menu")
+	public String onLoginSuccessUser(Model model, Principal principal) {
+
+		// get logged in username
+		String loggedInUser = principal.getName();
+		model.addAttribute("loggedInUser", loggedInUser);
+
+		return "Main Menu/user-main-menu";
+	}
 }

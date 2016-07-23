@@ -59,7 +59,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
  
         if (isUser) {
-            return "/user-dashboard";
+            return "/user-main-menu";
         } else if (isAdmin) {
             return "/admin-main-menu";
         } else {

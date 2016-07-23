@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en" ng-app="adminHeader">
 <head>
@@ -44,54 +44,9 @@
 	<div class="container-fluid dashboard-main">
 		<div class="row">
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="administration-tile">
-				<span class="dashboard-title"><i class="fa fa-cogs fa-3x"></i>
-					Administration</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="attendance-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-calendar-check-o fa-2x"></i> Attendance</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="contracts-tile">
-				<span class="dashboard-title"><i class="fa fa-files-o fa-3x"></i>
-					Contracts</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="employee-tile">
+				id="myProfile-tile">
 				<span class="dashboard-title"><i class="fa fa-user fa-3x"></i>
-					Employee</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="leave-tile">
-				<span class="dashboard-title"><i class="fa fa-bed fa-3x"></i>
-					Leave</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="performanceAppraisal-tile">
-				<span class="dashboard-title"><i class="fa fa-rocket fa-3x"></i>
-					Performance</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="projectTeamMember-tile">
-				<span class="dashboard-title"><i class="fa fa-users fa-3x"></i>
-					Projects &amp; Teams</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="recruitment-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-user-plus fa-3x"></i> Recruitment</span>
-			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="reports-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-file-pdf-o fa-3x"></i> Reports</span>
-			</div>
-			<div class="col-md-3 col-sm-12 col-lg-4 dashboard-tile"
-				id="training-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-table fa-3x"></i> Training</span>
+					My Profile</span>
 			</div>
 		</div>
 	</div>
@@ -111,7 +66,7 @@
 		<script
 			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
 		<script
-			src="${pageContext.request.contextPath}/static/js/Main Menu/admin-dashboardScript.js"></script>
+			src="${pageContext.request.contextPath}/static/js/Main Menu/user-dashboardScript.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 </body>

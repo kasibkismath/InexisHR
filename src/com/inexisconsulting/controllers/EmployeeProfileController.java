@@ -30,9 +30,17 @@ public class EmployeeProfileController {
 		
 		int empId = EmployeeService.getEmpId();
 		model.addAttribute("empIdNew", empId);
-		System.err.println("From Employee Controller : " + empId);
 
 		return "Employee Profile/employeeProfile";
+	}
+	
+	@RequestMapping("/employeeProfile/MyProfile")
+	public String showUserSettings(Model model, Principal principal) {
+		// get logged in username
+		String loggedInUser = principal.getName();
+		model.addAttribute("loggedInUser", loggedInUser);
+
+		return "Employee Profile/User/myprofile";
 	}
 	
 	@RequestMapping(value="/employeeProfile/employee/all", method=RequestMethod.GET, produces="application/json")
@@ -125,5 +133,12 @@ public class EmployeeProfileController {
 	@ResponseBody
 	public Employee getStatus(@RequestBody Employee employee) {
 		return employeeService.getStatus(employee);
+	}
+	
+	@RequestMapping(value = "/employeeProfile/MyProfile/getEmployee",
+			method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public User getEmployeeByUsername(@RequestBody User user) {
+		return employeeService.getEmployeeByUsername(user);
 	}
 }

@@ -159,5 +159,11 @@ public class EmployeeDAO {
 		Employee empStatus = (Employee)crit.uniqueResult(); 
 		return empStatus;
 	}
-	
+
+	public User getEmployeeByUsername(User user) {
+		Criteria crit = session().createCriteria(User.class);
+		crit.add(Restrictions.eq("username", user.getUsername()));
+		User userFetched = (User)crit.uniqueResult(); 
+		return userFetched;
+	}
 }

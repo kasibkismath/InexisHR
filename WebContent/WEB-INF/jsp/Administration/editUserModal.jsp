@@ -38,10 +38,11 @@
 						<div class="col-sm-10">
 							<select ng-model="getEditAuthority" class="form-control">
 								<option value="" disabled>Select a user role</option>
-								<option value="ROLE_ADMIN">ROLE_ADMIN</option>
-								<option value="ROLE_CEO">ROLE_CEO</option>
-								<option value="ROLE_HR">ROLE_HR</option>
-								<option value="ROLE_USER" >ROLE_USER</option>
+								<option value="ROLE_ADMIN">Administrator</option>
+								<option value="ROLE_CEO">CEO</option>
+								<option value="ROLE_HR">HR Manager</option>
+								<option value="ROLE_LEAD">Team Lead</option>
+								<option value="ROLE_USER">User</option>
 							</select>
 						</div>
 					</div>

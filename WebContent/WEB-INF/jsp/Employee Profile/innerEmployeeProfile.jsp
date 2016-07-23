@@ -51,7 +51,9 @@
 										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>
 										<small class="text-muted"><a href=""
 										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i> Delete</a></small>
-										<small class="text-muted"><a href=""
+										<small class="text-muted" ng-if="employee.status === false"><a href=""
+										class="btn btn-success" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i> Enable</a></small>
+										<small class="text-muted" ng-if="employee.status === true"><a href=""
 										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i> Disable</a></small>
 								</h5>
 							</div>

@@ -147,7 +147,6 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/General/angular-bootstrap-switch.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/Employee Profile/employeeProfileAngular.js"></script>
 	<script

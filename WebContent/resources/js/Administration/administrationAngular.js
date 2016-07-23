@@ -35,6 +35,7 @@ administration.controller('mainController',
 	                    DTColumnBuilder.newColumn("email", "Email").withOption('name', 'email'),
 	                    DTColumnBuilder.newColumn("enabled", "Enabled").withOption('name', 'enabled'),
 	                    DTColumnBuilder.newColumn("authority", "Role").withOption('name', 'authority'),
+	                    DTColumnBuilder.newColumn("employee.firstName", "Employee").withOption('name', 'employee'),
 	                    DTColumnBuilder.newColumn(null).withTitle('Actions')
 	                    	.renderWith(function(data, type, full, meta) {
 	                        return '<button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain('+ data.id +')"><i class="fa fa-pencil fa-lg"></i> Edit</button>&nbsp;' +

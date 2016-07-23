@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- Navbar -->
 <nav class="navbar navbar-default" ng-controller="headerController" ng-init="getCurrentUser()">
 	<div class="container-fluid">
@@ -11,15 +12,36 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-main-menu"><img id="inexisBrand"
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-main-menu"><img id="inexisBrand"
 				class="img-responsive" alt="brand"
 				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('ROLE_USER')">
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/user-main-menu"><img id="inexisBrand"
+				class="img-responsive" alt="brand"
+				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
+			</sec:authorize>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav"></ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${pageContext.request.contextPath}/admin-main-menu"><i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a></li>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li>
+						<a href="${pageContext.request.contextPath}/admin-main-menu">
+						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
+					</li>
+				</sec:authorize>
+				
+				<sec:authorize access="hasRole('ROLE_USER')">
+					<li>
+						<a href="${pageContext.request.contextPath}/user-main-menu">
+						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
+					</li>
+				</sec:authorize>
+				
 				<li class="dropdown"><a id="userDropDown" href="#" class="dropdown-toggle"
 					data-toggle="dropdown">
 					<img ng-src="${pageContext.request.contextPath}/static/images/EmpProfileImages/{{userImage}}"  class="img-circle" id="loggedInUserImg">
