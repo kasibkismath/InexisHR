@@ -24,6 +24,8 @@ myProfile.controller('myProfileMainController', ['$scope', '$http', function($sc
 			$scope.birthDate = result.employee.birthDate;
 			$scope.salary = result.employee.salary;
 			$scope.birthDate = result.employee.birthDate;
+			$scope.education = result.employee.education;
+			$scope.workExp = result.employee.pastWork;
 			$scope.imageURL = result.employee.imageURL;
 			console.log(result)
 		})

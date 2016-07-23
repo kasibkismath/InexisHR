@@ -10,6 +10,9 @@
 			<div class="modal show" tabindex="-1" role="dialog" id="basicInfoMyProfileModal">
   				<div class="modal-dialog">
     				<div class="modal-content">
+    					<div class="modal-header">
+        					<h3 class="modal-title">Basic Information</h3>
+     					</div>
       					<div class="modal-body">
         					<form class="form-horizontal">
 							  <div class="form-group">

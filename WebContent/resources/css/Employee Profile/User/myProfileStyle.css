@@ -34,23 +34,56 @@ hr {
 	padding-top : 40px;
 }
 
-.topMargin {
-	margin-top : 170px;
+.modal-content {
+	border-radius: 25px 25px;
+}
+
+#basicInfoMyProfileModal .modal{
+    display: block !important;
+}
+
+#basicInfoMyProfileModal .modal-dialog{
+    overflow-y: initial !important
+}
+#basicInfoMyProfileModal .modal-body{
+    height: 400px;
+    overflow-y: auto;
+}
+
+#educationInfoMyProfileModal .modal{
+    display: block !important;
+}
+
+#educationInfoMyProfileModal .modal-dialog{
+    overflow-y: initial !important
+}
+
+#educationInfoMyProfileModal .modal-body{
+    height: 400px;
+    overflow-y: auto;
+}
+
+#workInfoMyProfileModal .modal{
+    display: block !important;
+}
+
+#workInfoMyProfileModal .modal-dialog{
+    overflow-y: initial !important
+}
+
+#workInfoMyProfileModal .modal-body{
+    height: 400px;
+    overflow-y: auto;
 }
 
 #basicInfoMyProfileModal {
 	margin-top: 120px;
 }
 
-.modal{
-    display: block !important; /* I added this to see the modal, you don't need this */
+#educationInfoMyProfileModal {
+	margin-top: 120px;
 }
 
-/* Important part */
-.modal-dialog{
-    overflow-y: initial !important
-}
-.modal-body{
-    height: 500px;
-    overflow-y: auto;
+#workInfoMyProfileModal {
+	margin-top: 120px;
 }

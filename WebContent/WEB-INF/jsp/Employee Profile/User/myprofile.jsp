@@ -61,10 +61,10 @@
 							<jsp:include page="basicInfoMyProfile.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="education" ng-cloak>
-							<h4>Hello Education !!</h4>
+							<jsp:include page="educationInfoMyProfile.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="work" ng-cloak>
-							<h4>Hello Work !!!</h4>
+							<jsp:include page="workInfoMyProfile.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
