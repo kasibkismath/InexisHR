@@ -49,4 +49,34 @@ public class LoginController {
 
 		return "Main Menu/user-main-menu";
 	}
+	
+	@RequestMapping("/ceo-main-menu")
+	public String onLoginSuccessCEO(Model model, Principal principal) {
+
+		// get logged in username
+		String loggedInUser = principal.getName();
+		model.addAttribute("loggedInUser", loggedInUser);
+
+		return "Main Menu/ceo-main-menu";
+	}
+	
+	@RequestMapping("/hr-main-menu")
+	public String onLoginSuccessHRManager(Model model, Principal principal) {
+
+		// get logged in username
+		String loggedInUser = principal.getName();
+		model.addAttribute("loggedInUser", loggedInUser);
+
+		return "Main Menu/hr-main-menu";
+	}
+	
+	@RequestMapping("/lead-main-menu")
+	public String onLoginSuccessTeamLead(Model model, Principal principal) {
+
+		// get logged in username
+		String loggedInUser = principal.getName();
+		model.addAttribute("loggedInUser", loggedInUser);
+
+		return "Main Menu/lead-main-menu";
+	}
 }

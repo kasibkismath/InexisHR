@@ -23,6 +23,24 @@
 				class="img-responsive" alt="brand"
 				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
 			</sec:authorize>
+			
+			<sec:authorize access="hasRole('ROLE_CEO')">
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/ceo-main-menu"><img id="inexisBrand"
+				class="img-responsive" alt="brand"
+				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('ROLE_HR')">
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/hr-main-menu"><img id="inexisBrand"
+				class="img-responsive" alt="brand"
+				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
+			</sec:authorize>
+			
+			<sec:authorize access="hasRole('ROLE_LEAD')">
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/lead-main-menu"><img id="inexisBrand"
+				class="img-responsive" alt="brand"
+				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
+			</sec:authorize>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
@@ -34,10 +52,27 @@
 						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
 					</li>
 				</sec:authorize>
-				
 				<sec:authorize access="hasRole('ROLE_USER')">
 					<li>
 						<a href="${pageContext.request.contextPath}/user-main-menu">
+						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_CEO')">
+					<li>
+						<a href="${pageContext.request.contextPath}/ceo-main-menu">
+						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_HR')">
+					<li>
+						<a href="${pageContext.request.contextPath}/hr-main-menu">
+						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_LEAD')">
+					<li>
+						<a href="${pageContext.request.contextPath}/lead-main-menu">
 						<i class="fa fa-location-arrow fa-lg"></i> Go to Main Menu</a>
 					</li>
 				</sec:authorize>

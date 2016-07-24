@@ -47,6 +47,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     protected String determineTargetUrl(Authentication authentication) {
         boolean isUser = false;
         boolean isAdmin = false;
+        boolean isCeo = false;
+        boolean isHRManager = false;
+        boolean isTeamLead = false;
+        
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
@@ -55,6 +59,15 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 isAdmin = true;
                 break;
+            } else if (grantedAuthority.getAuthority().equals("ROLE_CEO")) {
+            	isCeo = true;
+                break;
+            } else if (grantedAuthority.getAuthority().equals("ROLE_HR")) {
+            	isHRManager = true;
+                break;
+            } else if (grantedAuthority.getAuthority().equals("ROLE_LEAD")) {
+            	isTeamLead = true;
+                break;
             }
         }
  
@@ -62,7 +75,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             return "/user-main-menu";
         } else if (isAdmin) {
             return "/admin-main-menu";
-        } else {
+        } else if (isCeo) {
+            return "/ceo-main-menu";
+        } else if (isHRManager) {
+            return "/hr-main-menu";
+        } else if (isTeamLead) {
+            return "/lead-main-menu";
+        }
+          else {
             throw new IllegalStateException();
         }
     }

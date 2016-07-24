@@ -25,7 +25,13 @@
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/admin-main-menu"
 			access="isAuthenticated()" />
-			<security:intercept-url pattern="/user-main-menu"
+		<security:intercept-url pattern="/user-main-menu"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ceo-main-menu"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/hr-main-menu"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/lead-main-menu"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/user/settings"
 			access="isAuthenticated()" />
