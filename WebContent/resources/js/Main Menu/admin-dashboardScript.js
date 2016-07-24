@@ -33,7 +33,7 @@ $(function() {
 
 	// performance appraisal tile
 	$('#performanceAppraisal-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/Performance');
 	});
 	$('#performanceAppraisal-tile').css({
 		"cursor" : "pointer"

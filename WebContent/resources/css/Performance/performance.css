@@ -1,0 +1,30 @@
+body {
+	background: #f8f8f8 !important;
+}
+
+/* ng-cloak */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+hr {
+	border-color: #ccc !important;
+}
+
+.nav-tabs>li>a {
+	background-color: #efefef;
+}
+
+.nav-tabs>li>a:hover {
+	background-color: #A7C6E2 !important;
+	color: white !important;
+}
+
+.nav-tabs>li.active>a {
+	background-color: #2A2A2A !important;
+	color: #fff !important;
+}
+
+.topPad {
+	padding-top : 40px;
+}

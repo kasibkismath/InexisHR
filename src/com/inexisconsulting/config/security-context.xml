@@ -109,6 +109,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/designation/addDesignation"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
