@@ -671,8 +671,6 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			status : status
 		};
 		
-		console.log(employee);
-		
 		$http.post($scope.baseURL + '/employeeProfile/employee/disable', employee)
 		.success(function(result){
 			$('#empDisableModal').modal('hide');

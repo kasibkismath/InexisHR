@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en" ng-modules="adminHeader, performance">
+<html lang="en" ng-modules="performance, adminHeader">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,7 +67,7 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane fade in active" id="summary">
-						<h3>Welcome to Summary !!</h3>
+						<jsp:include page="summary.jsp"></jsp:include>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="appraisals">
 						<h3>Welcome to Appraisal !!</h3>
@@ -90,10 +90,10 @@
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 	<script
