@@ -38,13 +38,12 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<h3>
+				<h3 id="headTitle">
 					<i class="fa fa-cog fa-lg"></i> Account Setting
 				</h3>
-				<hr>
 				<div>
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">

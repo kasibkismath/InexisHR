@@ -45,53 +45,77 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="administration-tile">
-				<span class="dashboard-title"><i class="fa fa-cogs fa-3x"></i>
-					Administration</span>
+				<div class="dashboard-title">
+					<span id="icon">
+						<i class="fa fa-cogs fa-3x icon-color"></i>
+					</span>
+					<br> Administration
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="attendance-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-calendar-check-o fa-2x"></i> Attendance</span>
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-calendar-check-o fa-3x icon-color"></i></span>
+					<br> <span id="textSmall">Attendance</span>
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="contracts-tile">
-				<span class="dashboard-title"><i class="fa fa-files-o fa-3x"></i>
-					Contracts</span>
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-files-o fa-3x icon-color"></i></span>
+					<br> <span id="textSmall">Contracts</span>
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="employee-tile">
-				<span class="dashboard-title"><i class="fa fa-user fa-3x"></i>
-					Employee</span>
+				<div class="dashboard-title">
+					<span id="icon">
+						<i class="fa fa-user fa-3x icon-color"></i>
+					</span>
+					<br> <span id="textSmall">Employee</span>
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="leave-tile">
-				<span class="dashboard-title"><i class="fa fa-bed fa-3x"></i>
-					Leave</span>
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-bed fa-3x icon-color"></i></span>
+					<br> <span id="textXSmall">Leave</span>
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="performanceAppraisal-tile">
-				<span class="dashboard-title"><i class="fa fa-rocket fa-3x"></i>
-					Performance</span>
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-rocket fa-3x icon-color"></i></span>
+					<br> <span id="textMedium">Performance</span>
+				</div>
 			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="projectTeamMember-tile">
-				<span class="dashboard-title"><i class="fa fa-users fa-3x"></i>
-					Projects &amp; Teams</span>
+			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile" id="projectTeamMember-tile">
+				<div class="dashboard-title"><span id="icon">
+					<i class="fa fa-users fa-3x icon-color"></i></span> <br> Projects &amp; Teams
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="recruitment-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-user-plus fa-3x"></i> Recruitment</span>
+				<div class="dashboard-title">
+					<span id="icon">
+						<i class="fa fa-user-plus fa-3x icon-color"></i> 
+					</span>
+					<br> <span id="textSmall">Recruitment</span>
+				</div>
 			</div>
 			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="reports-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-file-pdf-o fa-3x"></i> Reports</span>
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-file-pdf-o fa-3x icon-color"></i></span>
+					<br> <span id="textSmall-two">Reports</span>
+				</div>
 			</div>
 			<div class="col-md-3 col-sm-12 col-lg-4 dashboard-tile"
 				id="training-tile">
-				<span class="dashboard-title"><i
-					class="fa fa-table fa-3x"></i> Training</span>
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-table fa-3x icon-color"></i></span>
+					<br>  <span id="textSmall-two">Training</span>
+				</div>
 			</div>
 		</div>
 	</div>

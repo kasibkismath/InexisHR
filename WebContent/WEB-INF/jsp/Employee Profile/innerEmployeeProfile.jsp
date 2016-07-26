@@ -1,31 +1,32 @@
+		<div id="profileHead">
 		<div class="col-sm-6">
 				<h3 class="headingPad">
 					<i class="fa fa-users fa-lg"></i> Employee Profiles
 				</h3>
-			</div>
+		</div>
 			<div class="row">
 				<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee &nbsp;<i class="fa fa-plus-circle fa-lg"></i></button></div>
 			</div>
-		<hr>
+		</div>
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="input-group">
 					<span class="input-group-addon" id="searchBoxGlyp"><i
 						class="fa fa-search fa-lg"></i></span> <input type="text"
 						class="form-control" ng-model="q" placeholder="Search" id="searchBox">
 				</div>
 			</div>
-			<div class="col-sm-4 col-sm-offset-4" id="noOfItems">
+			<!-- <div class="col-sm-2 col-sm-offset-7" id="noOfItems">
 				<div class="input-group">
 					<span class="input-group-addon" id="showListGlyp">No of Items</span> <input type="number" min="10"
 						max="100" class="form-control" ng-model="pageSize" id="showListBox">
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<!-- List Group Start -->
-		<ul class="list-group">
+		<ul class="list-group tpad">
 			<!-- List Group Item Start -->
-			<li class="list-group-item colored customList col-md-offset-1 col-md-5"
+			<li class="list-group-item colored customList col-md-offset-2 col-md-2"
 				dir-paginate="employee in count = (employees | filter:q ) | itemsPerPage: pageSize">
 				<div class="row">
 					<br>
@@ -37,10 +38,10 @@
 					<div class="col-md-9 col-sm-9">
 						<div class="">
 							<div class="">
-								<h3 class="empName" ng-cloak>{{employee.firstName}}
+								<h3 class="empName" id="empNameId" ng-cloak>{{employee.firstName}}
 									{{employee.lastName}}</h3>
-								<h4>
-									<span class="label label-default" ng-cloak>{{employee.designation.name}}</span>
+								<h4 class="designationText">
+									<small ng-cloak>{{employee.designation.name}}</small>
 								</h4>
 								<h4> 
 									<span class="label label-success" ng-show="employee.status === true"> Status: Enabled</span>
@@ -48,13 +49,13 @@
 								</h4>
 								<h5>
 									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
-										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i> For more info</a></small>
+										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i></a></small>
 										<small class="text-muted"><a href=""
-										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i> Delete</a></small>
+										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i></a></small>
 										<small class="text-muted" ng-if="employee.status === false"><a href=""
-										class="btn btn-success" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i> Enable</a></small>
+										class="btn btn-success" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i></a></small>
 										<small class="text-muted" ng-if="employee.status === true"><a href=""
-										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i> Disable</a></small>
+										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i></a></small>
 								</h5>
 							</div>
 						</div>

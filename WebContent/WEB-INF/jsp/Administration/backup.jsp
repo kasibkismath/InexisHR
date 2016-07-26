@@ -7,7 +7,7 @@
 		class="fa fa-database fa-lg"></i> Take Backup</a>
 </div>
 
-<div class="container restoreDBSection">
+<div class="container-fluid restoreDBSection">
 	<div class="row">
 		<h3>
 			<i class="fa fa-undo"></i> Restore

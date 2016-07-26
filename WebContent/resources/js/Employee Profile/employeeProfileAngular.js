@@ -84,7 +84,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 	};
 	
 	// Pagination Page Size
-	$scope.pageSize = 4;
+	$scope.pageSize = 9;
 	
 	$scope.baseURL = contextPath;
 	
@@ -102,12 +102,12 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		responsive: true,
 		animateScale:true,
 		maintainAspectRatio: false,
-		tooltipEvents: [],
+		/*tooltipEvents: [],
 		showTooltips: true,
 		tooltipCaretSize: 0,
 		onAnimationComplete: function () {
 			this.showTooltip(this.segments, true);
-		},
+		},*/
 	};
 	
 		//get employee designation chart labels

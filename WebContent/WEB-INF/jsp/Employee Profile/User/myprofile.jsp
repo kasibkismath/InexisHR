@@ -37,7 +37,7 @@
 	<!-- Header -->
 	<jsp:include page="../../Header/admin-header.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
 				<!-- Nav tabs -->
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 	<!-- Tab panes -->
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-6 col-lg-12">
 					<div class="tab-content">

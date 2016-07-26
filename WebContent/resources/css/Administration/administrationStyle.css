@@ -33,6 +33,10 @@ hr {
 	margin: 30px 20px;
 }
 
+#headTitle {
+	padding-bottom: 20px;
+}
+
 #deleteUser1 {
 	margin-left: 5px !important;
 }

@@ -25,6 +25,10 @@ hr {
 	color: #fff !important;
 }
 
+#headTitle {
+	padding-bottom: 20px;
+}
+
 #userSettingsModal{
 	margin-top: 240px;
 }

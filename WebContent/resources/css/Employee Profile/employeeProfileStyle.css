@@ -37,25 +37,45 @@ hr {
 	padding: 10px 0;
 }
 
+#profileHead {
+	padding-bottom: 30px;
+}
+
 #addNewEmpBtn {
 	margin-top: 40px !important;
 }
 
 .customList {
-	margin: 25px;
-	border-radius: 25px 25px !important;
-	background: #efefef !important;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	background: #fff !important;
 }
 
 .employee-image {
-	width: 100px; 
-	height: 100px;
+	width: 60px; 
+	height: 60px;
 }
 
+.list-group-item {
+	width: 30% !important;
+	height: 180px !important;
+}
+
+.list-group {
+	padding: 0px 65px;
+}
 
 .empName {
 	text-transform: capitalize;
+	margin-top: 0px;
 }
+
+.designationText {
+	font-style: italic;
+	font-weight: bold;
+}
+
 
 #searchBoxGlyp, #showListGlyp {
 	border-radius: 25px 0 0 25px;
@@ -143,6 +163,7 @@ hr {
 
 .empDesigTitle {
 	padding-top: 20px;
+	margin-left: 20px;
 }
 
 #imageErrorMsg, #designationErrorMsg {
@@ -154,12 +175,15 @@ hr {
 }
 
 /* Designations Tab */
+#desigTitle {
+	margin-left: 20px;
+}
 .tpad{
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 .tpad-table {
-	padding-top: 50px;
+	padding-top: 20px;
 }
 
 #editDesig {

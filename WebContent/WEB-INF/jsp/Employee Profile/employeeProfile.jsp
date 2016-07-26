@@ -68,7 +68,7 @@
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
 	<!-- Content -->
-	<div class="container">
+	<div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-12">
 				<!-- Nav tabs -->
@@ -82,9 +82,9 @@
 				</ul>
 		</div>
 		<!-- Tab panes -->
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-6 col-lg-12">
+				<div class="col-xs-3 col-lg-12">
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="summaryEmpDesig">
 							<jsp:include page="employeeDesignationSummary.jsp"></jsp:include>

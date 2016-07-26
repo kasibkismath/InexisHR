@@ -3,33 +3,59 @@ body {
 }
 
 .dashboard-main {
-	padding: 35px 30px 0 45px;
+	padding-top: 20px;
+	margin-left: 22px;
 }
 
 .dashboard-tile {
-	background-color: #91BEF4;
-	background: #83a4d4; /* fallback for old browsers */ background :
-	-webkit-linear-gradient( to left, #83a4d4, #b6fbff);
-	/* Chrome 10-25, Safari 5.1-6 */ background : linear-gradient( to left,
-	#83a4d4, #b6fbff);
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	width: 320px;
-	height: 150px;
-	border-radius: 35px;
-	padding: 40px 10px 0 0px;
-	margin-left: 65px;
+	box-shadow: 0 0 1em #efefef;
+	background-color: #80bfff;
+	width: 300px;
+	height: 140px;
+	padding: 30px 10px 0 5px;
+	margin-left: 25px;
 	margin-bottom: 20px;
 	margin-top: 20px;
-	background: -webkit-linear-gradient(to left, #457fca, #5691c8);
-	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, #457fca, #5691c8);
-	background: -webkit-linear-gradient(to left, #83a4d4, #b6fbff);
-	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, #83a4d4, #b6fbff);
+	vertical-align: middle;
 }
 
 .dashboard-title {
 	margin: 0 0 0 70px;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 20px;
+}
+
+.icon-color {
+	color: #fff;
+}
+
+#icon {
+	vertical-align: middle;
+	margin-left: 40px;
+}
+
+#iconSmall {
+	vertical-align: middle;
+	margin-left: 60px;
+}
+
+#textMedium {
+	padding-left: 12px;
+	padding-top: 20px;
+}
+
+#textSmall {
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+#textSmall-two{
+	padding-left: 25px;
+	padding-top: 20px;
+}
+
+
+#textXSmall {
+	padding-left: 40px;
+	padding-top: 20px;
 }
