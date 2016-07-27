@@ -81,12 +81,15 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		$scope.getAllEmployees();
 		$scope.getAllDesignations();
 		$scope.getEmpDesigChartData();
+		$scope.changeToAll();
 	};
 	
 	// Pagination Page Size
 	$scope.pageSize = 9;
 	
 	$scope.baseURL = contextPath;
+	
+	$scope.state;
 	
 	//hireDate max limit date
 	$scope.hireDate = new Date();
@@ -250,8 +253,20 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		}
 	});
 	
+	//employee filtering
+	$scope.changeToAll = function () {
+		$scope.state;
+	};
+	$scope.changeToEnable = function () {
+		$scope.state = true;
+	};
+	
+	$scope.changeToDisable = function () {
+		$scope.state = false;
+	};
+		
+	// get all employees
 	$scope.getAllEmployees = function() {
-		// get all employees
 		$http.get($scope.baseURL + '/employeeProfile/employee/all')
 		.success(function(result) {
 			$scope.employees = result;

@@ -7,25 +7,20 @@
 							class="form-control" ng-model="q" placeholder="Search" id="searchBox">
 					</div>
 			</div>
-			<div class="col-sm-offset-7 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal"><i class="fa fa-plus-circle fa-lg"></i> Add New Employee</button></div>
-		</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-3">
-				
+			<div class="col-sm-3 employeeSearchBox">
+				<button class="btn btn-default" id="filterBtn">Filter By:</button>&nbsp;
+     			All <input type="radio" name="empFilter" ng-value="empty" ng-model="state" ng-click="changeToAll()">&nbsp;
+     			Enabled <input type="radio" name="empFilter" ng-value="true" ng-model="state" ng-click="changeToEnable()">&nbsp;
+     			Disabled <input type="radio" name="empFilter" ng-value="false" ng-model="state" ng-click="changeToDisable()">&nbsp;
 			</div>
-			<!-- <div class="col-sm-2 col-sm-offset-7" id="noOfItems">
-				<div class="input-group">
-					<span class="input-group-addon" id="showListGlyp">No of Items</span> <input type="number" min="10"
-						max="100" class="form-control" ng-model="pageSize" id="showListBox">
-				</div>
-			</div> -->
+			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal"><i class="fa fa-plus-circle fa-lg"></i> Add New Employee</button></div>
+		</div>
 		</div>
 		<!-- List Group Start -->
 		<ul class="list-group tpad">
 			<!-- List Group Item Start -->
 			<li class="list-group-item colored customList col-md-offset-2 col-md-2"
-				dir-paginate="employee in count = (employees | filter:q ) | itemsPerPage: pageSize">
+				dir-paginate="employee in count = (employees | filter:q ) | filter: {status: state} | itemsPerPage: pageSize">
 				<div class="row">
 					<br>
 					<div class="col-md-3 col-sm-3 text-center">

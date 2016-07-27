@@ -37,6 +37,10 @@ hr {
 	padding: 10px 0;
 }
 
+button#filterBtn:hover {
+	cursor: default !important;
+}
+
 #profileHead {
 	padding-bottom: 30px;
 }

@@ -54,6 +54,9 @@
 <!-- Character Count -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
 
+<!-- Awesome Bootstrap Checkbox -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/awesome-bootstrap-checkbox.css"/>
+
 <!-- JS Scripts -->
 <script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
