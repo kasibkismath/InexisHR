@@ -8,7 +8,7 @@
 					</div>
 			</div>
 			<div class="col-sm-3 employeeSearchBox">
-				<button class="btn btn-default" id="filterBtn">Filter By:</button>&nbsp;
+				<button class="btn btn-default btn-sm" id="filterBtn">Filter By:</button>&nbsp;
      			All <input type="radio" name="empFilter" ng-value="empty" ng-model="state" ng-click="changeToAll()">&nbsp;
      			Enabled <input type="radio" name="empFilter" ng-value="true" ng-model="state" ng-click="changeToEnable()">&nbsp;
      			Disabled <input type="radio" name="empFilter" ng-value="false" ng-model="state" ng-click="changeToDisable()">&nbsp;

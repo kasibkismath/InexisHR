@@ -41,9 +41,6 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<h3 id="headTitle">
-					<i class="fa fa-cog fa-lg"></i> Account Setting
-				</h3>
 				<div>
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
