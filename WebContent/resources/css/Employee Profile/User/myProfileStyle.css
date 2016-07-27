@@ -34,9 +34,6 @@ hr {
 	padding-top : 40px;
 }
 
-.modal-content {
-	border-radius: 25px 25px;
-}
 
 #basicInfoMyProfileModal .modal{
     display: block !important;
