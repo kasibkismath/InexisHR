@@ -59,9 +59,6 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 id="headTitle"><i class="fa fa-cogs fa-lg"></i> Administration</h3>
-			</div>
-			<div class="col-lg-12">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#users"

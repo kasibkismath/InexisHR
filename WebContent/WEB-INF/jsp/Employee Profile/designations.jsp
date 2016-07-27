@@ -1,6 +1,5 @@
 <div class="row">
-	<div class="col-sm-12 tpad">
-		<div id="desigTitle"><h3><i class="fa fa-check-circle fa-lg"></i> Designations</h3></div>
+	<div class="col-sm-12 addDesigBtn">
 		<button class="btn btn-success pull-right" data-toggle="modal" data-target="#addDesigModal">
 			<i class="fa fa-plus-circle fa-lg"></i> Add Designation
 		</button>

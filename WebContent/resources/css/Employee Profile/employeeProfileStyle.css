@@ -41,6 +41,10 @@ hr {
 	padding-bottom: 30px;
 }
 
+.employeeSearchBox {
+	margin-top: 40px;
+}
+
 #addNewEmpBtn {
 	margin-top: 40px !important;
 }
@@ -180,6 +184,11 @@ hr {
 }
 .tpad{
 	padding-top: 10px;
+}
+
+.addDesigBtn {
+	padding-top: 40px;
+	padding-right: 30px;
 }
 
 .tpad-table {

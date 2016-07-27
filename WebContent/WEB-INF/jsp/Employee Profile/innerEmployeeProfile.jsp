@@ -1,20 +1,18 @@
 		<div id="profileHead">
-		<div class="col-sm-6">
-				<h3 class="headingPad">
-					<i class="fa fa-users fa-lg"></i> Employee Profiles
-				</h3>
-		</div>
-			<div class="row">
-				<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal">Add New Employee &nbsp;<i class="fa fa-plus-circle fa-lg"></i></button></div>
+		<div class="row">
+			<div class="col-sm-3 employeeSearchBox">
+					<div class="input-group">
+						<span class="input-group-addon" id="searchBoxGlyp"><i
+							class="fa fa-search fa-lg"></i></span> <input type="text"
+							class="form-control" ng-model="q" placeholder="Search" id="searchBox">
+					</div>
 			</div>
+			<div class="col-sm-offset-7 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal"><i class="fa fa-plus-circle fa-lg"></i> Add New Employee</button></div>
+		</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-3">
-				<div class="input-group">
-					<span class="input-group-addon" id="searchBoxGlyp"><i
-						class="fa fa-search fa-lg"></i></span> <input type="text"
-						class="form-control" ng-model="q" placeholder="Search" id="searchBox">
-				</div>
+				
 			</div>
 			<!-- <div class="col-sm-2 col-sm-offset-7" id="noOfItems">
 				<div class="input-group">
