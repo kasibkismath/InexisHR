@@ -30,14 +30,24 @@ hr {
 }
 
 /* chartJS */
-
 #line {
-	margin-top: 70px;
-	margin-left: 70px;
-    height: 350px !important;
-    width: 1000px !important;
+	width: 1500px;
+	height: 400px;
+	margin-top: 50px;
 }
+
 
 .appraisalChartTitle {
 	padding-top: 20px;
+	margin-left: 10px !important;
+}
+
+/* Appraisals */
+.mainGroup{
+	margin-top: 50px;
+}
+.appraisalList {
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 20px;
 }

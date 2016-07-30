@@ -38,6 +38,9 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+<!-- Dropdowns Enhancement -->
+<link href="${pageContext.request.contextPath}/static/css/General/dropdowns-enhancement.css" rel="stylesheet">
+
 <!-- JS -->
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
@@ -48,7 +51,7 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
 				<!-- Nav tabs -->
@@ -61,7 +64,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-6 col-lg-12">
 				<!-- Tab panes -->
@@ -70,7 +73,7 @@
 						<jsp:include page="summary.jsp"></jsp:include>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="appraisals">
-						<h3>Welcome to Appraisal !!</h3>
+						<jsp:include page="appraisals.jsp"></jsp:include>
 					</div>
 				</div>
 			</div>
@@ -94,9 +97,13 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/dropdowns-enhancement.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Performance/performanceAngular.js"></script>
+	<script>
+		$("[data-toggle='tooltip']").tooltip();
+	</script>
 </body>
 </html>

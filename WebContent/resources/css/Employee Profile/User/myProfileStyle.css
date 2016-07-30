@@ -30,6 +30,10 @@ hr {
 	height: 120px;
 }
 
+.headingPad {
+	margin-left: 40px;
+}
+
 .topPad {
 	padding-top : 40px;
 }

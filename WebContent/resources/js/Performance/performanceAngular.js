@@ -8,10 +8,11 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 	
 	// chart configs
 	$scope.labels = ["January", "February", "March", "April"];
-	  $scope.series = ['Series A', 'Series B'];
+	  $scope.series = ['Series A', 'Series B', 'Series C'];
 	  $scope.data = [
 	    [10, 4, 30, 15],
-	    [5, 3, 25, 9]
+	    [25, 20, 13, 22],
+	    [1, 15, 7, 12]
 	  ];
 	  $scope.onClick = function (points, evt) {
 	    console.log(points, evt);

@@ -29,29 +29,34 @@
 							class="img-circle employee-image"></a>
 					</div>
 					<div class="col-md-9 col-sm-9">
-						<div class="">
-							<div class="">
-								<h3 class="empName" id="empNameId" ng-cloak>{{employee.firstName}}
-									{{employee.lastName}}</h3>
-								<h4 class="designationText">
-									<small ng-cloak>{{employee.designation.name}}</small>
-								</h4>
-								<h4> 
-									<span class="label label-success" ng-show="employee.status === true"> Status: Enabled</span>
-									<span class="label label-warning" ng-show="employee.status === false"> Status: Disabled</span>
-								</h4>
-								<h5>
-									<small class="text-muted"><a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
-										class="btn btn-info" ng-cloak><i class="fa fa-pencil"></i></a></small>
-										<small class="text-muted"><a href=""
-										class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)"><i class="fa fa-trash"></i></a></small>
-										<small class="text-muted" ng-if="employee.status === false"><a href=""
-										class="btn btn-success" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i></a></small>
-										<small class="text-muted" ng-if="employee.status === true"><a href=""
-										class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)"><i class="fa fa-ban"></i></a></small>
-								</h5>
-							</div>
-						</div>
+						<h3 class="empName" id="empNameId" ng-cloak>{{employee.firstName}} {{employee.lastName}}</h3>
+						<h4 class="designationText">
+							<small ng-cloak>{{employee.designation.name}}</small>
+						</h4>
+						<h4> 
+							<span class="label label-success" ng-show="employee.status === true"> Status: Enabled</span>
+							<span class="label label-warning" ng-show="employee.status === false"> Status: Disabled</span>
+						</h4>
+						<small class="text-muted">
+							<a href="${pageContext.request.contextPath}/employeeProfile/employee/getById?EmpID={{employee.empId}}"
+							   class="btn btn-info" ng-cloak title="Edit"><i class="fa fa-pencil"></i>
+							 </a>
+						</small>
+						<small class="text-muted">
+							<a href="" class="btn btn-danger" data-toggle="modal" data-target="#empDeleteModal" ng-cloak ng-click="deleteEmployee(employee.empId)" title="Delete">
+								<i class="fa fa-trash"></i>
+							</a>
+						</small>
+						<small class="text-muted" ng-if="employee.status === false">
+							<a href="" class="btn btn-success" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)" title="Enable">
+								<i class="fa fa-ban"></i>
+							</a>
+						</small>
+						<small class="text-muted" ng-if="employee.status === true">
+							<a href="" class="btn btn-warning" data-toggle="modal" data-target="#empDisableModal" ng-cloak ng-click="disableEmpMain(employee.empId)" title="Disable">
+							<i class="fa fa-ban"></i>
+							</a>
+						</small>
 					</div>
 				</div>
 				<hr>
