@@ -25,8 +25,21 @@ hr {
 	color: #fff !important;
 }
 
+.modal-dialog {
+	overflow-y: initial !important
+}
+
+.modal-body {
+	height: 500px;
+	overflow-y: auto;
+}
+
 .topPad {
-	padding-top : 40px;
+	padding-top: 40px;
+}
+
+.padded {
+	border-radius: 30px;
 }
 
 /* chartJS */
@@ -36,18 +49,24 @@ hr {
 	margin-top: 50px;
 }
 
-
 .appraisalChartTitle {
 	padding-top: 20px;
 	margin-left: 10px !important;
 }
 
 /* Appraisals */
-.mainGroup{
+.mainGroup {
 	margin-top: 50px;
 }
+
 .appraisalList {
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-top: 20px;
+}
+
+.addAppraisalBtn {
+	margin-top: 40px;
+	margin-right: 40px;
+	margin-bottom: 20px;
 }

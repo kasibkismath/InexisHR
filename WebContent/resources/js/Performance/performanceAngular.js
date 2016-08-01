@@ -1,4 +1,5 @@
-var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.js']);
+var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.js', 
+                                                 'angular-character-count']);
 
 // Controllers
 performance.controller('performanceMainController', ['$scope', '$http', function($scope, $http) {
@@ -36,5 +37,15 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 	      ]
 	    }
 	  };
+	  
+	  // ceo add appraisal
+	  var startYear = '2011';
+	  var endYear = new Date().getFullYear();
+	  $scope.years = [];
+	  
+	  for(var i=startYear; i<=endYear; i++) {
+		  $scope.years.push(i);
+	  }
+	  
 	
 }]);

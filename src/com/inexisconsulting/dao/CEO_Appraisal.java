@@ -23,20 +23,20 @@ public class CEO_Appraisal {
 	@JoinColumn(name = "performance_id")
 	private Performance performance;
 
-	private int skill_score;
+	private int score_skill;
 	private int score_mentorship;
 	private int score_task_completion;
 	private int score_current_performance;
 	private String status;
 	private String description;
 	
-	public CEO_Appraisal(int ceo_appraisal_id, Employee employee, Performance performance, int skill_score,
+	public CEO_Appraisal(int ceo_appraisal_id, Employee employee, Performance performance, int score_skill,
 			int score_mentorship, int score_task_completion, int score_current_performance, String status,
 			String description) {
 		this.ceo_appraisal_id = ceo_appraisal_id;
 		this.employee = employee;
 		this.performance = performance;
-		this.skill_score = skill_score;
+		this.score_skill = score_skill;
 		this.score_mentorship = score_mentorship;
 		this.score_task_completion = score_task_completion;
 		this.score_current_performance = score_current_performance;
@@ -68,12 +68,12 @@ public class CEO_Appraisal {
 		this.performance = performance;
 	}
 
-	public int getSkill_score() {
-		return skill_score;
+	public int getScore_skill() {
+		return score_skill;
 	}
 
-	public void setSkill_score(int skill_score) {
-		this.skill_score = skill_score;
+	public void setScore_skill(int score_skill) {
+		this.score_skill = score_skill;
 	}
 
 	public int getScore_mentorship() {

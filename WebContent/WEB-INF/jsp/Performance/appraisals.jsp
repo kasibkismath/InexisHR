@@ -1,4 +1,9 @@
 <div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-success pull-right addAppraisalBtn" data-toggle="modal" data-target="#CEOAddAppraisal">
+			<i class="fa fa-plus-circle"></i> Add New Appraisal
+		</button>
+	</div>
 	<ul class="list-group mainGroup">
 		<li class="list-group-item col-md-2 appraisalList listOne">
 			<h3>Kasib Kismath</h3>
@@ -63,4 +68,5 @@
  			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
 		</li>
 	</ul>
+	<jsp:include page="CEO/addAppraisal.jsp"></jsp:include>
 </div>

@@ -37,9 +37,13 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+<!-- Character Count -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/General/angular-character-count.css"/>
 
 <!-- Dropdowns Enhancement -->
 <link href="${pageContext.request.contextPath}/static/css/General/dropdowns-enhancement.css" rel="stylesheet">
+
 
 <!-- JS -->
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
@@ -97,6 +101,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-character-count.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/dropdowns-enhancement.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
