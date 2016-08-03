@@ -47,11 +47,9 @@
 
 <!-- JS -->
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
-<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 
 </head>
-<body ng-controller="performanceMainController" ng-cloak>
+<body ng-controller="performanceMainController" ng-init="init()" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 
@@ -97,12 +95,15 @@
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
+	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-chart.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular.ng-modules.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-character-count.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/dropdowns-enhancement.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 	<script

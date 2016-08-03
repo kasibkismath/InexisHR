@@ -1,5 +1,5 @@
 var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.js', 
-                                                 'angular-character-count']);
+                                                 'angular-character-count', 'angular-convert-to-number']);
 
 // Controllers
 performance.controller('performanceMainController', ['$scope', '$http', function($scope, $http) {
@@ -38,14 +38,46 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 	    }
 	  };
 	  
-	  // ceo add appraisal
-	  var startYear = '2011';
-	  var endYear = new Date().getFullYear();
-	  $scope.years = [];
+	  // init method when page loads
+	  $scope.init = function() {
+		$scope.getAppraisalYears();
+		$scope.getAllEmployees();
+		 $scope.getScoreValues();
+	  };
 	  
-	  for(var i=startYear; i<=endYear; i++) {
-		  $scope.years.push(i);
+	  // list appraisal year
+	  $scope.getAppraisalYears = function() {
+		  var startYear = '2011';
+		  var endYear = new Date().getFullYear();
+		  $scope.years = [];
+		  
+		  for(var i=startYear; i<=endYear; i++) {
+			  $scope.years.push(i);
+		  }; 
+		  
+		  // reverse array to list from the current year
+		  $scope.years.reverse();
 	  }
 	  
-	
+	  // list score values
+	  $scope.getScoreValues = function() {
+		  var minScore = 1;
+		  var maxScore = 10;
+		  $scope.scoreValues = [];
+		  
+		  for(var i=minScore; i<=maxScore; i++) {
+			  $scope.scoreValues.push(i);
+		  }; 
+	  }
+	  
+	// get all employees
+	$scope.getAllEmployees = function() {
+		$http.get($scope.baseURL + '/employeeProfile/employee/all')
+		.success(function(result) {
+			$scope.employees = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
 }]);

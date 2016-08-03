@@ -34,6 +34,10 @@ hr {
 	overflow-y: auto;
 }
 
+textarea {
+    resize: none;
+}
+
 .topPad {
 	padding-top: 40px;
 }

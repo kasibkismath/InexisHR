@@ -9,7 +9,11 @@
 				<h4 class="modal-title">Add Appraisal</h4>
 			</div>
 			<div class="modal-body">
-				<form name="ceoAddAppraisalForm" class="form-horizontal">
+				<form name="ceoAddAppraisalForm" class="form-horizontal"
+					ng-submit="ceoAddAppraisalForm.$valid && 
+					addCEOAppraisal(saveNewCEOEmployee, saveNewCEOYear, saveNewCEOStatus, 
+					saveNewCEOSkillScore, saveNewCEOMentorshipScore, saveNewCEOTaskCompScore, 
+					saveNewCEOCurrPerformanceScore, saveNewCEODesc)">
 					<div class="form-group">
 						<div role="alert" class="alert alert-danger padded" 
 							ng-show="ceoAddAppraisalForm.employee.$error.required" 
@@ -20,9 +24,8 @@
 						 <div class="col-sm-10">
 							<select ng-model="saveNewCEOEmployee" name="employee" class="form-control" 
 								required>
-								<option value="" >Select an employee</option>
-								<option value="2" >Kasib Kismath</option>
-								<option value="3" >Safeer Hussain</option>
+								<option value="">Select an employee</option>
+								<option ng-repeat="employee in employees" value="{{employee.empId}}">{{employee.firstName}} {{employee.lastName}}</option>
 							</select>
 						</div>
 					</div>
@@ -36,8 +39,8 @@
 						 <div class="col-sm-10">
 							<select ng-model="saveNewCEOYear" name="year" class="form-control" 
 								required>
-								<option value="">Select an Year</option>
-								<option ng-repeat="year in years">{{year}}</option>
+								<option value="">Select a year</option>
+								<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 							</select>
 						</div>
 					</div>
@@ -52,7 +55,6 @@
 							<select ng-model="saveNewCEOStatus" name="status" class="form-control" 
 								required>
 								<option value="">Select status</option>
-								<option value="Pending">Pending</option>
 								<option value="In-Progess">In Progess</option>
 								<option value="Completed">Completed</option>
 							</select>
@@ -69,16 +71,7 @@
 							<select ng-model="saveNewCEOSkillScore" name="skillScore" class="form-control" 
 								required>
 								<option value="">Select score</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
+								<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 							</select>
 						</div>
 					</div>
@@ -93,16 +86,7 @@
 							<select ng-model="saveNewCEOMentorshipScore" name="mentorshipScore" class="form-control" 
 								required>
 								<option value="">Select score</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
+								<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 							</select>
 						</div>
 					</div>
@@ -117,16 +101,7 @@
 							<select ng-model="saveNewCEOTaskCompScore" name="taskCompScore" class="form-control" 
 								required>
 								<option value="">Select score</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
+								<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 							</select>
 						</div>
 					</div>
@@ -141,39 +116,31 @@
 							<select ng-model="saveNewCEOCurrPerformanceScore" name="currPerformanceScore" class="form-control" 
 								required>
 								<option value="">Select score</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
+								<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<div ng-messages="ceoAddAppraisalForm.description.$error" role="alert" 
-							ng-show="ceoAddAppraisalForm.description.$dirty">
-							<div ng-message="required" class="alert alert-danger padded">
-								<strong>Error!</strong> Description is required
-							</div>
-							<div ng-message="maxlength" class="alert alert-danger padded">
-								<strong>Error!</strong> Description should be not more than 10,000 characters
-							</div>
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="ceoAddAppraisalForm.description.$error.maxlength" 
+							ng-if="ceoAddAppraisalForm.description.$dirty">
+							<strong>Error!</strong> Description should be less than or equal 10,000 characters long.
 						</div>
-						 <label class="col-sm-2 control-label">Description</label>
-						 <div class="col-sm-10">
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="ceoAddAppraisalForm.description.$error.required" 
+							ng-if="ceoAddAppraisalForm.description.$dirty">
+							<strong>Error!</strong> Description is required.
+						</div>
+						<label class="col-sm-2 control-label">Description</label>
+						<div class="col-sm-10">
 							<textarea rows="15" class="form-control" name="description" 
-							 ng-model="saveNewCEODescription" ng-maxlength="10000" required 
-							char-count warning-count="25" danger-count="10"></textarea>
+								placeholder="Enter description" ng-model="saveNewCEODesc" ng-maxlength="10000" 
+								required char-count warning-count="25" danger-count="10"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-success">Save</button>
 					</div>
 				</form>
 			</div>
