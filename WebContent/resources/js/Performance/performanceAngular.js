@@ -80,4 +80,31 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 			console.log(data);
 		});
 	};
+	
+	// add CEO Appraisal
+	$scope.addCEOAppraisal = function(employee, year, status, score_skill, score_mentor, score_task,
+			score_performance, description){
+		console.log(employee + " " + year + " " + status + " " + score_skill + " " + score_mentor + " " +
+				score_task + " " + score_performance + " " + description);
+		
+		// make month and date default to 1st of December
+		var date = '12/01/' + year;
+		
+		
+		// performance object
+		var performance = {
+			empId : employee,
+			date: date,
+			status:status
+		};
+		
+		// checks for performance exists if not creates a performance
+		$http.post($scope.baseURL + '/Performance/CheckPerformanceExists', performance)
+		.success(function(result) {
+			
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
 }]);

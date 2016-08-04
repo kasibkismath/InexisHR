@@ -96,7 +96,7 @@
 							ng-if="ceoAddAppraisalForm.taskCompScore.$dirty">
 							<strong>Error!</strong> Task Completion Score is required, please select one.
 						</div>
-						 <label class="col-sm-2 control-label">Skill Level Score</label>
+						 <label class="col-sm-2 control-label">Task Completion Score</label>
 						 <div class="col-sm-10">
 							<select ng-model="saveNewCEOTaskCompScore" name="taskCompScore" class="form-control" 
 								required>

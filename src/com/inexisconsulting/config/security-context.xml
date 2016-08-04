@@ -111,6 +111,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/CheckPerformanceExists"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
