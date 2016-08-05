@@ -49,9 +49,9 @@ empProfile.directive('ngUniqueDesignation', ['$http', function (async) {
 
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload', 'capitalizeFilter', 
-                                         'toaster', 'DTOptionsBuilder', 'DTColumnBuilder',
+                                         'toaster', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter',
                                          function($scope, $http, $compile, Upload, capitalizeFilter, toaster, 
-                                        		 DTOptionsBuilder, DTColumnBuilder){
+                                        		 DTOptionsBuilder, DTColumnBuilder, $filter){
 	// Angular Designation Data Table configuration
 	
 	$scope.dtColumns = [
@@ -395,7 +395,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 				$scope.editGetEmail = result.email;
 				$scope.editGetPhoneNo = result.phoneNumber;
 				$scope.editGetMobileNo = result.mobileNumber;
-				$scope.editGetHireDate = result.hireDate;
+				$scope.editGetHireDate = $filter('date')(result.hireDate, "yyyy-MM-dd");;
 				$scope.editGetDesignation = result.designation.designationId;
 				$scope.editGetEmpType = result.employmentType;
 				$scope.editGetSalary = result.Salary;

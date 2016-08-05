@@ -42,7 +42,8 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 	  $scope.init = function() {
 		$scope.getAppraisalYears();
 		$scope.getAllEmployees();
-		 $scope.getScoreValues();
+		$scope.getScoreValues();
+		$scope.getAllPerformanceAppraisals();
 	  };
 	  
 	  // list appraisal year
@@ -81,27 +82,37 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 		});
 	};
 	
+	// get all performance_appraisals
+	$scope.getAllPerformanceAppraisals = function (){
+		$http.get($scope.baseURL + '/Performance/AllPerformanceAppraisals')
+		.success(function(result) {
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
+	
 	// add CEO Appraisal
-	$scope.addCEOAppraisal = function(employee, year, status, score_skill, score_mentor, score_task,
+	$scope.addCEOAppraisal = function(emp_id, year, status, score_skill, score_mentor, score_task,
 			score_performance, description){
-		console.log(employee + " " + year + " " + status + " " + score_skill + " " + score_mentor + " " +
+		console.log(emp_id + " " + year + " " + status + " " + score_skill + " " + score_mentor + " " +
 				score_task + " " + score_performance + " " + description);
 		
 		// make month and date default to 1st of December
-		var date = '12/01/' + year;
-		
+		var date = year + '-12-01';
 		
 		// performance object
 		var performance = {
-			empId : employee,
+			employee : {empId : emp_id},
 			date: date,
-			status:status
+			status: status
 		};
 		
 		// checks for performance exists if not creates a performance
 		$http.post($scope.baseURL + '/Performance/CheckPerformanceExists', performance)
 		.success(function(result) {
-			
+			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);

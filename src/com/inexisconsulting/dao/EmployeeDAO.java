@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javassist.compiler.SyntaxError;
+
 @Transactional
 @Component("employeeDao")
 public class EmployeeDAO {

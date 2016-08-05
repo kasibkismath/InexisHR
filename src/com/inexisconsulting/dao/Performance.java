@@ -26,6 +26,8 @@ public class Performance {
 	private int final_score;
 	private String status;
 	
+	public Performance(){}
+	
 	public Performance(int performance_id, Employee employee, Date date, int final_score, String status) {
 		this.performance_id = performance_id;
 		this.employee = employee;
