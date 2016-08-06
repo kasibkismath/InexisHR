@@ -29,10 +29,11 @@ public class CEO_Appraisal {
 	private int score_current_performance;
 	private String status;
 	private String description;
+	private int total_score;
 	
 	public CEO_Appraisal(int ceo_appraisal_id, Employee employee, Performance performance, int score_skill,
 			int score_mentorship, int score_task_completion, int score_current_performance, String status,
-			String description) {
+			String description, int total_score) {
 		this.ceo_appraisal_id = ceo_appraisal_id;
 		this.employee = employee;
 		this.performance = performance;
@@ -42,6 +43,7 @@ public class CEO_Appraisal {
 		this.score_current_performance = score_current_performance;
 		this.status = status;
 		this.description = description;
+		this.total_score = total_score;
 	}
 
 	public int getCeo_appraisal_id() {
@@ -114,5 +116,13 @@ public class CEO_Appraisal {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getTotal_score() {
+		return total_score;
+	}
+
+	public void setTotal_score(int total_score) {
+		this.total_score = total_score;
 	}
 }

@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.PerformanceDAO;
 
@@ -24,4 +25,7 @@ public class PerformanceService {
 		return performanceDao.getPerformanceAppraisals();
 	}
 
+	public Performance getPerformanceId(Performance performance) throws HibernateException, ParseException {
+		return performanceDao.getPerformanceId(performance);
+	}
 }

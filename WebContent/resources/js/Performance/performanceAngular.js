@@ -44,6 +44,7 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 		$scope.getAllEmployees();
 		$scope.getScoreValues();
 		$scope.getAllPerformanceAppraisals();
+		$scope.getLoggedInEmployee();
 	  };
 	  
 	  // list appraisal year
@@ -82,6 +83,18 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 		});
 	};
 	
+	$scope.getLoggedInEmployee = function() {
+		var user = {username : $scope.currentUser};
+		
+		$http.post($scope.baseURL + '/administration/user/currentUser', user)
+		.success(function(result) {
+			$scope.loggedInEmpId = result.employee.empId;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
 	// get all performance_appraisals
 	$scope.getAllPerformanceAppraisals = function (){
 		$http.get($scope.baseURL + '/Performance/AllPerformanceAppraisals')
@@ -109,13 +122,58 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 			status: status
 		};
 		
+		var total_score = score_skill  + score_mentor + score_task + score_performance;
+		
 		// checks for performance exists if not creates a performance
 		$http.post($scope.baseURL + '/Performance/CheckPerformanceExists', performance)
 		.success(function(result) {
-			console.log(result);
+			if(result) {
+				var performance_id = $scope.getPerformanceId(performance);
+				$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor,
+						score_task, score_performance, description, total_score);
+			}
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
-	}
+	};
+	
+	// get performance id
+	$scope.getPerformanceId = function (performanceObj) {
+		$http.post($scope.baseURL + '/Performance/getPerformanceId', performanceObj)
+		.success(function(result) {
+			return result.performance_id;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// add appraisal CEO Sub
+	$scope.addAppraisalCEO = function (emp_id, performance_id, status, score_skill, score_mentor,
+			score_task, score_performance, description, total_score) {
+		
+		var ceo_appraisal = {
+			employee : {empId : emp_id},
+			performance : {performance_id : performance_id},
+			status : status,
+			score_skill : score_skill,
+			score_mentorship : score_mentor,
+			score_task_completion : score_task,
+			score_current_performance : score_performance,
+			total_score : total_score
+		};
+		
+		$http.post($scope.baseURL + '/Performance/AddCEOAppraisal', ceo_appraisal)
+		.success(function(result) {
+			$('#CEOAddAppraisal').modal('hide');
+			toaster.pop('success', "Notification", "Added Appraisal Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
 }]);
