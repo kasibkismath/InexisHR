@@ -71,7 +71,7 @@ public class PerformanceDAO {
 		return getPerformance;
 	}
 
-	public void addPerformance(Performance performance) throws ParseException {
+	public int addPerformance(Performance performance) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		// date from performance object
@@ -86,5 +86,7 @@ public class PerformanceDAO {
 		performance.setDate(newDate);
 		
 		session().saveOrUpdate(performance);
+		int performance_id = performance.getPerformance_id();
+		return performance_id;
 	}
 }

@@ -66,8 +66,8 @@ public class PerformanceController {
 	@RequestMapping(value = "/Performance/AddPerformance", method = RequestMethod.POST, 
 			produces = "application/json")
 	@ResponseBody
-	public void addPerformance(@RequestBody Performance performance) throws ParseException {
-		performanceService.addPerformance(performance);
+	public int addPerformance(@RequestBody Performance performance) throws ParseException {
+		return performanceService.addPerformance(performance);
 	}
 	
 	// add CEO Appraisal

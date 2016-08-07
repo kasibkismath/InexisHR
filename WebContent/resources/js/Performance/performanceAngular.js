@@ -8,6 +8,9 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	$scope.currentUser = currentUser;
 	$scope.baseURL = contextPath;
 	
+	// performance id from Performance
+	$scope.peformance_id = 0;
+	
 	// chart configs
 	$scope.labels = ["January", "February", "March", "April"];
 	  $scope.series = ['Series A', 'Series B', 'Series C'];
@@ -109,6 +112,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	
 	$scope.addPeformance = function(empId, date) {
 		
+		var def = $q.defer();
+		
 		var status = "In-Progress";
 		
 		var performance = {
@@ -119,12 +124,14 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		$http.post($scope.baseURL + '/Performance/AddPerformance', performance)
 		.success(function(result) {
+			def.resolve(result)
 			toaster.pop('success', "Notification", "Added Performance");
 		})
 		.error(function(data, status) {
 			console.log(data);
 			toaster.pop('error', "Notification", "Adding Performance Failed");
 		});
+		return def.promise;
 	}
 	
 	// add CEO Appraisal
@@ -164,7 +171,15 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 								score_task, score_performance, description, total_score);
 					});
 			} else {
-				$scope.addPeformance(emp_id, date);
+				$scope.addPeformance(emp_id, date)
+					.then(function (result) {
+						// performance_id of newly created object
+						var performance_id = result;
+						
+						// creates CEO Appraisal
+						$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor,
+								score_task, score_performance, description, total_score);
+					});
 			}
 		})
 		.error(function(data, status) {
@@ -216,4 +231,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
 	};
+	
+	$scope.$watch('performance_id', function(newValue) {
+		console.log(newValue);
+	});
 }]);

@@ -29,7 +29,7 @@ public class PerformanceService {
 		return performanceDao.getPerformanceId(performance);
 	}
 
-	public void addPerformance(Performance performance) throws ParseException {
-		performanceDao.addPerformance(performance);
+	public int addPerformance(Performance performance) throws ParseException {
+		return performanceDao.addPerformance(performance);
 	}
 }
