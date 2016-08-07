@@ -28,4 +28,8 @@ public class PerformanceService {
 	public Performance getPerformanceId(Performance performance) throws HibernateException, ParseException {
 		return performanceDao.getPerformanceId(performance);
 	}
+
+	public void addPerformance(Performance performance) throws ParseException {
+		performanceDao.addPerformance(performance);
+	}
 }

@@ -119,6 +119,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/AddCEOAppraisal"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/AddPerformance"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

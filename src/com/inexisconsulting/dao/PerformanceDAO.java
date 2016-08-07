@@ -70,4 +70,21 @@ public class PerformanceDAO {
 		Performance getPerformance = (Performance) crit.uniqueResult();
 		return getPerformance;
 	}
+
+	public void addPerformance(Performance performance) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// date from performance object
+		Date date = performance.getDate();
+
+		// convert performance date to string
+		String stringDate = sdf.format(date);
+		
+		// set date
+		Date newDate = sdf.parse(stringDate);
+		
+		performance.setDate(newDate);
+		
+		session().saveOrUpdate(performance);
+	}
 }

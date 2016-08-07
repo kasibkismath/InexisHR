@@ -2,7 +2,8 @@ var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.
                                                  'angular-character-count', 'angular-convert-to-number']);
 
 // Controllers
-performance.controller('performanceMainController', ['$scope', '$http', function($scope, $http) {
+performance.controller('performanceMainController', ['$scope', '$http', '$q', 'toaster', 
+                                                     function($scope, $http, $q, toaster) {
 	
 	$scope.currentUser = currentUser;
 	$scope.baseURL = contextPath;
@@ -106,11 +107,29 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 		});
 	}
 	
+	$scope.addPeformance = function(empId, date) {
+		
+		var status = "In-Progress";
+		
+		var performance = {
+			employee : {empId : empId },
+			date : date,
+			status : status
+		};
+		
+		$http.post($scope.baseURL + '/Performance/AddPerformance', performance)
+		.success(function(result) {
+			toaster.pop('success', "Notification", "Added Performance");
+		})
+		.error(function(data, status) {
+			console.log(data);
+			toaster.pop('error', "Notification", "Adding Performance Failed");
+		});
+	}
+	
 	// add CEO Appraisal
 	$scope.addCEOAppraisal = function(emp_id, year, status, score_skill, score_mentor, score_task,
 			score_performance, description){
-		console.log(emp_id + " " + year + " " + status + " " + score_skill + " " + score_mentor + " " +
-				score_task + " " + score_performance + " " + description);
 		
 		// make month and date default to 1st of December
 		var date = year + '-12-01';
@@ -122,15 +141,30 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 			status: status
 		};
 		
-		var total_score = score_skill  + score_mentor + score_task + score_performance;
+		// covert string scores to integer
+		var int_score_skill = parseInt(score_skill);
+		var int_score_mentor = parseInt(score_mentor);
+		var int_score_task = parseInt(score_task);
+		var int_score_performance = parseInt(score_performance);
+		
+		var total_score = int_score_skill + int_score_mentor + int_score_task + int_score_performance;
 		
 		// checks for performance exists if not creates a performance
 		$http.post($scope.baseURL + '/Performance/CheckPerformanceExists', performance)
 		.success(function(result) {
+			// when exists is true
 			if(result) {
-				var performance_id = $scope.getPerformanceId(performance);
-				$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor,
-						score_task, score_performance, description, total_score);
+				// gets the performance id
+				$scope.getPerformanceId(performance)
+					.then(function (result) {
+						var performance_id = result;
+						
+						// creates CEO Appraisal
+						$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor,
+								score_task, score_performance, description, total_score);
+					});
+			} else {
+				$scope.addPeformance(emp_id, date);
 			}
 		})
 		.error(function(data, status) {
@@ -138,15 +172,18 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 		});
 	};
 	
-	// get performance id
+	// get performance id, $q and defer is used to return the http request result
 	$scope.getPerformanceId = function (performanceObj) {
-		$http.post($scope.baseURL + '/Performance/getPerformanceId', performanceObj)
+		var def = $q.defer();
+		
+		 $http.post($scope.baseURL + '/Performance/getPerformanceId', performanceObj)
 		.success(function(result) {
-			return result.performance_id;
+			def.resolve(result.performance_id);
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
+		return def.promise;
 	};
 	
 	// add appraisal CEO Sub
@@ -161,7 +198,8 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 			score_mentorship : score_mentor,
 			score_task_completion : score_task,
 			score_current_performance : score_performance,
-			total_score : total_score
+			total_score : total_score,
+			description: description
 		};
 		
 		$http.post($scope.baseURL + '/Performance/AddCEOAppraisal', ceo_appraisal)
@@ -174,6 +212,8 @@ performance.controller('performanceMainController', ['$scope', '$http', function
 		})
 		.error(function(data, status) {
 			console.log(data);
+			$('#CEOAddAppraisal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
 	};
 }]);

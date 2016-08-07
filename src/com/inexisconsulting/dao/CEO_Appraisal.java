@@ -31,6 +31,8 @@ public class CEO_Appraisal {
 	private String description;
 	private int total_score;
 	
+	public CEO_Appraisal() {}
+	
 	public CEO_Appraisal(int ceo_appraisal_id, Employee employee, Performance performance, int score_skill,
 			int score_mentorship, int score_task_completion, int score_current_performance, String status,
 			String description, int total_score) {

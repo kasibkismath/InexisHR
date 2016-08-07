@@ -62,6 +62,14 @@ public class PerformanceController {
 		return performanceService.getPerformanceId(performance);
 	}
 	
+	// add performance
+	@RequestMapping(value = "/Performance/AddPerformance", method = RequestMethod.POST, 
+			produces = "application/json")
+	@ResponseBody
+	public void addPerformance(@RequestBody Performance performance) throws ParseException {
+		performanceService.addPerformance(performance);
+	}
+	
 	// add CEO Appraisal
 	@RequestMapping(value = "/Performance/AddCEOAppraisal", method = RequestMethod.POST, 
 			produces = "application/json")
