@@ -17,9 +17,15 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$scope.getAllEmployees();
 		$scope.getScoreValues();
 		$scope.getAllPerformanceAppraisals();
-		$scope.getLoggedInEmployee();
+		$scope.getLoggedInEmployee()
+			.then(function(result) {
+				$scope.loggedInEmpId = result;
+				$scope.getTeamEmployeeById(result);
+			});
 		$scope.summaryChartCEO();
 		$scope.summaryChartLead();
+		/*$scope.getTeamEmployeeById($scope.loggedInEmpId);*/
+		console.log($scope.loggedInEmpId);
 	 };
 	
 	// ceo summary chart configs
@@ -125,15 +131,19 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	};
 	
 	$scope.getLoggedInEmployee = function() {
+		var def = $q.defer();
+		
 		var user = {username : $scope.currentUser};
 		
 		$http.post($scope.baseURL + '/administration/user/currentUser', user)
 		.success(function(result) {
-			$scope.loggedInEmpId = result.employee.empId;
+			def.resolve(result.employee.empId);
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
+		
+		return def.promise;
 	};
 	
 	// get all performance_appraisals
@@ -268,6 +278,23 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
 	};
+	
+	//getTeamEmployeeByLeadEmpId
+	$scope.getTeamEmployeeById = function (empId) {
+		
+		var team = {
+			employee:{empId:empId}
+		};
+		
+		$http.post($scope.baseURL + '/Performance/GetTeamEmployeeById', team)
+		.success(function(result) {
+			
+		})
+		.error(function(data, status) {
+			console.log(data);
+			
+		});
+	}
 	
 	// add team lead appraisal
 	$scope.addLeadAppraisal = function() {
