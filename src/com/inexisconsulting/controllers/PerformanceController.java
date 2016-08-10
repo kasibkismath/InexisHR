@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Performance;
+import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.service.CEO_AppraisalService;
 import com.inexisconsulting.service.PerformanceService;
+import com.inexisconsulting.service.Team_EmployeeService;
 
 @Controller
 public class PerformanceController {
@@ -26,6 +28,9 @@ public class PerformanceController {
 	
 	@Autowired
 	private CEO_AppraisalService ceoAppraisalService;
+	
+	@Autowired
+	private Team_EmployeeService teamEmployeeService;
 
 	@RequestMapping("/Performance")
 	public String showPerformanceMainPage(Model model, Principal principal) {
@@ -76,5 +81,13 @@ public class PerformanceController {
 	@ResponseBody
 	public void addCEOAppraisal(@RequestBody CEO_Appraisal ceo_appraisal) {
 		ceoAppraisalService.addCEOAppraisal(ceo_appraisal);
+	}
+	
+	//getTeamEmployeeByLeadId
+	@RequestMapping(value = "/Performance/GetTeamEmployeeByLeadId", method = RequestMethod.POST, 
+			produces = "application/json")
+	@ResponseBody
+	public List<Team_Employee> getTeamEmployeesByLeadId(@RequestBody Team_Employee team_employee) {
+		return teamEmployeeService.getTeamEmployeesByLeadId(team_employee);
 	}
 }

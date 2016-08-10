@@ -20,7 +20,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$scope.getLoggedInEmployee()
 			.then(function(result) {
 				$scope.loggedInEmpId = result;
-				$scope.getTeamEmployeeById(result);
+				$scope.getTeamEmployeesByLeadId(result);
 			});
 		$scope.summaryChartCEO();
 		$scope.summaryChartLead();
@@ -279,16 +279,16 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
-	//getTeamEmployeeByLeadEmpId
-	$scope.getTeamEmployeeById = function (empId) {
+	//getTeamEmployeesByLeadId
+	$scope.getTeamEmployeesByLeadId = function (empId) {
 		
 		var team = {
 			employee:{empId:empId}
 		};
 		
-		$http.post($scope.baseURL + '/Performance/GetTeamEmployeeById', team)
+		$http.post($scope.baseURL + '/Performance/GetTeamEmployeeByLeadId', team)
 		.success(function(result) {
-			
+			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
