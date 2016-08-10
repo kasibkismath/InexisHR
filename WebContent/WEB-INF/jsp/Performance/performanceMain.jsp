@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en" ng-modules="performance, adminHeader">
 <head>
@@ -52,36 +53,68 @@
 <body ng-controller="performanceMainController" ng-init="init()" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
-
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12">
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#summary"
-						aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
-					<li role="presentation"><a href="#appraisals"
-						aria-controls="profile" role="tab" data-toggle="tab">Appraisals</a></li>
-				</ul>
+	
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#summary"
+							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+						<li role="presentation"><a href="#appraisals"
+							aria-controls="profile" role="tab" data-toggle="tab">Appraisals</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xs-6 col-lg-12">
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane fade in active" id="summary">
-						<jsp:include page="summary.jsp"></jsp:include>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="appraisals">
-						<jsp:include page="appraisals.jsp"></jsp:include>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-lg-12">
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="summary">
+							<jsp:include page="CEO/summary.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="appraisals">
+							<jsp:include page="CEO/appraisals.jsp"></jsp:include>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</sec:authorize>
 	
+	<sec:authorize access="hasRole('ROLE_LEAD')">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#summaryLead"
+							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+						<li role="presentation"><a href="#appraisalsLead"
+							aria-controls="profile" role="tab" data-toggle="tab">Appraisals</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-lg-12">
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="summaryLead">
+							<jsp:include page="Lead/summaryLead.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="appraisalsLead">
+							<jsp:include page="Lead/leadAppraisals.jsp"></jsp:include>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</sec:authorize>
 	<!-- toaster -->
 	<toaster-container></toaster-container>
 	

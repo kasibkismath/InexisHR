@@ -11,46 +11,83 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	// performance id from Performance
 	$scope.peformance_id = 0;
 	
-	// chart configs
-	$scope.labels = ["January", "February", "March", "April"];
-	  $scope.series = ['Series A', 'Series B', 'Series C'];
-	  $scope.data = [
-	    [10, 4, 30, 15],
-	    [25, 20, 13, 22],
-	    [1, 15, 7, 12]
-	  ];
-	  $scope.onClick = function (points, evt) {
-	    console.log(points, evt);
-	  };
-	  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-	  $scope.options = {
-	    scales: {
-	      yAxes: [
-	        {
-	          id: 'y-axis-1',
-	          type: 'linear',
-	          display: true,
-	          position: 'left'
-	        },
-	        {
-	          id: 'y-axis-2',
-	          type: 'linear',
-	          display: true,
-	          position: 'right'
-	        }
-	      ]
-	    }
-	  };
-	  
-	  // init method when page loads
-	  $scope.init = function() {
+	// init method when page loads
+	$scope.init = function() {
 		$scope.getAppraisalYears();
 		$scope.getAllEmployees();
 		$scope.getScoreValues();
 		$scope.getAllPerformanceAppraisals();
 		$scope.getLoggedInEmployee();
+		$scope.summaryChartCEO();
+		$scope.summaryChartLead();
+	 };
+	
+	// ceo summary chart configs
+	$scope.summaryChartCEO = function() {
+		$scope.labels = ["January", "February", "March", "April"];
+		  $scope.series = ['Series A', 'Series B', 'Series C'];
+		  $scope.data = [
+		    [10, 4, 30, 15],
+		    [25, 20, 13, 22],
+		    [1, 15, 7, 12]
+		  ];
+		  $scope.onClick = function (points, evt) {
+		    console.log(points, evt);
+		  };
+		  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+		  $scope.options = {
+		    scales: {
+		      yAxes: [
+		        {
+		          id: 'y-axis-1',
+		          type: 'linear',
+		          display: true,
+		          position: 'left'
+		        },
+		        {
+		          id: 'y-axis-2',
+		          type: 'linear',
+		          display: true,
+		          position: 'right'
+		        }
+		      ]
+		    }
+		  };
+		};
+		
+		// Lead summary chart configs
+		$scope.summaryChartLead = function() {
+			$scope.labels = ["January", "February", "March", "April"];
+			  $scope.series = ['Series A', 'Series B', 'Series C'];
+			  $scope.data = [
+			    [10, 4, 30, 15],
+			    [25, 20, 13, 22],
+			    [1, 15, 7, 12]
+			  ];
+			  $scope.onClick = function (points, evt) {
+			    console.log(points, evt);
+			  };
+			  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+			  $scope.options = {
+			    scales: {
+			      yAxes: [
+			        {
+			          id: 'y-axis-1',
+			          type: 'linear',
+			          display: true,
+			          position: 'left'
+			        },
+			        {
+			          id: 'y-axis-2',
+			          type: 'linear',
+			          display: true,
+			          position: 'right'
+			        }
+			      ]
+			    }
+			  };
 	  };
-	  
+	
 	  // list appraisal year
 	  $scope.getAppraisalYears = function() {
 		  var startYear = '2011';
@@ -232,7 +269,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
-	$scope.$watch('performance_id', function(newValue) {
-		console.log(newValue);
-	});
+	// add team lead appraisal
+	$scope.addLeadAppraisal = function() {
+		
+	}
 }]);

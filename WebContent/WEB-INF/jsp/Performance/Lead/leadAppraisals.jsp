@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
-		<button class="btn btn-success pull-right addAppraisalBtn" data-toggle="modal" data-target="#CEOAddAppraisal">
+		<button class="btn btn-success pull-right addAppraisalBtn" data-toggle="modal" data-target="#LeadAddAppraisal">
 			<i class="fa fa-plus-circle"></i> Add New Appraisal
 		</button>
 	</div>
@@ -68,5 +68,5 @@
  			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
 		</li>
 	</ul>
-	<jsp:include page="CEO/addAppraisal.jsp"></jsp:include>
+	<jsp:include page="addLeadAppraisal.jsp"></jsp:include>
 </div>
