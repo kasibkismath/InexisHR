@@ -150,15 +150,17 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div role="alert" class="alert alert-warning warningPad" 
-							ng-show='error'>
-							<strong>Error!</strong> {{error}}
+						<div ng-messages="addNewEmpForm.hireDate.$error" role="alert" ng-if="addNewEmpForm.hireDate.$dirty">
+							<div ng-message="required" class="alert alert-danger padded">
+								<strong>Error!</strong> Hired Date is required
+							</div>
 						</div>
-						<label class="col-sm-2 control-label">Hire Date</label>
+						<label class="col-sm-2 control-label">Hired Date</label>
 						<div class="col-sm-10">
 							<datepicker date-format="yyyy-MM-dd" selector="form-control" date-max-limit="{{hireDate | date:'yyyy-MM-dd'}}">
 							    <div class="input-group">
-							        <input class="form-control" placeholder="Choose a date" ng-model="saveNewHireDate"/>
+							        <input class="form-control" placeholder="Choose a date" name="hireDate"
+							        ng-model="saveNewHireDate" required/>
 							        <span class="input-group-addon" style="cursor: pointer">
 							        <i class="fa fa-lg fa-calendar"></i>
 							        </span>

@@ -10,10 +10,18 @@
 			</div>
 			<div class="modal-body">
 				<form name="leadAddAppraisalForm" class="form-horizontal"
-					ng-submit="leadAddAppraisalForm.$valid && 
+					ng-submit="leadAddAppraisalForm.$valid && checkAppraisalYear(saveNewLeadEmployee, saveNewLeadYear) && 
+					appraisalYearResult === true &&
 					addLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewLeadStatus, 
 					saveNewLeadSkillScore, saveNewLeadMentorshipScore, saveNewLeadTaskCompScore, 
 					saveNewLeadCurrPerformanceScore)">
+					
+					<div role="alert" class="alert alert-danger padded" 
+							ng-show="appraisalYearResult === false">
+						<strong>Error!</strong> Appraisal Year cannot be less than Hired Date.
+					</div>
+					
+					
 					<div class="form-group">
 						<div role="alert" class="alert alert-danger padded" 
 							ng-show="leadAddAppraisalForm.employee.$error.required" 
@@ -26,7 +34,8 @@
 								required>
 								<option value="">Select an employee</option>
 								<option ng-repeat="teamMember in teamMembersByLead" value="{{teamMember.empId}}"
-								ng-if="teamMember.empId != loggedInEmpId">{{teamMember.firstName}} {{teamMember.lastName}}</option>
+								ng-if="teamMember.empId != loggedInEmpId && teamMember.status === true">
+								{{teamMember.firstName}} {{teamMember.lastName}}</option>
 							</select>
 						</div>
 					</div>

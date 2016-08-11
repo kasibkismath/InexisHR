@@ -70,4 +70,8 @@ public class EmployeeService {
 	public User getEmployeeByUsername(User user) {
 		return employeeDao.getEmployeeByUsername(user);
 	}
+
+	public Employee getHiredDate(Employee employee) {
+		return employeeDao.getHiredDate(employee);
+	}
 }

@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.CEO_Appraisal;
+import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.service.CEO_AppraisalService;
+import com.inexisconsulting.service.EmployeeService;
+import com.inexisconsulting.service.Lead_AppraisalService;
 import com.inexisconsulting.service.PerformanceService;
 import com.inexisconsulting.service.Team_EmployeeService;
 
@@ -25,12 +29,18 @@ public class PerformanceController {
 
 	@Autowired
 	private PerformanceService performanceService;
-	
+
 	@Autowired
 	private CEO_AppraisalService ceoAppraisalService;
 	
 	@Autowired
+	private Lead_AppraisalService leadAppraisalService;
+
+	@Autowired
 	private Team_EmployeeService teamEmployeeService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 
 	@RequestMapping("/Performance")
 	public String showPerformanceMainPage(Model model, Principal principal) {
@@ -42,8 +52,7 @@ public class PerformanceController {
 		return "Performance/performanceMain";
 	}
 
-	@RequestMapping(value = "/Performance/AllPerformanceAppraisals", method = RequestMethod.GET, 
-			produces = "application/json")
+	@RequestMapping(value = "/Performance/AllPerformanceAppraisals", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<Performance> getPerformanceAppraisals() {
 		List<Performance> performances = performanceService.getPerformanceAppraisals();
@@ -51,41 +60,50 @@ public class PerformanceController {
 	}
 
 	// check if performance exists
-	@RequestMapping(value = "/Performance/CheckPerformanceExists", method = RequestMethod.POST, 
-			produces = "application/json")
+	@RequestMapping(value = "/Performance/CheckPerformanceExists", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public boolean checkPerformanceExists(@RequestBody Performance performance)
 			throws HibernateException, ParseException {
 		return performanceService.checkPerformanceExists(performance);
 	}
 
-	@RequestMapping(value = "/Performance/getPerformanceId", method = RequestMethod.POST, 
-			produces = "application/json")
+	@RequestMapping(value = "/Performance/getPerformanceId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Performance getPerformanceId(@RequestBody Performance performance) 
-			throws HibernateException, ParseException{
+	public Performance getPerformanceId(@RequestBody Performance performance)
+			throws HibernateException, ParseException {
 		return performanceService.getPerformanceId(performance);
 	}
-	
+
 	// add performance
-	@RequestMapping(value = "/Performance/AddPerformance", method = RequestMethod.POST, 
-			produces = "application/json")
+	@RequestMapping(value = "/Performance/AddPerformance", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public int addPerformance(@RequestBody Performance performance) throws ParseException {
 		return performanceService.addPerformance(performance);
 	}
-	
+
 	// add CEO Appraisal
-	@RequestMapping(value = "/Performance/AddCEOAppraisal", method = RequestMethod.POST, 
-			produces = "application/json")
+	@RequestMapping(value = "/Performance/AddCEOAppraisal", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void addCEOAppraisal(@RequestBody CEO_Appraisal ceo_appraisal) {
 		ceoAppraisalService.addCEOAppraisal(ceo_appraisal);
 	}
+
+	// add Lead Appraisal
+	@RequestMapping(value = "/Performance/AddLeadAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addLeadAppraisal(@RequestBody Lead_Appraisal lead_appraisal) {
+		leadAppraisalService.addLeadAppraisal(lead_appraisal);
+	}
 	
-	//getTeamEmployeeByLeadId
-	@RequestMapping(value = "/Performance/GetTeamEmployeeByLeadId", method = RequestMethod.POST, 
-			produces = "application/json")
+	// get hiredDate
+	@RequestMapping(value = "/Performance/CheckAppraisalYear", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Employee getHiredDate(@RequestBody Employee employee) {
+		return employeeService.getHiredDate(employee);
+	}
+
+	// getTeamEmployeeByLeadId
+	@RequestMapping(value = "/Performance/GetTeamEmployeeByLeadId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<Team_Employee> getTeamEmployeesByLeadId(@RequestBody Team_Employee team_employee) {
 		return teamEmployeeService.getTeamEmployeesByLeadId(team_employee);

@@ -168,4 +168,11 @@ public class EmployeeDAO {
 		User userFetched = (User)crit.uniqueResult(); 
 		return userFetched;
 	}
+
+	public Employee getHiredDate(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee empHiredDate = (Employee)crit.uniqueResult();
+		return empHiredDate;
+	}
 }

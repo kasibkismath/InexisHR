@@ -123,6 +123,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/GetTeamEmployeeByLeadId"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/AddLeadAppraisal"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/CheckAppraisalYear"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
