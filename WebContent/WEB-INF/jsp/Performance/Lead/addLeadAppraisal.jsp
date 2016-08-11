@@ -25,8 +25,8 @@
 							<select ng-model="saveNewLeadEmployee" name="employee" class="form-control" 
 								required>
 								<option value="">Select an employee</option>
-								<option ng-repeat="employee in employees" value="{{employee.empId}}"
-								ng-if="employee.empId != loggedInEmpId">{{employee.firstName}} {{employee.lastName}}</option>
+								<option ng-repeat="teamMember in teamMembersByLead" value="{{teamMember.empId}}"
+								ng-if="teamMember.empId != loggedInEmpId">{{teamMember.firstName}} {{teamMember.lastName}}</option>
 							</select>
 						</div>
 					</div>

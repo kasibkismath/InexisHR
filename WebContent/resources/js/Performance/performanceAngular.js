@@ -288,7 +288,14 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		$http.post($scope.baseURL + '/Performance/GetTeamEmployeeByLeadId', team)
 		.success(function(result) {
-			console.log(result);
+			/*$scope.teamMemberName = [];
+			$scope.teamMemberEmpId = [];
+			
+			angular.forEach(result, function(value, key) {
+				$scope.teamMemberName = value.firstName + " " + value.lastName;
+				$scope.teamMemberEmpId = value.empId;
+			});*/
+			$scope.teamMembersByLead = result;
 		})
 		.error(function(data, status) {
 			console.log(data);
