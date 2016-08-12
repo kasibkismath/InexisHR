@@ -7,6 +7,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	
 	$scope.currentUser = currentUser;
 	$scope.baseURL = contextPath;
+	$scope.currentUserRole = currentUserRole;
 	
 	// performance id from Performance
 	$scope.peformance_id = 0;
@@ -21,11 +22,13 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			.then(function(result) {
 				$scope.loggedInEmpId = result;
 				$scope.getTeamEmployeesByLeadId(result);
+				
+				// get team by current logged in user team lead id, user role is ROLE_LEAD
+				if($scope.currentUserRole === '[ROLE_LEAD]')
+					$scope.getTeamsByLeadId(result);
 			});
 		$scope.summaryChartCEO();
 		$scope.summaryChartLead();
-		/*$scope.getTeamEmployeeById($scope.loggedInEmpId);*/
-		console.log($scope.loggedInEmpId);
 	 };
 	
 	// ceo summary chart configs
@@ -140,8 +143,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				} else {
 					$scope.appraisalYearResult = false;
 				}
-				
-				console.log($scope.appraisalYearResult);
 			})
 			.error(function(data, status) {
 				console.log(data);
@@ -308,6 +309,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
+					/* -------------------- Team Lead Appraisal -------------------*/
+	
 	//getTeamEmployeesByLeadId
 	$scope.getTeamEmployeesByLeadId = function (empId) {
 		
@@ -323,13 +326,33 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			console.log(data);
 			
 		});
-	}
+	};
 	
-					/* -------------------- Team Lead Appraisal -------------------*/
+	// get teams belonging to team lead ID
+	$scope.getTeamsByLeadId = function (empId) {
+		
+		// set team lead id as the current user id
+		var team = {
+			employee : {empId : empId}
+		};
+		
+		$http.post($scope.baseURL + '/Performance/GetTeamsByLeadId', team)
+		.success(function(result) {
+			$scope.teamsByLeadId = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+			
+		});
+		
+		
+	};
 	
 	// add team lead appraisal
-	$scope.addLeadAppraisal = function(emp_id, year, status, score_skill, score_mentor, score_task,
+	$scope.addLeadAppraisal = function(emp_id, year, status, team_Id, score_skill, score_mentor, score_task,
 			score_performance) {
+		
+		console.log(team_Id);
 		
 		// make month and date default to 1st of December
 		var date = year + '-12-31';
@@ -361,7 +384,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 						var performance_id = result;
 						
 						// creates Lead Appraisal
-						$scope.addAppraisalLead(emp_id, performance_id, status, score_skill, score_mentor,
+						$scope.addAppraisalLead(emp_id, performance_id, status, team_Id, score_skill, score_mentor,
 								score_task, score_performance, total_score);
 					});
 			} else {
@@ -371,7 +394,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 						var performance_id = result;
 						
 						// creates Lead Appraisal
-						$scope.addAppraisalLead(emp_id, performance_id, status, score_skill, score_mentor,
+						$scope.addAppraisalLead(emp_id, performance_id, status, team_Id, score_skill, score_mentor,
 								score_task, score_performance, total_score);
 					});
 			}
@@ -382,7 +405,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	}
 	
 	// add appraisal Lead Sub
-	$scope.addAppraisalLead = function (emp_id, performance_id, status, score_skill, score_mentor,
+	$scope.addAppraisalLead = function (emp_id, performance_id, status, team_Id, score_skill, score_mentor,
 			score_task, score_performance, total_score) {
 		
 		var lead_appraisal = {
@@ -394,6 +417,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			score_task_completion : score_task,
 			score_current_performance : score_performance,
 			total_score : total_score,
+			team : {team_Id : team_Id}
 		};
 		
 		$http.post($scope.baseURL + '/Performance/AddLeadAppraisal', lead_appraisal)
@@ -410,5 +434,25 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
 	};
+	
+	$scope.checkDuplicateLeadAppraisal = function(empId, year) {
+		// make the year default to year and 31st of December
+		var appraisalYear = year + "-12-31";
+		
+		// send the data via angular http post
+		var data = {
+			employee : {empId : empId},
+			performance : {date : appraisalYear}
+		};
+		
+		// angular AJAX call
+		$http.post($scope.baseURL + '/Performance/CheckDuplicateLeadAppraisal', data)
+		 .success(function(result) {
+			 	console.log(result);
+			})
+			.error(function(data, status) {
+				console.log(data);
+			})
+	}
 	
 }]);

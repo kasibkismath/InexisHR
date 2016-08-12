@@ -124,6 +124,8 @@
 	</script>
 	<script>var currentUser = "${loggedInUser}" </script>
 	
+	<script>var currentUserRole = "${loggedInUserRole}" </script>
+	
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script

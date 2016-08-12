@@ -11,16 +11,10 @@
 			<div class="modal-body">
 				<form name="leadAddAppraisalForm" class="form-horizontal"
 					ng-submit="leadAddAppraisalForm.$valid && checkAppraisalYear(saveNewLeadEmployee, saveNewLeadYear) && 
-					appraisalYearResult === true &&
-					addLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewLeadStatus, 
+					appraisalYearResult === true && checkDuplicateLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear) &&
+					addLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewLeadStatus, saveNewTeam,
 					saveNewLeadSkillScore, saveNewLeadMentorshipScore, saveNewLeadTaskCompScore, 
 					saveNewLeadCurrPerformanceScore)">
-					
-					<div role="alert" class="alert alert-danger padded" 
-							ng-show="appraisalYearResult === false">
-						<strong>Error!</strong> Appraisal Year cannot be less than Hired Date.
-					</div>
-					
 					
 					<div class="form-group">
 						<div role="alert" class="alert alert-danger padded" 
@@ -67,6 +61,22 @@
 								<option value="">Select status</option>
 								<option value="In-Progess">In Progess</option>
 								<option value="Completed">Completed</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="leadAddAppraisalForm.team.$error.required" 
+							ng-if="leadAddAppraisalForm.team.$dirty">
+							<strong>Error!</strong> Team is required, please select one.
+						</div>
+						 <label class="col-sm-2 control-label">Team</label>
+						 <div class="col-sm-10">
+							<select ng-model="saveNewTeam" name="team" class="form-control" 
+								required>
+								<option value="">Select a team</option>
+								<option ng-repeat="team in teamsByLeadId" value="{{team.team_Id}}">
+								{{team.team_name}}</option>
 							</select>
 						</div>
 					</div>
@@ -129,6 +139,10 @@
 								<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 							</select>
 						</div>
+					</div>
+					<div role="alert" class="alert alert-danger padded" 
+							ng-show="appraisalYearResult === false">
+						<strong>Error!</strong> Appraisal Year cannot be less than Employee Hired Date.
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

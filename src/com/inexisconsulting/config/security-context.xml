@@ -127,6 +127,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/CheckAppraisalYear"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetTeamsByLeadId"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-@Component("teamEmployeeDao")
-public class Team_EmployeeDAO {
-
+@Component("teamDao")
+public class TeamDAO {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -21,14 +21,15 @@ public class Team_EmployeeDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Team_Employee> getTeamEmployeesByLeadId(Team_Employee team_employee) {
-		String hql = "select te.employee as employee " + 
-				"from Team_Employee as te inner join te.team as t where t.employee.emp_id=:empId";
+	public List<Team> getTeamByLeadId(Team team) {
+		
+		String hql = "from Team as tm where tm.employee.emp_id=:empId";
 		
 		Query query = session().createQuery(hql);
-		query.setParameter("empId", team_employee.getEmployee().getEmpId());
+		query.setParameter("empId", team.getEmployee().getEmpId());
 		
-		List<Team_Employee> listResult = query.list();	
+		List<Team> listResult = query.list();
 		return listResult;
 	}
+
 }

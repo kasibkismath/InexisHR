@@ -2,10 +2,13 @@ package com.inexisconsulting.controllers;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +20,13 @@ import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
+import com.inexisconsulting.dao.Team;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.service.CEO_AppraisalService;
 import com.inexisconsulting.service.EmployeeService;
 import com.inexisconsulting.service.Lead_AppraisalService;
 import com.inexisconsulting.service.PerformanceService;
+import com.inexisconsulting.service.TeamService;
 import com.inexisconsulting.service.Team_EmployeeService;
 
 @Controller
@@ -32,23 +37,34 @@ public class PerformanceController {
 
 	@Autowired
 	private CEO_AppraisalService ceoAppraisalService;
-	
+
 	@Autowired
 	private Lead_AppraisalService leadAppraisalService;
 
 	@Autowired
 	private Team_EmployeeService teamEmployeeService;
-	
+
+	@Autowired
+	private TeamService teamService;
+
 	@Autowired
 	private EmployeeService employeeService;
 
 	@RequestMapping("/Performance")
+	@SuppressWarnings("unchecked")
 	public String showPerformanceMainPage(Model model, Principal principal) {
+		
+		// get current role
+		Collection<SimpleGrantedAuthority> authorities = 
+				(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
+				.getAuthentication().getAuthorities();
+		
 
-		// get logged in username
+		// get logged in username and user role
 		String loggedInUser = principal.getName();
 		model.addAttribute("loggedInUser", loggedInUser);
-
+		model.addAttribute("loggedInUserRole", authorities);
+		
 		return "Performance/performanceMain";
 	}
 
@@ -94,7 +110,7 @@ public class PerformanceController {
 	public void addLeadAppraisal(@RequestBody Lead_Appraisal lead_appraisal) {
 		leadAppraisalService.addLeadAppraisal(lead_appraisal);
 	}
-	
+
 	// get hiredDate
 	@RequestMapping(value = "/Performance/CheckAppraisalYear", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -107,5 +123,12 @@ public class PerformanceController {
 	@ResponseBody
 	public List<Team_Employee> getTeamEmployeesByLeadId(@RequestBody Team_Employee team_employee) {
 		return teamEmployeeService.getTeamEmployeesByLeadId(team_employee);
+	}
+
+	// getTeamsByLeadId
+	@RequestMapping(value = "/Performance/GetTeamsByLeadId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Team> getTeamsByLeadId(@RequestBody Team team) {
+		return teamService.getTeamsByLeadId(team);
 	}
 }

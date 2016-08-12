@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,6 +23,10 @@ public class Lead_Appraisal {
 	@OneToOne
 	@JoinColumn(name = "performance_id")
 	private Performance performance;
+	
+	@ManyToOne
+	@JoinColumn(name = "team_id")
+	private Team team;
 
 	private int score_skill;
 	private int score_mentorship;
@@ -36,7 +41,7 @@ public class Lead_Appraisal {
 
 	public Lead_Appraisal(int lead_appraisal_id, Employee employee, Performance performance, int score_skill,
 			int score_mentorship, int score_task_completion, int score_current_performance, String status,
-			int total_score) {
+			int total_score, Team team) {
 		this.lead_appraisal_id = lead_appraisal_id;
 		this.employee = employee;
 		this.performance = performance;
@@ -46,6 +51,7 @@ public class Lead_Appraisal {
 		this.score_current_performance = score_current_performance;
 		this.status = status;
 		this.total_score = total_score;
+		this.team = team;
 	}
 
 	public int getLead_appraisal_id() {
@@ -120,4 +126,11 @@ public class Lead_Appraisal {
 		this.total_score = total_score;
 	}
 
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
 }

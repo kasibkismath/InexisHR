@@ -10,7 +10,8 @@
 			</div>
 			<div class="modal-body">
 				<form name="ceoAddAppraisalForm" class="form-horizontal"
-					ng-submit="ceoAddAppraisalForm.$valid && 
+					ng-submit="ceoAddAppraisalForm.$valid && checkAppraisalYear(saveNewLeadEmployee, saveNewLeadYear) && 
+					appraisalYearResult === true && 
 					addCEOAppraisal(saveNewCEOEmployee, saveNewCEOYear, saveNewCEOStatus, 
 					saveNewCEOSkillScore, saveNewCEOMentorshipScore, saveNewCEOTaskCompScore, 
 					saveNewCEOCurrPerformanceScore, saveNewCEODesc)">
@@ -138,6 +139,10 @@
 								placeholder="Enter description" ng-model="saveNewCEODesc" ng-maxlength="10000" 
 								required char-count warning-count="25" danger-count="10"></textarea>
 						</div>
+					</div>
+					<div role="alert" class="alert alert-danger padded" 
+							ng-show="appraisalYearResult === false">
+						<strong>Error!</strong> Appraisal Year cannot be less than Employee Hired Date.
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
