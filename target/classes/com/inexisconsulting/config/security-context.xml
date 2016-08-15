@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<security:authentication-manager>
-
 		<security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
@@ -137,6 +136,8 @@
 		<security:intercept-url pattern="/static/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/**" access="denyAll" />
+		
+		
 		<security:form-login login-page="/"
 			authentication-failure-url="/?error=true"
 			authentication-success-handler-ref="customAuthenticationSuccessHandler" />
@@ -145,6 +146,7 @@
 			invalidate-session="true" delete-cookies="JSESSIONID" />
 		<security:remember-me key="HRAppKey"
 			user-service-ref="JDBCAuthManager" />
+			
 	</security:http>
 
 	<bean id="passwordEncoder"

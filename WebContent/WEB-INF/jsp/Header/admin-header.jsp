@@ -13,8 +13,8 @@
 					class="icon-bar"></span>
 			</button>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-main-menu"><img id="inexisBrand"
-				class="img-responsive" alt="brand"
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/admin-main-menu">
+				<img id="inexisBrand" class="img-responsive" alt="brand"
 				src="${pageContext.request.contextPath}/static/images/inexis-brand.jpg"></a>
 			</sec:authorize>
 			

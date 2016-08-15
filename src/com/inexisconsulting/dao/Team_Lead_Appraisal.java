@@ -28,16 +28,19 @@ public class Team_Lead_Appraisal {
 	private int score_mentorship;
 	private int score_task_completion;
 	private int score_current_performance;
+	private int total_score;
 	private String status;
 
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
-	
-	public Team_Lead_Appraisal() {}
+
+	public Team_Lead_Appraisal() {
+	}
 
 	public Team_Lead_Appraisal(int team_lead_appraisal_id, Employee employee, Performance performance, int score_skill,
-			int score_mentorship, int score_task_completion, int score_current_performance, String status, Team team) {
+			int score_mentorship, int score_task_completion, int score_current_performance, String status, Team team,
+			int total_score) {
 		this.team_lead_appraisal_id = team_lead_appraisal_id;
 		this.employee = employee;
 		this.performance = performance;
@@ -47,6 +50,7 @@ public class Team_Lead_Appraisal {
 		this.score_current_performance = score_current_performance;
 		this.status = status;
 		this.team = team;
+		this.total_score = total_score;
 	}
 
 	public int getTeam_lead_appraisal_id() {
@@ -121,4 +125,11 @@ public class Team_Lead_Appraisal {
 		this.team = team;
 	}
 
+	public int getTotal_score() {
+		return total_score;
+	}
+
+	public void setTotal_score(int total_score) {
+		this.total_score = total_score;
+	}
 }

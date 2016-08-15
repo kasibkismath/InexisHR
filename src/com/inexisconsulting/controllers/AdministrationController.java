@@ -22,7 +22,7 @@ import com.inexisconsulting.service.UserService;
 
 @Controller
 public class AdministrationController {
-
+	
 	@Autowired
 	private UserService userService;
 
@@ -43,7 +43,6 @@ public class AdministrationController {
 		User currUser = userService.getCurrentUser(user);
 		return currUser;
 	}
-	
 
 	@RequestMapping(value = "/administration/user/all", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -84,10 +83,7 @@ public class AdministrationController {
 		return userService.checkUserExists(user);
 	}
 
-	/*
-	 * Database Backup and Restore Code
-	 * 
-	 */
+	// Database Backup and Restore Code
 
 	@RequestMapping(value = "/backupDatabase", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

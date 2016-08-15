@@ -10,12 +10,10 @@
 			</div>
 			<div class="modal-body">
 				<form name="leadAddAppraisalForm" class="form-horizontal"
-					ng-submit="leadAddAppraisalForm.$valid && checkAppraisalYear(saveNewLeadEmployee, saveNewLeadYear) && 
-					appraisalYearResult === true && checkDuplicateLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear) &&
-					addLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewLeadStatus, saveNewTeam,
+					ng-submit="leadAddAppraisalForm.$valid && appraisalYearResult === true &&
+					addLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewLeadStatus, saveNewTeam, 
 					saveNewLeadSkillScore, saveNewLeadMentorshipScore, saveNewLeadTaskCompScore, 
 					saveNewLeadCurrPerformanceScore)">
-					
 					<div class="form-group">
 						<div role="alert" class="alert alert-danger padded" 
 							ng-show="leadAddAppraisalForm.employee.$error.required" 
@@ -39,10 +37,15 @@
 							ng-if="leadAddAppraisalForm.year.$dirty">
 							<strong>Error!</strong> Year is required, please select one.
 						</div>
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="appraisalYearResult === false">
+						<strong>Error!</strong> Appraisal Year cannot be less than Employee Hired Date.
+						</div>
 						 <label class="col-sm-2 control-label">Year</label>
 						 <div class="col-sm-10">
 							<select ng-model="saveNewLeadYear" name="year" class="form-control" 
-								required>
+								required 
+								ng-change="checkAppraisalYear(saveNewLeadEmployee,saveNewLeadYear)">
 								<option value="">Select a year</option>
 								<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 							</select>
@@ -139,10 +142,6 @@
 								<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 							</select>
 						</div>
-					</div>
-					<div role="alert" class="alert alert-danger padded" 
-							ng-show="appraisalYearResult === false">
-						<strong>Error!</strong> Appraisal Year cannot be less than Employee Hired Date.
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

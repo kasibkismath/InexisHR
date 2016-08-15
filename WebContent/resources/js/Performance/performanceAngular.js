@@ -344,8 +344,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			console.log(data);
 			
 		});
-		
-		
 	};
 	
 	// add team lead appraisal
@@ -453,6 +451,5 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			.error(function(data, status) {
 				console.log(data);
 			})
-	}
-	
+	};
 }]);
