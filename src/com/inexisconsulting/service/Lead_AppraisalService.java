@@ -1,5 +1,8 @@
 package com.inexisconsulting.service;
 
+import java.text.ParseException;
+
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +17,9 @@ public class Lead_AppraisalService {
 	
 	public void addLeadAppraisal(Lead_Appraisal lead_appraisal) {
 		leadAppraisalDao.addLeadAppraisal(lead_appraisal);
+	}
+
+	public boolean checkDuplicateLeadAppraisal(Lead_Appraisal lead_Appraisal) throws HibernateException, ParseException {
+		return leadAppraisalDao.checkDuplicateLeadAppraisal(lead_Appraisal);
 	}
 }

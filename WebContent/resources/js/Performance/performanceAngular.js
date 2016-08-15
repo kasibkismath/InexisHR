@@ -122,33 +122,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		  }; 
 	  }
 	  
-	 // check if appraisal year is more than or equal to the hired date
-	 $scope.checkAppraisalYear = function (empId, year) {
-		 
-		 var appraisalYear =  new Date(year + "-12-31");
-		 
-		 var data = {
-			empId : empId
-		 }
-		 
-		 $http.post($scope.baseURL + '/Performance/CheckAppraisalYear', data)
-		 .success(function(result) {
-			 
-				var hiredDate = new Date($filter('date')(result.hireDate, "yyyy-MM-dd"));
-				
-				$scope.appraisalYearResult = false;
-				
-				if(appraisalYear >= hiredDate) {
-					$scope.appraisalYearResult = true;
-				} else {
-					$scope.appraisalYearResult = false;
-				}
-			})
-			.error(function(data, status) {
-				console.log(data);
-			})
-	 };
-	  
 	// get all employees
 	$scope.getAllEmployees = function() {
 		$http.get($scope.baseURL + '/employeeProfile/employee/all')
@@ -186,6 +159,33 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			console.log(data);
 		});
 	}
+	
+	// check if appraisal year is more than or equal to the hired date
+	 $scope.checkAppraisalYear = function (empId, year) {
+		 
+		 var appraisalYear =  new Date(year + "-12-31");
+		 
+		 var data = {
+			empId : empId
+		 }
+		 
+		 $http.post($scope.baseURL + '/Performance/CheckAppraisalYear', data)
+		 .success(function(result) {
+			 
+				var hiredDate = new Date($filter('date')(result.hireDate, "yyyy-MM-dd"));
+				
+				$scope.appraisalYearResult = false;
+				
+				if(appraisalYear >= hiredDate) {
+					$scope.appraisalYearResult = true;
+				} else {
+					$scope.appraisalYearResult = false;
+				}
+			})
+			.error(function(data, status) {
+				console.log(data);
+			})
+	 };
 	
 	$scope.addPeformance = function(empId, date) {
 		
@@ -433,20 +433,22 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
-	$scope.checkDuplicateLeadAppraisal = function(empId, year) {
+	$scope.checkDuplicateLeadAppraisal = function(empId, year, team_Id) {
+		
 		// make the year default to year and 31st of December
 		var appraisalYear = year + "-12-31";
 		
 		// send the data via angular http post
 		var data = {
 			employee : {empId : empId},
-			performance : {date : appraisalYear}
+			performance : {date : appraisalYear},
+			team : {team_Id : team_Id}
 		};
 		
 		// angular AJAX call
 		$http.post($scope.baseURL + '/Performance/CheckDuplicateLeadAppraisal', data)
 		 .success(function(result) {
-			 	console.log(result);
+			 	$scope.duplicateLeadAppraisalExists = result;
 			})
 			.error(function(data, status) {
 				console.log(data);

@@ -131,4 +131,11 @@ public class PerformanceController {
 	public List<Team> getTeamsByLeadId(@RequestBody Team team) {
 		return teamService.getTeamsByLeadId(team);
 	}
+	
+	// checkDupllicateLeadAppraisal
+	@RequestMapping(value = "/Performance/CheckDuplicateLeadAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) throws HibernateException, ParseException {
+		return leadAppraisalService.checkDuplicateLeadAppraisal(lead_Appraisal);
+	}
 }

@@ -11,9 +11,16 @@
 			<div class="modal-body">
 				<form name="leadAddAppraisalForm" class="form-horizontal"
 					ng-submit="leadAddAppraisalForm.$valid && appraisalYearResult === true &&
+					duplicateLeadAppraisalExists === false &&
 					addLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewLeadStatus, saveNewTeam, 
 					saveNewLeadSkillScore, saveNewLeadMentorshipScore, saveNewLeadTaskCompScore, 
 					saveNewLeadCurrPerformanceScore)">
+					
+					<div role="alert" class="alert alert-danger padded" 
+							ng-show="duplicateLeadAppraisalExists === true">
+						<strong>Error!</strong> Team Lead Appraisal Exists for this employee, year and team.
+					</div>
+					
 					<div class="form-group">
 						<div role="alert" class="alert alert-danger padded" 
 							ng-show="leadAddAppraisalForm.employee.$error.required" 
@@ -22,8 +29,9 @@
 						</div>
 						 <label class="col-sm-2 control-label">Employee</label>
 						 <div class="col-sm-10">
-							<select ng-model="saveNewLeadEmployee" name="employee" class="form-control" 
-								required>
+							<select ng-model="saveNewLeadEmployee" name="employee" class="form-control"
+								required
+								ng-change="checkDuplicateLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewTeam)">
 								<option value="">Select an employee</option>
 								<option ng-repeat="teamMember in teamMembersByLead" value="{{teamMember.empId}}"
 								ng-if="teamMember.empId != loggedInEmpId && teamMember.status === true">
@@ -45,7 +53,8 @@
 						 <div class="col-sm-10">
 							<select ng-model="saveNewLeadYear" name="year" class="form-control" 
 								required 
-								ng-change="checkAppraisalYear(saveNewLeadEmployee,saveNewLeadYear)">
+								ng-change="checkAppraisalYear(saveNewLeadEmployee,saveNewLeadYear); 
+									checkDuplicateLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewTeam)">
 								<option value="">Select a year</option>
 								<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 							</select>
@@ -76,7 +85,8 @@
 						 <label class="col-sm-2 control-label">Team</label>
 						 <div class="col-sm-10">
 							<select ng-model="saveNewTeam" name="team" class="form-control" 
-								required>
+								required
+								ng-change="checkDuplicateLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewTeam)">
 								<option value="">Select a team</option>
 								<option ng-repeat="team in teamsByLeadId" value="{{team.team_Id}}">
 								{{team.team_name}}</option>
