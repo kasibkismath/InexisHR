@@ -22,4 +22,8 @@ public class Lead_AppraisalService {
 	public boolean checkDuplicateLeadAppraisal(Lead_Appraisal lead_Appraisal) throws HibernateException, ParseException {
 		return leadAppraisalDao.checkDuplicateLeadAppraisal(lead_Appraisal);
 	}
+
+	public Long getCompleteLeadAppraisalCountByEmpId(Lead_Appraisal lead_Appraisal) throws HibernateException, ParseException {
+		return leadAppraisalDao.getCompleteLeadAppraisalCountByEmpId(lead_Appraisal);
+	}
 }

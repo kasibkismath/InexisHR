@@ -31,4 +31,15 @@ public class Team_EmployeeDAO {
 		List<Team_Employee> listResult = query.list();	
 		return listResult;
 	}
+
+	public Long getTeamEmployeesByEmpId(Team_Employee team_employee) {
+		String hql = "select count(te.team_emp_id) from Team_Employee as te where " +
+					"te.employee.emp_id=:empId";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", team_employee.getEmployee().getEmpId());
+		
+		Long count = (Long)query.uniqueResult();
+		return count;
+	}
 }

@@ -56,5 +56,4 @@ public class Team_Employee {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
 }

@@ -350,8 +350,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	$scope.addLeadAppraisal = function(emp_id, year, status, team_Id, score_skill, score_mentor, score_task,
 			score_performance) {
 		
-		console.log(team_Id);
-		
 		// make month and date default to 1st of December
 		var date = year + '-12-31';
 		
@@ -454,4 +452,97 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				console.log(data);
 			})
 	};
+	
+	/* --------------------------------HR Appraisal------------------------------ */
+	
+	$scope.GetTeamEmployeeCountByEmpId = function (teamEmp) {
+		$http.post($scope.baseURL + '/Performance/GetTeamEmployeeCountByEmpId', teamEmp)
+		 .success(function(result) {
+			 console.log("Team Employee Count "  + result);
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
+	};
+	
+	$scope.GetCompleteLeadAppraisalCountByEmpId = function(leadApp) {
+		$http.post($scope.baseURL + '/Performance/GetCompleteLeadAppraisalCountByEmpId', leadApp)
+		 .success(function(result) {
+			 console.log("Complete Lead Appraisal Count "  + result);
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
+	};
+	
+	// add HR Appraisal Main
+	$scope.addHRAppraisal = function (emp_id, year, status, score_task, score_performance) {
+		// make month and date default to 1st of December
+		var date = year + '-12-31';
+		
+		// performance object
+		var performance = {
+			employee : {empId : emp_id},
+			date: date,
+			status: status
+		};
+		
+		// covert string scores to integer
+		var int_score_task = parseInt(score_task);
+		var int_score_performance = parseInt(score_performance);
+		
+		var total_score = int_score_task + int_score_performance;
+		
+		$scope.checkLeadAppraisalComplete(emp_id, year)
+			.then(function (result) {
+				console.log('Result from add HR Appraisal ' + result);
+				if(result) {
+					console.log('Team Appraisals Completed.')
+				} else {
+					console.log('Team Appraisals NOT Completed.')
+				}
+		});
+		
+		/*$scope.getPerformanceId(performance)
+			.then(function (result) {
+				var performance_id = result;
+				
+				
+			});*/
+	};
+	
+	// check whether lead appraisal exists for the given employee and year
+	// by getting team employee count to be equal to lead appraisal count
+	// for that particular employee and year
+	$scope.checkLeadAppraisalComplete = function(emp_id, year) {
+		
+		// make month and date default to 1st of December
+		var date = year + '-12-31';
+		
+		var teamEmp = {
+			employee : {empId : emp_id}	
+		}
+		
+		var leadApp  = {
+			employee : {empId : emp_id},
+			performance : {date : date}
+		}
+		
+		var bothObjects = {
+			team_employee : teamEmp,
+			lead_Appraisal : leadApp
+		};
+		
+		$scope.GetTeamEmployeeCountByEmpId(teamEmp);
+		$scope.GetCompleteLeadAppraisalCountByEmpId(leadApp);
+		  
+		$http.post($scope.baseURL + '/Performance/CheckLeadAppraisalComplete', bothObjects)
+		 .success(function(result) {
+			 $scope.teamLeadAppraisalCompleted = result;
+			 console.log(result);
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
+	}	
 }]);

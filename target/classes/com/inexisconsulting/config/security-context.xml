@@ -130,6 +130,12 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/CheckDuplicateLeadAppraisal"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetTeamEmployeeCountByEmpId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetCompleteLeadAppraisalCountByEmpId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/CheckLeadAppraisalComplete"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

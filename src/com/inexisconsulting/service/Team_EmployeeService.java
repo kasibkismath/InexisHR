@@ -18,4 +18,8 @@ public class Team_EmployeeService {
 		return teamEmployeeDao.getTeamEmployeesByLeadId(team_employee);
 	}
 
+	public Long getTeamEmployeesByEmpId(Team_Employee team_employee) {
+		return teamEmployeeDao.getTeamEmployeesByEmpId(team_employee);
+	}
+
 }

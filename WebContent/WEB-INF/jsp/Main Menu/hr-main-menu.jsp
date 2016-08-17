@@ -50,6 +50,13 @@
 					<br> <span id="textSmall">My Profile</span>
 				</div>
 			</div>
+			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
+				id="performanceAppraisal-tile">
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-rocket fa-3x icon-color"></i></span>
+					<br> <span id="textMedium">Performance</span>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -68,7 +75,7 @@
 		<script
 			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
 		<script
-			src="${pageContext.request.contextPath}/static/js/Main Menu/user-dashboardScript.js"></script>
+			src="${pageContext.request.contextPath}/static/js/Main Menu/hr-dashboardScript.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 </body>

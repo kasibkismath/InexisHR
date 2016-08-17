@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.CEO_Appraisal;
@@ -22,6 +23,7 @@ import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Team;
 import com.inexisconsulting.dao.Team_Employee;
+import com.inexisconsulting.dao.Team_Member_And_Lead_Appraisal;
 import com.inexisconsulting.service.CEO_AppraisalService;
 import com.inexisconsulting.service.EmployeeService;
 import com.inexisconsulting.service.Lead_AppraisalService;
@@ -53,18 +55,16 @@ public class PerformanceController {
 	@RequestMapping("/Performance")
 	@SuppressWarnings("unchecked")
 	public String showPerformanceMainPage(Model model, Principal principal) {
-		
+
 		// get current role
-		Collection<SimpleGrantedAuthority> authorities = 
-				(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
-				.getAuthentication().getAuthorities();
-		
+		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder
+				.getContext().getAuthentication().getAuthorities();
 
 		// get logged in username and user role
 		String loggedInUser = principal.getName();
 		model.addAttribute("loggedInUser", loggedInUser);
 		model.addAttribute("loggedInUserRole", authorities);
-		
+
 		return "Performance/performanceMain";
 	}
 
@@ -131,11 +131,41 @@ public class PerformanceController {
 	public List<Team> getTeamsByLeadId(@RequestBody Team team) {
 		return teamService.getTeamsByLeadId(team);
 	}
-	
-	// checkDupllicateLeadAppraisal
+
+	// checkDuplicateLeadAppraisal
 	@RequestMapping(value = "/Performance/CheckDuplicateLeadAppraisal", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public boolean checkDuplicateLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) throws HibernateException, ParseException {
+	public boolean checkDuplicateLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal)
+			throws HibernateException, ParseException {
 		return leadAppraisalService.checkDuplicateLeadAppraisal(lead_Appraisal);
+	}
+
+	// Get team employee count by Emp_Id
+	@RequestMapping(value = "/Performance/GetTeamEmployeeCountByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Long getTeamEmployeeCountByEmpId(@RequestBody Team_Employee team_employee) {
+		return teamEmployeeService.getTeamEmployeesByEmpId(team_employee);
+	}
+
+	// Get complete lead appraisal count by Emp_Id
+	@RequestMapping(value = "/Performance/GetCompleteLeadAppraisalCountByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Long getCompleteLeadAppraisalCountByEmpId(@RequestBody Lead_Appraisal lead_Appraisal)
+			throws HibernateException, ParseException {
+		return leadAppraisalService.getCompleteLeadAppraisalCountByEmpId(lead_Appraisal);
+	}
+
+	// checks whether the lead appraisal are complete
+	@RequestMapping(value = "/Performance/CheckLeadAppraisalComplete", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkLeadAppraisalComplete(@RequestBody Team_Member_And_Lead_Appraisal teamMemAndLeadApp) throws HibernateException, ParseException {
+		
+		Team_Employee team_employee = teamMemAndLeadApp.getTeam_employee();
+		Lead_Appraisal lead_appraisal = teamMemAndLeadApp.getLead_Appraisal();
+		
+		if(getTeamEmployeeCountByEmpId(team_employee) == getCompleteLeadAppraisalCountByEmpId(lead_appraisal))
+			return true;
+		
+		return false;
 	}
 }

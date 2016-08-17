@@ -115,6 +115,36 @@
 			</div>
 		</div>
 	</sec:authorize>
+	<sec:authorize access="hasRole('ROLE_HR')">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#summaryLead"
+							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+						<li role="presentation"><a href="#appraisalsLead"
+							aria-controls="profile" role="tab" data-toggle="tab">Appraisals</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-lg-12">
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="summaryLead">
+							<jsp:include page="HR/summaryHR.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="appraisalsLead">
+							<jsp:include page="HR/hrAppraisals.jsp"></jsp:include>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</sec:authorize>
 	<!-- toaster -->
 	<toaster-container></toaster-container>
 	
