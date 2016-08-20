@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inexisconsulting.dao.TeamEmployee_And_Team;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.dao.Team_EmployeeDAO;
 
@@ -18,8 +19,8 @@ public class Team_EmployeeService {
 		return teamEmployeeDao.getTeamEmployeesByLeadId(team_employee);
 	}
 
-	public Long getTeamEmployeesByEmpId(Team_Employee team_employee) {
-		return teamEmployeeDao.getTeamEmployeesByEmpId(team_employee);
+	public Long getTeamEmployeesByEmpId(TeamEmployee_And_Team teamEmpAndTeam) {
+		return teamEmployeeDao.getTeamEmployeesByEmpId(teamEmpAndTeam);
 	}
 
 }

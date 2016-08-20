@@ -5,6 +5,7 @@ var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.
 performance.controller('performanceMainController', ['$scope', '$http', '$q', 'toaster', '$filter', 
                                                      function($scope, $http, $q, toaster, $filter) {
 	
+	// initializations
 	$scope.currentUser = currentUser;
 	$scope.baseURL = contextPath;
 	$scope.currentUserRole = currentUserRole;
@@ -133,6 +134,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
+	// get the emp id of the currently logged in employee
 	$scope.getLoggedInEmployee = function() {
 		var def = $q.defer();
 		
@@ -186,7 +188,22 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				console.log(data);
 			})
 	 };
+	 
+	// get performance id, $q and defer is used to return the http request result
+		$scope.getPerformanceId = function (performanceObj) {
+			var def = $q.defer();
+			
+			 $http.post($scope.baseURL + '/Performance/getPerformanceId', performanceObj)
+			.success(function(result) {
+				def.resolve(result.performance_id);
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+			return def.promise;
+	};
 	
+	// add performance
 	$scope.addPeformance = function(empId, date) {
 		
 		var def = $q.defer();
@@ -209,7 +226,45 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			toaster.pop('error', "Notification", "Adding Performance Failed");
 		});
 		return def.promise;
-	}
+	};
+	
+	// get user role for a given emp id
+	$scope.getUserRoleByEmpId = function (emp_id) {
+		var emp = {
+			empId : emp_id
+		};
+		
+		$http.post($scope.baseURL + '/Performance/GetUserRoleByEmpId', emp)
+		 .success(function(result) {
+			 $scope.userRoleByEmpId = result.authority;
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
+	};
+	
+	/* ------------------------------------- CEO Appraisal ------------------------ */
+	
+	// check if HR Appraisal Exists for the given emp_id except the HR Manager
+	$scope.checkHRAppraisalExists = function(emp_id, year) {
+		
+		// initialize date to the last day of the given year 
+		var date = year + '-12-31';
+		
+		var data = {
+			date : date,
+			employee : {empId : emp_id}
+		};
+		
+		$http.post($scope.baseURL + '/Performance/CheckHRAppraisalExists', data)
+		.success(function(result) {
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		
+	};
 	
 	// add CEO Appraisal
 	$scope.addCEOAppraisal = function(emp_id, year, status, score_skill, score_mentor, score_task,
@@ -264,20 +319,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
-	// get performance id, $q and defer is used to return the http request result
-	$scope.getPerformanceId = function (performanceObj) {
-		var def = $q.defer();
-		
-		 $http.post($scope.baseURL + '/Performance/getPerformanceId', performanceObj)
-		.success(function(result) {
-			def.resolve(result.performance_id);
-		})
-		.error(function(data, status) {
-			console.log(data);
-		});
-		return def.promise;
-	};
-	
 	// add appraisal CEO Sub
 	$scope.addAppraisalCEO = function (emp_id, performance_id, status, score_skill, score_mentor,
 			score_task, score_performance, description, total_score) {
@@ -309,7 +350,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
-					/* -------------------- Team Lead Appraisal -------------------*/
+	/* ------------------------------- Team Lead Appraisal ------------------------- */
 	
 	//getTeamEmployeesByLeadId
 	$scope.getTeamEmployeesByLeadId = function (empId) {
@@ -453,12 +494,12 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			})
 	};
 	
-	/* --------------------------------HR Appraisal------------------------------ */
+	/* -------------------------------- HR Appraisal ------------------------------ */
 	
 	$scope.GetTeamEmployeeCountByEmpId = function (teamEmp) {
 		$http.post($scope.baseURL + '/Performance/GetTeamEmployeeCountByEmpId', teamEmp)
 		 .success(function(result) {
-			 console.log("Team Employee Count "  + result);
+			 console.log(result);
 		  })
 		  .error(function(data, status) {
 			 console.log(data);
@@ -468,11 +509,58 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	$scope.GetCompleteLeadAppraisalCountByEmpId = function(leadApp) {
 		$http.post($scope.baseURL + '/Performance/GetCompleteLeadAppraisalCountByEmpId', leadApp)
 		 .success(function(result) {
-			 console.log("Complete Lead Appraisal Count "  + result);
 		  })
 		  .error(function(data, status) {
 			 console.log(data);
 		  });
+	};
+	
+	// check whether lead appraisal exists for the given employee and year
+	// by getting team employee count to be equal to lead appraisal count
+	// for that particular employee and year
+	$scope.checkLeadAppraisalComplete = function(emp_id, year) {
+		
+		var def = $q.defer();
+		
+		// make month and date default to 1st of December
+		var date = year + '-12-31';
+		
+		var teamEmp = {
+			employee : {empId : emp_id}	
+		}
+		
+		var team = {
+			employee : {empId : emp_id}	
+		}
+		
+		var teamEmpAndTeam = {
+			team_employee : teamEmp,
+			team : team
+		}
+		
+		var leadApp  = {
+			employee : {empId : emp_id},
+			performance : {date : date}
+		}
+		
+		var bothObjects = {
+			teamEmployeeAndTeam : teamEmpAndTeam,
+			lead_Appraisal : leadApp
+		};
+		
+		$scope.GetTeamEmployeeCountByEmpId(teamEmpAndTeam);
+		$scope.GetCompleteLeadAppraisalCountByEmpId(leadApp);
+		  
+		$http.post($scope.baseURL + '/Performance/CheckLeadAppraisalComplete', bothObjects)
+		 .success(function(result) {
+			 def.resolve(result);
+			 $scope.teamLeadAppraisalCompleted = result;
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
+		
+		return def.promise;
 	};
 	
 	// add HR Appraisal Main
@@ -495,54 +583,49 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		$scope.checkLeadAppraisalComplete(emp_id, year)
 			.then(function (result) {
-				console.log('Result from add HR Appraisal ' + result);
 				if(result) {
-					console.log('Team Appraisals Completed.')
+					// gets the performance id
+					$scope.getPerformanceId(performance)
+					.then(function (result) {
+						var performance_id = result;
+						
+						// call Add HR Appraisal Sub
+						$scope.addHRAppraisalSub(emp_id, performance_id, score_task, score_performance, total_score, status)
+							
+					});
 				} else {
 					console.log('Team Appraisals NOT Completed.')
 				}
 		});
-		
-		/*$scope.getPerformanceId(performance)
-			.then(function (result) {
-				var performance_id = result;
-				
-				
-			});*/
 	};
 	
-	// check whether lead appraisal exists for the given employee and year
-	// by getting team employee count to be equal to lead appraisal count
-	// for that particular employee and year
-	$scope.checkLeadAppraisalComplete = function(emp_id, year) {
+	// add HR Appraisal Sub
+	$scope.addHRAppraisalSub = function(emp_id, performance_id, score_task, score_performance,
+			total_score, status) {
 		
-		// make month and date default to 1st of December
-		var date = year + '-12-31';
-		
-		var teamEmp = {
-			employee : {empId : emp_id}	
-		}
-		
-		var leadApp  = {
+		// HR Appraisal Object
+		var hrAppraisal = {
 			employee : {empId : emp_id},
-			performance : {date : date}
-		}
-		
-		var bothObjects = {
-			team_employee : teamEmp,
-			lead_Appraisal : leadApp
+			performance : {performance_id : performance_id},
+			score_task_completion : score_task,
+			score_current_performance : score_performance,
+			total_score : total_score,
+			status : status
 		};
 		
-		$scope.GetTeamEmployeeCountByEmpId(teamEmp);
-		$scope.GetCompleteLeadAppraisalCountByEmpId(leadApp);
-		  
-		$http.post($scope.baseURL + '/Performance/CheckLeadAppraisalComplete', bothObjects)
-		 .success(function(result) {
-			 $scope.teamLeadAppraisalCompleted = result;
-			 console.log(result);
-		  })
-		  .error(function(data, status) {
-			 console.log(data);
-		  });
-	}	
+		// sends request to Add HR Appraisal
+		$http.post($scope.baseURL + '/Performance/AddHRAppraisal', hrAppraisal)
+		.success(function(result) {
+			$('#HRAddAppraisal').modal('hide');
+			toaster.pop('success', "Notification", "Added Appraisal Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			console.log(data);
+			$('#HRAddAppraisal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
+		});
+	};
 }]);

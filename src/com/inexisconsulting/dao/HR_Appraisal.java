@@ -25,15 +25,20 @@ public class HR_Appraisal {
 
 	private int score_task_completion;
 	private int score_current_performance;
+	private int total_score;
 	private String status;
+	
+	public HR_Appraisal() {
+	}
 
-	public HR_Appraisal(int hr_appraisal_id, Employee employee, Performance performance, 
-			int score_task_completion, int score_current_performance, String status) {
+	public HR_Appraisal(int hr_appraisal_id, Employee employee, Performance performance, int score_task_completion,
+			int score_current_performance, int total_score, String status) {
 		this.hr_appraisal_id = hr_appraisal_id;
 		this.employee = employee;
 		this.performance = performance;
 		this.score_task_completion = score_task_completion;
 		this.score_current_performance = score_current_performance;
+		this.total_score = total_score;
 		this.status = status;
 	}
 
@@ -75,6 +80,14 @@ public class HR_Appraisal {
 
 	public void setScore_current_performance(int score_current_performance) {
 		this.score_current_performance = score_current_performance;
+	}
+
+	public int getTotal_score() {
+		return total_score;
+	}
+
+	public void setTotal_score(int total_score) {
+		this.total_score = total_score;
 	}
 
 	public String getStatus() {

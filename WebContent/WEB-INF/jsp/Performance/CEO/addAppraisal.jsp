@@ -10,8 +10,7 @@
 			</div>
 			<div class="modal-body">
 				<form name="ceoAddAppraisalForm" class="form-horizontal"
-					ng-submit="ceoAddAppraisalForm.$valid && checkAppraisalYear(saveNewLeadEmployee, saveNewLeadYear) && 
-					appraisalYearResult === true && 
+					ng-submit="ceoAddAppraisalForm.$valid && appraisalYearResult === true && 
 					addCEOAppraisal(saveNewCEOEmployee, saveNewCEOYear, saveNewCEOStatus, 
 					saveNewCEOSkillScore, saveNewCEOMentorshipScore, saveNewCEOTaskCompScore, 
 					saveNewCEOCurrPerformanceScore, saveNewCEODesc)">
@@ -37,10 +36,15 @@
 							ng-if="ceoAddAppraisalForm.year.$dirty">
 							<strong>Error!</strong> Year is required, please select one.
 						</div>
+						<div role="alert" class="alert alert-danger padded" 
+							ng-show="appraisalYearResult === false">
+							<strong>Error!</strong> Appraisal Year cannot be less than Employee Hired Date.
+						</div>
 						 <label class="col-sm-2 control-label">Year</label>
 						 <div class="col-sm-10">
 							<select ng-model="saveNewCEOYear" name="year" class="form-control" 
-								required>
+								required
+								ng-change="checkAppraisalYear(saveNewCEOEmployee, saveNewCEOYear)">
 								<option value="">Select a year</option>
 								<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 							</select>

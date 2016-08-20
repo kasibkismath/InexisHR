@@ -54,7 +54,7 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
@@ -121,9 +121,9 @@
 				<div class="col-lg-12">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#summaryLead"
+						<li role="presentation" class="active"><a href="#summaryHR"
 							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
-						<li role="presentation"><a href="#appraisalsLead"
+						<li role="presentation"><a href="#appraisalsHR"
 							aria-controls="profile" role="tab" data-toggle="tab">Appraisals</a></li>
 					</ul>
 				</div>
@@ -134,10 +134,10 @@
 				<div class="col-xs-6 col-lg-12">
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="summaryLead">
+						<div role="tabpanel" class="tab-pane fade in active" id="summaryHR">
 							<jsp:include page="HR/summaryHR.jsp"></jsp:include>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="appraisalsLead">
+						<div role="tabpanel" class="tab-pane fade" id="appraisalsHR">
 							<jsp:include page="HR/hrAppraisals.jsp"></jsp:include>
 						</div>
 					</div>

@@ -91,4 +91,11 @@ public class UserDAO {
 		updatedUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		session().saveOrUpdate(updatedUser);
 	}
+	
+	public User getUserRoleByEmpId(Employee employee) {
+		Criteria crit = session().createCriteria(User.class);
+		crit.add(Restrictions.eq("employee.emp_id", employee.getEmpId()));
+		User fetchedUser = (User)crit.uniqueResult();
+		return fetchedUser;
+	}
 }

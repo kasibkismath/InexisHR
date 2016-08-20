@@ -14,22 +14,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.HR_Appraisal;
 import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Team;
+import com.inexisconsulting.dao.TeamEmployee_And_Team;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.dao.Team_Member_And_Lead_Appraisal;
+import com.inexisconsulting.dao.User;
 import com.inexisconsulting.service.CEO_AppraisalService;
 import com.inexisconsulting.service.EmployeeService;
+import com.inexisconsulting.service.HR_AppraisalService;
 import com.inexisconsulting.service.Lead_AppraisalService;
 import com.inexisconsulting.service.PerformanceService;
 import com.inexisconsulting.service.TeamService;
 import com.inexisconsulting.service.Team_EmployeeService;
+import com.inexisconsulting.service.UserService;
 
 @Controller
 public class PerformanceController {
@@ -42,6 +46,9 @@ public class PerformanceController {
 
 	@Autowired
 	private Lead_AppraisalService leadAppraisalService;
+	
+	@Autowired
+	private HR_AppraisalService hrAppraisalService;
 
 	@Autowired
 	private Team_EmployeeService teamEmployeeService;
@@ -51,6 +58,9 @@ public class PerformanceController {
 
 	@Autowired
 	private EmployeeService employeeService;
+
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping("/Performance")
 	@SuppressWarnings("unchecked")
@@ -143,8 +153,8 @@ public class PerformanceController {
 	// Get team employee count by Emp_Id
 	@RequestMapping(value = "/Performance/GetTeamEmployeeCountByEmpId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Long getTeamEmployeeCountByEmpId(@RequestBody Team_Employee team_employee) {
-		return teamEmployeeService.getTeamEmployeesByEmpId(team_employee);
+	public Long getTeamEmployeeCountByEmpId(@RequestBody TeamEmployee_And_Team teamEmpAndTeam) {
+		return teamEmployeeService.getTeamEmployeesByEmpId(teamEmpAndTeam);
 	}
 
 	// Get complete lead appraisal count by Emp_Id
@@ -158,14 +168,29 @@ public class PerformanceController {
 	// checks whether the lead appraisal are complete
 	@RequestMapping(value = "/Performance/CheckLeadAppraisalComplete", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public boolean checkLeadAppraisalComplete(@RequestBody Team_Member_And_Lead_Appraisal teamMemAndLeadApp) throws HibernateException, ParseException {
-		
-		Team_Employee team_employee = teamMemAndLeadApp.getTeam_employee();
+	public boolean checkLeadAppraisalComplete(@RequestBody Team_Member_And_Lead_Appraisal teamMemAndLeadApp)
+			throws HibernateException, ParseException {
+
+		TeamEmployee_And_Team teamEmployeeAndTeam = teamMemAndLeadApp.getTeamEmployeeAndTeam();
 		Lead_Appraisal lead_appraisal = teamMemAndLeadApp.getLead_Appraisal();
-		
-		if(getTeamEmployeeCountByEmpId(team_employee) == getCompleteLeadAppraisalCountByEmpId(lead_appraisal))
+
+		if (getTeamEmployeeCountByEmpId(teamEmployeeAndTeam) == getCompleteLeadAppraisalCountByEmpId(lead_appraisal))
 			return true;
-		
+
 		return false;
+	}
+	
+	// Add HR Appraisal
+	@RequestMapping(value = "/Performance/AddHRAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addHRAppraisal(@RequestBody HR_Appraisal hr_appraisal) {
+		hrAppraisalService.addHRAppraisal(hr_appraisal);
+	}
+
+	// Get user role by emp id
+	@RequestMapping(value = "/Performance/GetUserRoleByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public User getUserRoleByEmpId(@RequestBody Employee employee) {
+		return userService.getUserRoleByEmpId(employee);
 	}
 }

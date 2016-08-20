@@ -31,8 +31,8 @@ public class Team_EmployeeDAO {
 		List<Team_Employee> listResult = query.list();	
 		return listResult;
 	}
-
-	public Long getTeamEmployeesByEmpId(Team_Employee team_employee) {
+	
+	public Long getCountFromTeamEmployeeByEmpId(Team_Employee team_employee) {
 		String hql = "select count(te.team_emp_id) from Team_Employee as te where " +
 					"te.employee.emp_id=:empId";
 		
@@ -41,5 +41,23 @@ public class Team_EmployeeDAO {
 		
 		Long count = (Long)query.uniqueResult();
 		return count;
+	}
+	
+	public Long getTeamCountForLeadByLeadEmpId(Team team) {
+		String hql = "select count(team.team_Id) from Team as team where " +
+					"team.employee.emp_id=:empId";
+	
+	Query query = session().createQuery(hql);
+	query.setParameter("empId", team.getEmployee().getEmpId());
+	
+	Long count = (Long)query.uniqueResult();
+	return count;
+	}
+
+	public Long getTeamEmployeesByEmpId(TeamEmployee_And_Team teamEmpAndTeam) {
+		Team_Employee team_employee = teamEmpAndTeam.getTeam_employee();
+		Team team = teamEmpAndTeam.getTeam();
+		
+		return getCountFromTeamEmployeeByEmpId(team_employee) - getTeamCountForLeadByLeadEmpId(team);
 	}
 }
