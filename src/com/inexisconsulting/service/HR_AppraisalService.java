@@ -1,5 +1,8 @@
 package com.inexisconsulting.service;
 
+import java.text.ParseException;
+
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,10 @@ public class HR_AppraisalService {
 
 	public void addHRAppraisal(HR_Appraisal hr_appraisal) {
 		hrAppraisalDao.addHRAppraisal(hr_appraisal);
+	}
+
+	public boolean checkHRAppraisalExists(HR_Appraisal hr_appraisal) throws HibernateException, ParseException {
+		return hrAppraisalDao.checkHRAppraisalExists(hr_appraisal);
 	}
 	
 	

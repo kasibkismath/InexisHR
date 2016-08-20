@@ -186,6 +186,13 @@ public class PerformanceController {
 	public void addHRAppraisal(@RequestBody HR_Appraisal hr_appraisal) {
 		hrAppraisalService.addHRAppraisal(hr_appraisal);
 	}
+	
+	// Add HR Appraisal
+		@RequestMapping(value = "/Performance/CheckHRAppraisalExists", method = RequestMethod.POST, produces = "application/json")
+		@ResponseBody
+	public boolean checkHRAppraisalExists(@RequestBody HR_Appraisal hr_appraisal) throws HibernateException, ParseException {
+			return hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
+		}
 
 	// Get user role by emp id
 	@RequestMapping(value = "/Performance/GetUserRoleByEmpId", method = RequestMethod.POST, produces = "application/json")

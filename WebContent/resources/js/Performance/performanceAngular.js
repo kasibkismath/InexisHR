@@ -252,8 +252,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		var date = year + '-12-31';
 		
 		var data = {
-			date : date,
 			employee : {empId : emp_id}
+			performance : {date : date},
 		};
 		
 		$http.post($scope.baseURL + '/Performance/CheckHRAppraisalExists', data)
