@@ -10,10 +10,24 @@
 			</div>
 			<div class="modal-body">
 				<form name="ceoAddAppraisalForm" class="form-horizontal"
-					ng-submit="ceoAddAppraisalForm.$valid && appraisalYearResult === true && 
+					ng-submit="ceoAddAppraisalForm.$valid && appraisalYearResult === true &&
+					checkHRAppraisalExistsResult === true && checkCEOAppraisalExistsResult === false &&
 					addCEOAppraisal(saveNewCEOEmployee, saveNewCEOYear, saveNewCEOStatus, 
 					saveNewCEOSkillScore, saveNewCEOMentorshipScore, saveNewCEOTaskCompScore, 
 					saveNewCEOCurrPerformanceScore, saveNewCEODesc)">
+					
+					<div role="alert" class="alert alert-danger padded" 
+						ng-show="checkHRAppraisalExistsResult === false">
+							<strong>Error!</strong> 
+							HR Appraisal is not completed for the selected year. Please complete it.
+					</div>
+					
+					<div role="alert" class="alert alert-danger padded" 
+						ng-show="checkCEOAppraisalExistsResult === true">
+							<strong>Error!</strong> 
+							CEO Appraisal Exists for this employee and year.
+					</div>
+					
 					<div class="form-group">
 						<div role="alert" class="alert alert-danger padded" 
 							ng-show="ceoAddAppraisalForm.employee.$error.required" 
@@ -23,7 +37,9 @@
 						 <label class="col-sm-2 control-label">Employee</label>
 						 <div class="col-sm-10">
 							<select ng-model="saveNewCEOEmployee" name="employee" class="form-control" 
-								required>
+								required
+								ng-change="checkHRAppraisalExists(saveNewCEOEmployee, saveNewCEOYear);
+									checkCEOAppraisalExists(saveNewCEOEmployee, saveNewCEOYear)">
 								<option value="">Select an employee</option>
 								<option ng-repeat="employee in employees" value="{{employee.empId}}"
 								ng-if="employee.empId != loggedInEmpId">{{employee.firstName}} {{employee.lastName}}</option>
@@ -44,7 +60,9 @@
 						 <div class="col-sm-10">
 							<select ng-model="saveNewCEOYear" name="year" class="form-control" 
 								required
-								ng-change="checkAppraisalYear(saveNewCEOEmployee, saveNewCEOYear)">
+								ng-change="checkAppraisalYear(saveNewCEOEmployee, saveNewCEOYear); 
+								checkHRAppraisalExists(saveNewCEOEmployee, saveNewCEOYear);
+								checkCEOAppraisalExists(saveNewCEOEmployee, saveNewCEOYear)">
 								<option value="">Select a year</option>
 								<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 							</select>
@@ -143,10 +161,6 @@
 								placeholder="Enter description" ng-model="saveNewCEODesc" ng-maxlength="10000" 
 								required char-count warning-count="25" danger-count="10"></textarea>
 						</div>
-					</div>
-					<div role="alert" class="alert alert-danger padded" 
-							ng-show="appraisalYearResult === false">
-						<strong>Error!</strong> Appraisal Year cannot be less than Employee Hired Date.
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.inexisconsulting.dao.HR_Appraisal;
 import com.inexisconsulting.dao.HR_AppraisalDAO;
+import com.inexisconsulting.dao.HR_Appraisal_And_Employee;
 
 @Service("hrAppraisalService")
 public class HR_AppraisalService {
@@ -19,9 +20,8 @@ public class HR_AppraisalService {
 		hrAppraisalDao.addHRAppraisal(hr_appraisal);
 	}
 
-	public boolean checkHRAppraisalExists(HR_Appraisal hr_appraisal) throws HibernateException, ParseException {
-		return hrAppraisalDao.checkHRAppraisalExists(hr_appraisal);
+	public Long checkHRAppraisalExists(HR_Appraisal hr_Appraisal) throws HibernateException, ParseException {
+		return hrAppraisalDao.checkHRAppraisalExists(hr_Appraisal);
 	}
-	
-	
+		
 }

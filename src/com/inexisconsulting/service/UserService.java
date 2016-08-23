@@ -59,7 +59,7 @@ public class UserService {
 		return userDao.getUser(user);
 	}
 
-	public User getUserRoleByEmpId(Employee employee) {
+	public String getUserRoleByEmpId(Employee employee) {
 		return userDao.getUserRoleByEmpId(employee);
 	}
 }

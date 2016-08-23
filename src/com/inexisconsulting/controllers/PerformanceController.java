@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.HR_Appraisal;
+import com.inexisconsulting.dao.HR_Appraisal_And_Employee;
 import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Team;
 import com.inexisconsulting.dao.TeamEmployee_And_Team;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.dao.Team_Member_And_Lead_Appraisal;
-import com.inexisconsulting.dao.User;
 import com.inexisconsulting.service.CEO_AppraisalService;
 import com.inexisconsulting.service.EmployeeService;
 import com.inexisconsulting.service.HR_AppraisalService;
@@ -46,7 +46,7 @@ public class PerformanceController {
 
 	@Autowired
 	private Lead_AppraisalService leadAppraisalService;
-	
+
 	@Autowired
 	private HR_AppraisalService hrAppraisalService;
 
@@ -179,25 +179,75 @@ public class PerformanceController {
 
 		return false;
 	}
-	
+
 	// Add HR Appraisal
 	@RequestMapping(value = "/Performance/AddHRAppraisal", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void addHRAppraisal(@RequestBody HR_Appraisal hr_appraisal) {
 		hrAppraisalService.addHRAppraisal(hr_appraisal);
 	}
-	
-	// Add HR Appraisal
-		@RequestMapping(value = "/Performance/CheckHRAppraisalExists", method = RequestMethod.POST, produces = "application/json")
-		@ResponseBody
-	public boolean checkHRAppraisalExists(@RequestBody HR_Appraisal hr_appraisal) throws HibernateException, ParseException {
-			return hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
+
+	// Check HR Appraisal Exists
+	@RequestMapping(value = "/Performance/CheckHRAppraisalExists", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkHRAppraisalExists(@RequestBody HR_Appraisal_And_Employee hrAppAndEmp)
+			throws HibernateException, ParseException {
+
+		HR_Appraisal hr_appraisal = hrAppAndEmp.getHr_appraisal();
+		Employee employee = hrAppAndEmp.getEmp();
+
+		Long count = hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
+		String userRole = userService.getUserRoleByEmpId(employee);
+		
+		System.err.println(userRole);
+
+		// if HR Manager - HR Appraisal
+		if (userRole.equals("ROLE_HR") && count == 0) {
+			return true;
 		}
+
+		// if not HR Manager - HR Appraisal
+		if (count == 1) {
+			return true;
+		}
+
+		return false;
+	}
 
 	// Get user role by emp id
 	@RequestMapping(value = "/Performance/GetUserRoleByEmpId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public User getUserRoleByEmpId(@RequestBody Employee employee) {
+	public String getUserRoleByEmpId(@RequestBody Employee employee) {
 		return userService.getUserRoleByEmpId(employee);
+	}
+
+	// check duplicate HR Appraisal
+	@RequestMapping(value = "/Performance/CheckDuplicateHRAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateHRAppraisal(@RequestBody HR_Appraisal hr_appraisal)
+			throws HibernateException, ParseException {
+
+		// get count
+		Long count = hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
+
+		if (count == 1)
+			return true;
+
+		return false;
+	}
+
+	// check duplicate CEO Appraisal
+	@RequestMapping(value = "/Performance/CheckDuplicateCEOAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateCEOAppraisal(@RequestBody CEO_Appraisal ceo_appraisal)
+			throws HibernateException, ParseException {
+
+		// get count
+		Long count = ceoAppraisalService.checkDuplicateCEOAppraisal(ceo_appraisal);
+
+		if (count == 1)
+			return true;
+
+		return false;
 	}
 }

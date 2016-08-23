@@ -12,12 +12,18 @@
 				<form name="hrAddAppraisalForm" class="form-horizontal"
 					ng-submit="hrAddAppraisalForm.$valid && 
 					appraisalYearResult === true && teamLeadAppraisalCompleted === true &&
+					checkDuplicateHRAppraisalResult === false &&
 					addHRAppraisal(saveNewHREmployee, saveNewHRYear, saveNewHRStatus, 
 					saveNewHRTaskCompScore, saveNewHRCurrPerformanceScore)">
 					
 					<div role="alert" class="alert alert-danger padded" 
 							ng-show="teamLeadAppraisalCompleted === false">
 							<strong>Error!</strong> Team Lead Appraisal/s is/are not completed for the year. Please complete it.
+					</div>
+					
+					<div role="alert" class="alert alert-danger padded" 
+							ng-show="checkDuplicateHRAppraisalResult === true">
+							<strong>Error!</strong> HR Appraisal already exists for this employee and year.
 					</div>
 					
 					<div class="form-group">
@@ -30,7 +36,8 @@
 						 <div class="col-sm-10">
 							<select ng-model="saveNewHREmployee" name="employee" class="form-control" 
 								required
-								ng-change="checkLeadAppraisalComplete(saveNewHREmployee, saveNewHRYear)">
+								ng-change="checkLeadAppraisalComplete(saveNewHREmployee, saveNewHRYear);
+									checkDuplicateHRAppraisal(saveNewHREmployee, saveNewHRYear)">
 								<option value="">Select an employee</option>
 								<option ng-repeat="employee in employees" value="{{employee.empId}}"
 								ng-if="employee.empId != loggedInEmpId && employee.designation.name != 'Ceo'">
@@ -51,7 +58,9 @@
 						 <label class="col-sm-2 control-label">Year</label>
 						 <div class="col-sm-10">
 							<select ng-model="saveNewHRYear" name="year" class="form-control"
-								ng-change="checkAppraisalYear(saveNewHREmployee, saveNewHRYear); checkLeadAppraisalComplete(saveNewHREmployee, saveNewHRYear)"
+								ng-change="checkAppraisalYear(saveNewHREmployee, saveNewHRYear); 
+									checkLeadAppraisalComplete(saveNewHREmployee, saveNewHRYear);
+									checkDuplicateHRAppraisal(saveNewHREmployee, saveNewHRYear)"
 								required>
 								<option value="">Select a year</option>
 								<option ng-repeat="year in years" value="{{year}}">{{year}}</option>

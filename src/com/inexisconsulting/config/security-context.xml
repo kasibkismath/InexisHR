@@ -142,6 +142,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/CheckHRAppraisalExists"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/CheckDuplicateHRAppraisal"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/CheckDuplicateCEOAppraisal"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

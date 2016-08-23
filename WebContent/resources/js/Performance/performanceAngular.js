@@ -248,23 +248,57 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	// check if HR Appraisal Exists for the given emp_id except the HR Manager
 	$scope.checkHRAppraisalExists = function(emp_id, year) {
 		
+		var def = $q.defer();
+		
 		// initialize date to the last day of the given year 
 		var date = year + '-12-31';
 		
-		var data = {
-			employee : {empId : emp_id}
-			performance : {date : date},
+		var hrAppraisal = {
+			employee : {empId : emp_id},
+			performance : {date : date}
 		};
 		
-		$http.post($scope.baseURL + '/Performance/CheckHRAppraisalExists', data)
+		var emp = {
+		    empId : emp_id
+		}
+		
+		var checkHRAppraisalExistsData = {
+			hr_appraisal : hrAppraisal,
+			emp : emp
+		}
+		
+		$http.post($scope.baseURL + '/Performance/CheckHRAppraisalExists', checkHRAppraisalExistsData)
 		.success(function(result) {
-			console.log(result);
+			def.resolve(result);
+			$scope.checkHRAppraisalExistsResult = result;
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
 		
+		return def.promise;
+		
 	};
+	
+	$scope.checkCEOAppraisalExists = function(emp_id, year) {
+		
+		// initialize date to the last day of the given year 
+		var date = year + '-12-31';
+		
+		var data = {
+			employee : {empId : emp_id},
+			performance : {date : date}
+		}
+		
+		$http.post($scope.baseURL + '/Performance/CheckDuplicateCEOAppraisal', data)
+		.success(function(result) {
+			$scope.checkCEOAppraisalExistsResult = result;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
 	
 	// add CEO Appraisal
 	$scope.addCEOAppraisal = function(emp_id, year, status, score_skill, score_mentor, score_task,
@@ -288,35 +322,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		var total_score = int_score_skill + int_score_mentor + int_score_task + int_score_performance;
 		
-		// checks for performance exists if not creates a performance
-		$http.post($scope.baseURL + '/Performance/CheckPerformanceExists', performance)
-		.success(function(result) {
-			// when exists is true
-			if(result) {
-				// gets the performance id
-				$scope.getPerformanceId(performance)
-					.then(function (result) {
-						var performance_id = result;
-						
-						// creates CEO Appraisal
-						$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor,
-								score_task, score_performance, description, total_score);
-					});
-			} else {
-				$scope.addPeformance(emp_id, date)
-					.then(function (result) {
-						// performance_id of newly created object
-						var performance_id = result;
-						
-						// creates CEO Appraisal
-						$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor,
-								score_task, score_performance, description, total_score);
-					});
-			}
-		})
-		.error(function(data, status) {
-			console.log(data);
-		});
+		//$scope.checkHRAppraisalExists(emp_id, year)
 	};
 	
 	// add appraisal CEO Sub
@@ -561,6 +567,26 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		  });
 		
 		return def.promise;
+	};
+	
+	//check duplicate HR Appraisal
+	$scope.checkDuplicateHRAppraisal = function(emp_id, year) {
+		
+		// make month and date default to 1st of December
+		var date = year + '-12-31';
+		
+		var data = {
+			employee : {empId : emp_id},
+			performance : {date : date}
+		};
+		
+		$http.post($scope.baseURL + '/Performance/CheckDuplicateHRAppraisal', data)
+		 .success(function(result) {
+			 $scope.checkDuplicateHRAppraisalResult = result;
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
 	};
 	
 	// add HR Appraisal Main
