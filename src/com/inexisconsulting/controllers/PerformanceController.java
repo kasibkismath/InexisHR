@@ -198,7 +198,7 @@ public class PerformanceController {
 
 		Long count = hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
 		String userRole = userService.getUserRoleByEmpId(employee);
-		
+
 		System.err.println(userRole);
 
 		// if HR Manager - HR Appraisal
@@ -249,5 +249,39 @@ public class PerformanceController {
 			return true;
 
 		return false;
+	}
+
+	// get sum of total scores
+	@RequestMapping(value = "/Performance/FinalScoreCalculation", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public double finalScoreCalculation(@RequestBody Performance performance) throws HibernateException, ParseException {
+
+		long total_score = performanceService.getSumOfTotalScore(performance);
+		long appraisal_count = getTotalScoreCount(performance);
+
+		long distinct_criteria = 4;
+
+		// final score calculation
+		// final_score = total_score/(distinct_criteria * appraisal_count)
+		// round final_score to upper boundary value
+		double final_score = (((double) total_score) / ((double) distinct_criteria * appraisal_count));
+
+		return final_score;
+	}
+
+	// get count for total score
+	@RequestMapping(value = "/Performance/GetTotalScoreCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Long getTotalScoreCount(@RequestBody Performance performance) throws HibernateException, ParseException {
+
+		return performanceService.getTotalScoreCount(performance);
+	}
+
+	// update performance details with final_score and status information
+	@RequestMapping(value = "/Performance/UpdatePerformanceFinalScoreAndStatus", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updatePerformanceWithFinalScoreAndStatus(@RequestBody Performance performance) {
+
+		performanceService.updatePerformanceWithFinalScoreAndStatus(performance);
 	}
 }

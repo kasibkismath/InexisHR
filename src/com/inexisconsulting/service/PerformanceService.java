@@ -32,4 +32,16 @@ public class PerformanceService {
 	public int addPerformance(Performance performance) throws ParseException {
 		return performanceDao.addPerformance(performance);
 	}
+
+	public Long getSumOfTotalScore(Performance performance) throws HibernateException, ParseException {
+		return performanceDao.getSumOfTotalScore(performance);
+	}
+
+	public Long getTotalScoreCount(Performance performance) throws HibernateException, ParseException {
+		return performanceDao.getTotalScoreCount(performance);
+	}
+
+	public void updatePerformanceWithFinalScoreAndStatus(Performance performance) {
+		performanceDao.updatePerformanceWithFinalScoreAndStatus(performance);
+	}
 }

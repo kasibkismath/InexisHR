@@ -243,6 +243,25 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		  });
 	};
 	
+	//update performance details with final_score and status
+	$scope.updatePerformance = function(performance_id, final_score, status) {
+		
+		// construct json object with performance parameters
+		var performance = {
+			performance_id : performance_id,
+			final_score : final_score,
+			status : status
+		};
+		
+		$http.post($scope.baseURL + '/Performance/UpdatePerformanceFinalScoreAndStatus', performance)
+		 .success(function(result) {
+			console.log("Performance Updated With Final Score And Status Info");
+		  })
+		  .error(function(data, status) {
+			 console.log(data);
+		  });
+	}
+	
 	/* ------------------------------------- CEO Appraisal ------------------------ */
 	
 	// check if HR Appraisal Exists for the given emp_id except the HR Manager
@@ -298,6 +317,33 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		.error(function(data, status) {
 			console.log(data);
 		});
+	};
+	
+	//get sum of total score from Team Lead Appraisal, HR Appraisal And CEO Appraisal
+	$scope.finalScoreCalculation = function(emp_id, year) {
+		
+		var def = $q.defer();
+		
+		// make month and date default to 1st of December
+		var date = year + '-12-31';
+		
+		// appraisal object
+		var appraisal = {
+			employee : {empId : emp_id},
+			date : date
+		};
+		
+		// send get total score request with required parameters
+		$http.post($scope.baseURL + '/Performance/FinalScoreCalculation', appraisal)
+		.success(function(result) {
+			var roundedValue = Math.round(result);
+			def.resolve(roundedValue);
+			console.log(roundedValue);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		return def.promise;
 	}
 	
 	// add CEO Appraisal
@@ -322,12 +368,34 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		var total_score = int_score_skill + int_score_mentor + int_score_task + int_score_performance;
 		
-		//$scope.checkHRAppraisalExists(emp_id, year)
+		$scope.getPerformanceId(performance)
+			.then(function (result) {
+				var performance_id = result;
+				
+				$scope.addAppraisalCEO(emp_id, performance_id, status, score_skill, score_mentor, 
+						score_task, score_performance, description, total_score)
+						.then(function (result) {
+							$scope.finalScoreCalculation(emp_id, year)
+							.then(function (result) {
+								
+								var final_score = result;
+								
+								// update performance details with final_score and status
+								$scope.updatePerformance(performance_id, final_score, status);
+								
+								setTimeout(function () {
+					                window.location.reload();
+					            }, 1000);
+							});
+						});
+			});
 	};
 	
 	// add appraisal CEO Sub
 	$scope.addAppraisalCEO = function (emp_id, performance_id, status, score_skill, score_mentor,
 			score_task, score_performance, description, total_score) {
+		
+		var def = $q.defer();
 		
 		var ceo_appraisal = {
 			employee : {empId : emp_id},
@@ -343,17 +411,17 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		$http.post($scope.baseURL + '/Performance/AddCEOAppraisal', ceo_appraisal)
 		.success(function(result) {
+			def.resolve(result);
 			$('#CEOAddAppraisal').modal('hide');
 			toaster.pop('success', "Notification", "Added Appraisal Successfully");
-			setTimeout(function () {
-                window.location.reload();
-            }, 1000);
 		})
 		.error(function(data, status) {
 			console.log(data);
 			$('#CEOAddAppraisal').modal('hide');
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
+		
+		return def.promise;
 	};
 	
 	/* ------------------------------- Team Lead Appraisal ------------------------- */
