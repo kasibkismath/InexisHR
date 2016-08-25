@@ -3,11 +3,14 @@ package com.inexisconsulting.dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,5 +78,18 @@ public class Lead_AppraisalDAO {
 
 		Long count = (Long) query.uniqueResult();
 		return count;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Lead_Appraisal> getLeadAppraisalsByLeadId(Lead_Appraisal leadAppraisal) {
+		
+		String hql = "from Lead_Appraisal as leadApp inner join leadApp.team as team where "
+				+ "team.employee.emp_id=:empId";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", leadAppraisal.getEmployee().getEmpId());
+		
+		List<Lead_Appraisal> lead_appraisals = query.list();
+		return lead_appraisals;
 	}
 }

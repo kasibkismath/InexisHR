@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inexisconsulting.dao.CEO_Appraisal;
+import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.PerformanceDAO;
 
@@ -33,7 +34,7 @@ public class PerformanceService {
 		return performanceDao.addPerformance(performance);
 	}
 
-	public Long getSumOfTotalScore(Performance performance) throws HibernateException, ParseException {
+	public Long getSumOfTotalScore(Performance performance) {
 		return performanceDao.getSumOfTotalScore(performance);
 	}
 

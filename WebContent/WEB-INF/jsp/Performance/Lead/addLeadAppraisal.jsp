@@ -88,7 +88,9 @@
 								required
 								ng-change="checkDuplicateLeadAppraisal(saveNewLeadEmployee, saveNewLeadYear, saveNewTeam)">
 								<option value="">Select a team</option>
-								<option ng-repeat="team in teamsByLeadId" value="{{team.team_Id}}">
+								<option ng-repeat="team in teamsByLeadId"
+									ng-show="team.status == 'Active'"
+								value="{{team.team_Id}}">
 								{{team.team_name}}</option>
 							</select>
 						</div>

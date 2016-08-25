@@ -150,6 +150,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/UpdatePerformanceFinalScoreAndStatus"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetLeadAppraisalsByLeadId"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

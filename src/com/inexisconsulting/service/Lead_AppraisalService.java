@@ -1,6 +1,7 @@
 package com.inexisconsulting.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,9 @@ public class Lead_AppraisalService {
 
 	public Long getCompleteLeadAppraisalCountByEmpId(Lead_Appraisal lead_Appraisal) throws HibernateException, ParseException {
 		return leadAppraisalDao.getCompleteLeadAppraisalCountByEmpId(lead_Appraisal);
+	}
+
+	public List<Lead_Appraisal> getLeadAppraisalsByLeadId(Lead_Appraisal leadAppraisal) {
+		return leadAppraisalDao.getLeadAppraisalsByLeadId(leadAppraisal);
 	}
 }

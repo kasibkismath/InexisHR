@@ -42,7 +42,7 @@
 									checkCEOAppraisalExists(saveNewCEOEmployee, saveNewCEOYear)">
 								<option value="">Select an employee</option>
 								<option ng-repeat="employee in employees" value="{{employee.empId}}"
-								ng-if="employee.empId != loggedInEmpId">{{employee.firstName}} {{employee.lastName}}</option>
+								ng-if="employee.empId != loggedInEmpId && employee.status === true">{{employee.firstName}} {{employee.lastName}}</option>
 							</select>
 						</div>
 					</div>

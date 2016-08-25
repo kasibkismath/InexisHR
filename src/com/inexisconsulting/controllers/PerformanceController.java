@@ -84,6 +84,15 @@ public class PerformanceController {
 		List<Performance> performances = performanceService.getPerformanceAppraisals();
 		return performances;
 	}
+	
+	@RequestMapping(value = "/Performance/GetLeadAppraisalsByLeadId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Lead_Appraisal> getLeadAppraisalsByLeadId(@RequestBody Lead_Appraisal leadAppraisal) {
+		List<Lead_Appraisal> lead_appraisals = 
+				leadAppraisalService.getLeadAppraisalsByLeadId(leadAppraisal);
+		return lead_appraisals;
+	}
+	
 
 	// check if performance exists
 	@RequestMapping(value = "/Performance/CheckPerformanceExists", method = RequestMethod.POST, produces = "application/json")

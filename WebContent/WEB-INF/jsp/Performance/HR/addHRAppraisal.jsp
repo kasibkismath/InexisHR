@@ -40,7 +40,7 @@
 									checkDuplicateHRAppraisal(saveNewHREmployee, saveNewHRYear)">
 								<option value="">Select an employee</option>
 								<option ng-repeat="employee in employees" value="{{employee.empId}}"
-								ng-if="employee.empId != loggedInEmpId && employee.designation.name != 'Ceo'">
+								ng-if="employee.empId != loggedInEmpId && employee.designation.name != 'Ceo' && employee.status === true">
 								{{employee.firstName}} {{employee.lastName}}</option>
 							</select>
 						</div>

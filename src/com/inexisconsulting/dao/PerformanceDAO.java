@@ -90,27 +90,21 @@ public class PerformanceDAO {
 		return performance_id;
 	}
 
-	public Long getSumOfTotalScore(Performance performance) throws HibernateException, ParseException {
+	public Long getSumOfTotalScore(Performance performance) {
 
-		// initialize date format
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		// date from performance object
-		Date date = performance.getDate();
-
-		// convert performance date to string
-		String stringDate = sdf.format(date);
-
-		String sql = "select sum(teamLeadApp.total_score + hrApp.total_score + ceoApp.total_score)"
-				+ " as sum from performance_appraisal as perfApp join team_lead_appraisal as teamLeadApp"
-				+ " on perfApp.performance_id = teamLeadApp.performance_id join hr_appraisal as hrApp"
-				+ " on perfApp.performance_id = hrApp.performance_id join ceo_appraisal as ceoApp"
-				+ " on perfApp.performance_id = ceoApp.performance_id"
-				+ " where perfApp.emp_id=:empId and perfApp.date=:date";
+		String sql = "select sum(total_score) as totalScore from ( "
+				+ "select sum(team_lead_appraisal.total_score) as total_score from team_lead_appraisal "
+				+ "where team_lead_appraisal.performance_id=:performanceId "
+				+ "union "
+				+ "select sum(hr_appraisal.total_score) as total_score from hr_appraisal "
+				+ "where hr_appraisal.performance_id=:performanceId "
+				+ "union "
+				+ "select sum(ceo_appraisal.total_score) as total_score from ceo_appraisal "
+				+ "where ceo_appraisal.performance_id=:performanceId "
+				+ ") as totalScore;";
 
 		Query query = session().createSQLQuery(sql);
-		query.setParameter("empId", performance.getEmployee().getEmpId());
-		query.setParameter("date", sdf.parse(stringDate));
+		query.setParameter("performanceId", performance.getPerformance_id());
 
 		long sum = ((Number) query.uniqueResult()).longValue();
 		return sum;

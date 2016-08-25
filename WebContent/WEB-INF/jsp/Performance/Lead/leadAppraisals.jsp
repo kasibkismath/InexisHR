@@ -4,69 +4,31 @@
 			<i class="fa fa-plus-circle"></i> Add New Appraisal
 		</button>
 	</div>
-	<ul class="list-group mainGroup">
-		<li class="list-group-item col-md-2 appraisalList listOne">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-  			<a href="" type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;
- 			<a href="" type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></a>&nbsp;
- 			<a href="" type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;
- 			<a href="" type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></a>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-		<li class="list-group-item col-md-2 appraisalList">
-			<h3>Kasib Kismath</h3>
-			<h5><small>Technical Support</small></h5>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" title="Edit"><i class="fa fa-pencil"></i></button>&nbsp;
- 			<button type="button" class="btn btn-default" data-toggle="tooltip" title="View Performance"><i class="fa fa-bar-chart"></i></button>
-		</li>
-	</ul>
+	<div class="col-sm-12 tpad-table">
+		<table datatable="" dt-options="dtOptions" dt-columns="dtColumns"
+			class="table table-hover">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Team</th>
+					<th>Year</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="designations in designation">
+					<td ng-cloak>{{designation.designationId}}</td>
+					<td ng-cloak>{{designation.name}}</td>
+					<td ng-cloak><button class="btn btn-primary" id="editAppraisal" data-toggle="modal" data-target="#editAppraisalModal" ng-click="editAppraisalMain(designation.id)"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
+					<td ng-cloak><button class="btn btn-danger" id="deleteAppraisal" data-toggle="modal" data-target="#deleteAppraisalModal" ng-click="deleteAppraisalMain(designation.id)"><i class="fa fa-trash fa-lg"></i> Delete</button></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Modals -->
+	</div>
 	<jsp:include page="addLeadAppraisal.jsp"></jsp:include>
 </div>

@@ -24,15 +24,18 @@ public class Team {
 	private Employee employee;
 
 	private String team_name;
+	
+	private String status;
 
 	public Team() {
 	}
 
-	public Team(int team_Id, Project project, Employee employee, String team_name) {
+	public Team(int team_Id, Project project, Employee employee, String team_name, String status) {
 		this.team_Id = team_Id;
 		this.project = project;
 		this.employee = employee;
 		this.team_name = team_name;
+		this.status = status;
 	}
 
 	public int getTeam_Id() {
@@ -65,5 +68,13 @@ public class Team {
 
 	public void setTeam_name(String team_name) {
 		this.team_name = team_name;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
