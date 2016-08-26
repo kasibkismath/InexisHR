@@ -75,6 +75,6 @@ textarea {
 	margin-bottom: 20px;
 }
 
-#deleteLeadAppraisal {
-	margin-left: -155px !important;
+#deleteLeadAppraisal, #scoresLeadAppraisal {
+	margin-left: -150px !important;
 }

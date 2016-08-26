@@ -58,7 +58,7 @@
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+
 
 </head>
 <body ng-controller="performanceMainController" ng-init="init()" ng-cloak>
@@ -182,8 +182,5 @@
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Performance/performanceAngular.js"></script>
-	<script>
-		$("[data-toggle='tooltip']").tooltip();
-	</script>
 </body>
 </html>

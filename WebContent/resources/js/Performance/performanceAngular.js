@@ -36,7 +36,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	 };
 	 
 	 // Lead Appraisals By Lead Id Data Table
-	 $scope.leadAppraisalsDataTable = function(result){
+	 $scope.leadAppraisalsDataTable = function(emp_lead_id){
 		
 			 $scope.dtOptions = DTOptionsBuilder.newOptions()
 			     .withPaginationType('full_numbers')
@@ -53,27 +53,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			   DTColumnDefBuilder.newColumnDef(6).notSortable()
 			 ];
 			 
-	 
-			var data = {
-				employee : {empId : 5}
-			};
-					
-			$http.post($scope.baseURL + '/Performance/GetLeadAppraisalsByLeadId', data)
-				.success(function(result) {
-					// initialize array
-					$scope.leadAppraisalsByLeadId = [];
-							
-					// for each element in the array, insert the first object in the element.
-					angular.forEach(result, function(value, key) {
-						$scope.leadAppraisalsByLeadId.push(value[0]);
-					});
-					
-					console.log($scope.leadAppraisalsByLeadId);
-						
-				})
-				.error(function(data, status) {
-					console.log(data);
-				});
+			 $scope.getLeadAppraisalsByLeadId(emp_lead_id);
 	 };
 	
 	// ceo summary chart configs
@@ -338,7 +318,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		return def.promise;
 	};
 	
-	/*// get all appraisals by lead id
+	// get all appraisals by lead id
 	$scope.getLeadAppraisalsByLeadId = function(lead_id) {
 		
 		var data = {
@@ -359,7 +339,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		.error(function(data, status) {
 			console.log(data);
 		});
-	}*/
+	}
 	
 	/* ------------------------------------- CEO Appraisal ------------------------ */
 	
@@ -653,6 +633,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	};
 	
 	$scope.checkDuplicateLeadAppraisal = function(empId, year, team_Id) {
+		
+		console.log(empId, year, team_Id);
 		
 		// make the year default to year and 31st of December
 		var appraisalYear = year + "-12-31";
