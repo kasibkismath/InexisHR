@@ -5,25 +5,27 @@
 		</button>
 	</div>
 	<div class="col-sm-12 tpad-table">
-		<table datatable="" dt-options="dtOptions" dt-columns="dtColumns"
+		<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"
 			class="table table-hover">
 			<thead>
 				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
+					<th>Name</th>
 					<th>Team</th>
 					<th>Year</th>
-					<th></th>
+					<th>Status</th>
+					<th>Actions</th>
 					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="designations in designation">
-					<td ng-cloak>{{designation.designationId}}</td>
-					<td ng-cloak>{{designation.name}}</td>
-					<td ng-cloak><button class="btn btn-primary" id="editAppraisal" data-toggle="modal" data-target="#editAppraisalModal" ng-click="editAppraisalMain(designation.id)"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
-					<td ng-cloak><button class="btn btn-danger" id="deleteAppraisal" data-toggle="modal" data-target="#deleteAppraisalModal" ng-click="deleteAppraisalMain(designation.id)"><i class="fa fa-trash fa-lg"></i> Delete</button></td>
+				<tr ng-repeat="leadAppraisal in leadAppraisalsByLeadId">
+					<td ng-cloak>{{leadAppraisal.employee.firstName}} {{leadAppraisal.employee.lastName}}</td>
+					<td ng-cloak>{{leadAppraisal.team.team_name}}</td>
+					<td ng-cloak>{{leadAppraisal.performance.date | date : 'yyyy'}} </td>
+					<td ng-cloak>{{leadAppraisal.status}}</td>
+					<td ng-cloak><button class="btn btn-primary" id="editLeadAppraisal" data-toggle="modal" data-target="#editLeadAppraisalModal" ng-click="editAppraisalMain(leadAppraisal.lead_appraisal_id)"><i class="fa fa-pencil fa-lg"></i></button></td>
+					<td ng-cloak><button class="btn btn-danger" id="deleteLeadAppraisal" data-toggle="modal" data-target="#deleteLeadAppraisalModal" ng-click="deleteAppraisalMain(leadAppraisal.lead_appraisal_id)"><i class="fa fa-trash fa-lg"></i></button></td>
 					<td></td>
 				</tr>
 			</tbody>

@@ -118,6 +118,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		// get chart labels
 		$http.get($scope.baseURL + '/employeeProfile/employee/getEmpDesignationData')
 		.success(function(result) {
+			console.log(result);
 			$scope.labels = [];
 			$scope.data = [];
 			angular.forEach(result, function(value, key) {

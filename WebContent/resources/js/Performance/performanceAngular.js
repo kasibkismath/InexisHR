@@ -1,9 +1,11 @@
 var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.js', 
-                                                 'angular-character-count', 'angular-convert-to-number']);
+                                                 'angular-character-count', 'angular-convert-to-number',
+                                                 'datatables']);
 
 // Controllers
-performance.controller('performanceMainController', ['$scope', '$http', '$q', 'toaster', '$filter', 
-                                                     function($scope, $http, $q, toaster, $filter) {
+performance.controller('performanceMainController', ['$scope', '$http', '$q', 'toaster', '$filter',
+                                                     'DTOptionsBuilder', 'DTColumnDefBuilder',
+                                                     function($scope, $http, $q, toaster, $filter, DTOptionsBuilder, DTColumnDefBuilder) {
 	
 	// initializations
 	$scope.currentUser = currentUser;
@@ -27,9 +29,51 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				// get team by current logged in user team lead id, user role is ROLE_LEAD
 				if($scope.currentUserRole === '[ROLE_LEAD]')
 					$scope.getTeamsByLeadId(result);
+				$scope.leadAppraisalsDataTable(result);
 			});
 		$scope.summaryChartCEO();
 		$scope.summaryChartLead();
+	 };
+	 
+	 // Lead Appraisals By Lead Id Data Table
+	 $scope.leadAppraisalsDataTable = function(result){
+		
+			 $scope.dtOptions = DTOptionsBuilder.newOptions()
+			     .withPaginationType('full_numbers')
+			     .withDisplayLength(10);
+			 
+			 $scope.dtColumnDefs = 
+		     [
+			   DTColumnDefBuilder.newColumnDef(0),
+			   DTColumnDefBuilder.newColumnDef(1).notSortable(),
+			   DTColumnDefBuilder.newColumnDef(2),
+			   DTColumnDefBuilder.newColumnDef(3).notSortable(),
+			   DTColumnDefBuilder.newColumnDef(4).notSortable(),
+			   DTColumnDefBuilder.newColumnDef(5).notSortable(),
+			   DTColumnDefBuilder.newColumnDef(6).notSortable()
+			 ];
+			 
+	 
+			var data = {
+				employee : {empId : 5}
+			};
+					
+			$http.post($scope.baseURL + '/Performance/GetLeadAppraisalsByLeadId', data)
+				.success(function(result) {
+					// initialize array
+					$scope.leadAppraisalsByLeadId = [];
+							
+					// for each element in the array, insert the first object in the element.
+					angular.forEach(result, function(value, key) {
+						$scope.leadAppraisalsByLeadId.push(value[0]);
+					});
+					
+					console.log($scope.leadAppraisalsByLeadId);
+						
+				})
+				.error(function(data, status) {
+					console.log(data);
+				});
 	 };
 	
 	// ceo summary chart configs
@@ -294,7 +338,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		return def.promise;
 	};
 	
-	// get all appraisals by lead id
+	/*// get all appraisals by lead id
 	$scope.getLeadAppraisalsByLeadId = function(lead_id) {
 		
 		var data = {
@@ -303,12 +347,19 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		$http.post($scope.baseURL + '/Performance/GetLeadAppraisalsByLeadId', data)
 		.success(function(result) {
-			console.log(result);
+			// initialize array
+			$scope.leadAppraisalsByLeadId = [];
+			
+			// for each element in the array, insert the first object in the element.
+			angular.forEach(result, function(value, key) {
+				$scope.leadAppraisalsByLeadId.push(value[0]);
+			});
+			
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
-	}
+	}*/
 	
 	/* ------------------------------------- CEO Appraisal ------------------------ */
 	
@@ -795,5 +846,4 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
 	};
-	$scope.getLeadAppraisalsByLeadId(5);
 }]);

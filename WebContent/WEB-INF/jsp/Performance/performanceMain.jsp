@@ -28,6 +28,13 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css"
 	rel="stylesheet" />
 	
+<!-- Angular Data Table and JQuery Data Table CSS-->
+<link
+	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
+	rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
+	
 <!-- Angular ChartJS CSS -->
 <link href="${pageContext.request.contextPath}/static/css/General/angular-chart.min.css" rel="stylesheet">
 
@@ -47,7 +54,11 @@
 
 
 <!-- JS -->
+<script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 
 </head>
 <body ng-controller="performanceMainController" ng-init="init()" ng-cloak>
@@ -156,8 +167,6 @@
 	
 	<script>var currentUserRole = "${loggedInUserRole}" </script>
 	
-	<script
-		src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
