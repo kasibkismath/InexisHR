@@ -39,4 +39,8 @@ public class Lead_AppraisalService {
 	public void updateLeadAppraisal(Lead_Appraisal lead_Appraisal) {
 		leadAppraisalDao.updateLeadAppraisal(lead_Appraisal);
 	}
+
+	public void deleteLeadAppraisal(Lead_Appraisal lead_Appraisal) {
+		leadAppraisalDao.deleteLeadAppraisal(lead_Appraisal);
+	}
 }

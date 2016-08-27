@@ -8,16 +8,21 @@
       <div class="modal-body">
    		<h3><i class="fa fa-question"></i> Do you really want to delete this Team Lead Appraisal?</h3>
         	<div style="padding-bottom: 20px; padding-top: 20px;">
-	          <small>
-	          	<i class="fa fa-bullhorn"></i> 
+	          <h6>
+	          	<i class="fa fa-bullhorn fa-lg"></i> 
 	          	<b>NOTE :</b>  If HR Appraisal for this employee, year 
 	          	and team is completed, <b>Team Lead Appraisal cannot be deleted</b>.
-	          </small>
+	          </h6>
          </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+			<i class="fa fa-times"></i> Close
+		</button>
+		<button type="button" class="btn btn-success" ng-disabled="TeamLeadDeleteResult"
+			ng-click="deleteLeadAppraisal(deleteLeadAppraisalId)">
+			<i class="fa fa-check"></i> Delete
+		</button>
       </div>
     </div>
   </div>

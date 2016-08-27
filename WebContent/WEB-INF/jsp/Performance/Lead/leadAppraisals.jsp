@@ -34,7 +34,7 @@
 						</button>
 						<button class="btn btn-danger" id="deleteLeadAppraisal" data-toggle="modal" 
 							data-target="#deleteLeadAppraisalModal" 
-							ng-click="deleteAppraisalMain(leadAppraisal.lead_appraisal_id)">
+							ng-click="deleteAppraisalMain(leadAppraisal.lead_appraisal_id, leadAppraisal.employee.empId, leadAppraisal.performance.date)">
 							<i class="fa fa-trash fa-lg"></i> Delete
 						</button>
 						<button class="btn btn-default" id="scoresLeadAppraisal" data-toggle="modal" 

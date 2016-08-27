@@ -49,9 +49,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			   DTColumnDefBuilder.newColumnDef(2),
 			   DTColumnDefBuilder.newColumnDef(3).notSortable(),
 			   DTColumnDefBuilder.newColumnDef(4),
-			   DTColumnDefBuilder.newColumnDef(5).notSortable(),
-			   DTColumnDefBuilder.newColumnDef(6).notSortable(),
-			   DTColumnDefBuilder.newColumnDef(7).notSortable()
+			   DTColumnDefBuilder.newColumnDef(5).notSortable()
 			 ];
 			 
 			 $scope.getLeadAppraisalsByLeadId(emp_lead_id);
@@ -673,15 +671,14 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 		
 		// construct Lead Appraisal object
-		var leadAppraisl = {
+		var leadAppraisal = {
 			lead_appraisal_id : leadAppraisalId
 		};
 		
 		// send request with data
-		$http.post($scope.baseURL + '/Performance/GetLeadAppraisalByLeadAppraisalId', leadAppraisl)
+		$http.post($scope.baseURL + '/Performance/GetLeadAppraisalByLeadAppraisalId', leadAppraisal)
 		 .success(function(result) {
 			 	$scope.saveEditLeadAppraisalId = result.lead_appraisal_id;
-			 	console.log($scope.saveEditLeadAppraisalId);
 			 	$scope.saveEditLeadEmployee = result.employee.empId;
 			 	$scope.saveEditLeadYear = $filter('date')(result.performance.date, "yyyy");
 			 	$scope.saveEditLeadStatus = result.status;
@@ -742,6 +739,49 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			 console.log(data);
 		  });
 		
+	};
+	
+		/* ---------------- Team Lead Appraisl Delete ---------------- */
+	
+	$scope.deleteAppraisalMain = function(lead_appraisal_id, empId, date) {
+		
+		// filtered date
+		var filteredDate = $filter('date')(date, "yyyy");
+		
+		// send data to delete lead appraisal modal
+		$scope.deleteLeadAppraisalId = lead_appraisal_id;
+		$scope.deleteLeadEmpId = empId;
+		$scope.deleteLeadYear = filteredDate;
+		
+		
+		// check if hr appraisal exists
+		// if exists and completed, then disable
+		$scope.checkHRAppraisalExists(empId, filteredDate)
+		.then(function(result) {
+			$scope.TeamLeadDeleteResult = result;
+		});
+		
+	};
+	
+	$scope.deleteLeadAppraisal = function(lead_appraisal_id) {
+		
+		var leadAppraisal = {
+			lead_appraisal_id : lead_appraisal_id
+		};
+		
+		$http.post($scope.baseURL + '/Performance/DeleteLeadAppraisal', leadAppraisal)
+		 .success(function(result) {
+			$('#deleteLeadAppraisalModal').modal('hide');
+			toaster.pop('success', "Notification", "Deleted Appraisal Successfully");
+			setTimeout(function () {
+				window.location.reload();
+	        }, 1000);
+		  })
+		  .error(function(data, status) {
+			 $('#deleteLeadAppraisalModal').modal('hide');
+			 toaster.pop('error', "Notification", "Appraisal Deletion Failed");
+			 console.log(data);
+		  });
 	};
 	
 	/* -------------------------------- HR Appraisal ------------------------------ */

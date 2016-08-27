@@ -84,23 +84,20 @@ public class PerformanceController {
 		List<Performance> performances = performanceService.getPerformanceAppraisals();
 		return performances;
 	}
-	
+
 	@RequestMapping(value = "/Performance/GetLeadAppraisalsByLeadId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public List<Lead_Appraisal> getLeadAppraisalsByLeadId(@RequestBody Lead_Appraisal leadAppraisal) {
-		List<Lead_Appraisal> lead_appraisals = 
-				leadAppraisalService.getLeadAppraisalsByLeadId(leadAppraisal);
+		List<Lead_Appraisal> lead_appraisals = leadAppraisalService.getLeadAppraisalsByLeadId(leadAppraisal);
 		return lead_appraisals;
 	}
-	
+
 	@RequestMapping(value = "/Performance/GetLeadAppraisalByLeadAppraisalId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Lead_Appraisal getLeadAppraisalByLeadAppraisalId(@RequestBody Lead_Appraisal leadAppraisal) {
-		Lead_Appraisal lead_appraisal = 
-				leadAppraisalService.getLeadAppraisalByLeadAppraisalId(leadAppraisal);
+		Lead_Appraisal lead_appraisal = leadAppraisalService.getLeadAppraisalByLeadAppraisalId(leadAppraisal);
 		return lead_appraisal;
 	}
-	
 
 	// check if performance exists
 	@RequestMapping(value = "/Performance/CheckPerformanceExists", method = RequestMethod.POST, produces = "application/json")
@@ -269,7 +266,8 @@ public class PerformanceController {
 	// get sum of total scores
 	@RequestMapping(value = "/Performance/FinalScoreCalculation", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public double finalScoreCalculation(@RequestBody Performance performance) throws HibernateException, ParseException {
+	public double finalScoreCalculation(@RequestBody Performance performance)
+			throws HibernateException, ParseException {
 
 		long total_score = performanceService.getSumOfTotalScore(performance);
 		long appraisal_count = getTotalScoreCount(performance);
@@ -299,12 +297,18 @@ public class PerformanceController {
 
 		performanceService.updatePerformanceWithFinalScoreAndStatus(performance);
 	}
-	
+
 	// update performance details with final_score and status information
-	@RequestMapping(value = "/Performance/SaveEditLeadAppraisal", 
-			method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/Performance/SaveEditLeadAppraisal", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void updateLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) {
 		leadAppraisalService.updateLeadAppraisal(lead_Appraisal);
+	}
+
+	// update performance details with final_score and status information
+	@RequestMapping(value = "/Performance/DeleteLeadAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) {
+		leadAppraisalService.deleteLeadAppraisal(lead_Appraisal);
 	}
 }

@@ -114,4 +114,10 @@ public class Lead_AppraisalDAO {
 		
 		session().saveOrUpdate(updatedLeadAppraisal);
 	}
+
+	public void deleteLeadAppraisal(Lead_Appraisal lead_Appraisal) {
+		Query query = session().createQuery("delete from Lead_Appraisal where lead_appraisal_id=:leadAppraisalId");
+		query.setInteger("leadAppraisalId", lead_Appraisal.getLead_appraisal_id());
+		query.executeUpdate();
+	}
 }
