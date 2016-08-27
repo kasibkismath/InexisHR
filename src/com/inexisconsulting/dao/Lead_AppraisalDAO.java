@@ -92,4 +92,11 @@ public class Lead_AppraisalDAO {
 		List<Lead_Appraisal> lead_appraisals = query.list();
 		return lead_appraisals;
 	}
+
+	public Lead_Appraisal getLeadAppraisalByLeadAppraisalId(Lead_Appraisal leadAppraisal) {
+		Criteria crit = session().createCriteria(Lead_Appraisal.class);
+		crit.add(Restrictions.eq("lead_appraisal_id", leadAppraisal.getLead_appraisal_id()));
+		Lead_Appraisal getEditLeadAppraisal = (Lead_Appraisal)crit.uniqueResult(); 
+		return getEditLeadAppraisal;
+	}
 }

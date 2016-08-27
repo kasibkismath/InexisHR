@@ -21,9 +21,10 @@
 				</div>
 				<label class="col-sm-2 control-label">Employee</label>
 				<div class="col-sm-10">
-					<select ng-model="saveEditLeadEmployee" name="employee" class="form-control"
+					<select ng-model="saveEditLeadEmployee" name="employee" class="form-control" convert-to-number
 						required
-						ng-change="checkDuplicateLeadAppraisal(saveEditLeadEmployee, saveEditLeadYear saveEditTeam">
+						ng-disabled="TeamLeadEditResult"
+						ng-change="checkDuplicateLeadAppraisal(saveEditLeadEmployee, saveEditLeadYear saveEditTeam)">
 						<option value="">Select an employee</option>
 						<option ng-repeat="teamMember in teamMembersByLead" value="{{teamMember.empId}}"
 							ng-if="teamMember.empId != loggedInEmpId && teamMember.status === true">
@@ -43,10 +44,11 @@
 				</div>
 				<label class="col-sm-2 control-label">Year</label>
 				<div class="col-sm-10">
-					<select ng-model="saveEditLeadYear" name="year" class="form-control" 
+					<select ng-model="saveEditLeadYear" name="year" class="form-control"
+						ng-disabled="TeamLeadEditResult" 
 						required 
 						ng-change="checkAppraisalYear(saveEditLeadEmployee,saveEditLeadYear); 
-							checkDuplicateLeadAppraisal(saveEditLeadEmployee,saveEditLeadYear, saveEditTeam">
+							checkDuplicateLeadAppraisal(saveEditLeadEmployee,saveEditLeadYear, saveEditTeam)">
 						<option value="">Select a year</option>
 						<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 					</select>
@@ -60,7 +62,8 @@
 				</div>
 				<label class="col-sm-2 control-label">Status</label>
 				<div class="col-sm-10">
-					<select ng-model="saveEditLeadStatus" name="status" class="form-control" 
+					<select ng-model="saveEditLeadStatus" name="status" class="form-control"
+							ng-disabled="TeamLeadEditResult" 
 							required>
 						<option value="">Select status</option>
 						<option value="In-Progess">In Progess</option>
@@ -76,9 +79,10 @@
 				</div>
 				<label class="col-sm-2 control-label">Team</label>
 				<div class="col-sm-10">
-					<select ng-model="saveEditTeam" name="team" class="form-control" 
+					<select ng-model="saveEditTeam" name="team" class="form-control" convert-to-number
+						ng-disabled="TeamLeadEditResult"
 						required
-						ng-change="checkDuplicateLeadAppraisal(saveEditLeadEmployee, saveEditLeadYear, saveEditTeam">
+						ng-change="checkDuplicateLeadAppraisal(saveEditLeadEmployee, saveEditLeadYear, saveEditTeam)">
 						<option value="">Select a team</option>
 						<option ng-repeat="team in teamsByLeadId"
 							ng-show="team.status == 'Active'"
@@ -97,7 +101,7 @@
 				<label class="col-sm-2 control-label">Skill Level Score</label>
 				<div class="col-sm-10">
 					<select ng-model="saveEditLeadSkillScore" name="skillScore" class="form-control" 
-							required>
+							convert-to-number ng-disabled="TeamLeadEditResult" required>
 						<option value="">Select score</option>
 						<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 					</select>
@@ -112,7 +116,7 @@
 				<label class="col-sm-2 control-label">Mentorship Score</label>
 				<div class="col-sm-10">
 					<select ng-model="saveEditLeadMentorshipScore" name="mentorshipScore" class="form-control" 
-							required>
+							convert-to-number ng-disabled="TeamLeadEditResult" required>
 						<option value="">Select score</option>
 						<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 					</select>
@@ -127,7 +131,7 @@
 				<label class="col-sm-2 control-label">Task Completion Score</label>
 				<div class="col-sm-10">
 					<select ng-model="saveEditLeadTaskCompScore" name="taskCompScore" class="form-control" 
-							required>
+							convert-to-number ng-disabled="TeamLeadEditResult" required>
 						<option value="">Select score</option>
 						<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 					</select>
@@ -142,7 +146,7 @@
 				<label class="col-sm-2 control-label">Current Performance Score</label>
 				<div class="col-sm-10">
 					<select ng-model="saveEditLeadCurrPerformanceScore" name="currPerformanceScore" class="form-control" 
-							required>
+							convert-to-number ng-disabled="TeamLeadEditResult" required>
 						<option value="">Select score</option>
 						<option ng-repeat="scoreValue in scoreValues" value="{{scoreValue}}">{{scoreValue}}</option>
 					</select>
@@ -150,7 +154,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-success">Save</button>
+				<button type="submit" class="btn btn-success" ng-disabled="TeamLeadEditResult">Save</button>
 			</div>
           </form>
       </div>

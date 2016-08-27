@@ -396,7 +396,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 				$scope.editGetEmail = result.email;
 				$scope.editGetPhoneNo = result.phoneNumber;
 				$scope.editGetMobileNo = result.mobileNumber;
-				$scope.editGetHireDate = $filter('date')(result.hireDate, "yyyy-MM-dd");;
+				$scope.editGetHireDate = $filter('date')(result.hireDate, "yyyy-MM-dd");
 				$scope.editGetDesignation = result.designation.designationId;
 				$scope.editGetEmpType = result.employmentType;
 				$scope.editGetSalary = result.Salary;

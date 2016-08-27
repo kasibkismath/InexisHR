@@ -93,6 +93,14 @@ public class PerformanceController {
 		return lead_appraisals;
 	}
 	
+	@RequestMapping(value = "/Performance/GetLeadAppraisalByLeadAppraisalId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Lead_Appraisal getLeadAppraisalByLeadAppraisalId(@RequestBody Lead_Appraisal leadAppraisal) {
+		Lead_Appraisal lead_appraisal = 
+				leadAppraisalService.getLeadAppraisalByLeadAppraisalId(leadAppraisal);
+		return lead_appraisal;
+	}
+	
 
 	// check if performance exists
 	@RequestMapping(value = "/Performance/CheckPerformanceExists", method = RequestMethod.POST, produces = "application/json")
@@ -207,8 +215,6 @@ public class PerformanceController {
 
 		Long count = hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
 		String userRole = userService.getUserRoleByEmpId(employee);
-
-		System.err.println(userRole);
 
 		// if HR Manager - HR Appraisal
 		if (userRole.equals("ROLE_HR") && count == 0) {
