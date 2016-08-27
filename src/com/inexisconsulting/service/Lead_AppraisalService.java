@@ -35,4 +35,8 @@ public class Lead_AppraisalService {
 	public Lead_Appraisal getLeadAppraisalByLeadAppraisalId(Lead_Appraisal leadAppraisal) {
 		return leadAppraisalDao.getLeadAppraisalByLeadAppraisalId(leadAppraisal);
 	}
+
+	public void updateLeadAppraisal(Lead_Appraisal lead_Appraisal) {
+		leadAppraisalDao.updateLeadAppraisal(lead_Appraisal);
+	}
 }

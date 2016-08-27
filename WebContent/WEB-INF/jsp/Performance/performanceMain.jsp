@@ -55,9 +55,7 @@
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 
 
 </head>
@@ -167,6 +165,8 @@
 	
 	<script>var currentUserRole = "${loggedInUserRole}" </script>
 	
+	<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>

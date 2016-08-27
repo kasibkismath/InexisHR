@@ -99,4 +99,19 @@ public class Lead_AppraisalDAO {
 		Lead_Appraisal getEditLeadAppraisal = (Lead_Appraisal)crit.uniqueResult(); 
 		return getEditLeadAppraisal;
 	}
+
+	public void updateLeadAppraisal(Lead_Appraisal lead_Appraisal) {
+		Criteria crit = session().createCriteria(Lead_Appraisal.class);
+		crit.add(Restrictions.eq("lead_appraisal_id", lead_Appraisal.getLead_appraisal_id()));
+		
+		Lead_Appraisal updatedLeadAppraisal = (Lead_Appraisal)crit.uniqueResult();
+		updatedLeadAppraisal.setStatus(lead_Appraisal.getStatus());
+		updatedLeadAppraisal.setScore_skill(lead_Appraisal.getScore_skill());
+		updatedLeadAppraisal.setScore_mentorship(lead_Appraisal.getScore_mentorship());
+		updatedLeadAppraisal.setScore_task_completion(lead_Appraisal.getScore_task_completion());
+		updatedLeadAppraisal.setScore_current_performance(lead_Appraisal.getScore_current_performance());
+		updatedLeadAppraisal.setTotal_score(lead_Appraisal.getTotal_score());
+		
+		session().saveOrUpdate(updatedLeadAppraisal);
+	}
 }

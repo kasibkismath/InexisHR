@@ -6,12 +6,22 @@
         <h4 class="modal-title">Edit Appraisal</h4>
       </div>
       <div class="modal-body">
-          <form name="leadEditAppraisalForm" class="form-horizontal">
-          
-          	<div role="alert" class="alert alert-danger padded" 
-				ng-show="duplicateLeadAppraisalExists === true">
-				<strong>Error!</strong> Team Lead Appraisal Exists for this employee, year and team.
-			</div>
+		  <div style="padding-bottom: 20px;">
+	          <h5>
+	          	<i class="fa fa-bullhorn"></i> 
+	          	<b>NOTE :</b>  If HR Appraisal for this employee, year 
+	          	and team is completed, <b>Team Lead &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	          	&nbsp; &nbsp;
+	          	Appraisal cannot be edited</b>.
+	          </h5>
+         </div>
+          <form name="leadEditAppraisalForm" class="form-horizontal"
+          	ng-submit="leadEditAppraisalForm.$valid && 
+          		saveEditLeadAppraisalMain(saveEditLeadAppraisalId, saveEditLeadStatus, 
+          		saveEditLeadSkillScore, saveEditLeadMentorshipScore, saveEditLeadTaskCompScore, 
+          		saveEditLeadCurrPerformanceScore)">
+          	
+          	<input type="hidden" ng-model="saveEditLeadAppraisalId">
 			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
@@ -21,10 +31,8 @@
 				</div>
 				<label class="col-sm-2 control-label">Employee</label>
 				<div class="col-sm-10">
-					<select ng-model="saveEditLeadEmployee" name="employee" class="form-control" convert-to-number
-						required
-						ng-disabled="TeamLeadEditResult"
-						ng-change="checkDuplicateLeadAppraisal(saveEditLeadEmployee, saveEditLeadYear saveEditTeam)">
+					<select ng-model="saveEditLeadEmployee" name="employee" class="form-control" 
+						convert-to-number required disabled="true">
 						<option value="">Select an employee</option>
 						<option ng-repeat="teamMember in teamMembersByLead" value="{{teamMember.empId}}"
 							ng-if="teamMember.empId != loggedInEmpId && teamMember.status === true">
@@ -45,10 +53,7 @@
 				<label class="col-sm-2 control-label">Year</label>
 				<div class="col-sm-10">
 					<select ng-model="saveEditLeadYear" name="year" class="form-control"
-						ng-disabled="TeamLeadEditResult" 
-						required 
-						ng-change="checkAppraisalYear(saveEditLeadEmployee,saveEditLeadYear); 
-							checkDuplicateLeadAppraisal(saveEditLeadEmployee,saveEditLeadYear, saveEditTeam)">
+						required disabled="true">
 						<option value="">Select a year</option>
 						<option ng-repeat="year in years" value="{{year}}">{{year}}</option>
 					</select>
@@ -80,9 +85,7 @@
 				<label class="col-sm-2 control-label">Team</label>
 				<div class="col-sm-10">
 					<select ng-model="saveEditTeam" name="team" class="form-control" convert-to-number
-						ng-disabled="TeamLeadEditResult"
-						required
-						ng-change="checkDuplicateLeadAppraisal(saveEditLeadEmployee, saveEditLeadYear, saveEditTeam)">
+						required disabled="true">
 						<option value="">Select a team</option>
 						<option ng-repeat="team in teamsByLeadId"
 							ng-show="team.status == 'Active'"
@@ -153,8 +156,12 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-success" ng-disabled="TeamLeadEditResult">Save</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">
+					<i class="fa fa-times"></i> Close
+				</button>
+				<button type="submit" class="btn btn-success" ng-disabled="TeamLeadEditResult">
+					<i class="fa fa-check"></i> Save
+				</button>
 			</div>
           </form>
       </div>

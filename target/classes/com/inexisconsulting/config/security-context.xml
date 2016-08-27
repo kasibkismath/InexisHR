@@ -154,6 +154,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/GetLeadAppraisalByLeadAppraisalId"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/SaveEditLeadAppraisal"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

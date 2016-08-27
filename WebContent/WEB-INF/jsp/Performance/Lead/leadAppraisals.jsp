@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<span data-toggle="modal" data-target="#LeadAddAppraisal">
-			<button class="btn btn-success pull-right addAppraisalBtn" data-toggle="tooltip" title="Add Appraisal">
+			<button class="btn btn-success pull-right addAppraisalBtn" title="Add Appraisal">
 				<i class="fa fa-plus-circle"></i> Add New Appraisal
 			</button>
 		</span>
@@ -17,8 +17,6 @@
 					<th>Status</th>
 					<th>Total Score</th>
 					<th>Actions</th>
-					<th></th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,20 +32,16 @@
 							ng-click="editAppraisalMain(leadAppraisal.lead_appraisal_id, leadAppraisal.employee.empId, leadAppraisal.performance.date)">
 							<i class="fa fa-pencil fa-lg"></i> Edit
 						</button>
-					</td>
-					<td ng-cloak>
 						<button class="btn btn-danger" id="deleteLeadAppraisal" data-toggle="modal" 
 							data-target="#deleteLeadAppraisalModal" 
 							ng-click="deleteAppraisalMain(leadAppraisal.lead_appraisal_id)">
 							<i class="fa fa-trash fa-lg"></i> Delete
-						</button> 
-					</td>
-					<td ng-cloak>
+						</button>
 						<button class="btn btn-default" id="scoresLeadAppraisal" data-toggle="modal" 
 							data-target="#scoresLeadAppraisalModal" 
 							ng-click="scoresAppraisalMain(leadAppraisal.employee.empId)">
 							<i class="fa fa-line-chart fa-lg"></i> Scores
-						</button> 
+						</button>
 					</td>
 				</tr>
 			</tbody>

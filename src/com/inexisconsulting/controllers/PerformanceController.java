@@ -299,4 +299,12 @@ public class PerformanceController {
 
 		performanceService.updatePerformanceWithFinalScoreAndStatus(performance);
 	}
+	
+	// update performance details with final_score and status information
+	@RequestMapping(value = "/Performance/SaveEditLeadAppraisal", 
+			method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) {
+		leadAppraisalService.updateLeadAppraisal(lead_Appraisal);
+	}
 }

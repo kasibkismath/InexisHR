@@ -195,7 +195,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		 
 		 var data = {
 			empId : empId
-		 }
+		 };
 		 
 		 $http.post($scope.baseURL + '/Performance/CheckAppraisalYear', data)
 		 .success(function(result) {
@@ -680,6 +680,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		// send request with data
 		$http.post($scope.baseURL + '/Performance/GetLeadAppraisalByLeadAppraisalId', leadAppraisl)
 		 .success(function(result) {
+			 	$scope.saveEditLeadAppraisalId = result.lead_appraisal_id;
+			 	console.log($scope.saveEditLeadAppraisalId);
 			 	$scope.saveEditLeadEmployee = result.employee.empId;
 			 	$scope.saveEditLeadYear = $filter('date')(result.performance.date, "yyyy");
 			 	$scope.saveEditLeadStatus = result.status;
@@ -692,6 +694,54 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			.error(function(data, status) {
 				console.log(data);
 			})
+	};
+	
+	// calls from edit lead appraisal modal
+	$scope.saveEditLeadAppraisalMain = function(lead_appraisal_id, status, score_skill, score_mentor,
+			score_task, score_performance) {
+		
+		// covert string scores to integer
+		var int_score_skill = parseInt(score_skill);
+		var int_score_mentor = parseInt(score_mentor);
+		var int_score_task = parseInt(score_task);
+		var int_score_performance = parseInt(score_performance);
+		
+		// sum scores to calculate total_score
+		var total_score = int_score_skill + int_score_mentor + int_score_task + int_score_performance;
+		
+		// call the actual save edit lead appraisal function to persist data
+		$scope.saveEditLeadAppraisal(lead_appraisal_id, status, score_skill, score_mentor,
+			score_task, score_performance, total_score);
+		
+	};
+	
+	$scope.saveEditLeadAppraisal = function(lead_appraisal_id, status, score_skill, score_mentor,
+			score_task, score_performance, total_score) {
+		
+		var leadAppraisal = {
+			lead_appraisal_id : lead_appraisal_id,
+			status : status,
+			score_skill : score_skill,
+			score_mentorship : score_mentor,
+			score_task_completion : score_task,
+			score_current_performance : score_performance,
+			total_score : total_score
+		};
+		
+		$http.post($scope.baseURL + '/Performance/SaveEditLeadAppraisal', leadAppraisal)
+		 .success(function(result) {
+			$('#editLeadAppraisalModal').modal('hide');
+			toaster.pop('success', "Notification", "Updated Appraisal Successfully");
+			setTimeout(function () {
+				window.location.reload();
+	        }, 1000);
+		  })
+		  .error(function(data, status) {
+			 $('#editLeadAppraisalModal').modal('hide');
+			 toaster.pop('error', "Notification", "Appraisal Updation Failed");
+			 console.log(data);
+		  });
+		
 	};
 	
 	/* -------------------------------- HR Appraisal ------------------------------ */
