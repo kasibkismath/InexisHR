@@ -158,6 +158,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/DeleteLeadAppraisal"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetTotalScoresByLeadId"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

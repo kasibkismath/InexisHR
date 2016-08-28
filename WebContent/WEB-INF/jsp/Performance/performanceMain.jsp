@@ -29,11 +29,14 @@
 	rel="stylesheet" />
 	
 <!-- Angular Data Table and JQuery Data Table CSS-->
+
+<link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<!-- <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet"> -->
+
 <link
 	href="${pageContext.request.contextPath}/static/css/General/angular-datatables.min.css"
 	rel="stylesheet">
-
-<link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
 	
 <!-- Angular ChartJS CSS -->
 <link href="${pageContext.request.contextPath}/static/css/General/angular-chart.min.css" rel="stylesheet">
@@ -169,6 +172,7 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-datatables.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/js/General/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-messages.min.js"></script>
 	<script src="//code.angularjs.org/1.4.3/angular-animate.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/Chart.min.js"></script>

@@ -2,6 +2,7 @@ package com.inexisconsulting.dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -153,4 +153,60 @@ public class PerformanceDAO {
 		
 		session().saveOrUpdate(updatedPerformance);
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getTotalScoresForEmployeeByLeadId(Team_And_Performance teamAndPerformance) throws HibernateException, ParseException {
+		
+		Team team = teamAndPerformance.getTeam();
+		Performance performance = teamAndPerformance.getPerformance();
+		
+		// initialize date format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// date from performance object
+		Date date = performance.getDate();
+		
+		Calendar prevYear = Calendar.getInstance();
+	    prevYear.add(Calendar.YEAR, -1);
+	    
+	    Calendar now = Calendar.getInstance();
+	    int currentYear = now.get(Calendar.YEAR);
+	    
+	    int previousYear = prevYear.get(Calendar.YEAR);
+	   
+	    String previousYearString = previousYear + "-12-31";
+	    
+	    Date previousYearDate = sdf.parse(previousYearString);
+
+		// convert performance date to string
+		String stringDate = sdf.format(date);
+		String stringPreviousYearDate = sdf.format(previousYearDate);
+		
+		String sql = "select EmpName, "
+				+ "SUM(CASE WHEN appraisalYear=:PrevYear THEN totalScore ELSE 0 END) `PreviousYear`, "
+				+ "SUM(CASE WHEN appraisalYear =:CurrYear THEN totalScore ELSE 0 END) `CurrentYear` "
+				+ "from ( "
+				+ "select concat(employee.firstName,' ',employee.lastName) as EmpName, "
+				+ "year(performance_appraisal.date) as appraisalYear,  "
+				+ "team_lead_appraisal.total_score as totalScore from employee "
+				+ "join performance_appraisal on employee.emp_id = performance_appraisal.emp_id "
+				+ "join team_lead_appraisal on performance_appraisal.performance_id = team_lead_appraisal.performance_id "
+				+ "join team on team_lead_appraisal.team_id = team.team_id where team.emp_id_lead=:empId "
+				+ "and performance_appraisal.date=:date or performance_appraisal.date=:previousYearDate "
+				+ "group by EmpName, appraisalYear, team_lead_appraisal.total_score "
+				+ "order by EmpName, appraisalYear "
+				+ ") as Result "
+				+ "group by EmpName";
+		
+		// process query with given parameters
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("empId", team.getEmployee().getEmpId());
+		query.setParameter("date", sdf.parse(stringDate));
+		query.setParameter("previousYearDate", previousYearDate);
+		query.setParameter("PrevYear", previousYear);
+		query.setParameter("CurrYear", currentYear);
+		
+		List<Object[]> result = query.list();
+		return result;
+	};
 }

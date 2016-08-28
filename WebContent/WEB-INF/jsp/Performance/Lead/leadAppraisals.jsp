@@ -6,7 +6,7 @@
 			</button>
 		</span>
 	</div>
-	<div class="col-sm-12 tpad-table">
+	<div class="col-sm-12">
 		<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"
 			class="table table-hover">
 			<thead>
@@ -30,17 +30,12 @@
 						<button class="btn btn-primary" id="editLeadAppraisal" data-toggle="modal" 
 							data-target="#editLeadAppraisalModal"
 							ng-click="editAppraisalMain(leadAppraisal.lead_appraisal_id, leadAppraisal.employee.empId, leadAppraisal.performance.date)">
-							<i class="fa fa-pencil fa-lg"></i> Edit
+							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" id="deleteLeadAppraisal" data-toggle="modal" 
 							data-target="#deleteLeadAppraisalModal" 
 							ng-click="deleteAppraisalMain(leadAppraisal.lead_appraisal_id, leadAppraisal.employee.empId, leadAppraisal.performance.date)">
-							<i class="fa fa-trash fa-lg"></i> Delete
-						</button>
-						<button class="btn btn-default" id="scoresLeadAppraisal" data-toggle="modal" 
-							data-target="#scoresLeadAppraisalModal" 
-							ng-click="scoresAppraisalMain(leadAppraisal.employee.empId)">
-							<i class="fa fa-line-chart fa-lg"></i> Scores
+							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>
 				</tr>

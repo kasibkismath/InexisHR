@@ -11,6 +11,7 @@ import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.PerformanceDAO;
+import com.inexisconsulting.dao.Team_And_Performance;
 
 @Service("performanceService")
 public class PerformanceService {
@@ -44,5 +45,9 @@ public class PerformanceService {
 
 	public void updatePerformanceWithFinalScoreAndStatus(Performance performance) {
 		performanceDao.updatePerformanceWithFinalScoreAndStatus(performance);
+	}
+
+	public List<Object[]> getTotalScoresForEmployeeByLeadId(Team_And_Performance teamAndPerformance) throws HibernateException, ParseException {
+		return performanceDao.getTotalScoresForEmployeeByLeadId(teamAndPerformance);
 	}
 }

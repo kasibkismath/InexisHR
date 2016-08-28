@@ -24,6 +24,7 @@ import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Team;
 import com.inexisconsulting.dao.TeamEmployee_And_Team;
+import com.inexisconsulting.dao.Team_And_Performance;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.dao.Team_Member_And_Lead_Appraisal;
 import com.inexisconsulting.service.CEO_AppraisalService;
@@ -310,5 +311,12 @@ public class PerformanceController {
 	@ResponseBody
 	public void deleteLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) {
 		leadAppraisalService.deleteLeadAppraisal(lead_Appraisal);
+	}
+
+	// get total score
+	@RequestMapping(value = "/Performance/GetTotalScoresByLeadId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getTotalScoresForEmployeeByLeadId(@RequestBody Team_And_Performance teamAndPerformance) throws HibernateException, ParseException {
+		return performanceService.getTotalScoresForEmployeeByLeadId(teamAndPerformance);
 	}
 }
