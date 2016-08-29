@@ -184,15 +184,16 @@ public class PerformanceDAO {
 		
 		String sql = "select EmpName, "
 				+ "SUM(CASE WHEN appraisalYear=:PrevYear THEN totalScore ELSE 0 END) `PreviousYear`, "
-				+ "SUM(CASE WHEN appraisalYear =:CurrYear THEN totalScore ELSE 0 END) `CurrentYear` "
+				+ "SUM(CASE WHEN appraisalYear=:CurrYear THEN totalScore ELSE 0 END) `CurrentYear` "
 				+ "from ( "
 				+ "select concat(employee.firstName,' ',employee.lastName) as EmpName, "
 				+ "year(performance_appraisal.date) as appraisalYear,  "
 				+ "team_lead_appraisal.total_score as totalScore from employee "
 				+ "join performance_appraisal on employee.emp_id = performance_appraisal.emp_id "
 				+ "join team_lead_appraisal on performance_appraisal.performance_id = team_lead_appraisal.performance_id "
-				+ "join team on team_lead_appraisal.team_id = team.team_id where team.emp_id_lead=:empId "
-				+ "and performance_appraisal.date=:date or performance_appraisal.date=:previousYearDate "
+				+ "join team on team_lead_appraisal.team_id = team.team_id where "
+				+ "team.emp_id_lead=:empId and employee.status=:statusSet "
+				+ "and (performance_appraisal.date=:date or performance_appraisal.date=:previousYearDate) "
 				+ "group by EmpName, appraisalYear, team_lead_appraisal.total_score "
 				+ "order by EmpName, appraisalYear "
 				+ ") as Result "
@@ -203,6 +204,7 @@ public class PerformanceDAO {
 		query.setParameter("empId", team.getEmployee().getEmpId());
 		query.setParameter("date", sdf.parse(stringDate));
 		query.setParameter("previousYearDate", previousYearDate);
+		query.setParameter("statusSet", true);
 		query.setParameter("PrevYear", previousYear);
 		query.setParameter("CurrYear", currentYear);
 		

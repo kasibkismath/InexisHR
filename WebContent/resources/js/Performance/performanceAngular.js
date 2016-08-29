@@ -34,6 +34,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				$scope.summaryChartLead(result);
 			});
 		$scope.summaryChartCEO();
+		$scope.getHRAppraisals();
 	 };
 	 
 	 // Lead Appraisals By Lead Id Data Table
@@ -330,9 +331,17 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			angular.forEach(result, function(value, key) {
 				$scope.leadAppraisalsByLeadId.push(value[0]);
 			});
-			
-			console.log($scope.leadAppraisalsByLeadId)
-			
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get all HR Appraisals
+	$scope.getHRAppraisals = function() {
+		$http.get($scope.baseURL + '/Performance/GetHRAppraisals')
+		.success(function(result) {
+			$scope.hrAppraisals = result;
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -953,5 +962,31 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			$('#HRAddAppraisal').modal('hide');
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
+	};
+	
+	/* ------------ HR Appraisal Edit --------------- */
+	
+	$scope.editHRAppraisalMain = function(hr_appraisal_id, empId, date) {
+		
+		var hrAppraisal = {
+			hr_appraisal_id : hr_appraisal_id
+		};
+		
+		$http.post($scope.baseURL + '/Performance/GetHRAppraisalByAppraisalId', hrAppraisal)
+		.success(function(result) {
+			$scope.saveEditHREmployee = result.employee.empId;
+			$scope.saveEditHRAppraisalId = result.hr_appraisal_id;
+			$scope.saveEditHRYear = $filter('date')(result.performance.date, "yyyy");
+			$scope.saveEditHRStatus = result.status;
+			$scope.saveEditHRTaskCompScore = result.score_task_completion;
+			$scope.saveEditHRCurrPerformanceScore = result.score_current_performance;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+			$('#HRAddAppraisal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
+		});
+		
 	};
 }]);

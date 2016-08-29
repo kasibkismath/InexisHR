@@ -92,6 +92,19 @@ public class PerformanceController {
 		List<Lead_Appraisal> lead_appraisals = leadAppraisalService.getLeadAppraisalsByLeadId(leadAppraisal);
 		return lead_appraisals;
 	}
+	
+	@RequestMapping(value = "/Performance/GetHRAppraisalByAppraisalId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public HR_Appraisal getHRAppraisalsByAppraisalId(@RequestBody HR_Appraisal hrAppraisal) {
+		return hrAppraisalService.getHRAppraisalsByAppraisalId(hrAppraisal);
+	}
+	
+	@RequestMapping(value = "/Performance/GetHRAppraisals", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<HR_Appraisal> getHRAppraisals() {
+		List<HR_Appraisal> hr_appraisals = hrAppraisalService.getHRAppraisals();
+		return hr_appraisals;
+	}
 
 	@RequestMapping(value = "/Performance/GetLeadAppraisalByLeadAppraisalId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

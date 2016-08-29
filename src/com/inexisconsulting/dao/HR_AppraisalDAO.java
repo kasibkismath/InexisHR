@@ -3,6 +3,7 @@ package com.inexisconsulting.dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -50,5 +51,22 @@ public class HR_AppraisalDAO {
 		
 		Long count = (Long)query.uniqueResult();
 		return count;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<HR_Appraisal> getHRAppraisals() {
+		String hql = "from HR_Appraisal";
+		
+		Query query = session().createQuery(hql);
+		
+		List<HR_Appraisal> hr_appraisals = query.list();
+		return hr_appraisals;
+	}
+
+	public HR_Appraisal getHRAppraisalsByAppraisalId(HR_Appraisal hrAppraisal) {
+		Criteria crit = session().createCriteria(HR_Appraisal.class);
+		crit.add(Restrictions.eq("hr_appraisal_id", hrAppraisal.getHr_appraisal_id()));
+		HR_Appraisal hrAppraisalResult = (HR_Appraisal)crit.uniqueResult(); 
+		return hrAppraisalResult;
 	}
 }
