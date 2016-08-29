@@ -7,7 +7,7 @@
 		</span>
 	</div>
 	<div class="col-sm-12">
-		<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"
+		<table datatable="ng" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>
@@ -20,7 +20,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="leadAppraisal in leadAppraisalsByLeadId">
+				 <tr ng-repeat="leadAppraisal in leadAppraisalsByLeadId">
 					<td ng-cloak>{{leadAppraisal.employee.firstName}} {{leadAppraisal.employee.lastName}}</td>
 					<td ng-cloak>{{leadAppraisal.team.team_name}}</td>
 					<td ng-cloak>{{leadAppraisal.performance.date | date : 'yyyy'}} </td>

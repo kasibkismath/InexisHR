@@ -4,8 +4,9 @@ var performance = angular.module('performance', ['toaster', 'ngAnimate', 'chart.
 
 // Controllers
 performance.controller('performanceMainController', ['$scope', '$http', '$q', 'toaster', '$filter',
-                                                     'DTOptionsBuilder', 'DTColumnDefBuilder',
-                                                     function($scope, $http, $q, toaster, $filter, DTOptionsBuilder, DTColumnDefBuilder) {
+                                                     'DTOptionsBuilder', 'DTColumnDefBuilder', 
+                                                     'DTColumnBuilder',
+                                                     function($scope, $http, $q, toaster, $filter, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
 	
 	// initializations
 	$scope.currentUser = currentUser;
@@ -37,22 +38,9 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	 
 	 // Lead Appraisals By Lead Id Data Table
 	 $scope.leadAppraisalsDataTable = function(emp_lead_id){
-		
-			 $scope.dtOptions = DTOptionsBuilder.newOptions()
-			     .withPaginationType('full_numbers')
-			     .withDisplayLength(10);
-			 
-			 $scope.dtColumnDefs = 
-		     [
-			   DTColumnDefBuilder.newColumnDef(0),
-			   DTColumnDefBuilder.newColumnDef(1).notSortable(),
-			   DTColumnDefBuilder.newColumnDef(2),
-			  /* DTColumnDefBuilder.newColumnDef(3).notSortable(),
-			   DTColumnDefBuilder.newColumnDef(4),
-			   DTColumnDefBuilder.newColumnDef(5).notSortable()*/
-			 ];
-			 
-			 $scope.getLeadAppraisalsByLeadId(emp_lead_id);
+		 
+		 	$scope.getLeadAppraisalsByLeadId(emp_lead_id);
+			
 	 };
 	
 	// ceo summary chart configs
@@ -90,20 +78,9 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		
 		// Lead summary chart configs
 		$scope.summaryChartLead = function(emp_lead_id) {
-			/*$scope.leadLabels = ['Kasib Kismath', 'Safeer Hussain', 'Fazlan Fairooz', 
-			                     'Navaseelan Nadeshan', 'Lakshitha Gayan', 'Kajanthan Kajadeshan',
-			                     'Isuru Wikramaarachi', 'Shaamil Siraj', 'Kamil Khan', 
-			                     'Sawba Rajapakse', 'Sampath Lokuge',];
-			$scope.leadSeries = [];
-
-			$scope.leadData = [
-			    [],              
-			    [10, 48, 40, 19, 86, 27, 90, 15, 45, 65, 40]
-			];*/
-			
 			$scope.leadLabels = [];
-			$scope.leadSeries = [[], []];
-			$scope.leadData = [];
+			$scope.leadSeries = [];
+			$scope.leadData = [[], []];
 			
 			var currentYear = new Date().getFullYear();
 			var perviousYear = currentYear - 1;
@@ -129,7 +106,11 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			
 			$http.post($scope.baseURL + '/Performance/GetTotalScoresByLeadId', data)
 			.success(function(result) {
-				console.log(result);
+				angular.forEach(result, function(value, key) {
+					$scope.leadLabels.push(value[0]);
+					$scope.leadData[0].push(value[2])
+					$scope.leadData[1].push(value[1])
+				});
 			})
 			.error(function(data, status) {
 				console.log(data);
@@ -336,7 +317,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	
 	// get all appraisals by lead id
 	$scope.getLeadAppraisalsByLeadId = function(lead_id) {
-		
 		var data = {
 			employee : {empId : lead_id}
 		};
@@ -350,6 +330,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			angular.forEach(result, function(value, key) {
 				$scope.leadAppraisalsByLeadId.push(value[0]);
 			});
+			
+			console.log($scope.leadAppraisalsByLeadId)
 			
 		})
 		.error(function(data, status) {
