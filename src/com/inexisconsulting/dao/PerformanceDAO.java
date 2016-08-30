@@ -211,4 +211,61 @@ public class PerformanceDAO {
 		List<Object[]> result = query.list();
 		return result;
 	};
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getTotalScoresForEmployeeByHR(Performance performance) throws HibernateException, ParseException {
+				
+		// initialize date format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// date from performance object
+		Date date = performance.getDate();
+		
+		Calendar prevYear = Calendar.getInstance();
+	    prevYear.add(Calendar.YEAR, -1);
+	    
+	    Calendar now = Calendar.getInstance();
+	    int currentYear = now.get(Calendar.YEAR);
+	    
+	    int previousYear = prevYear.get(Calendar.YEAR);
+	   
+	    String previousYearString = previousYear + "-12-31";
+	    
+	    Date previousYearDate = sdf.parse(previousYearString);
+
+		// convert performance date to string
+		String stringDate = sdf.format(date);
+		String stringPreviousYearDate = sdf.format(previousYearDate);
+		
+		String sql = "select EmpName, "
+				+ "SUM(CASE WHEN appraisalYear=:PrevYear THEN totalScore ELSE 0 END) `PreviousYear`, "
+				+ "SUM(CASE WHEN appraisalYear=:CurrYear THEN totalScore ELSE 0 END) `CurrentYear` "
+				+ "from ( "
+				+ "select concat(employee.firstName,' ',employee.lastName) as EmpName, "
+				+ "year(performance_appraisal.date) as appraisalYear,  "
+				+ "hr_appraisal.total_score as totalScore "
+				+ "from employee "
+				+ "join performance_appraisal "
+				+ "on employee.emp_id = performance_appraisal.emp_id "
+				+ "join hr_appraisal "
+				+ "on performance_appraisal.performance_id = hr_appraisal.performance_id "
+				+ "where "
+				+ "employee.status=:statusSet "
+				+ "and (performance_appraisal.date=:date or performance_appraisal.date=:previousYearDate) "
+				+ "group by EmpName, appraisalYear, totalScore "
+				+ "order by EmpName, appraisalYear "
+				+ ") as Result "
+				+ "group by EmpName";
+		
+		// process query with given parameters
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("date", sdf.parse(stringDate));
+		query.setParameter("previousYearDate", previousYearDate);
+		query.setParameter("statusSet", true);
+		query.setParameter("PrevYear", previousYear);
+		query.setParameter("CurrYear", currentYear);
+		
+		List<Object[]> result = query.list();
+		return result;
+	};
 }

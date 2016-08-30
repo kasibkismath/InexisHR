@@ -50,4 +50,8 @@ public class PerformanceService {
 	public List<Object[]> getTotalScoresForEmployeeByLeadId(Team_And_Performance teamAndPerformance) throws HibernateException, ParseException {
 		return performanceDao.getTotalScoresForEmployeeByLeadId(teamAndPerformance);
 	}
+
+	public List<Object[]> getTotalScoresForEmployeeByHR(Performance performance) throws HibernateException, ParseException {
+		return performanceDao.getTotalScoresForEmployeeByHR(performance);
+	}
 }

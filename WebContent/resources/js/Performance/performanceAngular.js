@@ -34,6 +34,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				$scope.summaryChartLead(result);
 			});
 		$scope.summaryChartCEO();
+		$scope.summaryChartHR();
 		$scope.getHRAppraisals();
 	 };
 	 
@@ -99,7 +100,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				date : currentYearDate	
 			};
 			
-			
 			var data = {
 			   team : team,
 			   performance : performance
@@ -117,6 +117,37 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 				console.log(data);
 			});
 			
+		};
+		
+		// summary HR Total Scores 
+		$scope.summaryChartHR = function() {
+			$scope.hrLabels = [];
+			$scope.hrSeries = [];
+			$scope.hrData = [[], []];
+			
+			var currentYear = new Date().getFullYear();
+			var perviousYear = currentYear - 1;
+			
+			$scope.hrSeries.push(currentYear);
+			$scope.hrSeries.push(perviousYear);
+			
+			var currentYearDate = currentYear + '-12-31';
+			
+			var performance = {
+				date : currentYearDate	
+			};
+			
+			$http.post($scope.baseURL + '/Performance/GetTotalScoresByHR', performance)
+			.success(function(result) {
+				angular.forEach(result, function(value, key) {
+					$scope.hrLabels.push(value[0]);
+					$scope.hrData[0].push(value[2])
+					$scope.hrData[1].push(value[1])
+				});
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
 		};
 	
 	  // list appraisal year

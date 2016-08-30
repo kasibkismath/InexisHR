@@ -350,4 +350,12 @@ public class PerformanceController {
 	public void deleteHRAppraisal(@RequestBody HR_Appraisal hr_Appraisal) {
 		hrAppraisalService.deleteLeadAppraisal(hr_Appraisal);
 	}
+
+	// get total score for HR
+	@RequestMapping(value = "/Performance/GetTotalScoresByHR", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getTotalScoresForEmployeeByHR(@RequestBody Performance performance)
+			throws HibernateException, ParseException {
+		return performanceService.getTotalScoresForEmployeeByHR(performance);
+	}
 }

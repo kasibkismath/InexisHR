@@ -168,6 +168,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/DeleteHRAppraisal"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetTotalScoresByHR"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
