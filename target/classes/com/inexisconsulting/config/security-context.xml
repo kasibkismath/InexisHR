@@ -164,6 +164,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/GetHRAppraisalByAppraisalId"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/SaveEditHRAppraisal"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/DeleteHRAppraisal"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

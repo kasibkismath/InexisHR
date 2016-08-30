@@ -31,5 +31,13 @@ public class HR_AppraisalService {
 	public HR_Appraisal getHRAppraisalsByAppraisalId(HR_Appraisal hrAppraisal) {
 		return hrAppraisalDao.getHRAppraisalsByAppraisalId(hrAppraisal);
 	}
+
+	public void updateHRAppraisal(HR_Appraisal hr_Appraisal) {
+		hrAppraisalDao.updateHRAppraisal(hr_Appraisal);
+	}
+
+	public void deleteLeadAppraisal(HR_Appraisal hr_Appraisal) {
+		hrAppraisalDao.deleteLeadAppraisal(hr_Appraisal);
+	}
 		
 }

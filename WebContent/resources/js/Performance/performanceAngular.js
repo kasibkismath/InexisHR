@@ -387,6 +387,8 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	
 	$scope.checkCEOAppraisalExists = function(emp_id, year) {
 		
+		var def = $q.defer();
+		
 		// initialize date to the last day of the given year 
 		var date = year + '-12-31';
 		
@@ -398,11 +400,12 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$http.post($scope.baseURL + '/Performance/CheckDuplicateCEOAppraisal', data)
 		.success(function(result) {
 			$scope.checkCEOAppraisalExistsResult = result;
-			console.log(result);
+			def.resolve(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
+		return def.promise;
 	};
 	
 	
@@ -968,6 +971,14 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	
 	$scope.editHRAppraisalMain = function(hr_appraisal_id, empId, date) {
 		
+		// filtered date
+		var filteredDate = $filter('date')(date, "yyyy");
+		
+		$scope.checkCEOAppraisalExists(empId, filteredDate)
+			.then(function(result) {
+				$scope.HREditResult = result;
+			});
+		
 		var hrAppraisal = {
 			hr_appraisal_id : hr_appraisal_id
 		};
@@ -980,13 +991,89 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			$scope.saveEditHRStatus = result.status;
 			$scope.saveEditHRTaskCompScore = result.score_task_completion;
 			$scope.saveEditHRCurrPerformanceScore = result.score_current_performance;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
 			$('#HRAddAppraisal').modal('hide');
 			toaster.pop('error', "Notification", "Adding Appsaisal Failed");
 		});
-		
 	};
+	
+	// call when submit button is clicked in the editHRAppraisal.jsp
+	$scope.saveEditHRAppraisalMain = function(hr_appraisal_id, status, score_task,
+			score_performance) {
+		
+		// convert string scores to int
+		var int_score_task = parseInt(score_task);
+		var int_score_performance = parseInt(score_performance);
+		
+		// sum scores
+		var total_score = int_score_task + int_score_performance;
+		
+		// call the actual saveEditHRAppraisal function to save the changes made
+		$scope.saveEditHRAppraisal(hr_appraisal_id, status, score_task,
+			score_performance, total_score);
+	};
+	
+	$scope.saveEditHRAppraisal = function(hr_appraisal_id, status, score_task,
+			score_performance, total_score) {
+		
+		var hrAppraisal = {
+			hr_appraisal_id : hr_appraisal_id,
+			status : status,
+			score_task_completion : score_task,
+			score_current_performance : score_performance,
+			total_score : total_score
+		};
+		
+		$http.post($scope.baseURL + '/Performance/SaveEditHRAppraisal', hrAppraisal)
+		 .success(function(result) {
+			$('#editHRAppraisalModal').modal('hide');
+			toaster.pop('success', "Notification", "Updated Appraisal Successfully");
+			setTimeout(function () {
+				window.location.reload();
+	        }, 1000);
+		  })
+		  .error(function(data, status) {
+			 $('#editHRAppraisalModal').modal('hide');
+			 toaster.pop('error', "Notification", "Appraisal Updation Failed");
+			 console.log(data);
+		  });
+	};
+	
+	/* --------------- HR Appraisal Delete ---------------------- */
+	
+	$scope.deleteHRAppraisalMain = function(hr_appraisal_id, empId, date) {
+		// filtered date
+		var filteredDate = $filter('date')(date, "yyyy");
+		
+		// send data to deleteEditHRAppraisalModal
+		$scope.deleteHRAppraisalId = hr_appraisal_id;
+		
+		$scope.checkCEOAppraisalExists(empId, filteredDate)
+			.then(function(result) {
+				$scope.HRDeleteResult = result;
+			});
+	};
+	
+	$scope.deleteHRAppraisal = function(hr_appraisal_id) {
+		
+		var hrAppraisal = {
+			hr_appraisal_id : hr_appraisal_id
+		};
+		
+		$http.post($scope.baseURL + '/Performance/DeleteHRAppraisal', hrAppraisal)
+		 .success(function(result) {
+			$('#deleteHRAppraisalModal').modal('hide');
+			toaster.pop('success', "Notification", "Deleted Appraisal Successfully");
+			setTimeout(function () {
+				window.location.reload();
+	        }, 1000);
+		  })
+		  .error(function(data, status) {
+			 $('#deleteHRAppraisalModal').modal('hide');
+			 toaster.pop('error', "Notification", "Appraisal Deletion Failed");
+			 console.log(data);
+		  });
+	}
 }]);

@@ -69,4 +69,24 @@ public class HR_AppraisalDAO {
 		HR_Appraisal hrAppraisalResult = (HR_Appraisal)crit.uniqueResult(); 
 		return hrAppraisalResult;
 	}
+
+	public void updateHRAppraisal(HR_Appraisal hr_Appraisal) {
+		
+		Criteria crit = session().createCriteria(HR_Appraisal.class);
+		crit.add(Restrictions.eq("hr_appraisal_id", hr_Appraisal.getHr_appraisal_id()));
+		
+		HR_Appraisal updatedHRAppraisal = (HR_Appraisal)crit.uniqueResult();
+		updatedHRAppraisal.setStatus(hr_Appraisal.getStatus());
+		updatedHRAppraisal.setScore_current_performance(hr_Appraisal.getScore_current_performance());
+		updatedHRAppraisal.setScore_task_completion(hr_Appraisal.getScore_task_completion());
+		updatedHRAppraisal.setTotal_score(hr_Appraisal.getTotal_score());
+		
+		session().saveOrUpdate(updatedHRAppraisal);
+	}
+
+	public void deleteLeadAppraisal(HR_Appraisal hr_Appraisal) {
+		Query query = session().createQuery("delete from HR_Appraisal where hr_appraisal_id=:hrAppraisalId");
+		query.setInteger("hrAppraisalId", hr_Appraisal.getHr_appraisal_id());
+		query.executeUpdate();
+	}
 }

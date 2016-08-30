@@ -40,5 +40,6 @@
 		<!-- Modals -->
 		<jsp:include page="addHRAppraisal.jsp"></jsp:include>
 		<jsp:include page="editHRAppraisal.jsp"></jsp:include>
+		<jsp:include page="deleteHRAppraisal.jsp"></jsp:include>
 	</div>
 </div>

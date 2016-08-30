@@ -92,13 +92,13 @@ public class PerformanceController {
 		List<Lead_Appraisal> lead_appraisals = leadAppraisalService.getLeadAppraisalsByLeadId(leadAppraisal);
 		return lead_appraisals;
 	}
-	
+
 	@RequestMapping(value = "/Performance/GetHRAppraisalByAppraisalId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public HR_Appraisal getHRAppraisalsByAppraisalId(@RequestBody HR_Appraisal hrAppraisal) {
 		return hrAppraisalService.getHRAppraisalsByAppraisalId(hrAppraisal);
 	}
-	
+
 	@RequestMapping(value = "/Performance/GetHRAppraisals", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<HR_Appraisal> getHRAppraisals() {
@@ -271,6 +271,8 @@ public class PerformanceController {
 		// get count
 		Long count = ceoAppraisalService.checkDuplicateCEOAppraisal(ceo_appraisal);
 
+		System.err.println(count);
+
 		if (count == 1)
 			return true;
 
@@ -319,7 +321,7 @@ public class PerformanceController {
 		leadAppraisalService.updateLeadAppraisal(lead_Appraisal);
 	}
 
-	// update performance details with final_score and status information
+	// delete lead appraisal
 	@RequestMapping(value = "/Performance/DeleteLeadAppraisal", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void deleteLeadAppraisal(@RequestBody Lead_Appraisal lead_Appraisal) {
@@ -329,7 +331,23 @@ public class PerformanceController {
 	// get total score
 	@RequestMapping(value = "/Performance/GetTotalScoresByLeadId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<Object[]> getTotalScoresForEmployeeByLeadId(@RequestBody Team_And_Performance teamAndPerformance) throws HibernateException, ParseException {
+	public List<Object[]> getTotalScoresForEmployeeByLeadId(@RequestBody Team_And_Performance teamAndPerformance)
+			throws HibernateException, ParseException {
 		return performanceService.getTotalScoresForEmployeeByLeadId(teamAndPerformance);
+	}
+
+	// update performance details with final_score and status information given
+	// by HR Manager
+	@RequestMapping(value = "/Performance/SaveEditHRAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateHRAppraisal(@RequestBody HR_Appraisal hr_Appraisal) {
+		hrAppraisalService.updateHRAppraisal(hr_Appraisal);
+	}
+
+	// delete lead appraisal
+	@RequestMapping(value = "/Performance/DeleteHRAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteHRAppraisal(@RequestBody HR_Appraisal hr_Appraisal) {
+		hrAppraisalService.deleteLeadAppraisal(hr_Appraisal);
 	}
 }
