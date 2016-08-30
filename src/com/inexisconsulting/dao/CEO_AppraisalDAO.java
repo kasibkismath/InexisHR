@@ -3,11 +3,14 @@ package com.inexisconsulting.dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +48,22 @@ public class CEO_AppraisalDAO {
 		
 		Long count = (Long)query.uniqueResult();
 		return count;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<CEO_Appraisal> getCEOAppraisals() {
+		String hql = "from CEO_Appraisal as ceoApp";
+		Query query = session().createQuery(hql);
+		
+		List<CEO_Appraisal> ceo_appraisals = query.list();
+		return ceo_appraisals;
+	}
+
+	public CEO_Appraisal getCEOAppraisalByAppraisalId(CEO_Appraisal ceoAppraisal) {
+		Criteria crit = session().createCriteria(CEO_Appraisal.class);
+		crit.add(Restrictions.eq("ceo_appraisal_id", ceoAppraisal.getCeo_appraisal_id()));
+		CEO_Appraisal ceoAppraisalResult = (CEO_Appraisal)crit.uniqueResult(); 
+		return ceoAppraisalResult;
 	}
 
 }

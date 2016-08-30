@@ -1,6 +1,7 @@
 package com.inexisconsulting.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,14 @@ public class CEO_AppraisalService {
 
 	public Long checkDuplicateCEOAppraisal(CEO_Appraisal ceo_appraisal) throws HibernateException, ParseException {
 		return ceoAppraisalDao.checkDuplicateCEOExists(ceo_appraisal);
+	}
+
+	public List<CEO_Appraisal> getCEOAppraisals() {
+		return ceoAppraisalDao.getCEOAppraisals();
+	}
+
+	public CEO_Appraisal getCEOAppraisalByAppraisalId(CEO_Appraisal ceoAppraisal) {
+		return ceoAppraisalDao.getCEOAppraisalByAppraisalId(ceoAppraisal);
 	}
 
 }

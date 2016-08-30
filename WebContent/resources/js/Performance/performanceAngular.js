@@ -36,6 +36,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$scope.summaryChartCEO();
 		$scope.summaryChartHR();
 		$scope.getHRAppraisals();
+		$scope.getCEOAppraisals();
 	 };
 	 
 	 // Lead Appraisals By Lead Id Data Table
@@ -377,6 +378,18 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		.error(function(data, status) {
 			console.log(data);
 		});
+	};
+	
+	// get all CEO Appraisals with final score
+	$scope.getCEOAppraisals = function() {
+		$http.get($scope.baseURL + '/Performance/GetCEOAppraisals')
+		.success(function(result) {
+			$scope.ceoAppraisals = result;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
 	}
 	
 	/* ------------------------------------- CEO Appraisal ------------------------ */
@@ -548,6 +561,30 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		});
 		
 		return def.promise;
+	};
+	
+	/* --------------- CEO Appraisal Edit ----------------------- */
+	$scope.editCEOAppraisalMain = function(ceo_appraisal_id) {
+		
+		var ceoAppraisal = {
+			ceo_appraisal_id : ceo_appraisal_id
+		};
+		
+		$http.post($scope.baseURL + '/Performance/GetCEOAppraisalByAppraisalId', ceoAppraisal)
+		.success(function(result) {
+			$scope.saveEditCEOAppraisalId = result.ceo_appraisal_id;
+			$scope.saveEditCEOEmployee = result.employee.empId;
+			$scope.saveEditCEOYear = $filter('date')(result.performance.date, "yyyy");
+			$scope.saveEditCEOStatus = result.status;
+			$scope.saveEditCEOSkillScore = result.score_skill;
+			$scope.saveEditCEOMentorshipScore = result.score_mentorship;
+			$scope.saveEditCEOTaskCompScore = result.score_task_completion;
+			$scope.saveEditCEOCurrPerformanceScore = result.score_current_performance;
+			$scope.saveEditCEODesc = result.description;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
 	};
 	
 	/* ------------------------------- Team Lead Appraisal ------------------------- */
