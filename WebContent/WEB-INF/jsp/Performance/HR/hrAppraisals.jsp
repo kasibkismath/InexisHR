@@ -13,6 +13,7 @@
 					<th>Year</th>
 					<th>Status</th>
 					<th>Total Score</th>
+					<th>Final Score</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -22,6 +23,7 @@
 					<td ng-cloak>{{hrAppraisal.performance.date | date : 'yyyy'}} </td>
 					<td ng-cloak>{{hrAppraisal.status}}</td>
 					<td ng-cloak>{{hrAppraisal.total_score}}</td>
+					<td ng-cloak>{{hrAppraisal.performance.final_score}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" id="editHRAppraisal" data-toggle="modal" 
 							data-target="#editHRAppraisalModal"

@@ -16,6 +16,7 @@
 					<th>Year</th>
 					<th>Status</th>
 					<th>Total Score</th>
+					<th>Final Score</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -26,6 +27,7 @@
 					<td ng-cloak>{{leadAppraisal.performance.date | date : 'yyyy'}} </td>
 					<td ng-cloak>{{leadAppraisal.status}}</td>
 					<td ng-cloak>{{leadAppraisal.total_score}}</td>
+					<td ng-cloak>{{leadAppraisal.performance.final_score}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" id="editLeadAppraisal" data-toggle="modal" 
 							data-target="#editLeadAppraisalModal"
