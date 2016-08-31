@@ -38,46 +38,37 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$scope.getHRAppraisals();
 		$scope.getCEOAppraisals();
 	 };
-	 
-	 // Lead Appraisals By Lead Id Data Table
-	 $scope.leadAppraisalsDataTable = function(emp_lead_id){
-		 
-		 	$scope.getLeadAppraisalsByLeadId(emp_lead_id);
-			
-	 };
 	
 	// ceo summary chart configs
 	$scope.summaryChartCEO = function() {
-		$scope.labels = ["January", "February", "March", "April"];
-		  $scope.series = ['Series A', 'Series B', 'Series C'];
-		  $scope.data = [
-		    [10, 4, 30, 15],
-		    [25, 20, 13, 22],
-		    [1, 15, 7, 12]
-		  ];
-		  $scope.onClick = function (points, evt) {
-		    console.log(points, evt);
-		  };
-		  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-		  $scope.options = {
-		    scales: {
-		      yAxes: [
-		        {
-		          id: 'y-axis-1',
-		          type: 'linear',
-		          display: true,
-		          position: 'left'
-		        },
-		        {
-		          id: 'y-axis-2',
-		          type: 'linear',
-		          display: true,
-		          position: 'right'
-		        }
-		      ]
-		    }
-		  };
+		$scope.ceoLabels = [];
+		$scope.ceoSeries = [];
+		$scope.ceoData = [[], []];
+		
+		var currentYear = new Date().getFullYear();
+		var perviousYear = currentYear - 1;
+		
+		$scope.ceoSeries.push(currentYear);
+		$scope.ceoSeries.push(perviousYear);
+		
+		var currentYearDate = currentYear + '-12-31';
+		
+		var performance = {
+			date : currentYearDate	
 		};
+		
+		$http.post($scope.baseURL + '/Performance/GetFinalScoreEmployeeByCEO', performance)
+		.success(function(result) {
+			angular.forEach(result, function(value, key) {
+				$scope.ceoLabels.push(value[0]);
+				$scope.ceoData[0].push(value[2])
+				$scope.ceoData[1].push(value[1])
+			});
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
 		
 		// Lead summary chart configs
 		$scope.summaryChartLead = function(emp_lead_id) {
@@ -119,6 +110,12 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			});
 			
 		};
+		
+		// Lead Appraisals By Lead Id Data Table
+		 $scope.leadAppraisalsDataTable = function(emp_lead_id){
+			 
+			 $scope.getLeadAppraisalsByLeadId(emp_lead_id);
+		 };
 		
 		// summary HR Total Scores 
 		$scope.summaryChartHR = function() {

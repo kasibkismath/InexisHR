@@ -54,4 +54,8 @@ public class PerformanceService {
 	public List<Object[]> getTotalScoresForEmployeeByHR(Performance performance) throws HibernateException, ParseException {
 		return performanceDao.getTotalScoresForEmployeeByHR(performance);
 	}
+
+	public List<Object[]> getFinalScoreEmployeeByCEO(Performance performance) throws ParseException {
+		return performanceDao.getFinalScoreEmployeeByCEO(performance);
+	}
 }
