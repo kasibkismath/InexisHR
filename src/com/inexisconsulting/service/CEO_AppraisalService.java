@@ -32,4 +32,8 @@ public class CEO_AppraisalService {
 		return ceoAppraisalDao.getCEOAppraisalByAppraisalId(ceoAppraisal);
 	}
 
+	public void updateCEOAppraisal(CEO_Appraisal ceo_Appraisal) {
+		ceoAppraisalDao.updateCEOAppraisal(ceo_Appraisal);
+	}
+
 }

@@ -8,11 +8,13 @@
       <div class="modal-body">
           <form name="ceoEditAppraisalForm" class="form-horizontal"
           	ng-submit="ceoEditAppraisalForm.$valid && 
-          		saveEditCEOAppraisalMain(saveEditCEOAppraisalId, saveEditCEOStatus, 
+          		saveEditCEOAppraisalMain(saveEditCEOAppraisalId, saveEditCEOEmployee, 
+          		saveEditCEOPerformanceId, saveEditCEOYear, saveEditCEOStatus, 
           		saveEditCEOSkillScore, saveEditCEOMentorshipScore, saveEditCEOTaskCompScore, 
           		saveEditCEOCurrPerformanceScore, saveEditCEODesc)">
           	
           	<input type="hidden" ng-model="saveEditCEOAppraisalId">
+          	<input type="hidden" ng-model="saveEditCEOPerformanceId">
 			
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Employee</label>
@@ -135,7 +137,7 @@
 				<button type="button" class="btn btn-danger" data-dismiss="modal">
 					<i class="fa fa-times"></i> Close
 				</button>
-				<button type="submit" class="btn btn-success" ng-disabled="TeamLeadEditResult">
+				<button type="submit" class="btn btn-success">
 					<i class="fa fa-check"></i> Save
 				</button>
 			</div>

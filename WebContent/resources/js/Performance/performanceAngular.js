@@ -573,6 +573,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$http.post($scope.baseURL + '/Performance/GetCEOAppraisalByAppraisalId', ceoAppraisal)
 		.success(function(result) {
 			$scope.saveEditCEOAppraisalId = result.ceo_appraisal_id;
+			$scope.saveEditCEOPerformanceId = result.performance.performance_id;
 			$scope.saveEditCEOEmployee = result.employee.empId;
 			$scope.saveEditCEOYear = $filter('date')(result.performance.date, "yyyy");
 			$scope.saveEditCEOStatus = result.status;
@@ -586,6 +587,57 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			console.log(data);
 		});
 	};
+	
+	$scope.saveEditCEOAppraisalMain = function(ceo_appraisal_id, empId, performance_id, year, status, 
+			score_skill, score_mentor, score_task, score_performance, description) {
+		
+		// covert string scores to integer
+		var int_score_skill = parseInt(score_skill);
+		var int_score_mentor = parseInt(score_mentor);
+		var int_score_task = parseInt(score_task);
+		var int_score_performance = parseInt(score_performance);
+		
+		var total_score = int_score_skill + int_score_mentor + int_score_task + int_score_performance;
+		
+		console.log(ceo_appraisal_id + " " +  empId + " " +  performance_id + " " +  year + " " +  status, 
+			+ " " +  score_skill + " " +  score_mentor + " " +  score_task + " " +  score_performance + " " + 
+			description);
+		
+		var ceoAppraisal = {
+			ceo_appraisal_id : ceo_appraisal_id,
+			score_skill : score_skill,
+			score_mentorship : score_mentor,
+			score_task_completion : score_task,
+			score_current_performance : score_performance,
+			status : status,
+			description : description,
+			total_score : total_score
+		};
+		
+		$http.post($scope.baseURL + '/Performance/UpdateCEOAppraisalByAppraisalId', ceoAppraisal)
+		.success(function(result) {
+			$scope.finalScoreCalculation(empId, year, performance_id)
+			.then(function (result) {
+				
+				var final_score = result;
+				
+				// update performance details with final_score and status
+				$scope.updatePerformance(performance_id, final_score, status);
+			});
+			
+			$('#editCEOAppraisalModal').modal('hide');
+			toaster.pop('success', "Notification", "Updated Appraisal Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+			
+		})
+		.error(function(data, status) {
+			console.log(data);
+			$('#editCEOAppraisalModal').modal('hide');
+			toaster.pop('error', "Notification", "Appraisal Updation Failed");
+		});
+	}
 	
 	/* ------------------------------- Team Lead Appraisal ------------------------- */
 	

@@ -66,4 +66,21 @@ public class CEO_AppraisalDAO {
 		return ceoAppraisalResult;
 	}
 
+	public void updateCEOAppraisal(CEO_Appraisal ceo_Appraisal) {
+		
+		Criteria crit = session().createCriteria(CEO_Appraisal.class);
+		crit.add(Restrictions.eq("ceo_appraisal_id", ceo_Appraisal.getCeo_appraisal_id()));
+		
+		CEO_Appraisal updatedCEOAppraisal = (CEO_Appraisal)crit.uniqueResult();
+		updatedCEOAppraisal.setScore_skill(ceo_Appraisal.getScore_skill());
+		updatedCEOAppraisal.setScore_mentorship(ceo_Appraisal.getScore_mentorship());
+		updatedCEOAppraisal.setScore_current_performance(ceo_Appraisal.getScore_current_performance());
+		updatedCEOAppraisal.setScore_task_completion(ceo_Appraisal.getScore_task_completion());
+		updatedCEOAppraisal.setStatus(ceo_Appraisal.getStatus());
+		updatedCEOAppraisal.setDescription(ceo_Appraisal.getDescription());
+		updatedCEOAppraisal.setTotal_score(ceo_Appraisal.getTotal_score());
+		
+		session().saveOrUpdate(updatedCEOAppraisal);
+	}
+
 }

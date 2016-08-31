@@ -98,7 +98,7 @@ public class PerformanceController {
 	public HR_Appraisal getHRAppraisalsByAppraisalId(@RequestBody HR_Appraisal hrAppraisal) {
 		return hrAppraisalService.getHRAppraisalsByAppraisalId(hrAppraisal);
 	}
-	
+
 	@RequestMapping(value = "/Performance/GetCEOAppraisalByAppraisalId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public CEO_Appraisal getCEOAppraisalByAppraisalId(@RequestBody CEO_Appraisal ceoAppraisal) {
@@ -111,7 +111,7 @@ public class PerformanceController {
 		List<HR_Appraisal> hr_appraisals = hrAppraisalService.getHRAppraisals();
 		return hr_appraisals;
 	}
-	
+
 	@RequestMapping(value = "/Performance/GetCEOAppraisals", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<CEO_Appraisal> getCEOAppraisals() {
@@ -370,5 +370,12 @@ public class PerformanceController {
 	public List<Object[]> getTotalScoresForEmployeeByHR(@RequestBody Performance performance)
 			throws HibernateException, ParseException {
 		return performanceService.getTotalScoresForEmployeeByHR(performance);
+	}
+
+	// update CEO Appraisal
+	@RequestMapping(value = "/Performance/UpdateCEOAppraisalByAppraisalId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateCEOAppraisal(@RequestBody CEO_Appraisal ceo_Appraisal) {
+		ceoAppraisalService.updateCEOAppraisal(ceo_Appraisal);
 	}
 }
