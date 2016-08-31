@@ -75,8 +75,9 @@ textarea {
 	margin-bottom: 20px;
 }
 
-/* Delete Lead/HR Appraisal Modal */
-#deleteLeadAppraisalModal .modal-body, #deleteHRAppraisalModal .modal-body {
+/* Delete Lead/HR/CEO Appraisal Modal */
+#deleteLeadAppraisalModal .modal-body, #deleteHRAppraisalModal .modal-body, 
+	#deleteCEOAppraisalModal .modal-body {
 	height: 300px;
 }
 

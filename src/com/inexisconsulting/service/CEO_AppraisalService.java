@@ -36,4 +36,8 @@ public class CEO_AppraisalService {
 		ceoAppraisalDao.updateCEOAppraisal(ceo_Appraisal);
 	}
 
+	public void deleteCEOAppraisal(CEO_Appraisal ceo_Appraisal) {
+		ceoAppraisalDao.deleteCEOAppraisal(ceo_Appraisal);
+	}
+
 }

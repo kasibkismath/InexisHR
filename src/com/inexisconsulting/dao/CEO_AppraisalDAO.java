@@ -83,4 +83,10 @@ public class CEO_AppraisalDAO {
 		session().saveOrUpdate(updatedCEOAppraisal);
 	}
 
+	public void deleteCEOAppraisal(CEO_Appraisal ceo_Appraisal) {
+		Query query = session().createQuery("delete from CEO_Appraisal where ceo_appraisal_id=:ceoAppraisalId");
+		query.setInteger("ceoAppraisalId", ceo_Appraisal.getCeo_appraisal_id());
+		query.executeUpdate();
+	}
+
 }

@@ -357,11 +357,11 @@ public class PerformanceController {
 		hrAppraisalService.updateHRAppraisal(hr_Appraisal);
 	}
 
-	// delete lead appraisal
+	// delete HR appraisal
 	@RequestMapping(value = "/Performance/DeleteHRAppraisal", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void deleteHRAppraisal(@RequestBody HR_Appraisal hr_Appraisal) {
-		hrAppraisalService.deleteLeadAppraisal(hr_Appraisal);
+		hrAppraisalService.deleteHRAppraisal(hr_Appraisal);
 	}
 
 	// get total score for HR
@@ -377,5 +377,12 @@ public class PerformanceController {
 	@ResponseBody
 	public void updateCEOAppraisal(@RequestBody CEO_Appraisal ceo_Appraisal) {
 		ceoAppraisalService.updateCEOAppraisal(ceo_Appraisal);
+	}
+
+	// delete CEO appraisal
+	@RequestMapping(value = "/Performance/DeleteCEOAppraisal", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteCEOAppraisal(@RequestBody CEO_Appraisal ceo_Appraisal) {
+		ceoAppraisalService.deleteCEOAppraisal(ceo_Appraisal);
 	}
 }

@@ -637,6 +637,37 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			$('#editCEOAppraisalModal').modal('hide');
 			toaster.pop('error', "Notification", "Appraisal Updation Failed");
 		});
+	};
+	
+	/* ------------------ CEO Delete Appraisal -------------------- */
+	
+	// calls function is called from the appraisals view
+	$scope.deleteCEOAppraisalMain = function(ceo_appraisal_id) {
+		
+		//sets this variable to the delete CEO Appraisal modal
+		$scope.deleteCEOAppraisalId = ceo_appraisal_id;
+	};
+	
+	// actually deletes the CEO Appraisal
+	$scope.deleteCEOAppraisal = function(ceo_appraisal_id) {
+		
+		var ceoAppraisal = {
+			ceo_appraisal_id : ceo_appraisal_id
+		};
+			
+		$http.post($scope.baseURL + '/Performance/DeleteCEOAppraisal', ceoAppraisal)
+			.success(function(result) {
+				$('#deleteCEOAppraisalModal').modal('hide');
+				toaster.pop('success', "Notification", "Deleted Appraisal Successfully");
+				setTimeout(function () {
+					window.location.reload();
+			    }, 1000);
+			})
+			.error(function(data, status) {
+				$('#deleteCEOAppraisalModal').modal('hide');
+				toaster.pop('error', "Notification", "Appraisal Deletion Failed");
+				console.log(data);
+			});
 	}
 	
 	/* ------------------------------- Team Lead Appraisal ------------------------- */
@@ -1176,6 +1207,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 			});
 	};
 	
+	// actually deletes the HR Appraisal
 	$scope.deleteHRAppraisal = function(hr_appraisal_id) {
 		
 		var hrAppraisal = {

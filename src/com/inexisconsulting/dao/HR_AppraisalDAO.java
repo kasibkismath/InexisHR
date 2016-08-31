@@ -84,7 +84,7 @@ public class HR_AppraisalDAO {
 		session().saveOrUpdate(updatedHRAppraisal);
 	}
 
-	public void deleteLeadAppraisal(HR_Appraisal hr_Appraisal) {
+	public void deleteHRAppraisal(HR_Appraisal hr_Appraisal) {
 		Query query = session().createQuery("delete from HR_Appraisal where hr_appraisal_id=:hrAppraisalId");
 		query.setInteger("hrAppraisalId", hr_Appraisal.getHr_appraisal_id());
 		query.executeUpdate();

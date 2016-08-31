@@ -34,7 +34,7 @@
 							</button>
 							<button class="btn btn-danger" id="deleteCEOAppraisal" data-toggle="modal" 
 								data-target="#deleteCEOAppraisalModal" 
-								ng-click="deleteCEOAppraisalMain(ceoAppraisal.ceo_appraisal_id, ceoAppraisal.employee.empId, ceoAppraisal.performance.date)">
+								ng-click="deleteCEOAppraisalMain(ceoAppraisal.ceo_appraisal_id)">
 								<i class="fa fa-trash fa-lg"></i>
 							</button>
 						</td>
@@ -44,5 +44,6 @@
 		<!-- Modals -->
 		<jsp:include page="addAppraisal.jsp"></jsp:include>
 		<jsp:include page="editCEOAppraisal.jsp"></jsp:include>
+		<jsp:include page="deleteCEOAppraisal.jsp"></jsp:include>
 	</div>
 </div>

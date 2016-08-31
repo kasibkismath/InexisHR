@@ -36,8 +36,8 @@ public class HR_AppraisalService {
 		hrAppraisalDao.updateHRAppraisal(hr_Appraisal);
 	}
 
-	public void deleteLeadAppraisal(HR_Appraisal hr_Appraisal) {
-		hrAppraisalDao.deleteLeadAppraisal(hr_Appraisal);
+	public void deleteHRAppraisal(HR_Appraisal hr_Appraisal) {
+		hrAppraisalDao.deleteHRAppraisal(hr_Appraisal);
 	}
 		
 }
