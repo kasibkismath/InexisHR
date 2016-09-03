@@ -43,6 +43,14 @@ textarea {
     resize: none;
 }
 
+.topPad {
+	padding-top: 40px;
+}
+
+.padded {
+	border-radius: 30px;
+}
+
 .leaveAvailability {
 	height: 100px;
 	margin-top: -35px;
