@@ -121,7 +121,7 @@
 							ng-change="checkLeaveCount(addLeaveTypeOfLeave, noOfDays, addLeaveOption)">
 						<option value="">Select a Leave Option</option>
 						<option value="Full Day">Full Day</option>
-						<option ng-disabled="addLeaveTypeOfLeave != causalLeaveTypeId" value="Half Day">Half Day</option>
+						<option ng-disabled="addLeaveTypeOfLeave != causalLeaveTypeId && addLeaveTypeOfLeave != medicalLeaveTypeId" value="Half Day">Half Day</option>
 					</select>
 				</div>
 			</div>

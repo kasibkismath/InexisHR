@@ -25,4 +25,8 @@ public class LeaveTypeService {
 	public Leave_Type getLeaveTypeId(Leave_Type leaveType) {
 		return leaveTypeDao.getLeaveTypeId(leaveType);
 	}
+
+	public int getMedicalLeaveTypeId() {
+		return leaveTypeDao.getMedicalLeaveTypeId();
+	}
 }

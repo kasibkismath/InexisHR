@@ -39,4 +39,11 @@ public class Leave_TypeDAO {
 		Leave_Type result = (Leave_Type)crit.uniqueResult();
 		return result;
 	}
+
+	public int getMedicalLeaveTypeId() {
+		Criteria crit = session().createCriteria(Leave_Type.class);
+		crit.add(Restrictions.eq("name", "Medical Leave"));
+		Leave_Type result = (Leave_Type)crit.uniqueResult();
+		return result.getLeave_type_id();
+	}
 }

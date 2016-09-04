@@ -21,7 +21,7 @@ import com.inexisconsulting.service.LeaveTypeService;
 
 @Controller
 public class LeaveController {
-	
+
 	@Autowired
 	private LeaveService leaveService;
 
@@ -52,11 +52,18 @@ public class LeaveController {
 		return leaveTypes;
 	}
 
-	// get all leave types
+	// get causal leave type id
 	@RequestMapping(value = "/Leave/GetCasualLeaveTypeId", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public int getCasualLeaveTypeId() {
 		return leaveTypeService.getCasualLeaveTypeId();
+	}
+
+	// get medical leave type id
+	@RequestMapping(value = "/Leave/GetMedicalLeaveTypeId", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public int getMedicalLeaveTypeId() {
+		return leaveTypeService.getMedicalLeaveTypeId();
 	}
 
 	// get all leave types
@@ -65,14 +72,14 @@ public class LeaveController {
 	public Leave_Type getLeaveTypeId(@RequestBody Leave_Type leaveType) {
 		return leaveTypeService.getLeaveTypeId(leaveType);
 	}
-	
+
 	// get leave no of days sum by year and leave type
 	@RequestMapping(value = "/Leave/GetLeaveSumByLeaveTypeAndYear", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Long getLeaveSumByLeaveTypeAndYear(@RequestBody Leave leave) {
 		return leaveService.getLeaveSumByLeaveTypeAndYear(leave);
 	}
-	
+
 	// get leave no of days sum by year for casual and medical leaves
 	@RequestMapping(value = "/Leave/GetLeaveSumByYearForCausalAndMedicalLeaves", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

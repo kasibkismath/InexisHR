@@ -60,6 +60,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.maxDateLimitForFromDate = new Date(year + '-12-31');
 	};
 	
+	// check if no of days from the add leave form is not zero or negative
 	$scope.checkNoOfDays = function(noOfDays) {
 		if(noOfDays > 0) {
 			$scope.noOfDaysErrorZeroOrNegative = false;
@@ -73,6 +74,28 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$http.get($scope.baseURL + '/Leave/GetLeaveTypes')
 		.success(function(result){
 			$scope.leaveTypes = result;
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
+	};
+	
+	// get Casual Leave Id from Leave Types Table
+	$scope.getCasualLeaveTypeId = function() {
+		$http.get($scope.baseURL + '/Leave/GetCasualLeaveTypeId')
+		.success(function(result){
+			$scope.causalLeaveTypeId = result;
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
+	};
+	
+	// get Medical Leave Id from Leave Types Table
+	$scope.getCasualLeaveTypeId = function() {
+		$http.get($scope.baseURL + '/Leave/GetMedicalLeaveTypeId')
+		.success(function(result){
+			$scope.medicalLeaveTypeId = result;
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -97,17 +120,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		
 		return def.promise;
 	}
-	
-	// get Casual Leave Id from Leave Types Table
-	$scope.getCasualLeaveTypeId = function() {
-		$http.get($scope.baseURL + '/Leave/GetCasualLeaveTypeId')
-		.success(function(result){
-			$scope.causalLeaveTypeId = result;
-		})
-		.error(function(data, status){
-			console.log(data);
-		});
-	};
 	
 	// check if No of Days is greater than selected FromDate and To Date
 	$scope.checkFromToDateWithNoOfdDays = function(fromDate, toDate, noOfDays) {
