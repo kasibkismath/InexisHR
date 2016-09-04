@@ -184,6 +184,14 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/GetLeaveTypes"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetCasualLeaveTypeId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetLeaveTypeId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetLeaveSumByLeaveTypeAndYear"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetLeaveSumByYearForCausalAndMedicalLeaves"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

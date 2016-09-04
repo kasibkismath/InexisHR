@@ -17,4 +17,12 @@ public class LeaveTypeService {
 	public List<Leave_Type> getLeaveTypes() {
 		return leaveTypeDao.getLeaveTypes();
 	}
+
+	public int getCasualLeaveTypeId() {
+		return leaveTypeDao.getCasualLeaveTypeId();
+	}
+
+	public Leave_Type getLeaveTypeId(Leave_Type leaveType) {
+		return leaveTypeDao.getLeaveTypeId(leaveType);
+	}
 }

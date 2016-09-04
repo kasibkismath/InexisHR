@@ -9,20 +9,25 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.inexisconsulting.dao.Leave;
 import com.inexisconsulting.dao.Leave_Type;
-import com.inexisconsulting.dao.Performance;
+import com.inexisconsulting.service.LeaveService;
 import com.inexisconsulting.service.LeaveTypeService;
 
 @Controller
 public class LeaveController {
 	
 	@Autowired
+	private LeaveService leaveService;
+
+	@Autowired
 	private LeaveTypeService leaveTypeService;
-	
+
 	@RequestMapping("/Leave")
 	@SuppressWarnings("unchecked")
 	public String showLeaveMainPage(Model model, Principal principal) {
@@ -38,7 +43,7 @@ public class LeaveController {
 
 		return "Leave/leaveMain";
 	}
-	
+
 	// get all leave types
 	@RequestMapping(value = "/Leave/GetLeaveTypes", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -47,4 +52,31 @@ public class LeaveController {
 		return leaveTypes;
 	}
 
+	// get all leave types
+	@RequestMapping(value = "/Leave/GetCasualLeaveTypeId", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public int getCasualLeaveTypeId() {
+		return leaveTypeService.getCasualLeaveTypeId();
+	}
+
+	// get all leave types
+	@RequestMapping(value = "/Leave/GetLeaveTypeId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Leave_Type getLeaveTypeId(@RequestBody Leave_Type leaveType) {
+		return leaveTypeService.getLeaveTypeId(leaveType);
+	}
+	
+	// get leave no of days sum by year and leave type
+	@RequestMapping(value = "/Leave/GetLeaveSumByLeaveTypeAndYear", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Long getLeaveSumByLeaveTypeAndYear(@RequestBody Leave leave) {
+		return leaveService.getLeaveSumByLeaveTypeAndYear(leave);
+	}
+	
+	// get leave no of days sum by year for casual and medical leaves
+	@RequestMapping(value = "/Leave/GetLeaveSumByYearForCausalAndMedicalLeaves", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public float getLeaveSumByYearForCausalAndSickLeaves(@RequestBody Leave leave) {
+		return leaveService.getLeaveSumByYearForCausalAndMedicalLeaves(leave);
+	}
 }

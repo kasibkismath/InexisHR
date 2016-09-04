@@ -10,11 +10,12 @@
 			class="table table-hover">
 			<thead>
 				<tr>
-					<th>Name</th>
 					<th>From Date</th>
 					<th>To Date</th>
-					<th>Status</th>
+					<th>No of Days</th>
 					<th>Type of Leave</th>
+					<th>Leave Option</th>
+					<th>Status</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
