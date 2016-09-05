@@ -8,10 +8,10 @@
       <div class="modal-body">
 		<form name="addLeaveForm" class="form-horizontal"
 			ng-submit="addLeaveForm.$valid && duplicateLeaveResult === false && noOfDaysError === false &&
-				noOfDaysErrorZeroOrNegative === false && maxAnnualLeaveError === false && 
-				maxCasualAndMedicalLeaveError === false && annualLeaveOptionError === false && 
-				lieuLeaveOptionError === false && specialLeaveOptionError === false && 
-				remoteLeaveOptionError === false && 
+				noOfDaysErrorZeroOrNegative === false && maxAnnualLeaveError === false &&
+				maxCasualAndMedicalLeaveError === false && annualLeaveOptionError === false &&
+				lieuLeaveOptionError === false && specialLeaveOptionError === false &&
+				remoteLeaveOptionError === false &&
 				addLeave(addLeaveTypeOfLeave, addLeaveFromDate, addLeaveToDate, noOfDays, addLeaveOption, addLeaveReason)">
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 

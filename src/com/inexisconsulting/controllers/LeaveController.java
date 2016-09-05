@@ -132,7 +132,7 @@ public class LeaveController {
 			}
 		});
 
-		String ceoEmailId = "kasibtest@gmail.com";
+		String ceoEmailId = "kasib@inexisconsulting.com";
 		String empEmailId = "kasibkismath@gmail.com";
 		
 		String fromDate = sdf.format(leave.getLeave_from());

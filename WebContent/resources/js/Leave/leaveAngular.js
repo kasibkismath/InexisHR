@@ -284,6 +284,13 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 							$scope.annualLeaveOptionError = false;
 							$scope.maxCasualAndMedicalLeaveError = false;
 							$scope.maxAnnualLeaveError = false;
+						} else {
+							$scope.remoteLeaveOptionError = false;
+							$scope.specialLeaveOptionError = false;
+							$scope.lieuLeaveOptionError = false;
+							$scope.annualLeaveOptionError = false;
+							$scope.maxCasualAndMedicalLeaveError = false;
+							$scope.maxAnnualLeaveError = false;
 						}
 					});
 			});
@@ -356,6 +363,8 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	// add new leave
 	$scope.addLeave = function(typeOfLeave, fromDate, toDate, noOfDays, leaveOption, leaveReason) {
+		
+		console.log(typeOfLeave + " " + fromDate  + " " + toDate  + " " + noOfDays  + " " + leaveOption  + " " + leaveReason);
 	
 		var actualNoOfDays;
 		var defaultStatus = "Pending";
