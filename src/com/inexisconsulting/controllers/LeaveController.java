@@ -2,8 +2,17 @@ package com.inexisconsulting.controllers;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +103,51 @@ public class LeaveController {
 	@ResponseBody
 	public boolean checkDuplicateLeave(@RequestBody Leave leave) throws HibernateException, ParseException {
 		return leaveService.checkDuplicateLeave(leave);
+	}
+	
+	@RequestMapping(value = "/Leave/AddLeave", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addLeave(@RequestBody Leave leave) throws ParseException {
+		 leaveService.addLeave(leave);
+	}
+	
+	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void sendLeaveRequestMail(@RequestBody Leave leave) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		final String username = "kasibtest@gmail.com";
+		final String password = "kasibtest@123";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		String ceoEmailId = "kasibtest@gmail.com";
+		String empEmailId = "kasibkismath@gmail.com";
+		
+		String fromDate = sdf.format(leave.getLeave_from());
+		String toDate = sdf.format(leave.getLeave_to());
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("kasibtest@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
+			message.setSubject("Leave Request Notification (" + leave.getLeaveType().getName() + ") by :" + leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+			message.setText("Hi, \nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to " + toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason() + "\n\n\n Thank You.");
+			Transport.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Sending email failed");
+		}
 	}
 }

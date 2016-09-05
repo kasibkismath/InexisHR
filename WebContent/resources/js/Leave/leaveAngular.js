@@ -66,10 +66,10 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 				}
 			} else {
 				 // set annual leave
-				$scope.maxAnnualLeave = 3;
+				$scope.maxAnnualLeave = 14;
 				
 				 // set casual and sick leave
-				$scope.maxCasualAndMedicalLeave = 0.5;
+				$scope.maxCasualAndMedicalLeave = 7;
 			}
 			
 		});
@@ -203,7 +203,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	// check leave count
 	$scope.checkLeaveCount = function(addLeaveTypeOfLeave, noOfDays, addLeaveOption) {
-		console.log(addLeaveOption);
 		// get leave type id
 		$scope.getLeaveTypeId(addLeaveTypeOfLeave)
 			.then(function(leaveTypeName) {
@@ -220,7 +219,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 							$scope.getLeaveSumByLeaveTypeAndYear(addLeaveTypeOfLeave, empId)
 							.then(function (sum) {
 								var availableAnnualLeave = $scope.maxAnnualLeave - sum;
-								console.log($scope.maxAnnualLeave);
 								
 								if(noOfDays > availableAnnualLeave) {
 									$scope.maxAnnualLeaveError = true;
@@ -240,9 +238,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 								var availableCausalAndMedicalLeaves = 
 										$scope.maxCasualAndMedicalLeave - sum;
 								
-								console.log($scope.maxCasualAndMedicalLeave);
-								
-								
 								if(addLeaveOption == "Full Day") {
 									if(noOfDays > availableCausalAndMedicalLeaves) {
 										$scope.maxCasualAndMedicalLeaveError = true;
@@ -253,6 +248,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 								
 								if(addLeaveOption == "Half Day") {
 									var calculatedNoOfDays = noOfDays * 0.5;
+									
 									if(calculatedNoOfDays > availableCausalAndMedicalLeaves) {
 										$scope.maxCasualAndMedicalLeaveError = true;
 									} else {
@@ -333,25 +329,89 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		return def.promise;
 	};
 	
+	// checks for duplicate leaves for an employee within the given date range
 	$scope.checkDuplicateLeave = function(fromDate, toDate) {
 		
+		if(fromDate != undefined && toDate != undefined) {
+			$scope.getLoggedInEmployeeId()
+			.then(function(empId) {
+				var leave = {
+						employee : {empId : empId},
+						leave_from : fromDate,
+						leave_to : toDate
+					};
+					
+					$http.post($scope.baseURL + '/Leave/CheckDuplicateLeave', leave)
+					.success(function(result){
+						$scope.duplicateLeaveResult = result;
+					})
+					.error(function(data, status){
+						console.log(data);
+					});
+			});
+		} else {
+			$scope.duplicateLeaveResult = false;
+		}
+	};
+	
+	// add new leave
+	$scope.addLeave = function(typeOfLeave, fromDate, toDate, noOfDays, leaveOption, leaveReason) {
+	
+		var actualNoOfDays;
+		var defaultStatus = "Pending";
+		
+		if(leaveOption == "Full Day") {
+			actualNoOfDays = noOfDays.toFixed(1);
+			
+		} else if (leaveOption == "Half Day") {
+			var calculatedNoOfDays = 0.5 * noOfDays;
+			actualNoOfDays = calculatedNoOfDays.toFixed(1);
+		}
+		
+		// get the currently logged in EmpId
 		$scope.getLoggedInEmployeeId()
 		.then(function(empId) {
-			var leave = {
-					employee : {empId : empId},
-					leave_from : fromDate,
-					leave_to : toDate
-				};
-				
-				$http.post($scope.baseURL + '/Leave/CheckDuplicateLeave', leave)
-				.success(function(result){
-					$scope.duplicateLeaveResult = result;
-					console.log(result);
-				})
-				.error(function(data, status){
-					console.log(data);
-				});
+			$scope.getLeaveTypeId(typeOfLeave)
+			.then(function(leaveName) {
+				var newLeave = {
+						employee : {empId : empId},
+						leaveType : {leave_type_id : typeOfLeave, name : leaveName},
+						leave_from : fromDate,
+						leave_to : toDate,
+						leave_option : leaveOption,
+						no_days : actualNoOfDays,
+						status : defaultStatus,
+						reason : leaveReason
+					};
+					
+					// send add leave request
+					$http.post($scope.baseURL + '/Leave/AddLeave', newLeave)
+					.success(function(result){
+						$('#addLeaveModal').modal('hide');
+						
+						// send mail request
+						$scope.sendLeaveRequestMail(newLeave);
+						toaster.pop('success', "Notification", "Leave Applied Successfully");
+						setTimeout(function () {
+			                window.location.reload();
+			            }, 3000);
+					})
+					.error(function(data, status){
+						$('#addLeaveModal').modal('hide');
+						toaster.pop('error', "Notification", "Leave Applied Failed");
+						console.log(data);
+					});
+			});
 		});
-		
+	};
+	
+	$scope.sendLeaveRequestMail = function(leave) {
+		$http.post($scope.baseURL + '/Leave/SendLeaveRequestMail', leave)
+		.success(function(result){
+		})
+		.error(function(data, status){
+			toaster.pop('error', "Notification", "Leave Request Email Failed");
+			console.log(data);
+		});
 	};
 }]);

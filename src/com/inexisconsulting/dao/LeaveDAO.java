@@ -5,10 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,13 +91,39 @@ public class LeaveDAO {
 		query.setParameter("leaveTo", sdf.parse(stringToDate));
 		query.setParameter("rejectedStatus", "Rejected");
 		
-		int count = ((Number) query.uniqueResult()).intValue();
-		
-		if(count == 1) {
-			return true;
+		if(query.uniqueResult() == null) {
+			return false;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			if(count == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-		
-		return false;
 	}
 
+	public void addLeave(Leave leave) throws ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// get dates from leave object
+		Date fromDate = leave.getLeave_from();
+		Date toDate = leave.getLeave_to();
+		
+		// convert Date type to String
+		String stringFromDate = sdf.format(fromDate);
+		String stringToDate = sdf.format(toDate);
+		
+		// set to Date Type from String
+		Date convertedFromDate = sdf.parse(stringFromDate);
+		Date convertedToDate = sdf.parse(stringToDate);
+		
+		// set dates to leave object
+		leave.setLeave_from(convertedFromDate);
+		leave.setLeave_to(convertedToDate);
+		
+		session().saveOrUpdate(leave);
+	}
 }

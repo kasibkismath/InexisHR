@@ -2,7 +2,7 @@
 	<div class="col-sm-12">
 		<button class="btn btn-success pull-right addLeaveBtn" data-toggle="modal" 
 			data-target="#addLeaveModal">
-			<i class="fa fa-plus-circle"></i> Add Leave
+			<i class="fa fa-plus-circle"></i> Apply Leave
 		</button>
 	</div>
 	<div class="col-sm-12">

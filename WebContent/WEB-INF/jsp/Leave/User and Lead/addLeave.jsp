@@ -7,7 +7,12 @@
       </div>
       <div class="modal-body">
 		<form name="addLeaveForm" class="form-horizontal"
-			ng-submit="addLeave(addLeaveFromDate)">
+			ng-submit="addLeaveForm.$valid && duplicateLeaveResult === false && noOfDaysError === false &&
+				noOfDaysErrorZeroOrNegative === false && maxAnnualLeaveError === false && 
+				maxCasualAndMedicalLeaveError === false && annualLeaveOptionError === false && 
+				lieuLeaveOptionError === false && specialLeaveOptionError === false && 
+				remoteLeaveOptionError === false && 
+				addLeave(addLeaveTypeOfLeave, addLeaveFromDate, addLeaveToDate, noOfDays, addLeaveOption, addLeaveReason)">
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="addLeaveForm.typeOfLeave.$error.required 
@@ -170,7 +175,7 @@
 			</div>
 	      	<div class="modal-footer">
 	       		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        	<button type="button" class="btn btn-primary">Save changes</button>
+	        	<button type="submit" class="btn btn-primary">Save changes</button>
 	      	</div>
       	</form>	
       </div>

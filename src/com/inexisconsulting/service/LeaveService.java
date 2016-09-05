@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.Leave;
 import com.inexisconsulting.dao.LeaveDAO;
 
@@ -25,5 +26,9 @@ public class LeaveService {
 
 	public boolean checkDuplicateLeave(Leave leave) throws HibernateException, ParseException {
 		return leaveDao.checkDuplicateLeave(leave);
+	}
+
+	public void addLeave(Leave leave) throws ParseException {
+		leaveDao.addLeave(leave);
 	}
 }
