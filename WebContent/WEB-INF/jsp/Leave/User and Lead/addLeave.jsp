@@ -34,6 +34,10 @@
 						&& addLeaveForm.fromDate.$dirty">
 					<strong>Error!</strong> From Date is required, please select a date.
 				</div>
+				<div role="alert" class="alert alert-danger padded" 
+					ng-show="duplicateLeaveResult === true">
+					<strong>Error!</strong> A leave already exists for this date range. Enter another date range.
+				</div>
 				<label class="col-sm-2 control-label">From Date (inclusive)</label>
 				<div class="col-sm-10">
 					<datepicker date-format="yyyy-MM-dd" selector="form-control" 
@@ -41,8 +45,10 @@
 						<div class="input-group">
 							<input ng-model="addLeaveFromDate" class="form-control" name="fromDate"
 							placeholder="Choose a date"
-							ng-change="checkYear(addLeaveFromDate); checkFromToDateWithNoOfdDays(addLeaveFromDate, 
-							addLeaveToDate, noOfDays)" required>
+							ng-change="checkYear(addLeaveFromDate); 
+							checkFromToDateWithNoOfdDays(addLeaveFromDate, addLeaveToDate, noOfDays);
+							checkDuplicateLeave(addLeaveFromDate, addLeaveToDate)" 
+							required>
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>
@@ -65,7 +71,7 @@
 							<input ng-model="addLeaveToDate" class="form-control" 
 							placeholder="Choose a date" name="toDate"
 							ng-change="checkFromToDateWithNoOfdDays(addLeaveFromDate, 
-							addLeaveToDate, noOfDays)"
+							addLeaveToDate, noOfDays); checkDuplicateLeave(addLeaveFromDate, addLeaveToDate)"
 							ng-disabled="addLeaveForm.fromDate.$pristine" required>
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
@@ -93,9 +99,8 @@
 					<input type="number" class="form-control" placeholder="No of days"
 						name="noOfDays" ng-model="noOfDays" max=21 min=1 required
 						ng-keyup="checkFromToDateWithNoOfdDays(addLeaveFromDate, 
-							addLeaveToDate, noOfDays);
-							checkLeaveCount(addLeaveTypeOfLeave, noOfDays, addLeaveOption)"
-						ng-change="checkNoOfDays(noOfDays)"
+							addLeaveToDate, noOfDays)"
+						ng-change="checkNoOfDays(noOfDays); checkLeaveCount(addLeaveTypeOfLeave, noOfDays, addLeaveOption)"
 						ng-disabled="addLeaveForm.fromDate.$pristine || addLeaveForm.toDate.$pristine">
 				</div>
 			</div>
@@ -113,6 +118,22 @@
 					ng-show="maxCasualAndMedicalLeaveError === true">
 					<strong>Error!</strong> Requested Leave is greater than available leave for Causal/Medical Leave.
 				</div>
+				<div role="alert" class="alert alert-danger padded" 
+					ng-show="annualLeaveOptionError === true">
+					<strong>Error!</strong> Annual Leave cannot have Half Day leave option.
+				</div>
+				<div role="alert" class="alert alert-danger padded" 
+					ng-show="lieuLeaveOptionError === true">
+					<strong>Error!</strong> Lieu Leave cannot have Half Day leave option.
+				</div>
+				<div role="alert" class="alert alert-danger padded" 
+					ng-show="specialLeaveOptionError === true">
+					<strong>Error!</strong> Special Holiday Leave cannot have Half Day leave option.
+				</div>
+				<div role="alert" class="alert alert-danger padded" 
+					ng-show="remoteLeaveOptionError === true">
+					<strong>Error!</strong> Remote Working cannot have Half Day leave option.
+				</div>
 				<label class="col-sm-2 control-label">Leave Option</label>
 				<div class="col-sm-10">
 					<select ng-model="addLeaveOption" name="leaveOption" class="form-control"
@@ -121,7 +142,10 @@
 							ng-change="checkLeaveCount(addLeaveTypeOfLeave, noOfDays, addLeaveOption)">
 						<option value="">Select a Leave Option</option>
 						<option value="Full Day">Full Day</option>
-						<option ng-disabled="addLeaveTypeOfLeave != causalLeaveTypeId && addLeaveTypeOfLeave != medicalLeaveTypeId" value="Half Day">Half Day</option>
+						<option
+							ng-disabled="!(addLeaveTypeOfLeave == causalLeaveTypeId || addLeaveTypeOfLeave == medicalLeaveTypeId)" value="Half Day">
+							Half Day
+						</option>
 					</select>
 				</div>
 			</div>

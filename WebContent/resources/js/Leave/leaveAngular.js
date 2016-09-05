@@ -16,18 +16,63 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.availableLeaves = 12;
 	$scope.fromLeaveDate = new Date();
 	
-	 // set annual leave
-	$scope.maxAnnualLeave = 3;
-	
-	 // set casual and sick leave
-	$scope.maxCasualAndMedicalLeave = 0.5;
-	
 	// called when the page loads
 	$scope.init = function () {
 		// calls other functions
 		$scope.userAndLeadSummaryChart();
 		$scope.getAllLeaveTypes();
 		$scope.getCasualLeaveTypeId();
+		$scope.getMedicalLeaveTypeId();
+		
+		// set maxAnnualLeave and maxCasualAndMedicalLeave
+		$scope.getLoggedInEmpHiredDate()
+		.then(function(hiredDate) {
+			// years
+			var currentYear = new Date().getFullYear();
+			var hiredYear = new Date(hiredDate).getFullYear();
+			
+			// month
+			var hiredMonth = new Date(hiredDate).getMonth();
+			
+			
+			if(hiredYear === currentYear) {
+				if(hiredMonth == 0 || hiredMonth == 1 || hiredMonth == 2) {
+					 // set annual leave
+					$scope.maxAnnualLeave = 14;
+					
+					// set casual and sick leave
+					$scope.maxCasualAndMedicalLeave = 7;
+					
+				}  else if (hiredMonth == 3 || hiredMonth == 4 || hiredMonth == 5) {
+					// set annual leave
+					$scope.maxAnnualLeave = 10;
+					
+					// set casual and sick leave
+					$scope.maxCasualAndMedicalLeave = 5;
+					
+				} else if (hiredMonth == 6 || hiredMonth == 7 || hiredMonth == 8) {
+					// set annual leave
+					$scope.maxAnnualLeave = 7;
+					
+					// set casual and sick leave
+					$scope.maxCasualAndMedicalLeave = 3.5;
+					
+				} else if(hiredMonth == 9 || hiredMonth == 10 || hiredMonth == 11) {
+					// set annual leave
+					$scope.maxAnnualLeave = 3;
+					
+					// set casual and sick leave
+					$scope.maxCasualAndMedicalLeave = 2;
+				}
+			} else {
+				 // set annual leave
+				$scope.maxAnnualLeave = 3;
+				
+				 // set casual and sick leave
+				$scope.maxCasualAndMedicalLeave = 0.5;
+			}
+			
+		});
 	};
 	
 	// user and lead chart
@@ -46,6 +91,23 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$http.post($scope.baseURL + '/administration/user/currentUser', user)
 		.success(function(result) {
 			def.resolve(result.employee.empId);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		
+		return def.promise;
+	};
+	
+	// get logged in Emp Hired Date
+	$scope.getLoggedInEmpHiredDate = function() {
+		var def = $q.defer();
+		
+		var user = {username : $scope.currentUser};
+		
+		$http.post($scope.baseURL + '/administration/user/currentUser', user)
+		.success(function(result) {
+			def.resolve($filter('date')(result.employee.hireDate, "yyyy-MM-dd"));
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -92,7 +154,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	};
 	
 	// get Medical Leave Id from Leave Types Table
-	$scope.getCasualLeaveTypeId = function() {
+	$scope.getMedicalLeaveTypeId = function() {
 		$http.get($scope.baseURL + '/Leave/GetMedicalLeaveTypeId')
 		.success(function(result){
 			$scope.medicalLeaveTypeId = result;
@@ -141,6 +203,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	// check leave count
 	$scope.checkLeaveCount = function(addLeaveTypeOfLeave, noOfDays, addLeaveOption) {
+		console.log(addLeaveOption);
 		// get leave type id
 		$scope.getLeaveTypeId(addLeaveTypeOfLeave)
 			.then(function(leaveTypeName) {
@@ -149,10 +212,16 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 					.then(function(empId) {
 						if(leaveTypeName == "Annual Leave" && addLeaveOption == "Full Day") {
 							$scope.maxCasualAndMedicalLeaveError = false;
+							$scope.annualLeaveOptionError = false;
+							$scope.lieuLeaveOptionError = false;
+							$scope.specialLeaveOptionError = false;
+							$scope.remoteLeaveOptionError = false;
 							
 							$scope.getLeaveSumByLeaveTypeAndYear(addLeaveTypeOfLeave, empId)
 							.then(function (sum) {
 								var availableAnnualLeave = $scope.maxAnnualLeave - sum;
+								console.log($scope.maxAnnualLeave);
+								
 								if(noOfDays > availableAnnualLeave) {
 									$scope.maxAnnualLeaveError = true;
 								} else {
@@ -161,11 +230,17 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 							});
 						} else if(leaveTypeName == "Casual Leave" || leaveTypeName == "Medical Leave") {
 							$scope.maxAnnualLeaveError = false;
+							$scope.annualLeaveOptionError = false;
+							$scope.lieuLeaveOptionError = false;
+							$scope.specialLeaveOptionError = false;
+							$scope.remoteLeaveOptionError = false;
 							
 							$scope.getLeaveSumByYearForCausalAndMedicalLeaves(empId)
 							.then(function (sum) {
 								var availableCausalAndMedicalLeaves = 
 										$scope.maxCasualAndMedicalLeave - sum;
+								
+								console.log($scope.maxCasualAndMedicalLeave);
 								
 								
 								if(addLeaveOption == "Full Day") {
@@ -180,12 +255,39 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 									var calculatedNoOfDays = noOfDays * 0.5;
 									if(calculatedNoOfDays > availableCausalAndMedicalLeaves) {
 										$scope.maxCasualAndMedicalLeaveError = true;
-										console.log("TRUE");
 									} else {
 										$scope.maxCasualAndMedicalLeaveError = false;
 									}
 								}
 							});
+						} else if(leaveTypeName == "Annual Leave" && addLeaveOption == "Half Day") {
+							$scope.annualLeaveOptionError = true;
+							$scope.maxCasualAndMedicalLeaveError = false;
+							$scope.maxAnnualLeaveError = false;
+							$scope.remoteLeaveOptionError = false;
+							$scope.specialLeaveOptionError = false;
+							$scope.lieuLeaveOptionError = false;
+						}  else if(leaveTypeName == "Lieu Leave" && addLeaveOption == "Half Day") {
+							$scope.lieuLeaveOptionError = true;
+							$scope.annualLeaveOptionError = false;
+							$scope.maxCasualAndMedicalLeaveError = false;
+							$scope.maxAnnualLeaveError = false;
+							$scope.remoteLeaveOptionError = false;
+							$scope.specialLeaveOptionError = false;
+						} else if (leaveTypeName == "Special Holiday Leave" && addLeaveOption == "Half Day") {
+							$scope.specialLeaveOptionError = true;
+							$scope.lieuLeaveOptionError = false;
+							$scope.annualLeaveOptionError = false;
+							$scope.maxCasualAndMedicalLeaveError = false;
+							$scope.remoteLeaveOptionError = false;
+							$scope.maxAnnualLeaveError = false;
+						} else if(leaveTypeName == "Remote Working" && addLeaveOption == "Half Day") {
+							$scope.remoteLeaveOptionError = true;
+							$scope.specialLeaveOptionError = false;
+							$scope.lieuLeaveOptionError = false;
+							$scope.annualLeaveOptionError = false;
+							$scope.maxCasualAndMedicalLeaveError = false;
+							$scope.maxAnnualLeaveError = false;
 						}
 					});
 			});
@@ -229,5 +331,27 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		});
 		
 		return def.promise;
+	};
+	
+	$scope.checkDuplicateLeave = function(fromDate, toDate) {
+		
+		$scope.getLoggedInEmployeeId()
+		.then(function(empId) {
+			var leave = {
+					employee : {empId : empId},
+					leave_from : fromDate,
+					leave_to : toDate
+				};
+				
+				$http.post($scope.baseURL + '/Leave/CheckDuplicateLeave', leave)
+				.success(function(result){
+					$scope.duplicateLeaveResult = result;
+					console.log(result);
+				})
+				.error(function(data, status){
+					console.log(data);
+				});
+		});
+		
 	};
 }]);

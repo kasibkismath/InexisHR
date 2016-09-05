@@ -1,9 +1,11 @@
 package com.inexisconsulting.controllers;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,5 +87,12 @@ public class LeaveController {
 	@ResponseBody
 	public float getLeaveSumByYearForCausalAndSickLeaves(@RequestBody Leave leave) {
 		return leaveService.getLeaveSumByYearForCausalAndMedicalLeaves(leave);
+	}
+
+	// check for duplicate leave
+	@RequestMapping(value = "/Leave/CheckDuplicateLeave", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateLeave(@RequestBody Leave leave) throws HibernateException, ParseException {
+		return leaveService.checkDuplicateLeave(leave);
 	}
 }

@@ -194,6 +194,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/GetLeaveSumByYearForCausalAndMedicalLeaves"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/CheckDuplicateLeave"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

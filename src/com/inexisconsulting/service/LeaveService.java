@@ -1,5 +1,8 @@
 package com.inexisconsulting.service;
 
+import java.text.ParseException;
+
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +21,9 @@ public class LeaveService {
 
 	public float getLeaveSumByYearForCausalAndMedicalLeaves(Leave leave) {
 		return leaveDao.getLeaveSumByYearForCausalAndMedicalLeaves(leave);
+	}
+
+	public boolean checkDuplicateLeave(Leave leave) throws HibernateException, ParseException {
+		return leaveDao.checkDuplicateLeave(leave);
 	}
 }
