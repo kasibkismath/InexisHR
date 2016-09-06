@@ -140,10 +140,10 @@ public class LeaveController {
 
 		try {
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("kasibtest@gmail.com"));
+			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
-			message.setSubject("Leave Request Notification (" + leave.getLeaveType().getName() + ") by :" + leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
-			message.setText("Hi, \nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to " + toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason() + "\n\n\n Thank You.");
+			message.setSubject("Leave Request Notification (" + leave.getLeaveType().getName() + ") by: " + leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+			message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to " + toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason() + "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
 			Transport.send(message);
 		} catch (Exception e) {
 			e.printStackTrace();

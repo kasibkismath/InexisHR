@@ -80,7 +80,24 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.userAndLeadLabel = ["Annual Leave", "Casual Leave", "Remote Work", 
 		                           "Medical Leave", "Special Holiday Leave", "Lieu Leave"];
 		 $scope.userAndLeadData = [6, 3, 4, 1, 2, 3];
-	};	
+	};
+	
+	// get loggedin emp
+	$scope.getLoggedInEmployee = function() {
+		var def = $q.defer();
+		
+		var user = {username : $scope.currentUser};
+		
+		$http.post($scope.baseURL + '/administration/user/currentUser', user)
+		.success(function(result) {
+			def.resolve(result.employee);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		
+		return def.promise;
+	};
 	
 	// get loggedin emp id
 	$scope.getLoggedInEmployeeId = function() {
@@ -364,8 +381,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	// add new leave
 	$scope.addLeave = function(typeOfLeave, fromDate, toDate, noOfDays, leaveOption, leaveReason) {
 		
-		console.log(typeOfLeave + " " + fromDate  + " " + toDate  + " " + noOfDays  + " " + leaveOption  + " " + leaveReason);
-	
 		var actualNoOfDays;
 		var defaultStatus = "Pending";
 		
@@ -382,34 +397,37 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		.then(function(empId) {
 			$scope.getLeaveTypeId(typeOfLeave)
 			.then(function(leaveName) {
-				var newLeave = {
-						employee : {empId : empId},
-						leaveType : {leave_type_id : typeOfLeave, name : leaveName},
-						leave_from : fromDate,
-						leave_to : toDate,
-						leave_option : leaveOption,
-						no_days : actualNoOfDays,
-						status : defaultStatus,
-						reason : leaveReason
-					};
-					
-					// send add leave request
-					$http.post($scope.baseURL + '/Leave/AddLeave', newLeave)
-					.success(function(result){
-						$('#addLeaveModal').modal('hide');
+				$scope.getLoggedInEmployee()
+				.then(function(employee) {
+					var newLeave = {
+							employee : {empId : empId, firstName : employee.firstName, lastName : employee.lastName},
+							leaveType : {leave_type_id : typeOfLeave, name : leaveName},
+							leave_from : fromDate,
+							leave_to : toDate,
+							leave_option : leaveOption,
+							no_days : actualNoOfDays,
+							status : defaultStatus,
+							reason : leaveReason
+						};
 						
-						// send mail request
-						$scope.sendLeaveRequestMail(newLeave);
-						toaster.pop('success', "Notification", "Leave Applied Successfully");
-						setTimeout(function () {
-			                window.location.reload();
-			            }, 3000);
-					})
-					.error(function(data, status){
-						$('#addLeaveModal').modal('hide');
-						toaster.pop('error', "Notification", "Leave Applied Failed");
-						console.log(data);
-					});
+						// send add leave request
+						$http.post($scope.baseURL + '/Leave/AddLeave', newLeave)
+						.success(function(result){
+							$('#addLeaveModal').modal('hide');
+							
+							// send mail request
+							$scope.sendLeaveRequestMail(newLeave);
+							toaster.pop('success', "Notification", "Leave Applied Successfully");
+							setTimeout(function () {
+				                window.location.reload();
+				            }, 3000);
+						})
+						.error(function(data, status){
+							$('#addLeaveModal').modal('hide');
+							toaster.pop('error', "Notification", "Leave Applied Failed");
+							console.log(data);
+						});
+				});
 			});
 		});
 	};
