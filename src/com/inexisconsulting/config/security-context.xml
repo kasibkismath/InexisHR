@@ -200,6 +200,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/SendLeaveRequestMail"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetLeavesForLoggedInEmployee"
+			access="isAuthenticated()" />
+			<security:intercept-url pattern="/Leave/GetLeaveByLeaveId"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

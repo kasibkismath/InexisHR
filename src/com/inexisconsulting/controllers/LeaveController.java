@@ -63,11 +63,26 @@ public class LeaveController {
 		return leaveTypes;
 	}
 
+	// get all leaves for an employee for the current year.
+	@RequestMapping(value = "/Leave/GetLeavesForLoggedInEmployee", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Leave> getLeavesForLoggedInEmployeeByYear(@RequestBody Leave leave) {
+		List<Leave> leaves = leaveService.getLeavesForLoggedInEmployeeByYear(leave);
+		return leaves;
+	}
+
 	// get causal leave type id
 	@RequestMapping(value = "/Leave/GetCasualLeaveTypeId", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public int getCasualLeaveTypeId() {
 		return leaveTypeService.getCasualLeaveTypeId();
+	}
+	
+	// get leave by leave_id
+	@RequestMapping(value = "/Leave/GetLeaveByLeaveId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Leave getLeaveByLeaveId(@RequestBody Leave leave) {
+		return leaveService.getLeaveByLeaveId(leave);
 	}
 
 	// get medical leave type id
@@ -104,19 +119,19 @@ public class LeaveController {
 	public boolean checkDuplicateLeave(@RequestBody Leave leave) throws HibernateException, ParseException {
 		return leaveService.checkDuplicateLeave(leave);
 	}
-	
+
 	@RequestMapping(value = "/Leave/AddLeave", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void addLeave(@RequestBody Leave leave) throws ParseException {
-		 leaveService.addLeave(leave);
+		leaveService.addLeave(leave);
 	}
-	
+
 	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public void sendLeaveRequestMail(@RequestBody Leave leave) {
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		final String username = "kasibtest@gmail.com";
 		final String password = "kasibtest@123";
 
@@ -134,7 +149,7 @@ public class LeaveController {
 
 		String ceoEmailId = "kasib@inexisconsulting.com";
 		String empEmailId = "kasibkismath@gmail.com";
-		
+
 		String fromDate = sdf.format(leave.getLeave_from());
 		String toDate = sdf.format(leave.getLeave_to());
 
@@ -142,8 +157,12 @@ public class LeaveController {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
-			message.setSubject("Leave Request Notification (" + leave.getLeaveType().getName() + ") by: " + leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
-			message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to " + toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason() + "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+			message.setSubject("Leave Request Notification (" + leave.getLeaveType().getName() + ") by: "
+					+ leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+			message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to "
+					+ toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason()
+					+ "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " "
+					+ leave.getEmployee().getLastName());
 			Transport.send(message);
 		} catch (Exception e) {
 			e.printStackTrace();

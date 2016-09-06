@@ -6,12 +6,12 @@
 		</button>
 	</div>
 	<div class="col-sm-12">
-		<table datatable="ng" dt-column-defs=""
+		<table datatable="ng" dt-options="dtOptionsUser" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>
 					<th>From Date</th>
-					<th>To Date</th>
+					<th>Reporting Back Date</th>
 					<th>No of Days</th>
 					<th>Type of Leave</th>
 					<th>Leave Option</th>
@@ -20,21 +20,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				 <tr ng-repeat="hrAppraisal in hrAppraisals">
-					<td ng-cloak>{{hrAppraisal.employee.firstName}} {{hrAppraisal.employee.lastName}}</td>
-					<td ng-cloak>{{hrAppraisal.performance.date | date : 'yyyy'}} </td>
-					<td ng-cloak>{{hrAppraisal.status}}</td>
-					<td ng-cloak>{{hrAppraisal.total_score}}</td>
-					<td ng-cloak>{{hrAppraisal.performance.final_score}}</td>
+				 <tr ng-repeat="leave in leavesForLoggedInEmployee">
+					<td ng-cloak>{{leave.leave_from | date : 'yyyy-MM-dd'}}</td>
+					<td ng-cloak>{{leave.leave_to | date : 'yyyy-MM-dd'}} </td>
+					<td ng-cloak>{{leave.no_days}}</td>
+					<td ng-cloak>{{leave.leaveType.name}}</td>
+					<td ng-cloak>{{leave.leave_option}}</td>
+					<td ng-cloak>{{leave.status}}</td>
 					<td ng-cloak>
-						<button class="btn btn-primary" id="editHRAppraisal" data-toggle="modal" 
-							data-target="#editHRAppraisalModal"
-							ng-click="editHRAppraisalMain(hrAppraisal.hr_appraisal_id, hrAppraisal.employee.empId, hrAppraisal.performance.date)">
+						<button class="btn btn-primary" data-toggle="modal" 
+							data-target="#editLeaveModal"
+							ng-click="getLeaveByLeaveId(leave.leave_id)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
-						<button class="btn btn-danger" id="deleteHRAppraisal" data-toggle="modal" 
-							data-target="#deleteHRAppraisalModal" 
-							ng-click="deleteHRAppraisalMain(hrAppraisal.hr_appraisal_id, hrAppraisal.employee.empId, hrAppraisal.performance.date)">
+						<button class="btn btn-danger" data-toggle="modal" 
+							data-target="#deleteLeaveModal" 
+							ng-click="deleteLeaveMain(leave.leave_id)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>
@@ -43,5 +44,6 @@
 		</table>
 		<!-- Modal -->
 		<jsp:include page="addLeave.jsp"></jsp:include>
+		<jsp:include page="editLeave.jsp"></jsp:include>
 	</div>
 </div>

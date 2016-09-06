@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -125,5 +126,26 @@ public class LeaveDAO {
 		leave.setLeave_to(convertedToDate);
 		
 		session().saveOrUpdate(leave);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Leave> getLeavesForLoggedInEmployeeByYear(Leave leave) {
+		
+		String hql = "from Leave as leave where leave.employee.emp_id=:empId "
+				+ "and year(leave.leave_from)=:currentYear order by leave.leave_from desc";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", leave.getEmployee().getEmpId());
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		
+		List<Leave> leaves = query.list();
+		return leaves;
+	}
+
+	public Leave getLeaveByLeaveId(Leave leave) {
+		Criteria crit = session().createCriteria(Leave.class);
+		crit.add(Restrictions.eq("leave_id", leave.getLeave_id()));
+		Leave result = (Leave)crit.uniqueResult(); 
+		return result;
 	}
 }

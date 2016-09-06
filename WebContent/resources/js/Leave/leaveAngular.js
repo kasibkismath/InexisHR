@@ -23,6 +23,12 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getAllLeaveTypes();
 		$scope.getCasualLeaveTypeId();
 		$scope.getMedicalLeaveTypeId();
+		$scope.getLeavesForLoggedInEmployeeByYear();
+		
+		// set datatable configs
+		 // user datatable
+		$scope.dtOptionsUser = DTOptionsBuilder.newOptions()
+	    .withOption('order', [1, 'desc']);
 		
 		// set maxAnnualLeave and maxCasualAndMedicalLeave
 		$scope.getLoggedInEmpHiredDate()
@@ -378,6 +384,24 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		}
 	};
 	
+	// get leaves for logged in employee by current year
+	$scope.getLeavesForLoggedInEmployeeByYear = function() {
+		$scope.getLoggedInEmployeeId()
+		.then(function(empId) {
+			var leave = {
+				employee : {empId : empId}
+			};
+			
+			$http.post($scope.baseURL + '/Leave/GetLeavesForLoggedInEmployee', leave)
+			.success(function(result){
+				$scope.leavesForLoggedInEmployee = result;
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+		});
+	};
+	
 	// add new leave
 	$scope.addLeave = function(typeOfLeave, fromDate, toDate, noOfDays, leaveOption, leaveReason) {
 		
@@ -432,12 +456,34 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		});
 	};
 	
+	// send leave request notification
 	$scope.sendLeaveRequestMail = function(leave) {
 		$http.post($scope.baseURL + '/Leave/SendLeaveRequestMail', leave)
 		.success(function(result){
 		})
 		.error(function(data, status){
 			toaster.pop('error', "Notification", "Leave Request Email Failed");
+			console.log(data);
+		});
+	};
+	
+	// get leave details by leave_id
+	$scope.getLeaveByLeaveId = function(leaveId) {
+		var leave = {
+			leave_id : leaveId
+		};
+		
+		$http.post($scope.baseURL + '/Leave/GetLeaveByLeaveId', leave)
+		.success(function(result){
+			console.log(result);
+			$scope.editLeaveTypeOfLeave = result.leaveType.leave_type_id;
+			$scope.editLeaveFromDate = $filter('date')(result.leave_from, "yyyy-MM-dd");
+			$scope.editLeaveToDate = $filter('date')(result.leave_to, "yyyy-MM-dd");
+			$scope.editNoOfDays = result.no_days;
+			$scope.editLeaveOption = result.leave_option;
+			$scope.editLeaveReason = result.reason;
+		})
+		.error(function(data, status){
 			console.log(data);
 		});
 	};
