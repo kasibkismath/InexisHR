@@ -23,7 +23,7 @@
 				 <tr ng-repeat="leave in leavesForLoggedInEmployee">
 					<td ng-cloak>{{leave.leave_from | date : 'yyyy-MM-dd'}}</td>
 					<td ng-cloak>{{leave.leave_to | date : 'yyyy-MM-dd'}} </td>
-					<td ng-cloak>{{leave.no_days}}</td>
+					<td ng-cloak>{{leave.no_days == 0.5 ? leave.no_days * 2 : leave.no_days}}</td>
 					<td ng-cloak>{{leave.leaveType.name}}</td>
 					<td ng-cloak>{{leave.leave_option}}</td>
 					<td ng-cloak>{{leave.status}}</td>

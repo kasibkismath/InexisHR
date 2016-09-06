@@ -6,17 +6,27 @@
         <h4 class="modal-title">Update Leave</h4>
       </div>
       <div class="modal-body">
-		<form name="addLeaveForm" class="form-horizontal"
-			ng-submit="addLeaveForm.$valid && duplicateLeaveResult === false && noOfDaysError === false &&
+		<form name="editLeaveForm" class="form-horizontal"
+			ng-submit="editLeaveForm.$valid && duplicateLeaveResult === false && noOfDaysError === false &&
 				noOfDaysErrorZeroOrNegative === false && maxAnnualLeaveError === false &&
 				maxCasualAndMedicalLeaveError === false && annualLeaveOptionError === false &&
 				lieuLeaveOptionError === false && specialLeaveOptionError === false &&
 				remoteLeaveOptionError === false &&
-				addLeave(addLeaveTypeOfLeave, addLeaveFromDate, addLeaveToDate, noOfDays, addLeaveOption, addLeaveReason)">
+				updateLeave(editLeaveTypeOfLeave, editLeaveFromDate, editLeaveToDate, editNoOfDays, editLeaveOption, editLeaveReason, editLeaveId)">
+			
+			<input type="hidden" ng-model="editLeaveId">
+			
+			<div style="padding-bottom: 20px;">
+	          <h5>
+	          	<i class="fa fa-bullhorn"></i> 
+	          	<b>NOTE :</b> Save button will be inactive if the leave is either Rejected or Approved.
+	          </h5>
+         	</div>
+			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addLeaveForm.typeOfLeave.$error.required 
-						&& addLeaveForm.typeOfLeave.$dirty">
+					ng-show="editLeaveForm.typeOfLeave.$error.required 
+						&& editLeaveForm.typeOfLeave.$dirty">
 					<strong>Error!</strong> Leave Type is required, please select one.
 				</div>
 				<label class="col-sm-2 control-label">Leave Type</label>
@@ -35,8 +45,8 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addLeaveForm.fromDate.$error.required 
-						&& addLeaveForm.fromDate.$dirty">
+					ng-show="editLeaveForm.fromDate.$error.required 
+						&& editLeaveForm.fromDate.$dirty">
 					<strong>Error!</strong> From Date is required, please select a date.
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
@@ -63,8 +73,8 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addLeaveForm.toDate.$error.required 
-						&& addLeaveForm.toDate.$dirty">
+					ng-show="editLeaveForm.toDate.$error.required 
+						&& editLeaveForm.toDate.$dirty">
 					<strong>Error!</strong> Reporting Back Date is required, please select a date.
 				</div>
 				<label class="col-sm-2 control-label">Reporting Back Date</label>
@@ -88,8 +98,8 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addLeaveForm.noOfDays.$error.required 
-						&& addLeaveForm.noOfDays.$dirty">
+					ng-show="editLeaveForm.noOfDays.$error.required 
+						&& editLeaveForm.noOfDays.$dirty">
 					<strong>Error!</strong> No of Days is required, please enter the days.
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
@@ -113,8 +123,8 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addLeaveForm.leaveOption.$error.required" 
-					ng-if="addLeaveForm.leaveOption.$dirty">
+					ng-show="editLeaveForm.leaveOption.$error.required" 
+					ng-if="editLeaveForm.leaveOption.$dirty">
 					<strong>Error!</strong> Leave Option is required, please select one.
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
@@ -144,7 +154,7 @@
 				<label class="col-sm-2 control-label">Leave Option</label>
 				<div class="col-sm-10">
 					<select ng-model="editLeaveOption" name="leaveOption" class="form-control"
-						required ng-disabled="addLeaveForm.typeOfLeave.$invalid"
+						required ng-disabled="editLeaveForm.typeOfLeave.$invalid"
 							ng-change="checkLeaveCount(editLeaveTypeOfLeave, editNoOfDays, editLeaveOption)">
 						<option value="">Select a Leave Option</option>
 						<option value="Full Day">Full Day</option>
@@ -156,15 +166,15 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div ng-messages="addLeaveForm.reason.$error" role="alert" 
-					ng-if="addLeaveForm.reason.$dirty">
+				<div ng-messages="editLeaveForm.reason.$error" role="alert" 
+					ng-if="editLeaveForm.reason.$dirty">
 					<div ng-message="maxlength" class="alert alert-danger padded">
 						<strong>Error!</strong> Reason should be not more than 150 characters
 					</div>
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addLeaveForm.reason.$error.required" 
-					ng-if="addLeaveForm.reason.$dirty">
+					ng-show="editLeaveForm.reason.$error.required" 
+					ng-if="editLeaveForm.reason.$dirty">
 					<strong>Error!</strong> Reason is required, please enter a reason.
 				</div>
 				<label class="col-sm-2 control-label">Reason</label>
@@ -175,8 +185,8 @@
 				</div>
 			</div>
 	      	<div class="modal-footer">
-	       		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        	<button type="submit" class="btn btn-primary">Save changes</button>
+	       		<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	        	<button type="submit" class="btn btn-success" ng-disabled="disableEditLeaveForm === true">Save changes</button>
 	      	</div>
       	</form>	
       </div>

@@ -148,4 +148,32 @@ public class LeaveDAO {
 		Leave result = (Leave)crit.uniqueResult(); 
 		return result;
 	}
+
+	public void updateLeave(Leave leave) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// get dates from leave object
+		Date fromDate = leave.getLeave_from();
+		Date toDate = leave.getLeave_to();
+		
+		// convert Date type to String
+		String stringFromDate = sdf.format(fromDate);
+		String stringToDate = sdf.format(toDate);
+		
+		Criteria crit = session().createCriteria(Leave.class);
+		crit.add(Restrictions.eq("leave_id", leave.getLeave_id()));
+		
+		Leave updatedLeave = (Leave)crit.uniqueResult();
+		
+		updatedLeave.setLeave_from(sdf.parse(stringFromDate));
+		updatedLeave.setLeave_to(sdf.parse(stringToDate));
+		updatedLeave.setLeaveType(leave.getLeaveType());
+		updatedLeave.setNo_days(leave.getNo_days());
+		updatedLeave.setLeave_option(leave.getLeave_option());
+		updatedLeave.setReason(leave.getReason());
+		updatedLeave.setStatus(leave.getStatus());
+		updatedLeave.setEmployee(leave.getEmployee());
+		
+		session().saveOrUpdate(updatedLeave);
+	}
 }

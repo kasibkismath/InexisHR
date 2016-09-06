@@ -16,6 +16,17 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.availableLeaves = 12;
 	$scope.fromLeaveDate = new Date();
 	
+	// initialize errors
+	$scope.remoteLeaveOptionError = false;
+	$scope.specialLeaveOptionError = false;
+	$scope.lieuLeaveOptionError = false;
+	$scope.annualLeaveOptionError = false;
+	$scope.maxCasualAndMedicalLeaveError = false;
+	$scope.maxAnnualLeaveError = false;
+	$scope.duplicateLeaveResult = false  
+	$scope.noOfDaysError =false
+	$scope.noOfDaysErrorZeroOrNegative = false
+	
 	// called when the page loads
 	$scope.init = function () {
 		// calls other functions
@@ -482,8 +493,88 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			$scope.editNoOfDays = result.no_days;
 			$scope.editLeaveOption = result.leave_option;
 			$scope.editLeaveReason = result.reason;
+			$scope.editLeaveId = result.leave_id;
+			
+			if($scope.editNoOfDays == 0.5) {
+				$scope.editNoOfDays = 1;
+			} else {
+				$scope.editNoOfDays = result.no_days;
+			}
+			
+			var status = result.status;
+			
+			if(status == 'Rejected' || status == 'Approved')
+				$scope.disableEditLeaveForm = true;
+			else 
+				$scope.disableEditLeaveForm = false;
 		})
 		.error(function(data, status){
+			console.log(data);
+		});
+	};
+	
+	$scope.updateLeave = function(typeOfLeave, fromDate, toDate, noOfDays, leaveOption, leaveReason, leaveId) {
+		
+		var actualNoOfDays;
+		var defaultStatus = "Pending";
+		
+		if(leaveOption == "Full Day") {
+			actualNoOfDays = noOfDays.toFixed(1);
+			
+		} else if (leaveOption == "Half Day") {
+			var calculatedNoOfDays = 0.5 * noOfDays;
+			actualNoOfDays = calculatedNoOfDays.toFixed(1);
+		}
+		
+		// get the currently logged in EmpId
+		$scope.getLoggedInEmployeeId()
+		.then(function(empId) {
+			$scope.getLeaveTypeId(typeOfLeave)
+			.then(function(leaveName) {
+				$scope.getLoggedInEmployee()
+				.then(function(employee) {
+					
+					var updatedLeave = {
+							employee : {empId : empId, firstName : employee.firstName, lastName : employee.lastName},
+							leaveType : {leave_type_id : typeOfLeave, name : leaveName},
+							leave_id : leaveId,
+							leave_from : fromDate,
+							leave_to : toDate,
+							leave_option : leaveOption,
+							no_days : actualNoOfDays,
+							status : defaultStatus,
+							reason : leaveReason
+						};
+						
+						// send add leave request
+						$http.post($scope.baseURL + '/Leave/UpdateLeave', updatedLeave)
+						.success(function(result){
+							$('#editLeaveModal').modal('hide');
+							
+							// send mail update leave request
+							$scope.sendUpdatedLeaveRequestMail(updatedLeave);
+							toaster.pop('success', "Notification", "Leave Updated Successfully");
+							setTimeout(function () {
+				                window.location.reload();
+				            }, 3000);
+						})
+						.error(function(data, status){
+							$('#editLeaveModal').modal('hide');
+							toaster.pop('error', "Notification", "Leave Updation Failed");
+							console.log(data);
+						});
+				});
+			});
+		});
+	};
+	
+	// send leave request notification
+	$scope.sendUpdatedLeaveRequestMail = function(leave) {
+		$http.post($scope.baseURL + '/Leave/SendUpdatedLeaveRequestMail', leave)
+		.success(function(result){
+		})
+		.error(function(data, status){
+			toaster.pop('error', "Notification", "Updated Leave Request Email Failed");
 			console.log(data);
 		});
 	};

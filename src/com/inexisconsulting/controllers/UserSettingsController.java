@@ -78,7 +78,7 @@ public class UserSettingsController {
 
 		try {
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("kasibtest@gmail.com"));
+			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("Password Changed --  Inexis HR");
 			message.setText("Your Password has been changed please visit InexisHR for more info" + "\nFrom : "

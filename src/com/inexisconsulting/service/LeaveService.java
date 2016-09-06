@@ -41,4 +41,8 @@ public class LeaveService {
 	public Leave getLeaveByLeaveId(Leave leave) {
 		return leaveDao.getLeaveByLeaveId(leave);
 	}
+
+	public void updateLeave(Leave leave) throws ParseException {
+		leaveDao.updateLeave(leave);
+	}
 }
