@@ -35,6 +35,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getCasualLeaveTypeId();
 		$scope.getMedicalLeaveTypeId();
 		$scope.getLeavesForLoggedInEmployeeByYear();
+		$scope.getPendingLeaveCountByYear();
 		
 		// set datatable configs
 		 // user datatable
@@ -639,4 +640,28 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			console.log(data);
 		});
 	};
+	
+	/* ---------------- Summary Page Codes ---------------------- */
+	
+	// leaves Pending title
+	$scope.getPendingLeaveCountByYear = function(){
+		$scope.getLoggedInEmployeeId()
+		.then(function(empId) {
+			
+			var leave = {
+				employee : {empId : empId}
+			};
+			
+			$http.post($scope.baseURL + '/Leave/GetPendingLeaveCountByYear', leave)
+			.success(function(result){
+				console.log(result);
+				$scope.sumOfPendingLeaves = result;
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+		});
+	};
+	
+	
 }]);

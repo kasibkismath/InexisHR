@@ -49,4 +49,8 @@ public class LeaveService {
 	public void deleteLeave(Leave leave) {
 		leaveDao.deleteLeave(leave);
 	}
+
+	public float getPendingLeaveCountByYear(Leave leave) {
+		return leaveDao.getPendingLeaveCountByYear(leave);
+	}
 }

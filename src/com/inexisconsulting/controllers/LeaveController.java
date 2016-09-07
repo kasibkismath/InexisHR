@@ -141,6 +141,13 @@ public class LeaveController {
 		leaveService.deleteLeave(leave);
 	}
 
+	// get pending leave count by year
+	@RequestMapping(value = "/Leave/GetPendingLeaveCountByYear", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public float getPendingLeaveCountByYear(@RequestBody Leave leave) {
+		return leaveService.getPendingLeaveCountByYear(leave);
+	}
+
 	// send mail to leave request
 	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

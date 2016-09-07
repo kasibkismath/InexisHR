@@ -183,4 +183,22 @@ public class LeaveDAO {
 		query.executeUpdate();
 	}
 
+	public float getPendingLeaveCountByYear(Leave leave) {
+		String sql = "select sum(leaves.no_days) as sum from leaves where emp_id=:empId "
+				+ "and year(leaves.leave_from)=:currentYear and leaves.status=:status";
+		
+		Query query = session().createSQLQuery(sql);
+		
+		query.setParameter("empId", leave.getEmployee().getEmpId());
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		query.setParameter("status", "Pending");
+		
+		if(query.uniqueResult() == null) {
+			return 0;
+		} else {
+			float count = ((Number) query.uniqueResult()).floatValue();
+			return count;
+		}
+	}
+
 }
