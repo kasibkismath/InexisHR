@@ -208,6 +208,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/SendUpdatedLeaveRequestMail"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/DeleteLeave"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/SendDeleteLeaveRequestMail"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

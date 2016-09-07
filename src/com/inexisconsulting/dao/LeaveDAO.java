@@ -176,4 +176,11 @@ public class LeaveDAO {
 		
 		session().saveOrUpdate(updatedLeave);
 	}
+
+	public void deleteLeave(Leave leave) {
+		Query query = session().createQuery("delete from Leave where leave_id=:leaveId");
+		query.setInteger("leaveId", leave.getLeave_id());
+		query.executeUpdate();
+	}
+
 }

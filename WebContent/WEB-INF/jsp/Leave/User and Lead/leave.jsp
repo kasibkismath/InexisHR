@@ -35,7 +35,8 @@
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
 							data-target="#deleteLeaveModal" 
-							ng-click="deleteLeaveMain(leave.leave_id)">
+							ng-click="deleteLeaveMain(leave.leave_id, leave.leaveType.name, 
+							leave.leave_from, leave.leave_to, leave.leave_option, leave.reason)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>
@@ -45,5 +46,6 @@
 		<!-- Modal -->
 		<jsp:include page="addLeave.jsp"></jsp:include>
 		<jsp:include page="editLeave.jsp"></jsp:include>
+		<jsp:include page="deleteLeave.jsp"></jsp:include>
 	</div>
 </div>

@@ -45,4 +45,8 @@ public class LeaveService {
 	public void updateLeave(Leave leave) throws ParseException {
 		leaveDao.updateLeave(leave);
 	}
+
+	public void deleteLeave(Leave leave) {
+		leaveDao.deleteLeave(leave);
+	}
 }

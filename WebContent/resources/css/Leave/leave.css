@@ -62,3 +62,7 @@ textarea {
 	width: 120px;
 	margin-bottom: 10px;
 }
+
+#deleteLeaveModal .modal-body {
+	height: 300px;
+}

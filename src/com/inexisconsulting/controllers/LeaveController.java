@@ -134,6 +134,13 @@ public class LeaveController {
 		leaveService.updateLeave(leave);
 	}
 
+	// delete leave
+	@RequestMapping(value = "/Leave/DeleteLeave", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteLeave(@RequestBody Leave leave) {
+		leaveService.deleteLeave(leave);
+	}
+
 	// send mail to leave request
 	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -178,49 +185,94 @@ public class LeaveController {
 			System.out.println("Sending email failed");
 		}
 	}
-	
-	// send mail to leave request
-		@RequestMapping(value = "/Leave/SendUpdatedLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
-		@ResponseBody
-		public void sendUpdatedLeaveRequestMail(@RequestBody Leave leave) {
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	// send mail to leave update request
+	@RequestMapping(value = "/Leave/SendUpdatedLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void sendUpdatedLeaveRequestMail(@RequestBody Leave leave) {
 
-			final String username = "kasibtest@gmail.com";
-			final String password = "kasibtest@123";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-			Properties props = new Properties();
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.port", "587");
+		final String username = "kasibtest@gmail.com";
+		final String password = "kasibtest@123";
 
-			Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(username, password);
-				}
-			});
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-			String ceoEmailId = "kasib@inexisconsulting.com";
-			String empEmailId = "kasibkismath@gmail.com";
-
-			String fromDate = sdf.format(leave.getLeave_from());
-			String toDate = sdf.format(leave.getLeave_to());
-
-			try {
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
-				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
-				message.setSubject("Updated Leave Request Notification (" + leave.getLeaveType().getName() + ") by: "
-						+ leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
-				message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to "
-						+ toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason()
-						+ "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " "
-						+ leave.getEmployee().getLastName());
-				Transport.send(message);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Sending email failed");
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
 			}
+		});
+
+		String ceoEmailId = "kasib@inexisconsulting.com";
+		String empEmailId = "kasibkismath@gmail.com";
+
+		String fromDate = sdf.format(leave.getLeave_from());
+		String toDate = sdf.format(leave.getLeave_to());
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
+			message.setSubject("Updated Leave Request Notification (" + leave.getLeaveType().getName() + ") by: "
+					+ leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+			message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to "
+					+ toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason()
+					+ "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " "
+					+ leave.getEmployee().getLastName());
+			Transport.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Sending email failed");
 		}
+	}
+
+	// send mail to leave delete request
+	@RequestMapping(value = "/Leave/SendDeleteLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void sendDeleteLeaveRequestMail(@RequestBody Leave leave) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		final String username = "kasibtest@gmail.com";
+		final String password = "kasibtest@123";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		String ceoEmailId = "kasib@inexisconsulting.com";
+		String empEmailId = "kasibkismath@gmail.com";
+
+		String fromDate = sdf.format(leave.getLeave_from());
+		String toDate = sdf.format(leave.getLeave_to());
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
+			message.setSubject("Delete Leave Request Notification (" + leave.getLeaveType().getName() + ") by: "
+					+ leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+			message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to "
+					+ toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason()
+					+ "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " "
+					+ leave.getEmployee().getLastName());
+			Transport.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Sending email failed");
+		}
+	}
 }

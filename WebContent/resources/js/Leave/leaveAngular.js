@@ -504,9 +504,9 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			var status = result.status;
 			
 			if(status == 'Rejected' || status == 'Approved')
-				$scope.disableEditLeaveForm = true;
+				$scope.disableLeaveForm = true;
 			else 
-				$scope.disableEditLeaveForm = false;
+				$scope.disableLeaveForm = false;
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -568,13 +568,74 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		});
 	};
 	
-	// send leave request notification
+	// send leave update request notification
 	$scope.sendUpdatedLeaveRequestMail = function(leave) {
 		$http.post($scope.baseURL + '/Leave/SendUpdatedLeaveRequestMail', leave)
 		.success(function(result){
 		})
 		.error(function(data, status){
 			toaster.pop('error', "Notification", "Updated Leave Request Email Failed");
+			console.log(data);
+		});
+	};
+	
+	$scope.deleteLeaveMain = function(leave_id, typeOfLeave, leaveFrom, leaveTo, leaveOption, leaveReason) {
+		
+		// get leave status
+		$scope.getLeaveByLeaveId(leave_id);
+		
+		// set leave_id and other params in delete leave modal
+		$scope.deleteLeaveId = leave_id;
+		$scope.deleteLeaveType = typeOfLeave;
+		$scope.deleteLeaveFrom = $filter('date')(leaveFrom, "yyyy-MM-dd");
+		$scope.deleteLeaveTo = $filter('date')(leaveTo, "yyyy-MM-dd");;
+		$scope.deleteLeaveOption = leaveOption;
+		$scope.deleteLeaveReason = leaveReason;
+	};
+	
+	$scope.deleteLeave = function(leave_id, typeOfLeave, leaveFrom, leaveTo, leaveOption, leaveReason) {
+		
+		$scope.getLoggedInEmployee()
+		.then(function(employee) {
+			
+			var leave = {
+					leave_id : leave_id,
+					employee : {firstName : employee.firstName, lastName : employee.lastName},
+					leaveType : {name : typeOfLeave},
+					leave_from : leaveFrom,
+					leave_to : leaveTo,
+					leave_option : leaveOption,
+					reason : leaveReason
+				};
+				
+				// send delete leave request
+				$http.post($scope.baseURL + '/Leave/DeleteLeave', leave)
+				.success(function(result){
+					$('#deleteLeaveModal').modal('hide');
+					
+					// send delete leave mail
+					$scope.sendDeleteLeaveRequestMail(leave);
+					
+					toaster.pop('success', "Notification", "Leave Deleted Successfully");
+					setTimeout(function () {
+		                window.location.reload();
+		            }, 3000);
+				})
+				.error(function(data, status){
+					$('#deleteLeaveModal').modal('hide');
+					toaster.pop('error', "Notification", "Leave Deletion Failed");
+					console.log(data);
+				});
+		});
+	};
+	
+	// send leave delete request notification
+	$scope.sendDeleteLeaveRequestMail = function(leave) {
+		$http.post($scope.baseURL + '/Leave/SendDeleteLeaveRequestMail', leave)
+		.success(function(result){
+		})
+		.error(function(data, status){
+			toaster.pop('error', "Notification", "Delete Leave Request Email Failed");
 			console.log(data);
 		});
 	};
