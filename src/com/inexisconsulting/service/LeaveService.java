@@ -53,4 +53,12 @@ public class LeaveService {
 	public float getPendingLeaveCountByYear(Leave leave) {
 		return leaveDao.getPendingLeaveCountByYear(leave);
 	}
+
+	public float getApprovedLeaveCount(Leave leave) {
+		return leaveDao.getApprovedLeaveCount(leave);
+	}
+
+	public List<Object[]> getLeaveTypeSumByYear(Leave leave) {
+		return leaveDao.getLeaveTypeSumByYear(leave);
+	}
 }

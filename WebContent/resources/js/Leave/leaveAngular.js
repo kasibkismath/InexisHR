@@ -13,7 +13,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.baseURL = contextPath;
 	$scope.currentUser = currentUser;
 
-	$scope.availableLeaves = 12;
 	$scope.fromLeaveDate = new Date();
 	
 	// initialize errors
@@ -36,6 +35,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getMedicalLeaveTypeId();
 		$scope.getLeavesForLoggedInEmployeeByYear();
 		$scope.getPendingLeaveCountByYear();
+		$scope.getAvailableLeavesByYear();
 		
 		// set datatable configs
 		 // user datatable
@@ -95,9 +95,28 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	// user and lead chart
 	$scope.userAndLeadSummaryChart = function() {
-		$scope.userAndLeadLabel = ["Annual Leave", "Casual Leave", "Remote Work", 
-		                           "Medical Leave", "Special Holiday Leave", "Lieu Leave"];
-		 $scope.userAndLeadData = [6, 3, 4, 1, 2, 3];
+		
+		$scope.userAndLeadLabel = [];
+		$scope.userAndLeadData = [];
+		 
+		 $scope.getLoggedInEmployeeId()
+			.then(function(empId) {
+				
+				var leave = {
+					employee : {empId : empId}
+				};
+				
+				$http.post($scope.baseURL + '/Leave/GetLeaveTypeSumByYear', leave)
+				.success(function(result){
+					angular.forEach(result, function(value, key) {
+						$scope.userAndLeadLabel.push(value[0]);
+						$scope.userAndLeadData.push(value[1]);
+					});
+				})
+				.error(function(data, status){
+					console.log(data);
+				});
+			});
 	};
 	
 	// get loggedin emp
@@ -643,7 +662,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	/* ---------------- Summary Page Codes ---------------------- */
 	
-	// leaves Pending title
+	// leaves Pending sum
 	$scope.getPendingLeaveCountByYear = function(){
 		$scope.getLoggedInEmployeeId()
 		.then(function(empId) {
@@ -654,7 +673,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			
 			$http.post($scope.baseURL + '/Leave/GetPendingLeaveCountByYear', leave)
 			.success(function(result){
-				console.log(result);
 				$scope.sumOfPendingLeaves = result;
 			})
 			.error(function(data, status){
@@ -663,5 +681,24 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		});
 	};
 	
+	// available leaves
+	$scope.getAvailableLeavesByYear = function() {
+		$scope.getLoggedInEmployeeId()
+		.then(function(empId) {
+			
+			var leave = {
+				employee : {empId : empId}
+			};
+			
+			$http.post($scope.baseURL + '/Leave/GetApprovedLeaveCountByYear', leave)
+			.success(function(result){
+				var noOfLeavesTaken = result;
+				$scope.availableLeaves = ($scope.maxAnnualLeave + $scope.maxCasualAndMedicalLeave) - noOfLeavesTaken;
+			})
+			.error(function(data, status){
+				console.log(data);
+			});
+		});
+	};
 	
 }]);

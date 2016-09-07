@@ -214,6 +214,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/GetPendingLeaveCountByYear"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetApprovedLeaveCountByYear"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetLeaveTypeSumByYear"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

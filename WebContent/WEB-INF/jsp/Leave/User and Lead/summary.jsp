@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-sm-12 appraisalChartTitle">
 			<span>
-				<h3><i class="fa fa-pie-chart"></i> Leaves Summary</h3>
+				<h3><i class="fa fa-pie-chart"></i> Leaves Taken Summary (In Days)</h3>
 			</span>
 	</div>
 	<div>
@@ -15,8 +15,8 @@
 			</li>
 			<li class="list-group-item col-md-2 leaveAvailability">
 				<h3>Leaves Available: </h3>
-				<h4> <span ng-class="{'alert-danger': availableLeaves < 5, 
-					'alert-warning': availableLeaves <= 10, 'alert-success': availableLeaves <= 15}">
+				<h4> <span ng-cloak ng-class="{'alert-danger': availableLeaves < 5, 
+					'alert-warning': availableLeaves <= 10, 'alert-success': availableLeaves <= 21}">
 					{{availableLeaves}} days</span>
 				</h4>
 			</li>

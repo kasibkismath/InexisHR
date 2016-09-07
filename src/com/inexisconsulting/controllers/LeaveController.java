@@ -148,6 +148,20 @@ public class LeaveController {
 		return leaveService.getPendingLeaveCountByYear(leave);
 	}
 
+	// get approved leave count by year
+	@RequestMapping(value = "/Leave/GetApprovedLeaveCountByYear", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public float getApprovedLeaveCount(@RequestBody Leave leave) {
+		return leaveService.getApprovedLeaveCount(leave);
+	}
+
+	// get approved leave count by year
+	@RequestMapping(value = "/Leave/GetLeaveTypeSumByYear", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getLeaveTypeSumByYear(@RequestBody Leave leave) {
+		return leaveService.getLeaveTypeSumByYear(leave);
+	}
+
 	// send mail to leave request
 	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
