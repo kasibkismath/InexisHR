@@ -239,4 +239,27 @@ public class LeaveDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Leave> getAllLeavesByYear() {
+		
+		String hql = "from Leave as leave where "
+				+ " year(leave.leave_from)=:currentYear order by leave.leave_from desc";
+
+		Query query = session().createQuery(hql);
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+
+		List<Leave> leaves = query.list();
+		return leaves;
+	}
+
+	public void updateLeaveStatus(Leave leave) {
+		Criteria crit = session().createCriteria(Leave.class);
+		crit.add(Restrictions.eq("leave_id", leave.getLeave_id()));
+
+		Leave updatedLeaveStatus = (Leave) crit.uniqueResult();
+		updatedLeaveStatus.setStatus(leave.getStatus());
+		
+		session().saveOrUpdate(updatedLeaveStatus);
+	}
+
 }

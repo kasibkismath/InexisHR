@@ -31,4 +31,12 @@ $(function() {
 		"cursor" : "pointer"
 	});
 	
+	// leave tile
+	$('#leave-tile').click(function() {
+		$(location).attr('href', contextPath + '/Leave');
+	});
+	$('#leave-tile').css({
+		"cursor" : "pointer"
+	});
+	
 });

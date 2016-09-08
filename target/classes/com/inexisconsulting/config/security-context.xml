@@ -218,6 +218,12 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/GetLeaveTypeSumByYear"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetAllLeavesByYear"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/UpdateLeaveStatus"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/SendLeaveStatusUpdateMail"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

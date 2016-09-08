@@ -67,7 +67,7 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
-	<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_LEAD')">
+	<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_LEAD', 'ROLE_HR')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
@@ -87,10 +87,10 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="summary">
-							<jsp:include page="User and Lead/summary.jsp"></jsp:include>
+							<jsp:include page="User Lead and HR/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="leave">
-							<jsp:include page="User and Lead/leave.jsp"></jsp:include>
+							<jsp:include page="User Lead and HR/leave.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
@@ -98,6 +98,37 @@
 		</div>
 	</sec:authorize>
 	
+	<!-- CEO Leave Page -->
+	<sec:authorize access="hasRole('ROLE_CEO')">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#ceoSummary"
+							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+						<li role="presentation"><a href="#ceoLeave"
+							aria-controls="profile" role="tab" data-toggle="tab">Leaves</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-lg-12">
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="ceoSummary">
+							<jsp:include page="CEO/summary.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="ceoLeave">
+							<jsp:include page="CEO/leave.jsp"></jsp:include>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+	</sec:authorize>
 	
 	<!-- toaster -->
 	<toaster-container></toaster-container>

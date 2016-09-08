@@ -61,4 +61,12 @@ public class LeaveService {
 	public List<Object[]> getLeaveTypeSumByYear(Leave leave) {
 		return leaveDao.getLeaveTypeSumByYear(leave);
 	}
+
+	public List<Leave> getAllLeavesByYear() {
+		return leaveDao.getAllLeavesByYear();
+	}
+
+	public void updateLeaveStatus(Leave leave) {
+		leaveDao.updateLeaveStatus(leave);
+	}
 }

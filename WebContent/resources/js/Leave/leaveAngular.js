@@ -26,6 +26,9 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.noOfDaysError =false
 	$scope.noOfDaysErrorZeroOrNegative = false
 	
+	// disble edit leave modal items for CEO
+	$scope.disabledCEOEditLeave = true;
+	
 	// called when the page loads
 	$scope.init = function () {
 		// calls other functions
@@ -36,6 +39,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getLeavesForLoggedInEmployeeByYear();
 		$scope.getPendingLeaveCountByYear();
 		$scope.getAvailableLeavesByYear();
+		$scope.getAllLeavesByYear();
 		
 		// set datatable configs
 		 // user datatable
@@ -500,13 +504,16 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	// get leave details by leave_id
 	$scope.getLeaveByLeaveId = function(leaveId) {
+		
+		var def = $q.defer();
+		
 		var leave = {
 			leave_id : leaveId
 		};
 		
 		$http.post($scope.baseURL + '/Leave/GetLeaveByLeaveId', leave)
 		.success(function(result){
-			console.log(result);
+			def.resolve(result);
 			$scope.editLeaveTypeOfLeave = result.leaveType.leave_type_id;
 			$scope.editLeaveFromDate = $filter('date')(result.leave_from, "yyyy-MM-dd");
 			$scope.editLeaveToDate = $filter('date')(result.leave_to, "yyyy-MM-dd");
@@ -514,6 +521,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			$scope.editLeaveOption = result.leave_option;
 			$scope.editLeaveReason = result.reason;
 			$scope.editLeaveId = result.leave_id;
+			$scope.editLeaveStatus = result.status;
 			
 			if($scope.editNoOfDays == 0.5) {
 				$scope.editNoOfDays = 1;
@@ -531,6 +539,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		.error(function(data, status){
 			console.log(data);
 		});
+		return def.promise;
 	};
 	
 	$scope.updateLeave = function(typeOfLeave, fromDate, toDate, noOfDays, leaveOption, leaveReason, leaveId) {
@@ -696,6 +705,111 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 				$scope.availableLeaves = ($scope.maxAnnualLeave + $scope.maxCasualAndMedicalLeave) - noOfLeavesTaken;
 			})
 			.error(function(data, status){
+				console.log(data);
+			});
+		});
+	};
+	
+	/* ----------------- CEO Leave ----------------------- */
+	$scope.getAllLeavesByYear = function() {
+		$http.get($scope.baseURL + '/Leave/GetAllLeavesByYear')
+		.success(function(result){
+			$scope.allLeavesByYear = result;
+		})
+		.error(function(data, status){
+			console.log(data);
+		});
+	};
+	
+	$scope.updateLeaveStatus = function(leave_id, leaveStatus) {
+		
+		var leave = {
+			leave_id : leave_id,
+			status : leaveStatus
+		};
+		
+		$scope.getLeaveByLeaveId(leave_id)
+		.then(function(returnedLeave) {
+			
+			var modifiedReturnedLeave = {
+					leave_id : returnedLeave.leave_id,
+					employee : {firstName : returnedLeave.employee.firstName, lastName : returnedLeave.employee.lastName},
+					leaveType : {name : returnedLeave.leaveType.name},
+					leave_from : returnedLeave.leave_from,
+					leave_to : returnedLeave.leave_to,
+					leave_option : returnedLeave.leave_option,
+					reason : returnedLeave.reason,
+					status : leaveStatus
+			};
+			
+			$http.post($scope.baseURL + '/Leave/UpdateLeaveStatus', leave)
+			.success(function(result){
+				
+				$('#ceoEditLeaveModal').modal('hide');
+				
+				// send leave status update mail
+				$scope.sendLeaveStatusUpdateMail(modifiedReturnedLeave);
+				
+				toaster.pop('success', "Notification", "Leave Status Updated Successfully");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 3000);
+			})
+			.error(function(data, status){
+				$('#ceoEditLeaveModal').modal('hide');
+				toaster.pop('error', "Notification", "Leave Status Updation Failed");
+				console.log(data);
+			});
+		})
+	};
+	
+	// send leave status update mail
+	$scope.sendLeaveStatusUpdateMail = function(leave) {
+		$http.post($scope.baseURL + '/Leave/SendLeaveStatusUpdateMail', leave)
+		.success(function(result){
+		})
+		.error(function(data, status){
+			toaster.pop('error', "Notification", "Leave Status Update Email Failed");
+			console.log(data);
+		});
+	};
+	
+	
+	$scope.deleteLeaveByCEO = function(leave_id) {
+		
+		var leave = {
+			leave_id : leave_id
+		};
+		
+		$scope.getLeaveByLeaveId(leave_id)
+		.then(function(returnedLeave) {
+	
+			var modifiedReturnedLeave = {
+				leave_id : returnedLeave.leave_id,
+				employee : {firstName : returnedLeave.employee.firstName, lastName : returnedLeave.employee.lastName},
+				leaveType : {name : returnedLeave.leaveType.name},
+				leave_from : returnedLeave.leave_from,
+				leave_to : returnedLeave.leave_to,
+				leave_option : returnedLeave.leave_option,
+				reason : returnedLeave.reason,
+			};
+				
+			// send delete leave request
+			$http.post($scope.baseURL + '/Leave/DeleteLeave', leave)
+			.success(function(result){
+				$('#ceoDeleteLeaveModal').modal('hide');
+					
+				// send delete leave mail
+				$scope.sendDeleteLeaveRequestMail(modifiedReturnedLeave);
+					
+				toaster.pop('success', "Notification", "Leave Deleted Successfully");
+				setTimeout(function () {
+		          window.location.reload();
+		        }, 3000);
+			})
+			.error(function(data, status){
+				$('#ceoDeleteLeaveModal').modal('hide');
+				toaster.pop('error', "Notification", "Leave Deletion Failed");
 				console.log(data);
 			});
 		});
