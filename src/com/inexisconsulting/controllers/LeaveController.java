@@ -71,12 +71,19 @@ public class LeaveController {
 		return leaves;
 	}
 
-	// get all approved leaves by current year for CEO
+	// get all approved leaves and active employees by current year for CEO
 	@RequestMapping(value = "/Leave/GetLeaveSummaryForCEO", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<Object[]> getLeaveSummaryForCEO() {
 		List<Object[]> leaves = leaveService.getLeaveSummaryForCEO();
 		return leaves;
+	}
+
+	// get pending leaves for CEO
+	@RequestMapping(value = "/Leave/GetPendingLeaveCountByYearForCEO", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public float getPendingLeaveCountByYearForCEO() {
+		return leaveService.getPendingLeaveCountByYearForCEO();
 	}
 
 	// get all leaves for the current year.

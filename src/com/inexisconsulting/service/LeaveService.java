@@ -73,4 +73,8 @@ public class LeaveService {
 	public List<Object[]> getLeaveSummaryForCEO() {
 		return leaveDao.getLeaveSummaryForCEO();
 	}
+
+	public float getPendingLeaveCountByYearForCEO() {
+		return leaveDao.getPendingLeaveCountByYearForCEO();
+	}
 }

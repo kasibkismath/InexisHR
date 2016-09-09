@@ -226,6 +226,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/GetLeaveSummaryForCEO"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Leave/GetPendingLeaveCountByYearForCEO"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

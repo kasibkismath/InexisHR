@@ -290,4 +290,21 @@ public class LeaveDAO {
 		return result;
 	}
 
+	public float getPendingLeaveCountByYearForCEO() {
+		String sql = "select count(leaves.leave_id) as count from leaves where "
+				+ "year(leaves.leave_from)=:currentYear and leaves.status=:status";
+
+		Query query = session().createSQLQuery(sql);
+
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		query.setParameter("status", "Pending");
+
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			float count = ((Number) query.uniqueResult()).floatValue();
+			return count;
+		}
+	}
+
 }

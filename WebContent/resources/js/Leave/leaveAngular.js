@@ -41,6 +41,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getAvailableLeavesByYear();
 		$scope.getAllLeavesByYear();
 		$scope.ceoLeaveSummary();
+		$scope.getPendingLeaveCountByYearForCEO();
 		
 		// set datatable configs
 		 // user datatable
@@ -131,7 +132,6 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		
 		$http.get($scope.baseURL + '/Leave/GetLeaveSummaryForCEO')
 		.success(function(result) {
-			console.log(result);
 			angular.forEach(result, function(value, key) {
 				$scope.ceoLabels.push(value[0]);
 				$scope.ceoData[0].push(value[1]);
@@ -708,6 +708,17 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			.error(function(data, status){
 				console.log(data);
 			});
+		});
+	};
+	
+	// leaves Pending sum For CEO
+	$scope.getPendingLeaveCountByYearForCEO = function(){
+		$http.get($scope.baseURL + '/Leave/GetPendingLeaveCountByYearForCEO')
+		.success(function(result){
+			$scope.sumOfPendingLeavesForCEO = result;
+		})
+		.error(function(data, status){
+			console.log(data);
 		});
 	};
 	
