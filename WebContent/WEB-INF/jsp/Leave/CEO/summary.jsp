@@ -22,10 +22,10 @@
 			</li>
 		</ul>
 	</div>
-	<!-- <div class="col-sm-12 chart-container">
-		<canvas id="pie" class="chart chart-pie" width="100" height="27"
-  			chart-data="userAndLeadData" chart-labels="userAndLeadLabel"
+	<div style="padding-top: 30px;"class="col-sm-12 chart-container">
+		<canvas id="bar" class="chart chart-bar" width="100" height="25"
+  			chart-data="ceoData" chart-labels="ceoLabels" chart-series="ceoSeries"
   			chart-legend="true">
-		</canvas>
-	</div> -->
+		</canvas>	
+	</div>
 </div>

@@ -71,6 +71,14 @@ public class LeaveController {
 		return leaves;
 	}
 
+	// get all approved leaves by current year for CEO
+	@RequestMapping(value = "/Leave/GetLeaveSummaryForCEO", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getLeaveSummaryForCEO() {
+		List<Object[]> leaves = leaveService.getLeaveSummaryForCEO();
+		return leaves;
+	}
+
 	// get all leaves for the current year.
 	@RequestMapping(value = "/Leave/GetAllLeavesByYear", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -344,11 +352,11 @@ public class LeaveController {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
-			message.setSubject("Leave Status Update Notification (" + leave.getLeaveType().getName() + ") - " + leave.getStatus());
+			message.setSubject(
+					"Leave Status Update Notification (" + leave.getLeaveType().getName() + ") - " + leave.getStatus());
 			message.setText("Hi, \n\nI will be on " + leave.getLeaveType().getName() + " from " + fromDate + " to "
-					+ toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason()
-					+ "\n\nStatus: " + leave.getStatus()
-					+ "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " "
+					+ toDate + " (" + leave.getLeave_option() + ").\n\nReason : " + leave.getReason() + "\n\nStatus: "
+					+ leave.getStatus() + "\n\n\nThank You, \n" + leave.getEmployee().getFirstName() + " "
 					+ leave.getEmployee().getLastName());
 			Transport.send(message);
 		} catch (Exception e) {

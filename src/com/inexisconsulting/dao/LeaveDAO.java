@@ -262,4 +262,32 @@ public class LeaveDAO {
 		session().saveOrUpdate(updatedLeaveStatus);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getLeaveSummaryForCEO() {
+		String sql = "select EmpName, "
+				+ "SUM(CASE WHEN LeaveType = 'Annual Leave' THEN NoOfDays ELSE 0 END) 'Annual Leave', "
+				+ "SUM(CASE WHEN LeaveType = 'Casual Leave' THEN NoOfDays ELSE 0 END) 'Casual Leave', "
+				+ "SUM(CASE WHEN LeaveType = 'Medical Leave' THEN NoOfDays ELSE 0 END) 'Medical Leave' "
+				+ "from( "
+				+ "select concat(employee.firstName, ' ', employee.lastName) as EmpName, "
+				+ "leave_type.Name as LeaveType, sum(leaves.no_days) as NoOfDays "
+				+ "from leaves "
+				+ "join leave_type on leaves.leave_type_id = leave_type.leave_type_id "
+				+ "join employee on leaves.emp_id = employee.emp_id "
+				+ "where year(leaves.leave_from)=:currentYear and leaves.status=:leaveStatus and "
+				+ "employee.status=:empStatus "
+				+ "group by EmpName, leave_type.Name "
+				+ "order by EmpName "
+				+ ") as Result "
+				+ "group by EmpName";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		query.setParameter("leaveStatus", "Approved");
+		query.setParameter("empStatus", true);
+		
+		List<Object[]> result = query.list();
+		return result;
+	}
+
 }

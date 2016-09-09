@@ -69,4 +69,8 @@ public class LeaveService {
 	public void updateLeaveStatus(Leave leave) {
 		leaveDao.updateLeaveStatus(leave);
 	}
+
+	public List<Object[]> getLeaveSummaryForCEO() {
+		return leaveDao.getLeaveSummaryForCEO();
+	}
 }

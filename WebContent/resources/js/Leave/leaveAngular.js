@@ -40,6 +40,7 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getPendingLeaveCountByYear();
 		$scope.getAvailableLeavesByYear();
 		$scope.getAllLeavesByYear();
+		$scope.ceoLeaveSummary();
 		
 		// set datatable configs
 		 // user datatable
@@ -121,6 +122,26 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 					console.log(data);
 				});
 			});
+	};
+	
+	$scope.ceoLeaveSummary = function() {
+		$scope.ceoLabels = [];
+		$scope.ceoSeries = ['Annual Leave', 'Casual Leave', 'Medical Leave'];
+		$scope.ceoData = [[], [], []];
+		
+		$http.get($scope.baseURL + '/Leave/GetLeaveSummaryForCEO')
+		.success(function(result) {
+			console.log(result);
+			angular.forEach(result, function(value, key) {
+				$scope.ceoLabels.push(value[0]);
+				$scope.ceoData[0].push(value[1]);
+				$scope.ceoData[1].push(value[2]);
+				$scope.ceoData[2].push(value[3]);
+			});
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
 	};
 	
 	// get loggedin emp
