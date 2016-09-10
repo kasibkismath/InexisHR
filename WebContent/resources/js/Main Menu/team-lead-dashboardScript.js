@@ -39,4 +39,11 @@ $(function() {
 		"cursor" : "pointer"
 	});
 	
+	// attendance tile
+	$('#attendance-tile').click(function() {
+		$(location).attr('href', contextPath + '/Attendance');
+	});
+	$('#attendance-tile').css({
+		"cursor" : "pointer"
+	});
 });

@@ -64,6 +64,13 @@
 					<br> <span id="textXSmall">Leave</span>
 				</div>
 			</div>
+			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
+				id="attendance-tile">
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-calendar-check-o fa-3x icon-color"></i></span>
+					<br> <span id="textSmall">Attendance</span>
+				</div>
+			</div>
 		</div>
 	</div>
 
