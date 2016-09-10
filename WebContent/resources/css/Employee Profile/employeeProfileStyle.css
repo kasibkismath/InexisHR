@@ -16,6 +16,11 @@ hr {
 	width: 400px;
 }
 
+._720kb-datepicker-calendar-body>._720kb-datepicker-active {
+	color: red !important;
+}
+
+
 /* Tab Style */
 .nav-tabs>li>a {
 	background-color: #efefef;
