@@ -53,4 +53,15 @@ public class AttendanceDAO {
 		}
 	}
 
+	public void addAttendance(Attendance attendance) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date date = attendance.getDate();
+		String stringDate = sdf.format(date);
+		
+		attendance.setDate(sdf.parse(stringDate));
+		
+		session().saveOrUpdate(attendance);
+	}
+
 }

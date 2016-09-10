@@ -19,4 +19,8 @@ public class AttendanceService {
 		return attendanceDao.checkAttendanceDuplicate(attendance);
 	}
 
+	public void addAttendance(Attendance attendance) throws ParseException {
+		attendanceDao.addAttendance(attendance);
+	}
+
 }

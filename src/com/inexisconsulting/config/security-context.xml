@@ -234,6 +234,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Attendance/CheckAttendanceDuplicate"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Attendance/AddAttendance"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

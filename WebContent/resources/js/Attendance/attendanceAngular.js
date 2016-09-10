@@ -88,7 +88,39 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		} else {
 			$scope.checkAttendanceDuplicateResult = false;
 		}
+	};
+	
+	$scope.addAttendance = function(date, project, taskType, tasks, timeSpent, status) {
+		$scope.getLoggedInEmployee()
+		.then(function(result) {
+			var empId = result.empId;
 			
+			var attendance = {
+				employee : {empId : empId},
+				project : {project_id : project},
+				task_type : taskType,
+				date : date,
+				task : tasks,
+				status : status,
+				time_spent : timeSpent
+			};
+			
+			$http.post($scope.baseURL + '/Attendance/AddAttendance', attendance)
+			.success(function(result) {
+				$('#addAttendanceModal').modal('hide');
+				toaster.pop('success', "Notification", "Attendance Added Successfully");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 1000);
+			})
+			.error(function(data, status) {
+				$('#addAttendanceModal').modal('hide');
+				toaster.pop('error', "Notification", "Adding Attendance Failed");
+				console.log(data);
+			});
+			
+		});
+		
 	};
 	
 	

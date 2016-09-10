@@ -26,7 +26,7 @@ public class AttendanceController {
 
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@Autowired
 	private AttendanceService attendanceService;
 
@@ -57,7 +57,16 @@ public class AttendanceController {
 	// check duplicate attendance exists
 	@RequestMapping(value = "/Attendance/CheckAttendanceDuplicate", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public boolean checkAttendanceDuplicate(@RequestBody Attendance attendance) throws HibernateException, ParseException {
+	public boolean checkAttendanceDuplicate(@RequestBody Attendance attendance)
+			throws HibernateException, ParseException {
 		return attendanceService.checkAttendanceDuplicate(attendance);
+	}
+
+	// add attendance
+	@RequestMapping(value = "/Attendance/AddAttendance", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addAttendance(@RequestBody Attendance attendance)
+			throws ParseException {
+		attendanceService.addAttendance(attendance);
 	}
 }

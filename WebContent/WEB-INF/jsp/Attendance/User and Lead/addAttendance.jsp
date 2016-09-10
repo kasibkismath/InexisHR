@@ -7,8 +7,10 @@
       </div>
       <div class="modal-body">
 		<form name="addAttendanceForm" class="form-horizontal"
-			ng-submit="addAttendanceForm.$valid &&
-				addAttendance()">
+			ng-submit="addAttendanceForm.$valid && checkAttendanceDuplicateResult === false &&
+				timeSpentValidationError === false &&
+				addAttendance(saveAttendanceDate, saveAttendanceProject, saveAttendanceTaskType,
+				saveAttendanceTasks, saveAttendanceTimeSpent, saveAttendanceStatus)">
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="addAttendanceForm.date.$error.required 
@@ -117,7 +119,7 @@
 				</div>
 				<label class="col-sm-2 control-label">Time Spent (Hours)</label>
 				<div class="col-sm-10">
-					<input type="number" class="form-control" min=0.5 max=16 placeholder="Time Spent"
+					<input type="number" class="form-control" step="0.01" min=0.5 max=16 placeholder="Time Spent"
 						name="timeSpent" ng-model="saveAttendanceTimeSpent" required
 						ng-keyup="timeSpentValidation(saveAttendanceTimeSpent); 
 						typeCheckTimeSpent(saveAttendanceTimeSpent)">
