@@ -108,7 +108,6 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		$http.get($scope.baseURL + '/Attendance/GetAttendancesForCurrentYear')
 		.success(function(result) {
 			$scope.attendancesForCurrentYear = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -204,7 +203,6 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 			$scope.editAttendanceTimeSpent = result.time_spent;
 			$scope.editAttendanceStatus = result.status;
 			$scope.editAttendanceId = result.attd_id;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
