@@ -36,4 +36,20 @@ public class AttendanceService {
 		attendanceDao.updateAttendance(attendance);
 	}
 
+	public void deleteAttendance(Attendance attendance) {
+		attendanceDao.deleteAttendance(attendance);
+	}
+
+	public float getDailyHoursByLoggedInEmp(Attendance attendance) throws HibernateException, ParseException {
+		return attendanceDao.getDailyHoursByLoggedInEmp(attendance);
+	}
+
+	public float getWeeklyHoursByLoggedInEmp(Attendance attendance) {
+		return attendanceDao.getWeeklyHoursByLoggedInEmp(attendance);
+	}
+
+	public List<Object[]> userLeadAndHRSummaryChart(Attendance attendance) {
+		return attendanceDao.userLeadAndHRSummaryChart(attendance);
+	}
+
 }

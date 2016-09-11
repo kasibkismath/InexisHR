@@ -35,7 +35,8 @@ public class AttendanceDAO {
 
 		String stringDate = sdf.format(date);
 
-		String sql = "select count(*) as count from attendance where emp_id=:empId and project_id=:projectId and "
+		String sql = "select count(*) as count from attendance where emp_id=:empId and "
+				+ "project_id=:projectId and "
 				+ "task_type=:taskType and date=:date";
 
 		Query query = session().createSQLQuery(sql);
@@ -105,6 +106,65 @@ public class AttendanceDAO {
 		updatedAttendance.setTask(attendance.getTask());
 		updatedAttendance.setTask_type(attendance.getTask_type());
 		updatedAttendance.setTime_spent(attendance.getTime_spent());
+	}
+
+	public void deleteAttendance(Attendance attendance) {
+		Query query = session().createQuery("delete from Attendance where attd_id=:attdId");
+		query.setInteger("attdId", attendance.getAttd_id());
+		query.executeUpdate();
+	}
+
+	public float getDailyHoursByLoggedInEmp(Attendance attendance) throws HibernateException, ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String stringDate = sdf.format(date);
+		
+		String sql = "select sum(time_spent) as dailyHours from attendance "
+				+ "where emp_id=:empId and date=:date and status=:status";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("empId", attendance.getEmployee().getEmpId());
+		query.setParameter("date", sdf.parse(stringDate));
+		query.setParameter("status", "Completed");
+		
+		float dailyHours = ((Number) query.uniqueResult()).floatValue();
+		return dailyHours;
+	}
+
+	public float getWeeklyHoursByLoggedInEmp(Attendance attendance) {
+		
+		String sql = "select sum(time_spent) as weeklyHours "
+				+ "FROM attendance "
+				+ "WHERE date > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) "
+				+ "AND date <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY) "
+				+ "and emp_id=:empId "
+				+ "and status=:status";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("empId", attendance.getEmployee().getEmpId());
+		query.setParameter("status", "Completed");
+		
+		float dailyHours = ((Number) query.uniqueResult()).floatValue();
+		return dailyHours;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> userLeadAndHRSummaryChart(Attendance attendance) {
+		
+		String sql = "select project.project_name, sum(time_spent) as weeklyHours "
+				+ "FROM attendance "
+				+ "join project on attendance.project_id = project.project_id "
+				+ "WHERE date > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY)  "
+				+ "AND date <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY) "
+				+ "and emp_id=:empId "
+				+ "group by project.project_name";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("empId", attendance.getEmployee().getEmpId());
+		
+		List<Object[]> result = query.list();
+		return result;
 	}
 
 }

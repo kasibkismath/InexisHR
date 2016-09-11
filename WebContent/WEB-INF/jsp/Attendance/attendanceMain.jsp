@@ -106,9 +106,15 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#ceoSummary"
-							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+							aria-controls="home" role="tab" data-toggle="tab">Management Summary</a></li>
 						<li role="presentation"><a href="#ceoAttendance"
-							aria-controls="profile" role="tab" data-toggle="tab">Leaves</a></li>
+							aria-controls="profile" role="tab" data-toggle="tab">All Attendances</a></li>
+						<sec:authorize access="hasRole('ROLE_HR')">
+						<li role="presentation"><a href="#summary"
+							aria-controls="home" role="tab" data-toggle="tab">My Summary</a></li>
+						<li role="presentation"><a href="#attendance"
+							aria-controls="profile" role="tab" data-toggle="tab">My Attendance</a></li>
+						</sec:authorize>
 					</ul>
 				</div>
 			</div>
@@ -124,6 +130,14 @@
 						<div role="tabpanel" class="tab-pane fade" id="ceoAttendance">
 							<h3>Hello Attendance From CEO, HR VIEW</h3>
 						</div>
+						<sec:authorize access="hasRole('ROLE_HR')">
+						<div role="tabpanel" class="tab-pane fade" id="summary">
+							<jsp:include page="User and Lead/summary.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="attendance">
+							<jsp:include page="User and Lead/attendance.jsp"></jsp:include>
+						</div>
+						</sec:authorize>
 					</div>
 					</div>
 				</div>

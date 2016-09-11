@@ -65,7 +65,7 @@
 						&& editAttendanceForm.taskType.$dirty">
 					<strong>Error!</strong> Task Type is required, please select one.
 				</div>
-				<label class="col-sm-2 control-label">Project</label>
+				<label class="col-sm-2 control-label">Task Type</label>
 				<div class="col-sm-10">
 					<select ng-model="editAttendanceTaskType" name="taskType" class="form-control"
 						required
@@ -84,6 +84,9 @@
 						<option value="UAT">UAT</option>
 						<option value="Internal Process">Internal Process</option>
 						<option value="Tech Support">Tech Support</option>
+						<option value="Training">Training</option>
+						<option value="Digital Marketing">Digital Marketing</option>
+						<option value="General">General</option>
 					</select>
 				</div>
 			</div>

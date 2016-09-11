@@ -22,6 +22,9 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		$scope.getProjects();
 		$scope.getProjectsByEmpId();
 		$scope.getAttendancesByEmpId();
+		$scope.getDailyHoursByLoggedInEmp();
+		$scope.getWeeklyHoursByLoggedInEmp();
+		$scope.userLeadAndHRSummaryChart();
 		
 		// set datatable configs
 		 // user and lead datatable
@@ -139,6 +142,7 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		}
 	};
 	
+	// add new attendance
 	$scope.addAttendance = function(date, project, taskType, tasks, timeSpent, status) {
 		$scope.getLoggedInEmployee()
 		.then(function(result) {
@@ -193,6 +197,7 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		});
 	};
 	
+	// update attendance
 	$scope.updateAttendance = function(attd_id, date, project, taskType, tasks, timeSpent, status) {
 		
 		var attendance = {
@@ -217,6 +222,103 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 			$('#editAttendanceModal').modal('hide');
 			toaster.pop('error', "Notification", "Updating Attendance Failed");
 			console.log(data);
+		});
+	};
+	
+	// calls from attendance table
+	$scope.deleteAttendanceMain = function(attd_id) {
+		$scope.deleteAttd_id = attd_id;
+	};
+	
+	//actually delete's attendance
+	$scope.deleteAttendance = function(attd_id) {
+		
+		var attendance = {
+			attd_id : attd_id
+		};
+		
+		// send delete request with attd_id
+		$http.post($scope.baseURL + '/Attendance/DeleteAttendance', attendance)
+		.success(function(result) {
+			$('#deleteAttendanceModal').modal('hide');
+			toaster.pop('success', "Notification", "Attendance Deleted Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteAttendanceModal').modal('hide');
+			toaster.pop('error', "Notification", "Attendance Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+	// get daily hours by current logged in employee
+	$scope.getDailyHoursByLoggedInEmp = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(employee) {
+			
+			var empId = employee.empId;
+			
+			var attendance = {
+				employee : {empId : empId}
+			};
+					
+			$http.post($scope.baseURL + '/Attendance/GetDailyHoursByLoggedInEmp', attendance)
+			.success(function(result) {
+				$scope.dailyHours = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// get weekly hours by current logged in employee
+	$scope.getWeeklyHoursByLoggedInEmp = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(employee) {
+			
+			var empId = employee.empId;
+			
+			var attendance = {
+				employee : {empId : empId}
+			};
+					
+			$http.post($scope.baseURL + '/Attendance/GetWeeklyHoursByLoggedInEmp', attendance)
+			.success(function(result) {
+				$scope.weeklyHours = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	$scope.userLeadAndHRSummaryChart = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(employee) {
+			
+			$scope.userLeadHrLabel = [];
+			$scope.userLeadHrData = [];
+			
+			var empId = employee.empId;
+			
+			var attendance = {
+				employee : {empId : empId}
+			};
+			
+			$http.post($scope.baseURL + '/Attendance/UserLeadAndHRSummaryChart', attendance)
+			.success(function(result) {
+				console.log(result);
+				angular.forEach(result, function(value, key) {
+					$scope.userLeadHrLabel.push(value[0]);
+					$scope.userLeadHrData.push((Math.round(value[1] * 100) / 100).toFixed(2));
+				});
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
 		});
 	};
 

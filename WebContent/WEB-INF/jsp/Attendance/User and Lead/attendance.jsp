@@ -33,7 +33,7 @@
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
 							data-target="#deleteAttendanceModal" 
-							ng-click="deleteAttendance(attendance.attd_id)">
+							ng-click="deleteAttendanceMain(attendance.attd_id)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>
@@ -43,5 +43,6 @@
 		<!-- Modal -->
 		<jsp:include page="addAttendance.jsp"></jsp:include>
 		<jsp:include page="editAttendance.jsp"></jsp:include>
+		<jsp:include page="deleteAttendance.jsp"></jsp:include>
 	</div>
 </div>

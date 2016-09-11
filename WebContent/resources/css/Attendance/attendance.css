@@ -72,3 +72,7 @@ textarea {
 	margin-top: -35px;
 	margin-left: 10px;
 }
+
+#deleteAttendanceModal .modal-body {
+	height: 160px;
+}

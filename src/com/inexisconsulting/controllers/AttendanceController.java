@@ -98,4 +98,33 @@ public class AttendanceController {
 	public void updateAttendance(@RequestBody Attendance attendance) throws ParseException {
 		attendanceService.updateAttendance(attendance);
 	}
+
+	// delete attendance
+	@RequestMapping(value = "/Attendance/DeleteAttendance", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteAttendance(@RequestBody Attendance attendance) {
+		attendanceService.deleteAttendance(attendance);
+	}
+
+	// get daily hours by logged in employee
+	@RequestMapping(value = "/Attendance/GetDailyHoursByLoggedInEmp", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public float getDailyHoursByLoggedInEmp(@RequestBody Attendance attendance)
+			throws HibernateException, ParseException {
+		return attendanceService.getDailyHoursByLoggedInEmp(attendance);
+	}
+
+	// get weekly hours by logged in employee
+	@RequestMapping(value = "/Attendance/GetWeeklyHoursByLoggedInEmp", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public float getWeeklyHoursByLoggedInEmp(@RequestBody Attendance attendance) {
+		return attendanceService.getWeeklyHoursByLoggedInEmp(attendance);
+	}
+
+	// get User Lead and HR Summary Chart
+	@RequestMapping(value = "/Attendance/UserLeadAndHRSummaryChart", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> userLeadAndHRSummaryChart(@RequestBody Attendance attendance) {
+		return attendanceService.userLeadAndHRSummaryChart(attendance);
+	}
 }
