@@ -167,4 +167,35 @@ public class AttendanceDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Object[]> hrAndCeoSummaryChart() {
+		String sql = "select concat(employee.firstName, ' ', employee.lastName) as EmpName, "
+				+ "round(sum(time_spent), 2) as hours "
+				+ "from attendance join employee "
+				+ "on attendance.emp_id = employee.emp_id "
+				+ "where attendance.status=:status and "
+				+ "date > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) "
+				+ "and date <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY) "
+				+ "group by EmpName "
+				+ "order by EmpName";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("status", "Completed");
+		
+		List<Object[]> result = query.list();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Attendance> getAttendancesForCurrentYear() {
+		String hql = "from Attendance as attendance where "
+				+ "year(attendance.date)=:currentYear order by attendance.date desc";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		
+		List<Attendance> attendances = query.list();
+		return attendances;
+	}
+
 }

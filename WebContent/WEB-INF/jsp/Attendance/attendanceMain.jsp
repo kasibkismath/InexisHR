@@ -125,10 +125,10 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="ceoSummary">
-							<h3>Hello Summary From CEO, HR VIEW</h3>
+							<jsp:include page="HR and CEO/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="ceoAttendance">
-							<h3>Hello Attendance From CEO, HR VIEW</h3>
+							<jsp:include page="HR and CEO/attendance.jsp"></jsp:include>
 						</div>
 						<sec:authorize access="hasRole('ROLE_HR')">
 						<div role="tabpanel" class="tab-pane fade" id="summary">

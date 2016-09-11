@@ -25,6 +25,8 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		$scope.getDailyHoursByLoggedInEmp();
 		$scope.getWeeklyHoursByLoggedInEmp();
 		$scope.userLeadAndHRSummaryChart();
+		$scope.hrAndCeoSummaryChart();
+		$scope.getAttendancesForCurrentYear();
 		
 		// set datatable configs
 		 // user and lead datatable
@@ -98,6 +100,18 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 				console.log(data);
 			});
 			
+		});
+	};
+	
+	//get all attendances for current year
+	$scope.getAttendancesForCurrentYear = function() {
+		$http.get($scope.baseURL + '/Attendance/GetAttendancesForCurrentYear')
+		.success(function(result) {
+			$scope.attendancesForCurrentYear = result;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
 		});
 	};
 	
@@ -295,6 +309,7 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 		});
 	};
 	
+	// user, lead and HR Summary Attendance
 	$scope.userLeadAndHRSummaryChart = function() {
 		$scope.getLoggedInEmployee()
 		.then(function(employee) {
@@ -310,7 +325,6 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 			
 			$http.post($scope.baseURL + '/Attendance/UserLeadAndHRSummaryChart', attendance)
 			.success(function(result) {
-				console.log(result);
 				angular.forEach(result, function(value, key) {
 					$scope.userLeadHrLabel.push(value[0]);
 					$scope.userLeadHrData.push((Math.round(value[1] * 100) / 100).toFixed(2));
@@ -319,6 +333,24 @@ attendance.controller('attendanceMainController', ['$scope', '$http', '$q', 'toa
 			.error(function(data, status) {
 				console.log(data);
 			});
+		});
+	};
+	
+	// hr and ceo summary attendance
+	$scope.hrAndCeoSummaryChart = function(){
+		$scope.hrCeoLabels = [];
+		$scope.hrCeoSeries = ['Weekly Hours'];
+		$scope.hrCeoData = [[]];
+		
+		$http.get($scope.baseURL + '/Attendance/GetAttendanceSummaryForCEOAndHR')
+		.success(function(result) {
+			angular.forEach(result, function(value, key) {
+				$scope.hrCeoLabels.push(value[0]);
+				$scope.hrCeoData[0].push(value[1]);
+			});
+		})
+		.error(function(data, status) {
+			console.log(data);
 		});
 	};
 

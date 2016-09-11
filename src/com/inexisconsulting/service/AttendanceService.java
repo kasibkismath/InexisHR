@@ -52,4 +52,12 @@ public class AttendanceService {
 		return attendanceDao.userLeadAndHRSummaryChart(attendance);
 	}
 
+	public List<Object[]> hrAndCeoSummaryChart() {
+		return attendanceDao.hrAndCeoSummaryChart();
+	}
+
+	public List<Attendance> getAttendancesForCurrentYear() {
+		return attendanceDao.getAttendancesForCurrentYear();
+	}
+
 }

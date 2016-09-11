@@ -70,6 +70,14 @@ public class AttendanceController {
 		return attendances;
 	}
 
+	// get all attendances for current year
+	@RequestMapping(value = "/Attendance/GetAttendancesForCurrentYear", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Attendance> getAttendancesForCurrentYear() {
+		List<Attendance> attendances = attendanceService.getAttendancesForCurrentYear();
+		return attendances;
+	}
+
 	// get attendance by attendance_id
 	@RequestMapping(value = "/Attendance/GetAttendanceByAttendanceId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -126,5 +134,12 @@ public class AttendanceController {
 	@ResponseBody
 	public List<Object[]> userLeadAndHRSummaryChart(@RequestBody Attendance attendance) {
 		return attendanceService.userLeadAndHRSummaryChart(attendance);
+	}
+
+	// get HR and CEO Summary Chart
+	@RequestMapping(value = "/Attendance/GetAttendanceSummaryForCEOAndHR", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> hrAndCeoSummaryChart() {
+		return attendanceService.hrAndCeoSummaryChart();
 	}
 }
