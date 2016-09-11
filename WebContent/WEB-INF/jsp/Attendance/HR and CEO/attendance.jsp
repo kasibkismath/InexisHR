@@ -5,6 +5,7 @@
 			<thead>
 				<tr>
 					<th>Date</th>
+					<th>Employee</th>
 					<th>Project</th>
 					<th>Task Type</th>
 					<th>Status</th>
@@ -15,6 +16,7 @@
 			<tbody>
 				 <tr ng-repeat="attendance in attendancesForCurrentYear">
 					<td ng-cloak>{{attendance.date | date : 'yyyy-MM-dd'}}</td>
+					<td ng-cloak>{{attendance.employee.firstName}} {{attendance.employee.lastName}}</td>
 					<td ng-cloak>{{attendance.project.project_name}} </td>
 					<td ng-cloak>{{attendance.task_type}}</td>
 					<td ng-cloak>{{attendance.status}}</td>
