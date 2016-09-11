@@ -32,4 +32,19 @@ public class ProjectDAO {
 		return returnList;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Project> getProjectsByEmpId(Attendance attendance) {
+		
+		String hql = "from Team_Employee teamEmp inner join teamEmp.team team inner join team.project project "
+				+ "where teamEmp.employee.emp_id=:empId and project.status=:status or project.status=:status1";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", attendance.getEmployee().getEmpId());
+		query.setParameter("status", "In-Progress");
+		query.setParameter("status1", "On-Hold");
+		
+		List<Project> returnList = query.list();
+		return returnList;
+	}
+
 }

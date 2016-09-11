@@ -46,12 +46,35 @@ public class AttendanceController {
 		return "Attendance/attendanceMain";
 	}
 
+	// get all projects for the current emp
+	@RequestMapping(value = "/Attendance/GetProjectsByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Project> getProjectsByEmpId(@RequestBody Attendance attendance) {
+		List<Project> projects = projectService.getProjectsByEmpId(attendance);
+		return projects;
+	}
+
 	// get all projects
 	@RequestMapping(value = "/Attendance/GetProjects", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<Project> getProjects() {
 		List<Project> projects = projectService.getProjects();
 		return projects;
+	}
+
+	// get all attendances for the current emp for current year
+	@RequestMapping(value = "/Attendance/GetAttendancesByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Attendance> getAttendancesByEmpId(@RequestBody Attendance attendance) {
+		List<Attendance> attendances = attendanceService.getAttendancesByEmpId(attendance);
+		return attendances;
+	}
+
+	// get attendance by attendance_id
+	@RequestMapping(value = "/Attendance/GetAttendanceByAttendanceId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Attendance getAttendanceByAttendanceId(@RequestBody Attendance attendance) {
+		return attendanceService.getAttendanceByAttendanceId(attendance);
 	}
 
 	// check duplicate attendance exists
@@ -65,8 +88,14 @@ public class AttendanceController {
 	// add attendance
 	@RequestMapping(value = "/Attendance/AddAttendance", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public void addAttendance(@RequestBody Attendance attendance)
-			throws ParseException {
+	public void addAttendance(@RequestBody Attendance attendance) throws ParseException {
 		attendanceService.addAttendance(attendance);
+	}
+
+	// update attendance
+	@RequestMapping(value = "/Attendance/UpdateAttendance", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateAttendance(@RequestBody Attendance attendance) throws ParseException {
+		attendanceService.updateAttendance(attendance);
 	}
 }

@@ -6,7 +6,7 @@
 		</button>
 	</div>
 	<div class="col-sm-12">
-		<table datatable="ng" dt-options="dtOptionsUser" dt-column-defs=""
+		<table datatable="ng" dt-options="dtOptionsUserLead" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>
@@ -19,22 +19,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				 <tr ng-repeat="leave in leavesForLoggedInEmployee">
-					<td ng-cloak>{{leave.leave_from | date : 'yyyy-MM-dd'}}</td>
-					<td ng-cloak>{{leave.leave_to | date : 'yyyy-MM-dd'}} </td>
-					<td ng-cloak>{{leave.no_days == 0.5 ? leave.no_days * 2 : leave.no_days}}</td>
-					<td ng-cloak>{{leave.leaveType.name}}</td>
-					<td ng-cloak>{{leave.leave_option}}</td>
+				 <tr ng-repeat="attendance in attendancesByEmpId">
+					<td ng-cloak>{{attendance.date | date : 'yyyy-MM-dd'}}</td>
+					<td ng-cloak>{{attendance.project.project_name}} </td>
+					<td ng-cloak>{{attendance.task_type}}</td>
+					<td ng-cloak>{{attendance.status}}</td>
+					<td ng-cloak>{{attendance.time_spent}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
-							data-target="#editLeaveModal"
-							ng-click="getLeaveByLeaveId(leave.leave_id)">
+							data-target="#editAttendanceModal"
+							ng-click="getAttendanceByAttendanceId(attendance.attd_id)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
-							data-target="#deleteLeaveModal" 
-							ng-click="deleteLeaveMain(leave.leave_id, leave.leaveType.name, 
-							leave.leave_from, leave.leave_to, leave.leave_option, leave.reason)">
+							data-target="#deleteAttendanceModal" 
+							ng-click="deleteAttendance(attendance.attd_id)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>
@@ -43,5 +42,6 @@
 		</table>
 		<!-- Modal -->
 		<jsp:include page="addAttendance.jsp"></jsp:include>
+		<jsp:include page="editAttendance.jsp"></jsp:include>
 	</div>
 </div>

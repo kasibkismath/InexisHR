@@ -1,6 +1,7 @@
 package com.inexisconsulting.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,18 @@ public class AttendanceService {
 
 	public void addAttendance(Attendance attendance) throws ParseException {
 		attendanceDao.addAttendance(attendance);
+	}
+
+	public List<Attendance> getAttendancesByEmpId(Attendance attendance) {
+		return attendanceDao.getAttendancesByEmpId(attendance);
+	}
+
+	public Attendance getAttendanceByAttendanceId(Attendance attendance) {
+		return attendanceDao.getAttendanceByAttendanceId(attendance);
+	}
+
+	public void updateAttendance(Attendance attendance) throws ParseException {
+		attendanceDao.updateAttendance(attendance);
 	}
 
 }

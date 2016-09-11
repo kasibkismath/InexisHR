@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inexisconsulting.dao.Attendance;
 import com.inexisconsulting.dao.Project;
 import com.inexisconsulting.dao.ProjectDAO;
 
@@ -16,6 +17,10 @@ public class ProjectService {
 	
 	public List<Project> getProjects() {
 		return projectDao.getProjects();
+	}
+
+	public List<Project> getProjectsByEmpId(Attendance attendance) {
+		return projectDao.getProjectsByEmpId(attendance);
 	}
 
 }
