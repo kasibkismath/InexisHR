@@ -180,6 +180,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/GetFinalScoreEmployeeByCEO"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Performance/GetLeadAppraisals"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Leave/GetLeaveTypes"

@@ -112,6 +112,12 @@ public class PerformanceController {
 		return hr_appraisals;
 	}
 
+	@RequestMapping(value = "/Performance/GetLeadAppraisals", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Lead_Appraisal> getLeadAppraisals() {
+		return leadAppraisalService.getLeadAppraisals();
+	}
+
 	@RequestMapping(value = "/Performance/GetCEOAppraisals", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<CEO_Appraisal> getCEOAppraisals() {

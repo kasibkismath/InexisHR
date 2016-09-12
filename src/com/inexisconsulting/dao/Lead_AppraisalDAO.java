@@ -120,4 +120,14 @@ public class Lead_AppraisalDAO {
 		query.setInteger("leadAppraisalId", lead_Appraisal.getLead_appraisal_id());
 		query.executeUpdate();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Lead_Appraisal> getLeadAppraisals() {
+		String hql = "from Lead_Appraisal";
+		
+		Query query = session().createQuery(hql);
+		
+		List<Lead_Appraisal> result = query.list();
+		return result;
+	}
 }

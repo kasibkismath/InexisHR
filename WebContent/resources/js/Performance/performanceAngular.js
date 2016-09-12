@@ -22,6 +22,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$scope.getAllEmployees();
 		$scope.getScoreValues();
 		$scope.getAllPerformanceAppraisals();
+		$scope.getLeadAppraisals();
 		$scope.getLoggedInEmployee()
 			.then(function(result) {
 				$scope.loggedInEmpId = result;
@@ -667,6 +668,18 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 	}
 	
 	/* ------------------------------- Team Lead Appraisal ------------------------- */
+	
+	// get all Lead Appraisals
+	$scope.getLeadAppraisals = function() {
+		$http.get($scope.baseURL + '/Performance/GetLeadAppraisals')
+		.success(function(result) {
+			$scope.leadAppraisals = result;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
 	
 	//getTeamEmployeesByLeadId
 	$scope.getTeamEmployeesByLeadId = function (empId) {

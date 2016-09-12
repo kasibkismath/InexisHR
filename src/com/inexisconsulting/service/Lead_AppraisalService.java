@@ -43,4 +43,8 @@ public class Lead_AppraisalService {
 	public void deleteLeadAppraisal(Lead_Appraisal lead_Appraisal) {
 		leadAppraisalDao.deleteLeadAppraisal(lead_Appraisal);
 	}
+
+	public List<Lead_Appraisal> getLeadAppraisals() {
+		return leadAppraisalDao.getLeadAppraisals();
+	}
 }
