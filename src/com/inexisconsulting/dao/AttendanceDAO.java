@@ -128,6 +128,9 @@ public class AttendanceDAO {
 		query.setParameter("date", sdf.parse(stringDate));
 		query.setParameter("status", "Completed");
 		
+		if(query.uniqueResult() == null)
+			return 0;
+		
 		float dailyHours = ((Number) query.uniqueResult()).floatValue();
 		return dailyHours;
 	}
@@ -136,14 +139,16 @@ public class AttendanceDAO {
 		
 		String sql = "select sum(time_spent) as weeklyHours "
 				+ "FROM attendance "
-				+ "WHERE date > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) "
-				+ "AND date <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY) "
+				+ "WHERE week(date, 1) = week(CURDATE()) "
 				+ "and emp_id=:empId "
 				+ "and status=:status";
 		
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("empId", attendance.getEmployee().getEmpId());
 		query.setParameter("status", "Completed");
+		
+		if(query.uniqueResult() == null)
+			return 0;
 		
 		float dailyHours = ((Number) query.uniqueResult()).floatValue();
 		return dailyHours;
@@ -155,8 +160,7 @@ public class AttendanceDAO {
 		String sql = "select project.project_name, sum(time_spent) as weeklyHours "
 				+ "FROM attendance "
 				+ "join project on attendance.project_id = project.project_id "
-				+ "WHERE date > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY)  "
-				+ "AND date <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY) "
+				+ "WHERE week(date, 1) = week(CURDATE()) "
 				+ "and emp_id=:empId "
 				+ "group by project.project_name";
 		
@@ -174,9 +178,8 @@ public class AttendanceDAO {
 				+ "from attendance join employee "
 				+ "on attendance.emp_id = employee.emp_id "
 				+ "where attendance.status=:status and "
-				+ "date > DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())+6 DAY) "
-				+ "and date <= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY) "
-				+ "group by EmpName "
+				+ "week(date, 1) = week(CURDATE()) "
+				+ "group by week(date,1), EmpName "
 				+ "order by EmpName";
 		
 		Query query = session().createSQLQuery(sql);
