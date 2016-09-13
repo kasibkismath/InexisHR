@@ -74,6 +74,10 @@
 							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
 						<li role="presentation"><a href="#appraisals"
 							aria-controls="profile" role="tab" data-toggle="tab">Appraisals</a></li>
+						<li role="presentation"><a href="#appraisalsLead"
+							aria-controls="profile" role="tab" data-toggle="tab">Lead Appraisals</a></li>
+						<li role="presentation"><a href="#appraisalsHr"
+							aria-controls="profile" role="tab" data-toggle="tab">HR Appraisals</a></li>
 					</ul>
 				</div>
 			</div>
@@ -88,6 +92,12 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="appraisals">
 							<jsp:include page="CEO/appraisals.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="appraisalsLead">
+							<jsp:include page="CEO/leadAppraisals.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="appraisalsHr">
+							<jsp:include page="CEO/hrAppraisals.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>

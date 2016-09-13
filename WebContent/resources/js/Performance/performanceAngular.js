@@ -674,7 +674,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$http.get($scope.baseURL + '/Performance/GetLeadAppraisals')
 		.success(function(result) {
 			$scope.leadAppraisals = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
