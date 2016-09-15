@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.EmployeeDAO;
+import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.dao.User;
 
 @Service("employeeService")
@@ -73,5 +74,9 @@ public class EmployeeService {
 
 	public Employee getHiredDate(Employee employee) {
 		return employeeDao.getHiredDate(employee);
+	}
+
+	public List<Employee> getAllActiveEmployees(Employee employee) {
+		return employeeDao.getAllActiveEmployees(employee);
 	}
 }

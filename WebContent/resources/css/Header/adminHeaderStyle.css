@@ -1,3 +1,9 @@
+@-moz-document url-prefix() {
+    .icons {
+       margin-top: -20px;
+    }
+}
+
 #userDropDown {
 	margin: -5px 0 0 0;
 }

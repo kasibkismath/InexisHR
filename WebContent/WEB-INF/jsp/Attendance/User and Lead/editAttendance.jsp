@@ -84,6 +84,7 @@
 						<option value="UAT">UAT</option>
 						<option value="Internal Process">Internal Process</option>
 						<option value="Tech Support">Tech Support</option>
+						<option value="UI Design">UI Design</option>
 						<option value="Training">Training</option>
 						<option value="Digital Marketing">Digital Marketing</option>
 						<option value="General">General</option>

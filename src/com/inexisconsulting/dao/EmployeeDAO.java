@@ -175,4 +175,16 @@ public class EmployeeDAO {
 		Employee empHiredDate = (Employee)crit.uniqueResult();
 		return empHiredDate;
 	}
+
+	public List<Employee> getAllActiveEmployees(Employee employee) {
+		String hql = "from Employee as emp where emp_id!=:empId and status=:status "
+				+ "order by emp.firstName, emp.lastName";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", employee.getEmpId());
+		query.setParameter("status", true);
+		
+		List<Employee> result = query.list();
+		return result;
+	}
 }

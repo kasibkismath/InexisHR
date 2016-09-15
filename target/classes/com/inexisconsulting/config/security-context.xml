@@ -258,6 +258,12 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Attendance/GetAttendancesForCurrentYear"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks"
+			access="isAuthenticated()" />
+			<security:intercept-url pattern="/Tasks/GetAllEmployees"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/GetEmployeesByLeadId"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

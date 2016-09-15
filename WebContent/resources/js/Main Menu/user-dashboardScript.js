@@ -38,4 +38,12 @@ $(function() {
 	$('#attendance-tile').css({
 		"cursor" : "pointer"
 	});
+	
+	// tasks tile
+	$('#tasks-tile').click(function() {
+		$(location).attr('href', contextPath + '/Tasks');
+	});
+	$('#tasks-tile').css({
+		"cursor" : "pointer"
+	});
 });

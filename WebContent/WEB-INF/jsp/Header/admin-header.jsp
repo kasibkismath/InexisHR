@@ -83,10 +83,10 @@
 						Welcome, ${loggedInUser}</a>
 					<ul class="dropdown-menu">
 						<li><a href="${pageContext.request.contextPath}/user/settings">Settings <span
-								class="glyphicon glyphicon-cog pull-right"></span></a></li>
+								class="glyphicon glyphicon-cog pull-right icons"></span></a></li>
 						<li class="divider"></li>
 						<li><a href="<c:url value='/j_spring_security_logout'></c:url>">Sign Out<span
-								class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+								class="glyphicon glyphicon-log-out pull-right icons"></span></a></li>
 					</ul></li>
 			</ul>
 		</div>
