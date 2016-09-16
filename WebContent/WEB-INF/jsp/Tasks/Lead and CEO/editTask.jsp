@@ -1,10 +1,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<div class="modal fade" tabindex="-1" role="dialog" id="addTaskModal">
+<div class="modal fade" tabindex="-1" role="dialog" id="editTaskModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add Attendance</h4>
+        <h4 class="modal-title">Update Task</h4>
       </div>
       <div class="modal-body">
 		<form name="addTaskForm" class="form-horizontal"

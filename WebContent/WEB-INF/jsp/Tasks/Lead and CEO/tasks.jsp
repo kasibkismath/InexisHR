@@ -1,35 +1,42 @@
 <div class="row">
 	<div class="col-sm-12">
 		<button class="btn btn-success pull-right addTaskBtn" data-toggle="modal" 
-			data-target="#addAttendanceModal">
+			data-target="#addTaskModal">
 			<i class="fa fa-plus-circle"></i> Add Task
 		</button>
 	</div>
 	<div class="col-sm-12">
-		<table datatable="ng" dt-options="dtOptionsUserLead" dt-column-defs=""
+		<table datatable="ng" dt-options="dtOptionsLeadCEO" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>
 					<th>Employee</th>
 					<th>Task Title</th>
+					<th>Status</th>
+					<th>Priority</th>
 					<th>Expected Start Date</th>
 					<th>Expected Finish Date</th>
 					<th>Actual Start Date</th>
 					<th>Actual Finish Date</th>
-					<th>Status</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				 <tr ng-repeat="task in attendancesByEmpId">
-					<td ng-cloak>{{task.date | date : 'yyyy-MM-dd'}}</td>
-					<td ng-cloak>{{task.project.project_name}} </td>
-					<td ng-cloak>{{task.task_type}}</td>
-					<td ng-cloak>{{task.status}}</td>
-					<td ng-cloak>{{task.time_spent}}</td>
-					<th ng-cloak>{{task.assigned_by}}</th>
-					<th ng-cloak>{{task.assigned_by}}</th>
-					<th ng-cloak>{{task.assigned_by}}</th>
+				 <tr ng-repeat="task in getAssignedTasksResult" 
+				 	ng-class="{'alert-danger': task.expected_end_date < currentDate &&
+				 		task.actual_end_date == null}">
+				 	<td ng-cloak>{{task.employee.firstName}} {{task.employee.lastName}}</td>
+				 	<td ng-cloak>{{task.task_title}}</td>
+				 	<td ng-cloak>{{task.status}}</td>
+				 	<td ng-cloak 
+				 		ng-class="{'alert-success': task.priority = 'Low', 
+						'alert-warning': task.priority = 'Medium', 
+						'alert-danger': task.priority = 'High'}">
+						{{task.priority}}</td>
+					<td ng-cloak>{{task.expected_start_date | date : 'yyyy-MM-dd'}}</td>
+					<td ng-cloak>{{task.expected_end_date | date : 'yyyy-MM-dd'}}</td>
+					<td ng-cloak>{{task.actual_start_date | date : 'yyyy-MM-dd'}}</td>
+					<td ng-cloak>{{task.actual_end_date | date : 'yyyy-MM-dd'}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
 							data-target="#editTaskModal"
@@ -47,7 +54,7 @@
 		</table>
 		<!-- Modal -->
 		<jsp:include page="addTask.jsp"></jsp:include>
-		<%-- <jsp:include page="editTask.jsp"></jsp:include>
-		<jsp:include page="deleteTask.jsp"></jsp:include> --%>
+		<jsp:include page="editTask.jsp"></jsp:include>
+		<%-- <jsp:include page="deleteTask.jsp"></jsp:include> --%>
 	</div>
 </div>

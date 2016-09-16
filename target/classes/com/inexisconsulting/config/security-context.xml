@@ -260,9 +260,15 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Tasks"
 			access="isAuthenticated()" />
-			<security:intercept-url pattern="/Tasks/GetAllEmployees"
+		<security:intercept-url pattern="/Tasks/GetAllEmployees"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Tasks/GetEmployeesByLeadId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/AddTask"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/CheckDuplicateTask"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/GetAssignedTasksByLeadId"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />

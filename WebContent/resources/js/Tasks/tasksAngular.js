@@ -20,15 +20,23 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	myExpStartDate.setDate(myExpStartDate.getDate() - 1);
 	$scope.ExpStartDate = myExpStartDate;
 	
-	
+	//current date
+	$scope.currentDate = new Date();
 	
 	$scope.init = function(){
 		// variables
 		$scope.checkForExpectedStartEndDateResult = false;
+		$scope.checkDuplicateTaskResult = false;
 		
-		// function
+		// functions
 		$scope.getEmployeesByLeadId();
 		$scope.getAllEmployees();
+		$scope.getAssignedTasksByLeadId();
+		
+		// set datatable configs
+		 // user and lead datatable
+		$scope.dtOptionsLeadCEO = DTOptionsBuilder.newOptions()
+	    .withOption('order', [4, 'desc']);
 	};
 	
 	// get logged in emp
@@ -89,8 +97,91 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		});
 	};
 	
+	// check if expected end date is less than expected start date
 	$scope.checkForExpectedStartEndDate = function(startDate, endDate) {
 		if(endDate < startDate)
 			$scope.checkForExpectedStartEndDateResult = true;
+		else 
+			$scope.checkForExpectedStartEndDateResult = false;
 	};
+	
+	$scope.checkDuplicateTask = function(taskEmp, task_title) {
+		
+		if(taskEmp != undefined && task_title != undefined) {
+			
+			var task = {
+				employee : {empId : taskEmp},
+				task_title : task_title,
+			};
+			
+			// check if task_title with taskEmp exists
+			$http.post($scope.baseURL + '/Tasks/CheckDuplicateTask', task)
+			.success(function(result) {
+				$scope.checkDuplicateTaskResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		}
+	};
+	
+	// get assigned tasks by lead_id
+	$scope.getAssignedTasksByLeadId = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var assigned_by = emp.empId;
+			
+			var task = {
+				assigned_by : {empId : assigned_by},
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetAssignedTasksByLeadId', task)
+			.success(function(result) {
+				$scope.getAssignedTasksResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// add new task for an employee
+	$scope.addTask = function(taskEmp, task_title, task_desc, priority, expStartDate, expEndDate) {
+		
+		// set new task status
+		var status = "Pending";
+		
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			// get current logged in empId as assigned employee empId
+			var assigned_empId = emp.empId;
+			
+			// construct task object
+			var task = {
+				employee : {empId : taskEmp},
+				assigned_by : {empId : assigned_empId},
+				task_title : task_title,
+				task_desc : task_desc,
+				expected_start_date : expStartDate,
+				expected_end_date : expEndDate,
+				status : status,
+				priority : priority
+			};
+			
+			// send add task request
+			$http.post($scope.baseURL + '/Tasks/AddTask', task)
+			.success(function(result) {
+				$('#addTaskModal').modal('hide');
+				toaster.pop('success', "Notification", "Task Added Successfully");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 1000);
+			})
+			.error(function(data, status) {
+				$('#addTaskModal').modal('hide');
+				toaster.pop('error', "Notification", "Adding Task Failed");
+				console.log(data);
+			});
+		});
+	}
 }]);
