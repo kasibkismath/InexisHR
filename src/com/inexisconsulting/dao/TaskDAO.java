@@ -107,4 +107,101 @@ public class TaskDAO {
 		updatedTask.setExpected_start_date(sdf.parse(stringExpectedStartDate));
 		updatedTask.setExpected_end_date(sdf.parse(stringExpectedEndDate));
 	}
+
+	public void deleteTask(Task task) {
+		Query query = session().createQuery("delete from Task where task_id=:taskId");
+		query.setInteger("taskId", task.getTask_id());
+		query.executeUpdate();
+	}
+
+	public int getPendingTaskCount(Task task) {
+		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
+				+ "year(expected_start_date)=:expStartDate";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
+		query.setParameter("status", "Pending");
+		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
+		
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			return count;
+		}
+	}
+
+	public int getOnHoldTaskCount(Task task) {
+		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
+				+ "year(expected_start_date)=:expStartDate";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
+		query.setParameter("status", "On-Hold");
+		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
+		
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			return count;
+		}
+	}
+
+	public int getCompletedTaskCount(Task task) {
+		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
+				+ "year(expected_start_date)=:expStartDate";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
+		query.setParameter("status", "Completed");
+		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
+		
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			return count;
+		}
+	}
+
+	public int getTerminatedTaskCount(Task task) {
+		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
+				+ "year(expected_start_date)=:expStartDate";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
+		query.setParameter("status", "Terminated");
+		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
+		
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			return count;
+		}
+	}
+
+	public int getOverdueTaskCount(Task task) {
+		String sql = "select count(*) from task where assigned_by=:assignedBy and "
+				+ "expected_end_date<:currentDate and status=:pendingStatus or status=:onHoldStatus";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
+		query.setParameter("pendingStatus", "Pending");
+		query.setParameter("onHoldStatus", "On-Hold");
+		query.setParameter("currentDate", Calendar.getInstance());
+		
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			return count;
+		}
+	}
 }

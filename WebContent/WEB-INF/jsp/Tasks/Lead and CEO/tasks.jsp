@@ -53,6 +53,6 @@
 		<!-- Modal -->
 		<jsp:include page="addTask.jsp"></jsp:include>
 		<jsp:include page="editTask.jsp"></jsp:include>
-		<%-- <jsp:include page="deleteTask.jsp"></jsp:include> --%>
+		<jsp:include page="deleteTask.jsp"></jsp:include>
 	</div>
 </div>

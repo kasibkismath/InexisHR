@@ -38,4 +38,28 @@ public class TaskService {
 	public void updateTask(Task task) throws ParseException {
 		taskDao.updateTask(task);
 	}
+
+	public void deleteTask(Task task) {
+		taskDao.deleteTask(task);
+	}
+
+	public int getPendingTaskCount(Task task) {
+		return taskDao.getPendingTaskCount(task);
+	}
+
+	public int getOnHoldTaskCount(Task task) {
+		return taskDao.getOnHoldTaskCount(task);
+	}
+
+	public int getCompletedTaskCount(Task task) {
+		return taskDao.getCompletedTaskCount(task);
+	}
+
+	public int getTerminatedTaskCount(Task task) {
+		return taskDao.getTerminatedTaskCount(task);
+	}
+
+	public int getOverdueTaskCount(Task task) {
+		return taskDao.getOverdueTaskCount(task);
+	}
 }

@@ -99,4 +99,46 @@ public class TasksController {
 	public void updateTask(@RequestBody Task task) throws ParseException {
 		taskService.updateTask(task);
 	}
+
+	// delete task by task_id
+	@RequestMapping(value = "/Tasks/DeleteTask", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteTask(@RequestBody Task task) {
+		taskService.deleteTask(task);
+	}
+
+	// get pending task count
+	@RequestMapping(value = "/Tasks/GetPendingTaskCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int getPendingTaskCount(@RequestBody Task task) {
+		return taskService.getPendingTaskCount(task);
+	}
+
+	// get on hold task count
+	@RequestMapping(value = "/Tasks/GetOnHoldTaskCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int getOnHoldTaskCount(@RequestBody Task task) {
+		return taskService.getOnHoldTaskCount(task);
+	}
+
+	// get completed task count
+	@RequestMapping(value = "/Tasks/GetCompletedTaskCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int getCompletedTaskCount(@RequestBody Task task) {
+		return taskService.getCompletedTaskCount(task);
+	}
+
+	// get terminated task count
+	@RequestMapping(value = "/Tasks/GetTerminatedTaskCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int getTerminatedTaskCount(@RequestBody Task task) {
+		return taskService.getTerminatedTaskCount(task);
+	}
+
+	// get overdue task count
+	@RequestMapping(value = "/Tasks/GetOverdueTaskCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int getOverdueTaskCount(@RequestBody Task task) {
+		return taskService.getOverdueTaskCount(task);
+	}
 }

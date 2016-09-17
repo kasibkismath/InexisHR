@@ -106,9 +106,9 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#leadCeoSummary"
-							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+							aria-controls="home" role="tab" data-toggle="tab">Assigned Task Summary</a></li>
 						<li role="presentation"><a href="#leadCeoTasks"
-							aria-controls="profile" role="tab" data-toggle="tab">Tasks</a></li>
+							aria-controls="profile" role="tab" data-toggle="tab">Assigned Tasks</a></li>
 						<sec:authorize access="hasRole('ROLE_LEAD')">
 						<li role="presentation"><a href="#myLeadSummary"
 							aria-controls="home" role="tab" data-toggle="tab">My Summary</a></li>
@@ -125,7 +125,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="leadCeoSummary">
-							<h3>From Lead and CEO View Summary</h3>
+							<jsp:include page="Lead and CEO/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="leadCeoTasks">
 							<jsp:include page="Lead and CEO/tasks.jsp"></jsp:include>

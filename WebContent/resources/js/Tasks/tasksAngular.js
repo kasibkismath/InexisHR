@@ -21,7 +21,9 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.ExpStartDate = myExpStartDate;
 	
 	//current date
-	$scope.currentDate = new Date();
+	var currDate = new Date();
+	currDate.setDate(currDate.getDate()-1);
+	$scope.currentDate = currDate;
 	
 	$scope.init = function(){
 		// variables
@@ -32,11 +34,25 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getEmployeesByLeadId();
 		$scope.getAllEmployees();
 		$scope.getAssignedTasksByLeadId();
+		$scope.leadCeoSummaryChart();
+		$scope.getPendingTaskCount();
+		$scope.getOnHoldTaskCount();
+		$scope.getCompletedTaskCount();
+		$scope.getTerminatedTaskCount();
+		$scope.getOverdueTaskCount();
 		
 		// set datatable configs
 		 // user and lead datatable
 		$scope.dtOptionsLeadCEO = DTOptionsBuilder.newOptions()
 	    .withOption('order', [4, 'desc']);
+	};
+	
+	$scope.leadCeoSummaryChart = function() {
+		
+		 $scope.leadCeoLabels = ['Kasib Kismath', 'Irfan Faiz', 'Fazlan Fairooz', 'Lakshitha Gayan', 'Kasib Kismath', 'Irfan Faiz', 'Fazlan Fairooz', 'Lakshitha Gayan'];
+		 $scope.leadCeoData = [
+		    [65, 59, 80, 81, 65, 59, 80, 81],
+		  ];
 	};
 	
 	// get logged in emp
@@ -234,6 +250,135 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			$('#editTaskModal').modal('hide');
 			toaster.pop('error', "Notification", "Task Updation Failed");
 			console.log(data);
+		});
+	};
+	
+	// called from task.jsp to set delete task_id
+	$scope.deleteTaskMain = function(task_id) {
+		$scope.deleteTaskId = task_id;
+	};
+	
+	//actually delete task called from Delete Modal
+	$scope.deleteTask = function(task_id) {
+		
+		var task = {
+			task_id : task_id
+		};
+		
+		// send request to delete task
+		$http.post($scope.baseURL + '/Tasks/DeleteTask', task)
+		.success(function(result) {
+			$('#deleteTaskModal').modal('hide');
+			toaster.pop('success', "Notification", "Task Delete Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteTaskModal').modal('hide');
+			toaster.pop('error', "Notification", "Task Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+	// get pending tasks by logged_in emp
+	$scope.getPendingTaskCount = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var assigned_by = emp.empId;
+			
+			var task = {
+				assigned_by : {empId : assigned_by},
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetPendingTaskCount', task)
+			.success(function(result) {
+				$scope.getPendingTaskCountResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// get on hold tasks by logged_in emp
+	$scope.getOnHoldTaskCount = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var assigned_by = emp.empId;
+			
+			var task = {
+				assigned_by : {empId : assigned_by},
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetOnHoldTaskCount', task)
+			.success(function(result) {
+				$scope.getOnHoldTaskCountResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// get completed tasks by logged_in emp
+	$scope.getCompletedTaskCount = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var assigned_by = emp.empId;
+			
+			var task = {
+				assigned_by : {empId : assigned_by},
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetCompletedTaskCount', task)
+			.success(function(result) {
+				$scope.getCompletedTaskCountResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// get terminated tasks by logged_in emp
+	$scope.getTerminatedTaskCount = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var assigned_by = emp.empId;
+			
+			var task = {
+				assigned_by : {empId : assigned_by},
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetTerminatedTaskCount', task)
+			.success(function(result) {
+				$scope.getTerminatedTaskCountResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// get overdue tasks by logged_in emp
+	$scope.getOverdueTaskCount = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var assigned_by = emp.empId;
+			
+			var task = {
+				assigned_by : {empId : assigned_by}
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetOverdueTaskCount', task)
+			.success(function(result) {
+				$scope.getOverdueTaskCountResult = result;
+				console.log(result);
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
 		});
 	};
 }]);

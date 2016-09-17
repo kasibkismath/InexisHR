@@ -59,3 +59,39 @@ textarea {
 	margin-top: 30px;
 	margin-right: 15px !important;
 }
+
+#deleteTaskModal .modal-body {
+	height: 200px;
+}
+
+.pendingTasksTile {
+	height: 100px;
+	margin-top: 15px;
+	margin-left: 45px;
+}
+
+.overdueTasksTile {
+	height: 100px;
+	margin-top: 15px;
+	margin-left: 25px;
+}
+
+.onHoldTasksTile {
+	height: 100px;
+	margin-top: 15px;
+	margin-left: 25px;
+	background-color: #dcdcdc;
+}
+
+.completedTasksTile {
+	height: 100px;
+	margin-top: 15px;
+	margin-left: 25px;
+}
+
+.terminatedTasksTile {
+	height: 100px;
+	margin-top: 15px;
+	margin-left: 25px;
+	background-color : #e9967a;
+}
