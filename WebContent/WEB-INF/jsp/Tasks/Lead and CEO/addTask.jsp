@@ -140,8 +140,9 @@
 					date-min-limit="{{ExpStartDate | date:'yyyy-MM-dd'}}">
 						<div class="input-group">
 							<input ng-model="saveExpEndDate" class="form-control" 
-							placeholder="Choose a date" name="expEndDate" required
+							placeholder="Choose a date" name="expEndDate" 
 							ng-disabled="addTaskForm.expStartDate.$pristine"
+							required
 							ng-change="checkForExpectedStartEndDate(saveExpStartDate, saveExpEndDate)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>

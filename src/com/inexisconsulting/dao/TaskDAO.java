@@ -6,9 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,5 +78,33 @@ public class TaskDAO {
 		
 		List<Task> result= query.list();
 		return result;
+	}
+
+	public Task getTaskByTaskId(Task task) {
+		Criteria crit = session().createCriteria(Task.class);
+		crit.add(Restrictions.eq("task_id", task.getTask_id()));
+		Task result = (Task) crit.uniqueResult();
+		return result;
+	}
+
+	public void updateTask(Task task) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date expectedStartDate = task.getExpected_start_date();
+		String stringExpectedStartDate = sdf.format(expectedStartDate);
+		
+		Date expectedEndDate = task.getExpected_end_date();
+		String stringExpectedEndDate = sdf.format(expectedEndDate);
+		
+		Criteria crit = session().createCriteria(Task.class);
+		crit.add(Restrictions.eq("task_id", task.getTask_id()));
+
+		Task updatedTask = (Task) crit.uniqueResult();
+		
+		updatedTask.setTask_title(task.getTask_title());
+		updatedTask.setTask_desc(task.getTask_desc());
+		updatedTask.setPriority(task.getPriority());
+		updatedTask.setExpected_start_date(sdf.parse(stringExpectedStartDate));
+		updatedTask.setExpected_end_date(sdf.parse(stringExpectedEndDate));
 	}
 }

@@ -85,4 +85,18 @@ public class TasksController {
 	public List<Task> getAssignedTasksByLeadId(@RequestBody Task task) {
 		return taskService.getAssignedTasksByLeadId(task);
 	}
+
+	// get task by task_id
+	@RequestMapping(value = "/Tasks/GetTaskByTaskId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Task getTaskByTaskId(@RequestBody Task task) {
+		return taskService.getTaskByTaskId(task);
+	}
+
+	// update task by task_id
+	@RequestMapping(value = "/Tasks/UpdateTask", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateTask(@RequestBody Task task) throws ParseException {
+		taskService.updateTask(task);
+	}
 }

@@ -30,4 +30,12 @@ public class TaskService {
 	public List<Task> getAssignedTasksByLeadId(Task task) {
 		return taskDao.getAssignedTasksByLeadId(task);
 	}
+
+	public Task getTaskByTaskId(Task task) {
+		return taskDao.getTaskByTaskId(task);
+	}
+
+	public void updateTask(Task task) throws ParseException {
+		taskDao.updateTask(task);
+	}
 }

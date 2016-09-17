@@ -270,6 +270,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Tasks/GetAssignedTasksByLeadId"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/GetTaskByTaskId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/UpdateTask"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

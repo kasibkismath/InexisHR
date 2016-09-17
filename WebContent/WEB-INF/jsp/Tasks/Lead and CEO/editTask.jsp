@@ -7,22 +7,27 @@
         <h4 class="modal-title">Update Task</h4>
       </div>
       <div class="modal-body">
-		<form name="addTaskForm" class="form-horizontal"
-			ng-submit="addTaskForm.$valid && checkForExpectedStartEndDateResult === false && 
+		<form name="editTaskForm" class="form-horizontal"
+			ng-submit="editTaskForm.$valid && checkForExpectedStartEndDateResult === false && 
 				checkDuplicateTaskResult === false && 
-				addTask(saveTaskEmployee, saveTaskTitle, saveTaskDesc, saveTaskPriority, 
-				saveExpStartDate, saveExpEndDate)">
+				updateTask(updateTaskId, updateTaskEmployee, updateTaskTitle, updateTaskDesc, 
+				updateTaskPriority, updateExpStartDate, updateExpEndDate)">
+				
+			<!-- task_id -->
+			<input type="hidden" ng-model="updateTaskId">
+			
+			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.employee.$error.required 
-						&& addTaskForm.employee.$dirty">
+					ng-show="editTaskForm.employee.$error.required 
+						&& editTaskForm.employee.$dirty">
 					<strong>Error!</strong> Employee is required, please select one.
 				</div>
 				<label class="col-sm-2 control-label">Employee</label>
 				<div class="col-sm-10">
-					<select ng-model="saveTaskEmployee" name="employee" class="form-control"
-						required
-						ng-change="checkDuplicateTask(saveTaskEmployee, saveTaskTitle)">
+					<select ng-model="updateTaskEmployee" name="employee" class="form-control"
+						required convert-to-number
+						ng-change="checkDuplicateTask(updateTaskEmployee, updateTaskTitle)">
 						<option value="">Select an Employee</option>
 						<sec:authorize access="hasRole('ROLE_LEAD')">
 						<option ng-repeat="empByLead in employeesByLeadId" 
@@ -41,18 +46,18 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.taskTitle.$error.required 
-						&& addTaskForm.taskTitle.$dirty">
+					ng-show="editTaskForm.taskTitle.$error.required 
+						&& editTaskForm.taskTitle.$dirty">
 					<strong>Error!</strong> Task Title is Required
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.taskTitle.$error.maxlength
-						&& addTaskForm.taskTitle.$dirty">
+					ng-show="editTaskForm.taskTitle.$error.maxlength
+						&& editTaskForm.taskTitle.$dirty">
 					<strong>Error!</strong> Task Title should be less than 101 characters
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.taskTitle.$error.minlength
-						&& addTaskForm.taskTitle.$dirty">
+					ng-show="editTaskForm.taskTitle.$error.minlength
+						&& editTaskForm.taskTitle.$dirty">
 					<strong>Error!</strong> Task Title should be more than 5 characters
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
@@ -62,39 +67,39 @@
 				<label class="col-sm-2 control-label">Task Title</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" placeholder="Task Title"
-						name="taskTitle" ng-model="saveTaskTitle" required
+						name="taskTitle" ng-model="updateTaskTitle" required
 						ng-maxlength="100" ng-minlength="5"
-						ng-change="checkDuplicateTask(saveTaskEmployee, saveTaskTitle)">
+						ng-change="checkDuplicateTask(updateTaskEmployee, updateTaskTitle)">
 				</div>
 			</div>
 			<div class="form-group">
-				<div ng-messages="addTaskForm.taskDesc.$error" role="alert" 
-					ng-if="addTaskForm.taskDesc.$dirty">
+				<div ng-messages="editTaskForm.taskDesc.$error" role="alert" 
+					ng-if="editTaskForm.taskDesc.$dirty">
 					<div ng-message="maxlength" class="alert alert-danger padded">
 						<strong>Error!</strong> Task Description should be not more than 1000 characters
 					</div>
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.taskDesc.$error.required" 
-					ng-if="addTaskForm.taskDesc.$dirty">
+					ng-show="editTaskForm.taskDesc.$error.required" 
+					ng-if="editTaskForm.taskDesc.$dirty">
 					<strong>Error!</strong> Task Description is required.
 				</div>
 				<label class="col-sm-2 control-label">Task Description</label>
 				<div class="col-sm-10">
 					<textarea rows="5" class="form-control" name="taskDesc" 
-						placeholder="Tasks Description" ng-model="saveTaskDesc" ng-maxlength="1000" 
+						placeholder="Tasks Description" ng-model="updateTaskDesc" ng-maxlength="1000" 
 						required char-count warning-count="100" danger-count="50"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.priority.$error.required 
-						&& addTaskForm.priority.$dirty">
+					ng-show="editTaskForm.priority.$error.required 
+						&& editTaskForm.priority.$dirty">
 					<strong>Error!</strong> Priority is required, please select one.
 				</div>
 				<label class="col-sm-2 control-label">Priority</label>
 				<div class="col-sm-10">
-					<select ng-model="saveTaskPriority" name="priority" class="form-control"
+					<select ng-model="updateTaskPriority" name="priority" class="form-control"
 						required>
 						<option value="">Select a Priority Level</option>
 						<option value="Low">Low</option>
@@ -105,8 +110,8 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.expStartDate.$error.required 
-						&& addTaskForm.expStartDate.$dirty">
+					ng-show="editTaskForm.expStartDate.$error.required 
+						&& editTaskForm.expStartDate.$dirty">
 					<strong>Error!</strong> Expected Start Date is required.
 				</div>
 				<label class="col-sm-2 control-label">Expected Start Date</label>
@@ -114,9 +119,9 @@
 					<datepicker date-format="yyyy-MM-dd" selector="form-control"
 						date-min-limit="{{ExpStartDate | date:'yyyy-MM-dd'}}">
 						<div class="input-group">
-							<input ng-model="saveExpStartDate" class="form-control" 
+							<input ng-model="updateExpStartDate" class="form-control" 
 							placeholder="Choose a date" name="expStartDate" required
-							ng-change="checkForExpectedStartEndDate(saveExpStartDate, saveExpEndDate)">
+							ng-change="checkForExpectedStartEndDate(updateExpStartDate, updateExpEndDate)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>
@@ -126,8 +131,8 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="addTaskForm.expEndDate.$error.required 
-						&& addTaskForm.expEndDate.$dirty">
+					ng-show="editTaskForm.expEndDate.$error.required 
+						&& editTaskForm.expEndDate.$dirty">
 					<strong>Error!</strong> Expected End Date is required.
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
@@ -139,10 +144,9 @@
 					<datepicker date-format="yyyy-MM-dd" selector="form-control"
 					date-min-limit="{{ExpStartDate | date:'yyyy-MM-dd'}}">
 						<div class="input-group">
-							<input ng-model="saveExpEndDate" class="form-control" 
+							<input ng-model="updateExpEndDate" class="form-control" 
 							placeholder="Choose a date" name="expEndDate" required
-							ng-disabled="addTaskForm.expStartDate.$pristine"
-							ng-change="checkForExpectedStartEndDate(saveExpStartDate, saveExpEndDate)">
+							ng-change="checkForExpectedStartEndDate(updateExpStartDate, updateExpEndDate)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>

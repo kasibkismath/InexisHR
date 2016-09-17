@@ -24,15 +24,13 @@
 			<tbody>
 				 <tr ng-repeat="task in getAssignedTasksResult" 
 				 	ng-class="{'alert-danger': task.expected_end_date < currentDate &&
-				 		task.actual_end_date == null}">
+				 		(task.status == 'On-Hold' || task.status == 'Pending')}">
 				 	<td ng-cloak>{{task.employee.firstName}} {{task.employee.lastName}}</td>
 				 	<td ng-cloak>{{task.task_title}}</td>
 				 	<td ng-cloak>{{task.status}}</td>
-				 	<td ng-cloak 
-				 		ng-class="{'alert-success': task.priority = 'Low', 
-						'alert-warning': task.priority = 'Medium', 
-						'alert-danger': task.priority = 'High'}">
-						{{task.priority}}</td>
+				 	<td ng-cloak ng-class="{'alert-success': task.priority == 'Low', 
+						'alert-warning': task.priority == 'Medium', 
+						'alert-danger': task.priority == 'High'}">{{task.priority}}</td>
 					<td ng-cloak>{{task.expected_start_date | date : 'yyyy-MM-dd'}}</td>
 					<td ng-cloak>{{task.expected_end_date | date : 'yyyy-MM-dd'}}</td>
 					<td ng-cloak>{{task.actual_start_date | date : 'yyyy-MM-dd'}}</td>

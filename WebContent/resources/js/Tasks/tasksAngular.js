@@ -183,5 +183,57 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 				console.log(data);
 			});
 		});
-	}
+	};
+	
+	// get task info by task_id
+	$scope.getTaskByTaskId = function(task_id) {
+		
+		var task = {
+			task_id : task_id
+		};
+		
+		$http.post($scope.baseURL + '/Tasks/GetTaskByTaskId', task)
+		.success(function(result) {
+			$scope.updateTaskEmployee = result.employee.empId;
+			$scope.updateTaskTitle = result.task_title;
+			$scope.updateTaskDesc = result.task_desc;
+			$scope.updateTaskPriority = result.priority;
+			$scope.updateExpStartDate = $filter('date')(result.expected_start_date, "yyyy-MM-dd");
+			$scope.updateExpEndDate = $filter('date')(result.expected_end_date, "yyyy-MM-dd");
+			$scope.updateTaskId = result.task_id;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// update task with given task info
+	$scope.updateTask = function(taskId, taskEmp, taskTitle, taskDesc, priority, expStartDate, expEndDate) {
+		
+		// construct update task object
+		var task = {
+			task_id: taskId,
+			employee : {empId : taskEmp},
+			task_title : taskTitle,
+			task_desc : taskDesc,
+			priority : priority,
+			expected_start_date : expStartDate,
+			expected_end_date : expEndDate
+		};
+		
+		// send update task request
+		$http.post($scope.baseURL + '/Tasks/UpdateTask', task)
+		.success(function(result) {
+			$('#editTaskModal').modal('hide');
+			toaster.pop('success', "Notification", "Task Updated Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#editTaskModal').modal('hide');
+			toaster.pop('error', "Notification", "Task Updation Failed");
+			console.log(data);
+		});
+	};
 }]);
