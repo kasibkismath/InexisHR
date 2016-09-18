@@ -62,4 +62,16 @@ public class TaskService {
 	public int getOverdueTaskCount(Task task) {
 		return taskDao.getOverdueTaskCount(task);
 	}
+
+	public List<Object[]> getEmployeeTaskCompletionPercentage(Task task) {
+		return taskDao.getEmployeeTaskCompletionPercentage(task);
+	}
+
+	public List<Task> getMyTasks(Task task) {
+		return taskDao.getMyTasks(task);
+	}
+
+	public void updateMyTask(Task task) throws ParseException {
+		taskDao.updateMyTask(task);
+	}
 }

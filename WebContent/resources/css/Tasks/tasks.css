@@ -81,6 +81,7 @@ textarea {
 	margin-top: 15px;
 	margin-left: 25px;
 	background-color: #dcdcdc;
+	color : #696969;
 }
 
 .completedTasksTile {
@@ -93,5 +94,14 @@ textarea {
 	height: 100px;
 	margin-top: 15px;
 	margin-left: 25px;
-	background-color : #e9967a;
+	background-color : #f1b8a6;
+	color : #ad411d;
+}
+
+.titleTPad {
+	padding: 10px !important;
+}
+
+.overdue-task {
+	background-color: #f2dede !important;
 }

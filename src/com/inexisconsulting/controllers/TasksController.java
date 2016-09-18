@@ -100,6 +100,13 @@ public class TasksController {
 		taskService.updateTask(task);
 	}
 
+	// update my task by task_id
+	@RequestMapping(value = "/Tasks/UpdateMyTask", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateMyTask(@RequestBody Task task) throws ParseException {
+		taskService.updateMyTask(task);
+	}
+
 	// delete task by task_id
 	@RequestMapping(value = "/Tasks/DeleteTask", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -140,5 +147,19 @@ public class TasksController {
 	@ResponseBody
 	public int getOverdueTaskCount(@RequestBody Task task) {
 		return taskService.getOverdueTaskCount(task);
+	}
+
+	// get Employee Task Completion Percentage
+	@RequestMapping(value = "/Tasks/GetEmployeeTaskCompletionPercentage", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getEmployeeTaskCompletionPercentage(@RequestBody Task task) {
+		return taskService.getEmployeeTaskCompletionPercentage(task);
+	}
+
+	// get my tasks
+	@RequestMapping(value = "/Tasks/GetMyTasks", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Task> getMyTasks(@RequestBody Task task) {
+		return taskService.getMyTasks(task);
 	}
 }

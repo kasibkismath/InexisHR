@@ -28,6 +28,7 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.init = function(){
 		// variables
 		$scope.checkForExpectedStartEndDateResult = false;
+		$scope.checkForActualStartEndDateResult = false;
 		$scope.checkDuplicateTaskResult = false;
 		
 		// functions
@@ -40,6 +41,7 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getCompletedTaskCount();
 		$scope.getTerminatedTaskCount();
 		$scope.getOverdueTaskCount();
+		$scope.getMyTask();
 		
 		// set datatable configs
 		 // user and lead datatable
@@ -49,10 +51,30 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	
 	$scope.leadCeoSummaryChart = function() {
 		
-		 $scope.leadCeoLabels = ['Kasib Kismath', 'Irfan Faiz', 'Fazlan Fairooz', 'Lakshitha Gayan', 'Kasib Kismath', 'Irfan Faiz', 'Fazlan Fairooz', 'Lakshitha Gayan'];
-		 $scope.leadCeoData = [
-		    [65, 59, 80, 81, 65, 59, 80, 81],
-		  ];
+		 $scope.leadCeoLabels = [];
+		 $scope.leadCeoData = [[]];
+		 
+		 $scope.getLoggedInEmployee()
+		 .then(function(emp){
+			 var assigned_by = emp.empId;
+			 
+			 var task = {
+				assigned_by : {empId : assigned_by}	 
+			 };
+			 
+			 $http.post($scope.baseURL + '/Tasks/GetEmployeeTaskCompletionPercentage', task)
+			.success(function(result) {
+				angular.forEach(result, function(value, key) {
+					$scope.leadCeoLabels.push(value[0]);
+					$scope.leadCeoData[0].push(value[1]);
+				});
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+			 
+		 });
+		 
 	};
 	
 	// get logged in emp
@@ -119,6 +141,14 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			$scope.checkForExpectedStartEndDateResult = true;
 		else 
 			$scope.checkForExpectedStartEndDateResult = false;
+	};
+	
+	// check if actual end date is less than expected start date
+	$scope.checkForActualStartEndDate = function(startDate, endDate) {
+		if(endDate < startDate)
+			$scope.checkForActualStartEndDateResult = true;
+		else 
+			$scope.checkForActualStartEndDateResult = false;
 	};
 	
 	$scope.checkDuplicateTask = function(taskEmp, task_title) {
@@ -216,7 +246,16 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			$scope.updateTaskPriority = result.priority;
 			$scope.updateExpStartDate = $filter('date')(result.expected_start_date, "yyyy-MM-dd");
 			$scope.updateExpEndDate = $filter('date')(result.expected_end_date, "yyyy-MM-dd");
+			$scope.updateActStartDate = $filter('date')(result.actual_start_date, "yyyy-MM-dd");
+			$scope.updateActEndDate = $filter('date')(result.actual_end_date, "yyyy-MM-dd");
 			$scope.updateTaskId = result.task_id;
+			$scope.updateTaskStatus = result.status;
+			
+			// store expStartDate to begin actStartDate
+			var temp = $filter('date')(result.expected_start_date, "yyyy-MM-dd");
+			var myAcutalStartDate = new Date(temp);
+			myAcutalStartDate.setDate(myAcutalStartDate.getDate() - 1);
+			$scope.actualStartDate = myAcutalStartDate;
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -374,11 +413,55 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			$http.post($scope.baseURL + '/Tasks/GetOverdueTaskCount', task)
 			.success(function(result) {
 				$scope.getOverdueTaskCountResult = result;
-				console.log(result);
 			})
 			.error(function(data, status) {
 				console.log(data);
 			});
+		});
+	};
+	
+	// get logged in employee my tasks
+	$scope.getMyTask = function() {
+		$scope.getLoggedInEmployee()
+		.then(function(emp) {
+			var employee_id = emp.empId;
+			
+			var task = {
+				employee : {empId : employee_id}
+			};
+			
+			$http.post($scope.baseURL + '/Tasks/GetMyTasks', task)
+			.success(function(result) {
+				$scope.getMyTasks = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// update my task
+	$scope.updateMyTask = function(task_id, status, actualStartDate, actualEndDate) {
+		var task = {
+			task_id: task_id,
+			status : status,
+			actual_start_date : actualStartDate,
+			actual_end_date : actualEndDate
+		};
+			
+		// send update my task request
+		$http.post($scope.baseURL + '/Tasks/UpdateMyTask', task)
+		.success(function(result) {
+			$('#editMyTaskModal').modal('hide');
+			toaster.pop('success', "Notification", "Task Updated Successfully");
+			setTimeout(function () {
+	               window.location.reload();
+	        }, 1000);
+		})
+		.error(function(data, status) {
+			$('#editMyTaskModal').modal('hide');
+			toaster.pop('error', "Notification", "Task Updation Failed");
+			console.log(data);
 		});
 	};
 }]);

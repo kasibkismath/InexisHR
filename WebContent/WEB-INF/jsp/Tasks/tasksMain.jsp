@@ -87,10 +87,10 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="summary">
-							<h3>From User and HR View Summary</h3>
+							<jsp:include page="User HR and Lead/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="tasks">
-							<h3>From User and HR View Tasks</h3>
+							<jsp:include page="User HR and Lead/tasks.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
@@ -132,10 +132,10 @@
 						</div>
 						<sec:authorize access="hasRole('ROLE_LEAD')">
 						<div role="tabpanel" class="tab-pane fade" id="myLeadSummary">
-							<h3>From Lead View My Summary</h3>
+							<jsp:include page="User HR and Lead/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="myLeadTasks">
-							<h3>From Lead View My Tasks</h3>
+							<jsp:include page="User HR and Lead/tasks.jsp"></jsp:include>
 						</div>
 						</sec:authorize>
 					</div>
