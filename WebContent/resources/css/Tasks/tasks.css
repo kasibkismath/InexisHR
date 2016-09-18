@@ -110,3 +110,18 @@ textarea {
 .overdue-task {
 	background-color: #f2dede !important;
 }
+
+.high-completion {
+	background-color: #dff0d8 !important;
+	color : #3c763d !important;
+}
+
+.medium-completion {
+	background-color: #fcf8e3 !important;
+	color : #8a6d3b !important;
+}
+
+.low-completion {
+	background-color: #f2dede !important;
+	color: #a94442 !important;
+}

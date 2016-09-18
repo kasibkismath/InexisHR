@@ -287,4 +287,40 @@ public class TaskDAO {
 		List<Object[]> result = query.list();
 		return result;
 	}
+	
+	public int getCompletedTaskPercentageByEmployee(Task task) {
+		String sql = "select "
+				+ "round((Result1.completedCount/Result2.totalCount) * 100,0) as 'Completion Percentage' "
+				+ "from "
+				+ "( "
+				+ "select count(*) as completedCount, emp.emp_id "
+				+ "from task "
+				+ "join employee as emp "
+				+ "on task.emp_id = emp.emp_id "
+				+ "where task.emp_id=:loggedInEmp and year(task.expected_start_date)=:currentYear "
+				+ "and task.status=:status  "
+				+ "group by emp.emp_id "
+				+ ") as Result1 "
+				+ "inner join " 
+				+ "( "
+				+ "select count(*) as totalCount, emp.emp_id "
+				+ "from task  "
+				+ "join employee as emp "
+				+ "on task.emp_id = emp.emp_id "
+				+ "where task.emp_id=:loggedInEmp and year(task.expected_start_date)=:currentYear "
+				+ "group by emp.emp_id "
+				+ ") as Result2 "
+				+ "on Result1.emp_id = Result2.emp_id";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("loggedInEmp", task.getEmployee().getEmpId());
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		query.setParameter("status", "Completed");
+		
+		if(query.uniqueResult() == null)
+			return 0;
+		
+		int completedPercentage = ((Number) query.uniqueResult()).intValue();
+		return completedPercentage; 
+	}
 }

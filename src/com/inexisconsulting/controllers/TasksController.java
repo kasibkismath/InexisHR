@@ -169,4 +169,11 @@ public class TasksController {
 	public List<Task> getMyTasks(@RequestBody Task task) {
 		return taskService.getMyTasks(task);
 	}
+
+	// get completed task percentage by employee - logged in emp
+	@RequestMapping(value = "/Tasks/GetCompletedTaskPercentageByEmployee", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int getCompletedTaskPercentageByEmployee(@RequestBody Task task) {
+		return taskService.getCompletedTaskPercentageByEmployee(task);
+	}
 }

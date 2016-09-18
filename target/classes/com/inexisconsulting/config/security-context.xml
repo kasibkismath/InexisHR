@@ -294,6 +294,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Tasks/GetTaskStatusAndCount"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/GetCompletedTaskPercentageByEmployee"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

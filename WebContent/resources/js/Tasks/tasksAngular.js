@@ -43,6 +43,7 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getOverdueTaskCount();
 		$scope.getMyTask();
 		$scope.userHRLeadSummaryChart();
+		$scope.getCompletedTaskPercentageByEmployee();
 		
 		// set datatable configs
 		 // user and lead datatable
@@ -489,4 +490,24 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			console.log(data);
 		});
 	};
+	
+	$scope.getCompletedTaskPercentageByEmployee = function() {
+		$scope.getLoggedInEmployee()
+		 .then(function(emp){
+			 var employee_id = emp.empId;
+			 
+			 var task = {
+				employee : {empId : employee_id}	 
+			 };
+			 
+			$http.post($scope.baseURL + '/Tasks/GetCompletedTaskPercentageByEmployee', task)
+			.success(function(result) {
+				$scope.taskCompletedPercent = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		 });
+	};
+	
 }]);

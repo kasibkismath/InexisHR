@@ -78,4 +78,8 @@ public class TaskService {
 	public List<Object[]> getTaskStatusAndCount(Task task) {
 		return taskDao.getTaskStatusAndCount(task);
 	}
+
+	public int getCompletedTaskPercentageByEmployee(Task task) {
+		return taskDao.getCompletedTaskPercentageByEmployee(task);
+	}
 }
