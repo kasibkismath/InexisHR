@@ -74,4 +74,8 @@ public class TaskService {
 	public void updateMyTask(Task task) throws ParseException {
 		taskDao.updateMyTask(task);
 	}
+
+	public List<Object[]> getTaskStatusAndCount(Task task) {
+		return taskDao.getTaskStatusAndCount(task);
+	}
 }

@@ -64,6 +64,11 @@ textarea {
 	height: 200px;
 }
 
+.tile{
+	height: 100px;
+	margin-top: -45px;
+}
+
 .pendingTasksTile {
 	height: 100px;
 	margin-top: 15px;

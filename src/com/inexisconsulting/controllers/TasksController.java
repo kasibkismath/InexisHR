@@ -156,6 +156,13 @@ public class TasksController {
 		return taskService.getEmployeeTaskCompletionPercentage(task);
 	}
 
+	// get By Status and Count by logged in emp
+	@RequestMapping(value = "/Tasks/GetTaskStatusAndCount", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getTaskStatusAndCount(@RequestBody Task task) {
+		return taskService.getTaskStatusAndCount(task);
+	}
+
 	// get my tasks
 	@RequestMapping(value = "/Tasks/GetMyTasks", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

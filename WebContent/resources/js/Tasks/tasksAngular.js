@@ -42,6 +42,7 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getTerminatedTaskCount();
 		$scope.getOverdueTaskCount();
 		$scope.getMyTask();
+		$scope.userHRLeadSummaryChart();
 		
 		// set datatable configs
 		 // user and lead datatable
@@ -72,9 +73,33 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			.error(function(data, status) {
 				console.log(data);
 			});
-			 
 		 });
 		 
+	};
+	
+	$scope.userHRLeadSummaryChart = function() {
+		 $scope.userHRLeadLabels = [];
+		 $scope.userHRLeadData = [];
+		 
+		 $scope.getLoggedInEmployee()
+		 .then(function(emp){
+			 var employee_id = emp.empId;
+			 
+			 var task = {
+				employee : {empId : employee_id}	 
+			 };
+			 
+			$http.post($scope.baseURL + '/Tasks/GetTaskStatusAndCount', task)
+			.success(function(result) {
+				angular.forEach(result, function(value, key) {
+					$scope.userHRLeadLabels.push(value[0]);
+					$scope.userHRLeadData.push(value[1]);
+				});
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		 });
 	};
 	
 	// get logged in emp

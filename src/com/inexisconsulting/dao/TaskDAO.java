@@ -273,4 +273,18 @@ public class TaskDAO {
 		updatedMyTask.setActual_start_date(sdf.parse(stringAcutalStartDate));
 		updatedMyTask.setActual_end_date(sdf.parse(stringAcutalEndDate));
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getTaskStatusAndCount(Task task) {
+		String sql = "select status, count(*) as count from task where emp_id=:empId and "
+				+ "year(expected_start_date)=:currentYear "
+				+ "group by status";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("empId", task.getEmployee().getEmpId());
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		
+		List<Object[]> result = query.list();
+		return result;
+	}
 }
