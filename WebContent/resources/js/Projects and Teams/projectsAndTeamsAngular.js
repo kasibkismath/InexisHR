@@ -44,7 +44,6 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		$http.get($scope.baseURL + '/ProjectsAndTeams/GetAllProjects')
 		.success(function(result) {
 			$scope.allProjects = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -61,7 +60,6 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		$http.post($scope.baseURL + '/ProjectsAndTeams/CheckDuplicateProject', project)
 		.success(function(result) {
 			$scope.checkDuplicateProjectResult = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -92,4 +90,77 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 			console.log(data);
 		});
 	};
-}]);
+	
+	// get project by project_id
+	$scope.getProjectByProjectId = function(projectId) {
+		
+		var project = {
+			project_id : projectId
+		};
+		
+		$http.post($scope.baseURL + '/ProjectsAndTeams/GetProjectByProjectId', project)
+		.success(function(result) {
+			$scope.updateProjectId = result.project_id;
+			$scope.updateProjectName = result.project_name;
+			$scope.updateProjectStatus = result.status;
+			$scope.updateProjectStartDate = $filter('date')(result.project_start, "yyyy-MM-dd");
+			$scope.updateProjectClient = result.project_client;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// update project
+	$scope.updateProject = function(projectId, projectName, status, startDate, projectClient) {
+		
+		var project = {
+				project_id : projectId,
+				project_name : projectName,
+				status : status,
+				project_start : startDate,
+				project_client : projectClient
+			};
+				
+			$http.post($scope.baseURL + '/ProjectsAndTeams/UpdateProject', project)
+			.success(function(result) {
+				$('#editProjectModal').modal('hide');
+				toaster.pop('success', "Notification", "Project Updated Successfully");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 1000);
+			})
+			.error(function(data, status) {
+				$('#editProjectModal').modal('hide');
+				toaster.pop('error', "Notification", "Project Updation Failed");
+				console.log(data);
+			});
+	};
+	
+	// called from projects.jsp page
+	$scope.deleteProjectMain = function(projectId) {
+		$scope.deleteProjectId = projectId;
+	};
+	
+	// actually delete the project - called from deleteProjectModal
+	$scope.deleteProject = function(projectId) {
+		
+		var project = {
+			project_id : projectId
+		};
+			
+		$http.post($scope.baseURL + '/ProjectsAndTeams/DeleteProject', project)
+		.success(function(result) {
+			$('#deleteProjectModal').modal('hide');
+			toaster.pop('success', "Notification", "Project Deleted Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteProjectModal').modal('hide');
+			toaster.pop('error', "Notification", "Project Deletion Failed");
+			console.log(data);
+		});
+	};
+}]); 

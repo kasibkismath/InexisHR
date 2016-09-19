@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,6 +90,36 @@ public class ProjectDAO {
 		project.setProject_start(sdf.parse(stringstartDate));
 		
 		session().saveOrUpdate(project);
+	}
+
+	public Project getProjectByProjectId(Project project) {
+		Criteria crit = session().createCriteria(Project.class);
+		crit.add(Restrictions.eq("project_id", project.getProject_id()));
+		Project result = (Project) crit.uniqueResult();
+		return result;
+	}
+
+	public void updateProject(Project project) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date startDate = project.getProject_start();
+		String stringstartDate = sdf.format(startDate);
+		
+		Criteria crit = session().createCriteria(Project.class);
+		crit.add(Restrictions.eq("project_id", project.getProject_id()));
+
+		Project updatedProject = (Project) crit.uniqueResult();
+		
+		updatedProject.setProject_name(project.getProject_name());
+		updatedProject.setStatus(project.getStatus());
+		updatedProject.setProject_start(sdf.parse(stringstartDate));
+		updatedProject.setProject_client(project.getProject_client());
+	}
+
+	public void deleteProject(Project project) {
+		Query query = session().createQuery("delete from Project where project_id=:projectId");
+		query.setInteger("projectId", project.getProject_id());
+		query.executeUpdate();
 	}
 
 }

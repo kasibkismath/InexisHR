@@ -60,4 +60,25 @@ public class ProjectsAndTeamController {
 	public void addProject(@RequestBody Project project) throws ParseException {
 		projectService.addProject(project);
 	}
+
+	// get project by project id
+	@RequestMapping(value = "/ProjectsAndTeams/GetProjectByProjectId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Project getProjectByProjectId(@RequestBody Project project) {
+		return projectService.getProjectByProjectId(project);
+	}
+
+	// update project
+	@RequestMapping(value = "/ProjectsAndTeams/UpdateProject", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateProject(@RequestBody Project project) throws ParseException {
+		projectService.updateProject(project);
+	}
+
+	// delete project
+	@RequestMapping(value = "/ProjectsAndTeams/DeleteProject", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteProject(@RequestBody Project project) {
+		projectService.deleteProject(project);
+	}
 }

@@ -304,6 +304,12 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams/AddProject"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetProjectByProjectId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/UpdateProject"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/DeleteProject"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

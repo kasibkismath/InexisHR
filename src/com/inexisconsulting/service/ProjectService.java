@@ -36,4 +36,16 @@ public class ProjectService {
 		projectDao.addProject(project);
 	}
 
+	public Project getProjectByProjectId(Project project) {
+		return projectDao.getProjectByProjectId(project);
+	}
+
+	public void updateProject(Project project) throws ParseException {
+		projectDao.updateProject(project);
+	}
+
+	public void deleteProject(Project project) {
+		projectDao.deleteProject(project);
+	}
+
 }

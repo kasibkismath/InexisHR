@@ -40,5 +40,7 @@
 		</table>
 		<!-- Modal -->
 		<jsp:include page="addProject.jsp"></jsp:include>
+		<jsp:include page="editProject.jsp"></jsp:include>
+		<jsp:include page="deleteProject.jsp"></jsp:include>
 	</div>
 </div>
