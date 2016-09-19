@@ -61,6 +61,12 @@ textarea {
 	margin-bottom: 20px;
 }
 
+.addNewTeamBtn {
+	margin-top: 30px;
+	margin-right: 15px;
+	margin-bottom: 20px;
+}
+
 #addNewProjectModal .modal-body {
 	height: 350px;
 }

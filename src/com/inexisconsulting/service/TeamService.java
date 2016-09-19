@@ -22,6 +22,10 @@ public class TeamService {
 	public List<Team_Employee> getEmployeesByLeadId(Team team) {
 		return teamDao.getEmployeesByLeadId(team);
 	}
+
+	public List<Team> getAllTeams() {
+		return teamDao.getAllTeams();
+	}
 	
 	
 

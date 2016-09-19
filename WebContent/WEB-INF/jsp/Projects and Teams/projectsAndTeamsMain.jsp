@@ -97,7 +97,7 @@
 							<jsp:include page="Projects/projects.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="teams">
-							<h4>Teams</h4>
+							<jsp:include page="Teams/teams.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="teamMembers">
 							<h4>Team Members</h4>

@@ -15,14 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.Project;
+import com.inexisconsulting.dao.Team;
+import com.inexisconsulting.service.EmployeeService;
 import com.inexisconsulting.service.ProjectService;
+import com.inexisconsulting.service.TeamService;
 
 @Controller
 public class ProjectsAndTeamController {
 
 	@Autowired
 	private ProjectService projectService;
+
+	@Autowired
+	private TeamService teamService;
+
+	@Autowired
+	private EmployeeService employeeService;
 
 	@RequestMapping("/ProjectsAndTeams")
 	@SuppressWarnings("unchecked")
@@ -80,5 +90,26 @@ public class ProjectsAndTeamController {
 	@ResponseBody
 	public void deleteProject(@RequestBody Project project) {
 		projectService.deleteProject(project);
+	}
+
+	// get all teams
+	@RequestMapping(value = "/ProjectsAndTeams/GetAllTeams", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Team> getAllTeams() {
+		return teamService.getAllTeams();
+	}
+
+	// get all In-Progress And On-Hold Projects
+	@RequestMapping(value = "/ProjectsAndTeams/GetInProgressAndOnHoldProjects", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Project> getInProgressAndOnHoldProjects() {
+		return projectService.getProjects();
+	}
+
+	// get all Lead Employees
+	@RequestMapping(value = "/ProjectsAndTeams/GetLeadEmployees", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Employee> getAllLeadEmployees() {
+		return employeeService.getAllEmployees();
 	}
 }

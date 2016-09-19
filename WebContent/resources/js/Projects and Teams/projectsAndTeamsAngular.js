@@ -20,6 +20,9 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		
 		// functions
 		$scope.getAllProjects();
+		$scope.getAllTeams();
+		$scope.getInProgressAndOnHoldProjects();
+		$scope.getLeadEmployees();
 	};
 	
 	
@@ -163,4 +166,39 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 			console.log(data);
 		});
 	};
+	
+	// get all teams
+	$scope.getAllTeams = function() {
+		$http.get($scope.baseURL + '/ProjectsAndTeams/GetAllTeams')
+		.success(function(result) {
+			$scope.allTeams = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get all In-Progress And On-Hold Projects
+	$scope.getInProgressAndOnHoldProjects = function() {
+		$http.get($scope.baseURL + '/ProjectsAndTeams/GetInProgressAndOnHoldProjects')
+		.success(function(result) {
+			$scope.allInProgessAndOnHoldProjects = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get all lead employees
+	$scope.getLeadEmployees = function() {
+		$http.get($scope.baseURL + '/ProjectsAndTeams/GetLeadEmployees')
+		.success(function(result) {
+			$scope.allLeadEmployees = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	
 }]); 

@@ -47,4 +47,15 @@ public class TeamDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Team> getAllTeams() {
+		
+		String hql = "from Team";
+		
+		Query query = session().createQuery(hql);
+		
+		List<Team> listResult = query.list();
+		return listResult;
+	}
+
 }

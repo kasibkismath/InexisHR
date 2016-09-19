@@ -310,6 +310,12 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams/DeleteProject"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetAllTeams"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetInProgressAndOnHoldProjects"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetLeadEmployees"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
