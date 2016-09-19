@@ -78,6 +78,11 @@
 					<br>  <span id="textXSmall">Tasks</span>
 				</div>
 		  </div>
+		  <div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile" id="projectTeamMember-tile">
+				<div class="dashboard-title"><span id="icon">
+					<i class="fa fa-users fa-3x icon-color"></i></span> <br> Projects &amp; Teams
+				</div>
+		  </div>
 		</div>
 	</div>
 

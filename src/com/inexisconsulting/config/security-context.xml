@@ -296,6 +296,14 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Tasks/GetCompletedTaskPercentageByEmployee"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetAllProjects"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/CheckDuplicateProject"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/AddProject"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

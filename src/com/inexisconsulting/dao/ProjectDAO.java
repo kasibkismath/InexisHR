@@ -1,5 +1,8 @@
 package com.inexisconsulting.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -45,6 +48,46 @@ public class ProjectDAO {
 		
 		List<Project> returnList = query.list();
 		return returnList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Project> getAllProjects() {
+		String hql = "from Project";
+		
+		Query query = session().createQuery(hql);
+		
+		List<Project> result = query.list();
+		return result;
+	}
+
+	public boolean checkDuplicateProject(Project project) {
+		String sql = "select count(*) from project where project_name=:projectName";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("projectName", project.getProject_name());
+		
+		if (query.uniqueResult() == null) {
+			return false;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+
+			if (count == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	public void addProject(Project project) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date startDate = project.getProject_start();
+		String stringstartDate = sdf.format(startDate);
+		
+		project.setProject_start(sdf.parse(stringstartDate));
+		
+		session().saveOrUpdate(project);
 	}
 
 }

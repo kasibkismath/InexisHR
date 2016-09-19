@@ -40,10 +40,9 @@ $(function() {
 	});
 
 	// projects and team member tile
-	$('#projectTeamMember-tile').click(
-			function() {
-				$(location).attr('href', contextPath + '/admin-main-menu');
-			});
+	$('#projectTeamMember-tile').click(function() {
+		$(location).attr('href', contextPath + '/admin-main-menu');
+	});
 	$('#projectTeamMember-tile').css({
 		"cursor" : "pointer"
 	});

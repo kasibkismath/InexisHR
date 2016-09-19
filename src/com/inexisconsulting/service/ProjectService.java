@@ -1,5 +1,6 @@
 package com.inexisconsulting.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,18 @@ public class ProjectService {
 
 	public List<Project> getProjectsByEmpId(Attendance attendance) {
 		return projectDao.getProjectsByEmpId(attendance);
+	}
+
+	public List<Project> getAllProjects() {
+		return projectDao.getAllProjects();
+	}
+
+	public boolean checkDuplicateProject(Project project) {
+		return projectDao.checkDuplicateProject(project);
+	}
+
+	public void addProject(Project project) throws ParseException {
+		projectDao.addProject(project);
 	}
 
 }

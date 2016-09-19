@@ -55,4 +55,12 @@ $(function() {
 		"cursor" : "pointer"
 	});
 	
+	// projects and team member tile
+	$('#projectTeamMember-tile').click(function() {
+		$(location).attr('href', contextPath + '/ProjectsAndTeams');
+	});
+	$('#projectTeamMember-tile').css({
+		"cursor" : "pointer"
+	});
+	
 });
