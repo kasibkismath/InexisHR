@@ -23,4 +23,16 @@ public class Team_EmployeeService {
 		return teamEmployeeDao.getTeamEmployeesByEmpId(teamEmpAndTeam);
 	}
 
+	public List<Team_Employee> getAllTeamMembers() {
+		return teamEmployeeDao.getAllTeamMembers();
+	}
+
+	public boolean checkTeamMemberDuplicate(Team_Employee teamEmp) {
+		return teamEmployeeDao.checkTeamMemberDuplicate(teamEmp);
+	}
+
+	public void addTeamEmployee(Team_Employee teamEmp) {
+		teamEmployeeDao.addTeamEmployee(teamEmp);
+	}
+
 }

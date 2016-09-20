@@ -48,4 +48,8 @@ public class TeamService {
 		teamDao.deleteTeam(team);
 	}
 
+	public List<Team> getActiveTeamsByProject(Team team) {
+		return teamDao.getActiveTeamsByProject(team);
+	}
+
 }

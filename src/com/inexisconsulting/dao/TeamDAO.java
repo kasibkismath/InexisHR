@@ -108,4 +108,16 @@ public class TeamDAO {
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Team> getActiveTeamsByProject(Team team) {
+		String hql = "from Team as team where team.project.project_id=:projectId and team.status=:status";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("projectId", team.getProject().getProject_id());
+		query.setParameter("status", "Active");
+		
+		List<Team> listResult = query.list();
+		return listResult;
+	}
+
 }

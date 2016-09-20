@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.inexisconsulting.dao.Employee;
 import com.inexisconsulting.dao.Project;
 import com.inexisconsulting.dao.Team;
+import com.inexisconsulting.dao.Team_Employee;
+import com.inexisconsulting.dao.Team_Member_And_Lead_Appraisal;
 import com.inexisconsulting.service.EmployeeService;
 import com.inexisconsulting.service.ProjectService;
 import com.inexisconsulting.service.TeamService;
+import com.inexisconsulting.service.Team_EmployeeService;
 
 @Controller
 public class ProjectsAndTeamController {
@@ -33,6 +36,9 @@ public class ProjectsAndTeamController {
 
 	@Autowired
 	private EmployeeService employeeService;
+
+	@Autowired
+	private Team_EmployeeService teamEmployeeService;
 
 	@RequestMapping("/ProjectsAndTeams")
 	@SuppressWarnings("unchecked")
@@ -146,5 +152,33 @@ public class ProjectsAndTeamController {
 	@ResponseBody
 	public void deleteTeam(@RequestBody Team team) {
 		teamService.deleteTeam(team);
+	}
+
+	// get all team members
+	@RequestMapping(value = "/ProjectsAndTeams/GetAllTeamMembers", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Team_Employee> getAllTeamMembers() {
+		return teamEmployeeService.getAllTeamMembers();
+	}
+
+	// get all active teams by project_id
+	@RequestMapping(value = "/ProjectsAndTeams/GetActiveTeamsByProject", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Team> getActiveTeamsByProject(@RequestBody Team team) {
+		return teamService.getActiveTeamsByProject(team);
+	}
+
+	// check duplicate team member by employee and teamId
+	@RequestMapping(value = "/ProjectsAndTeams/CheckDuplicateTeamMember", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkTeamMemberDuplicate(@RequestBody Team_Employee teamEmp) {
+		return teamEmployeeService.checkTeamMemberDuplicate(teamEmp);
+	}
+
+	// add new team member
+	@RequestMapping(value = "/ProjectsAndTeams/AddTeamMember", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addTeamEmployee(@RequestBody Team_Employee teamEmp) {
+		teamEmployeeService.addTeamEmployee(teamEmp);
 	}
 }

@@ -326,6 +326,14 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams/DeleteTeam"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetAllTeamMembers"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/GetActiveTeamsByProject"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/CheckDuplicateTeamMember"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/ProjectsAndTeams/AddTeamMember"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

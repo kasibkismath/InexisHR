@@ -18,12 +18,14 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		// variables
 		$scope.saveProjectStatus = "In-Progress";
 		$scope.checkDuplicateTeamResult = false;
+		$scope.checkDuplicateTeamMemberResult = false;
 		
 		// functions
 		$scope.getAllProjects();
 		$scope.getAllTeams();
 		$scope.getInProgressAndOnHoldProjects();
 		$scope.getLeadEmployees();
+		$scope.getAllTeamMembers();
 	};
 	
 	
@@ -317,6 +319,80 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		.error(function(data, status) {
 			$('#deleteTeamModal').modal('hide');
 			toaster.pop('error', "Notification", "Team Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+	// get all team members
+	$scope.getAllTeamMembers = function() {
+		$http.get($scope.baseURL + '/ProjectsAndTeams/GetAllTeamMembers')
+		.success(function(result) {
+			$scope.allTeamMembers = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get active teams by project
+	$scope.getActiveTeamsByProject = function(projectId) {
+		$scope.saveTeamMemberTeam = "";
+		if(projectId != undefined) {
+			
+			var team = {
+				project : {project_id : projectId}
+			};
+			
+			$http.post($scope.baseURL + '/ProjectsAndTeams/GetActiveTeamsByProject', team)
+			.success(function(result) {
+				$scope.getActiveTeamsByProjectResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		}
+	};
+	
+	// check team member duplicate
+	$scope.checkTeamMemberDuplicate = function(employee, teamId) {
+		 if(employee != undefined && teamId != undefined) {
+			
+			var teamMember = {
+				employee : {empId : employee},
+				team : {team_Id : teamId}
+			};
+				
+			$http.post($scope.baseURL + '/ProjectsAndTeams/CheckDuplicateTeamMember', teamMember)
+			.success(function(result) {
+				$scope.checkDuplicateTeamMemberResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		} else {
+			$scope.checkDuplicateTeamMemberResult = false;
+		}
+	};
+	
+	// add team member
+	$scope.addTeamMember = function(employeeId, teamId) {
+		
+		var teamMember = {
+			employee : {empId : employeeId},
+			team : {team_Id : teamId}
+		};
+				
+		$http.post($scope.baseURL + '/ProjectsAndTeams/AddTeamMember', teamMember)
+		.success(function(result) {
+			$('#addTeamMemberModal').modal('hide');
+			toaster.pop('success', "Notification", "Team Member Added Successfully");
+			setTimeout(function () {
+				window.location.reload();
+		    }, 1000);
+		})
+		.error(function(data, status) {
+			$('#addTeamMemberModal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Team Member Failed");
 			console.log(data);
 		});
 	};
