@@ -8,7 +8,7 @@
       <div class="modal-body">
 		<form name="addTeamForm" class="form-horizontal"
 			ng-submit="addTeamForm.$valid && checkDuplicateTeamResult === false &&
-				addProject(saveProjectName, saveProjectStatus, saveProjectStartDate, saveProjectClient)">
+				addTeam(saveTeamName, saveTeamProject, saveTeamLead, saveTeamStatus)">
 			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
@@ -18,13 +18,13 @@
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkDuplicateTeamResult === true">
-					<strong>Error!</strong> Team with this Team Name already exists.
+					<strong>Error!</strong> Team with this Project and Team Name already exists.
 				</div>
 				<label class="col-sm-2 control-label">Team Name</label>
 				<div class="col-sm-10">
 					<input type="text" name="teamName" ng-model="saveTeamName" 
 					class="form-control" required placeholder="Team Name"
-					ng-change="checkDuplicateTeam(saveTeamName)">
+					ng-change="checkDuplicateTeam(saveTeamName, saveTeamProject)">
 				</div>
 			</div>
 			<div class="form-group">
@@ -36,7 +36,8 @@
 				<label class="col-sm-2 control-label">Project</label>
 				<div class="col-sm-10">
 					<select ng-model="saveTeamProject" name="project" class="form-control"
-						required>
+						required
+						ng-change="checkDuplicateTeam(saveTeamName, saveTeamProject)">
 						<option value="">Select a Project</option>
 						<option value="{{project.project_id}}" 
 							ng-repeat="project in allInProgessAndOnHoldProjects">

@@ -112,4 +112,39 @@ public class ProjectsAndTeamController {
 	public List<Employee> getAllLeadEmployees() {
 		return employeeService.getAllEmployees();
 	}
+
+	// check duplicate team by project_id and team name
+	@RequestMapping(value = "/ProjectsAndTeams/CheckDuplicateTeam", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateTeam(@RequestBody Team team) {
+		return teamService.checkDuplicateTeam(team);
+	}
+
+	// add new team
+	@RequestMapping(value = "/ProjectsAndTeams/AddTeam", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addTeam(@RequestBody Team team) {
+		teamService.addTeam(team);
+	}
+
+	// get team by team_Id
+	@RequestMapping(value = "/ProjectsAndTeams/GetTeamByTeamId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Team getTeamByTeamId(@RequestBody Team team) {
+		return teamService.getTeamByTeamId(team);
+	}
+
+	// update team
+	@RequestMapping(value = "/ProjectsAndTeams/UpdateTeam", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateTeam(@RequestBody Team team) {
+		teamService.updateTeam(team);
+	}
+
+	// delete team
+	@RequestMapping(value = "/ProjectsAndTeams/DeleteTeam", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteTeam(@RequestBody Team team) {
+		teamService.deleteTeam(team);
+	}
 }

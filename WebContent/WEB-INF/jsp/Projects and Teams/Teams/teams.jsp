@@ -26,12 +26,12 @@
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
 							data-target="#editTeamModal"
-							ng-click="getTeamByTeamId(team.team_id)">
+							ng-click="getTeamByTeamId(team.team_Id)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
 							data-target="#deleteTeamModal" 
-							ng-click="deleteTeamMain(team.team_id)">
+							ng-click="deleteTeamMain(team.team_Id)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>

@@ -6,12 +6,11 @@
         <h4 class="modal-title">Delete Team</h4>
       </div>
       <div class="modal-body">
-   		<h3><i class="fa fa-question"></i> Do you really want to delete this Project?</h3>
+   		<h3><i class="fa fa-question"></i> Do you really want to delete this Team?</h3>
    		<div style="padding-bottom: 20px; padding-top: 20px;">
 	          <h6>
 	          	<i class="fa fa-bullhorn fa-lg"></i> 
-	          	<b>NOTE :</b> Some projects can only be deleted if it's associated <b>Teams</b> and <b>Team Members</b> are 
-	          	<span style="margin-left:60px;">removed.</span>
+	          	<b>NOTE :</b> Some teams can only be deleted if it's associated <b>Team Members</b> are removed.
 	          </h6>
          	</div>
       </div>
@@ -20,7 +19,7 @@
 			<i class="fa fa-times"></i> Close
 		</button>
 		<button type="button" class="btn btn-success"
-			ng-click="deleteProject(deleteProjectId)">
+			ng-click="deleteTeam(deleteTeamId)">
 			<i class="fa fa-check"></i> Delete
 		</button>
       </div>

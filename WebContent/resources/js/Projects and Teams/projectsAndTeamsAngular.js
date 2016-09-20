@@ -17,6 +17,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	$scope.init = function(){
 		// variables
 		$scope.saveProjectStatus = "In-Progress";
+		$scope.checkDuplicateTeamResult = false;
 		
 		// functions
 		$scope.getAllProjects();
@@ -200,5 +201,124 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		});
 	};
 	
+	// check duplicate team by Project and Team Name
+	$scope.checkDuplicateTeam = function(teamName, project) {
+		if(teamName != undefined && project != undefined) {
+			
+			var team = {
+				team_name : teamName,
+				project : {project_id : project}
+			};
+			
+			$http.post($scope.baseURL + '/ProjectsAndTeams/CheckDuplicateTeam', team)
+			.success(function(result) {
+				$scope.checkDuplicateTeamResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		} else {
+			$scope.checkDuplicateTeamResult = false;
+		}
+	};
 	
-}]); 
+	// add new team
+	$scope.addTeam = function(teamName, project, lead, status) {
+		
+		var team = {
+			team_name : teamName,
+			project : {project_id : project},
+			employee : {empId : lead},
+			status : status
+		};
+		
+		$http.post($scope.baseURL + '/ProjectsAndTeams/AddTeam', team)
+		.success(function(result) {
+			$('#addNewTeamModal').modal('hide');
+			toaster.pop('success', "Notification", "Team Added Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#addNewTeamModal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Team Failed");
+			console.log(data);
+		});
+	};
+	
+	// get team by team_id
+	$scope.getTeamByTeamId = function(teamId) {
+		
+		var team = {
+			team_Id : teamId
+		};
+		
+		$http.post($scope.baseURL + '/ProjectsAndTeams/GetTeamByTeamId', team)
+		.success(function(result) {
+			$scope.updateTeamId = result.team_Id;
+			$scope.updateTeamName = result.team_name;
+			$scope.updateTeamProject = result.project.project_id;
+			$scope.updateTeamLead = result.employee.empId;
+			$scope.updateTeamStatus = result.status;
+			
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// update team
+	$scope.updateTeam = function(teamId, teamName, project, lead, status) {
+		var team = {
+			team_Id : teamId,
+			team_name : teamName,
+			project : {project_id : project},
+			employee : {empId : lead},
+			status : status
+		};
+			
+		$http.post($scope.baseURL + '/ProjectsAndTeams/UpdateTeam', team)
+		.success(function(result) {
+			$('#editTeamModal').modal('hide');
+			toaster.pop('success', "Notification", "Team Updated Successfully");
+			setTimeout(function () {
+	            window.location.reload();
+	        }, 1000);
+		})
+		.error(function(data, status) {
+			$('#editTeamModal').modal('hide');
+			toaster.pop('error', "Notification", "Team Updation Failed");
+			console.log(data);
+		});
+	};
+	
+	// called from teams.jsp delete button
+	$scope.deleteTeamMain = function(teamId) {
+		$scope.deleteTeamId = teamId;
+	};
+	
+	// actually delete team - called from Delete Team Modal
+	$scope.deleteTeam = function(teamId) {
+		
+		var team = {
+		   team_Id : teamId,
+		};
+				
+		$http.post($scope.baseURL + '/ProjectsAndTeams/DeleteTeam', team)
+		.success(function(result) {
+			$('#deleteTeamModal').modal('hide');
+			toaster.pop('success', "Notification", "Team Deleted Successfully");
+			setTimeout(function () {
+				window.location.reload();
+		    }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteTeamModal').modal('hide');
+			toaster.pop('error', "Notification", "Team Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+}]);  

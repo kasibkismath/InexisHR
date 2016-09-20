@@ -71,6 +71,10 @@ textarea {
 	height: 350px;
 }
 
+#addNewTeamModal .modal-body {
+	height: 400px;
+}
+
 #deleteProjectModal .modal-body {
 	height: 200px;
 }
