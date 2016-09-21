@@ -2,9 +2,11 @@ package com.inexisconsulting.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,6 +92,28 @@ public class Team_EmployeeDAO {
 
 	public void addTeamEmployee(Team_Employee teamEmp) {
 		session().saveOrUpdate(teamEmp);
+	}
+
+	public Team_Employee getTeamMemberByTeamMemberId(Team_Employee teamEmp) {
+		Criteria crit = session().createCriteria(Team_Employee.class);
+		crit.add(Restrictions.eq("team_emp_id", teamEmp.getTeam_emp_id()));
+		Team_Employee result = (Team_Employee) crit.uniqueResult();
+		return result;
+	}
+
+	public void updateTeamMember(Team_Employee teamEmp) {
+		Criteria crit = session().createCriteria(Team_Employee.class);
+		crit.add(Restrictions.eq("team_emp_id", teamEmp.getTeam_emp_id()));
+
+		Team_Employee updatedTeamEmp = (Team_Employee) crit.uniqueResult();
+		updatedTeamEmp.setEmployee(teamEmp.getEmployee());
+		updatedTeamEmp.setTeam(teamEmp.getTeam());
+	}
+
+	public void deleteTeamMember(Team_Employee teamEmp) {
+		Query query = session().createQuery("delete from Team_Employee where team_emp_id=:teamEmpId");
+		query.setInteger("teamEmpId", teamEmp.getTeam_emp_id());
+		query.executeUpdate();
 	}
 
 }

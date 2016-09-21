@@ -6,41 +6,49 @@
         <h4 class="modal-title">Update Team</h4>
       </div>
       <div class="modal-body">
-		<form name="editTeamForm" class="form-horizontal"
-			ng-submit="editTeamForm.$valid && checkDuplicateTeamResult === false &&
-				updateTeam(updateTeamId, updateTeamName, updateTeamProject, updateTeamLead, updateTeamStatus)">
+		<form name="editTeamMemberForm" class="form-horizontal"
+			ng-submit="editTeamMemberForm.$valid && checkDuplicateTeamMemberResult === false &&
+				updateTeamMember(updateTeamMemberId, updateTeamMemberEmp, updateTeamMemberTeam)">
 			
-			<!-- Team Id -->
-			<input type="hidden" ng-model="updateTeamId">
+			<!-- Team Member Id -->
+			<input type="hidden" ng-model="updateTeamMemberId">
 			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="editTeamForm.teamName.$error.required 
-						&& editTeamForm.teamName.$dirty">
-					<strong>Error!</strong> Team Name is required.
+					ng-show="editTeamMemberForm.employee.$error.required 
+						&& editTeamMemberForm.employee.$dirty">
+					<strong>Error!</strong> Employee is required, please select one.
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="checkDuplicateTeamResult === true">
-					<strong>Error!</strong> Team with this Project and Team Name already exists.
+					ng-show="checkDuplicateTeamMemberResult === true">
+					<strong>Error!</strong> Team Member already exists
 				</div>
-				<label class="col-sm-2 control-label">Team Name</label>
+				<label class="col-sm-2 control-label">Employee</label>
 				<div class="col-sm-10">
-					<input type="text" name="teamName" ng-model="updateTeamName" 
-					class="form-control" required placeholder="Team Name"
-					ng-change="checkDuplicateTeam(updateTeamName, updateTeamProject)">
+					<select ng-model="updateTeamMemberEmp" name="employee" class="form-control"
+						required
+						ng-change="checkTeamMemberDuplicate(updateTeamMemberEmp, updateTeamMemberTeam)"
+						convert-to-number>
+						<option value="">Select an Employee</option>
+						<option value="{{employee.empId}}" 
+							ng-repeat="employee in allLeadEmployees" ng-show="employee.status == true">
+							{{employee.firstName}} {{employee.lastName}}
+						</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="editTeamForm.project.$error.required 
-						&& editTeamForm.project.$dirty">
+					ng-show="editTeamMemberForm.project.$error.required 
+						&& editTeamMemberForm.project.$dirty">
 					<strong>Error!</strong> Project is required, please select one.
 				</div>
 				<label class="col-sm-2 control-label">Project</label>
 				<div class="col-sm-10">
-					<select ng-model="updateTeamProject" name="project" class="form-control"
+					<select ng-model="updateTeamMemberProject" name="project" class="form-control"
 						required
-						ng-change="checkDuplicateTeam(updateTeamName, updateTeamProject)"
+						ng-change="getActiveTeamsByProject(updateTeamMemberProject); 
+						checkTeamMemberDuplicate(updateTeamMemberEmp, updateTeamMemberTeam)"
 						convert-to-number>
 						<option value="">Select a Project</option>
 						<option value="{{project.project_id}}" 
@@ -52,35 +60,21 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="editTeamForm.teamLead.$error.required 
-						&& editTeamForm.teamLead.$dirty">
-					<strong>Error!</strong> Team Lead is required, please select one.
+					ng-show="editTeamMemberForm.team.$error.required 
+						&& editTeamMemberForm.team.$dirty">
+					<strong>Error!</strong> Team is required, please select one.
 				</div>
-				<label class="col-sm-2 control-label">Team Lead</label>
+				<label class="col-sm-2 control-label">Team</label>
 				<div class="col-sm-10">
-					<select ng-model="updateTeamLead" name="teamLead" class="form-control"
-						required convert-to-number>
-						<option value="">Select a Team Lead</option>
-						<option value="{{employee.empId}}" 
-							ng-repeat="employee in allLeadEmployees" ng-show="employee.status == true">
-							{{employee.firstName}} {{employee.lastName}}
+					<select ng-model="updateTeamMemberTeam" name="team" class="form-control"
+						required
+						ng-change="checkTeamMemberDuplicate(updateTeamMemberEmp, updateTeamMemberTeam)"
+						convert-to-number>
+						<option value="">Select a Team</option>
+						<option value="{{team.team_Id}}" 
+							ng-repeat="team in getActiveTeamsByProjectResult">
+							{{team.team_name}}
 						</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div role="alert" class="alert alert-danger padded" 
-					ng-show="editTeamForm.status.$error.required 
-						&& editTeamForm.status.$dirty">
-					<strong>Error!</strong> Status is required, please select one.
-				</div>
-				<label class="col-sm-2 control-label">Status</label>
-				<div class="col-sm-10">
-					<select ng-model="updateTeamStatus" name="status" class="form-control"
-						required>
-						<option value="">Select a Status</option>
-						<option value="Active">Active</option>
-						<option value="In-Active">In-Active</option>
 					</select>
 				</div>
 			</div>

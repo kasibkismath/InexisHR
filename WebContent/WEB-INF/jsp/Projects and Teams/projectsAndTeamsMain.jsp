@@ -91,7 +91,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="summary">
-							<h4>Summary</h4>
+							<jsp:include page="Projects/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="projects">
 							<jsp:include page="Projects/projects.jsp"></jsp:include>

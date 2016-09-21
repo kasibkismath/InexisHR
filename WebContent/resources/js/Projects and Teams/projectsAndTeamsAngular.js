@@ -26,6 +26,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		$scope.getInProgressAndOnHoldProjects();
 		$scope.getLeadEmployees();
 		$scope.getAllTeamMembers();
+		$scope.projectEmployeeSummaryChart();
 	};
 	
 	
@@ -44,6 +45,23 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		});
 		return def.promise;
 	};
+	
+	// get project employee summary data
+	$scope.projectEmployeeSummaryChart = function(){
+		 $scope.projectEmpLabels = [];
+		 $scope.projectEmpData = [];
+		 
+		$http.get($scope.baseURL + '/ProjectsAndTeams/GetProjectEmployeeSummary')
+		.success(function(result) {
+			angular.forEach(result, function(value, key) {
+				$scope.projectEmpLabels.push(value[0]);
+				$scope.projectEmpData.push(value[1]);
+			});
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
 	
 	// get all projects
 	$scope.getAllProjects = function() {
@@ -206,7 +224,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	// check duplicate team by Project and Team Name
 	$scope.checkDuplicateTeam = function(teamName, project) {
 		if(teamName != undefined && project != undefined) {
-			
+			console.log(teamName + " ")
 			var team = {
 				team_name : teamName,
 				project : {project_id : project}
@@ -337,6 +355,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	// get active teams by project
 	$scope.getActiveTeamsByProject = function(projectId) {
 		$scope.saveTeamMemberTeam = "";
+		$scope.updateTeamMemberTeam = "";
 		if(projectId != undefined) {
 			
 			var team = {
@@ -356,6 +375,8 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	// check team member duplicate
 	$scope.checkTeamMemberDuplicate = function(employee, teamId) {
 		 if(employee != undefined && teamId != undefined) {
+			 
+			 console.log(employee + " " + teamId);
 			
 			var teamMember = {
 				employee : {empId : employee},
@@ -393,6 +414,77 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		.error(function(data, status) {
 			$('#addTeamMemberModal').modal('hide');
 			toaster.pop('error', "Notification", "Adding Team Member Failed");
+			console.log(data);
+		});
+	};
+	
+	// get team member by team_member_id
+	$scope.getTeamMemberByTeamMemberId = function(teamMemberId, projectId) {
+		
+		$scope.getActiveTeamsByProject(projectId);
+		
+		var teamMember = {
+			team_emp_id : teamMemberId
+		};
+		
+		$http.post($scope.baseURL + '/ProjectsAndTeams/GetTeamMemberByTeamMemberId', teamMember)
+		.success(function(result) {
+			$scope.updateTeamMemberProject = result.team.project.project_id;
+			$scope.updateTeamMemberId = result.team_emp_id;
+			$scope.updateTeamMemberEmp = result.employee.empId;
+			$scope.updateTeamMemberTeam = result.team.team_Id;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// update team member 
+	$scope.updateTeamMember = function(teamMemId, teamEmp, team) {
+		var teamMember = {
+			team_emp_id : teamMemId,
+			employee : {empId : teamEmp},
+			team : {team_Id : team}
+		};
+				
+		$http.post($scope.baseURL + '/ProjectsAndTeams/UpdateTeamMember', teamMember)
+		.success(function(result) {
+			$('#editTeamMemberModal').modal('hide');
+			toaster.pop('success', "Notification", "Team Member Updated Successfully");
+			setTimeout(function () {
+		        window.location.reload();
+		    }, 1000);
+			})
+		.error(function(data, status) {
+			$('#editTeamMemberModal').modal('hide');
+			toaster.pop('error', "Notification", "Team Member Updation Failed");
+			console.log(data);
+		});
+	};
+	
+	// called from teamMembers.jsp
+	$scope.deleteTeamMemberMain = function(deleteTeamId) {
+		$scope.deleteTeamId = deleteTeamId;
+	};
+	
+	// actually delete team member - from delete team member
+	$scope.deleteTeamMember = function(teamMemId) {
+		
+		var teamMember = {
+			team_emp_id : teamMemId,
+		};
+					
+		$http.post($scope.baseURL + '/ProjectsAndTeams/DeleteTeamMember', teamMember)
+		.success(function(result) {
+			$('#deleteTeamMemberModal').modal('hide');
+			toaster.pop('success', "Notification", "Team Member Deleted Successfully");
+			setTimeout(function () {
+			      window.location.reload();
+			 }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteTeamMemberModal').modal('hide');
+			toaster.pop('error', "Notification", "Team Member Deletion Failed");
 			console.log(data);
 		});
 	};

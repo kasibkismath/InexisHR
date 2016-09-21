@@ -35,4 +35,16 @@ public class Team_EmployeeService {
 		teamEmployeeDao.addTeamEmployee(teamEmp);
 	}
 
+	public Team_Employee getTeamMemberByTeamMemberId(Team_Employee teamEmp) {
+		return teamEmployeeDao.getTeamMemberByTeamMemberId(teamEmp);
+	}
+
+	public void updateTeamMember(Team_Employee teamEmp) {
+		teamEmployeeDao.updateTeamMember(teamEmp);
+	}
+
+	public void deleteTeamMember(Team_Employee teamEmp) {
+		teamEmployeeDao.deleteTeamMember(teamEmp);
+	}
+
 }

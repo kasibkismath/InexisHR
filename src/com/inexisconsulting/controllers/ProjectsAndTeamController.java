@@ -181,4 +181,32 @@ public class ProjectsAndTeamController {
 	public void addTeamEmployee(@RequestBody Team_Employee teamEmp) {
 		teamEmployeeService.addTeamEmployee(teamEmp);
 	}
+
+	// get team member by team member id
+	@RequestMapping(value = "/ProjectsAndTeams/GetTeamMemberByTeamMemberId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Team_Employee getTeamMemberByTeamMemberId(@RequestBody Team_Employee teamEmp) {
+		return teamEmployeeService.getTeamMemberByTeamMemberId(teamEmp);
+	}
+
+	// update team member
+	@RequestMapping(value = "/ProjectsAndTeams/UpdateTeamMember", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateTeamMember(@RequestBody Team_Employee teamEmp) {
+		teamEmployeeService.updateTeamMember(teamEmp);
+	}
+
+	// delete team member
+	@RequestMapping(value = "/ProjectsAndTeams/DeleteTeamMember", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteTeamMember(@RequestBody Team_Employee teamEmp) {
+		teamEmployeeService.deleteTeamMember(teamEmp);
+	}
+
+	// get project employee summary data
+	@RequestMapping(value = "/ProjectsAndTeams/GetProjectEmployeeSummary", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getProjectEmployeeSummary() {
+		return projectService.getProjectEmployeeSummary();
+	}
 }

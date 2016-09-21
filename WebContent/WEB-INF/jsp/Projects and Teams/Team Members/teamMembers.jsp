@@ -24,7 +24,8 @@
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
 							data-target="#editTeamMemberModal"
-							ng-click="getTeamMemberByTeamMemberId(teamMember.team_emp_id)">
+							ng-click="getTeamMemberByTeamMemberId(teamMember.team_emp_id, 
+							teamMember.team.project.project_id)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 

@@ -13,7 +13,7 @@
 			<i class="fa fa-times"></i> Close
 		</button>
 		<button type="button" class="btn btn-success"
-			ng-click="deleteTeam(deleteTeamId)">
+			ng-click="deleteTeamMember(deleteTeamId)">
 			<i class="fa fa-check"></i> Delete
 		</button>
       </div>

@@ -122,4 +122,28 @@ public class ProjectDAO {
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getProjectEmployeeSummary() {
+		String sql = "select project.project_name as 'Project Name', count(*) as Count "
+				+ "from project "
+				+ "join team "
+				+ "on project.project_id = team.project_id "
+				+ "join team_employee "
+				+ "on team_employee.team_id = team.team_id "
+				+ "join employee "
+				+ "on employee.emp_id = team_employee.emp_id "
+				+ "where (project.status=:projectStatus1 or project.status=:projectStatus2) and "
+				+ "team.status=:teamStatus and employee.status=:employeeStatus "
+				+ "group by project.project_name";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("projectStatus1", "In-Progress");
+		query.setParameter("projectStatus2", "On-Hold");
+		query.setParameter("teamStatus", "Active");
+		query.setParameter("employeeStatus", true);
+		
+		List<Object[]> result = query.list();
+		return result;
+	}
+
 }

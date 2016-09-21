@@ -48,4 +48,8 @@ public class ProjectService {
 		projectDao.deleteProject(project);
 	}
 
+	public List<Object[]> getProjectEmployeeSummary() {
+		return projectDao.getProjectEmployeeSummary();
+	}
+
 }
