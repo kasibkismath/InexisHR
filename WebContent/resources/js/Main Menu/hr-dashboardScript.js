@@ -54,4 +54,12 @@ $(function() {
 	$('#tasks-tile').css({
 		"cursor" : "pointer"
 	});
+	
+	// recruitment tile
+	$('#recruitment-tile').click(function() {
+		$(location).attr('href', contextPath + '/Recruitment');
+	});
+	$('#recruitment-tile').css({
+		"cursor" : "pointer"
+	});
 });

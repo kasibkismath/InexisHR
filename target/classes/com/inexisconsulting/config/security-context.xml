@@ -342,6 +342,14 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams/GetProjectEmployeeSummary"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Recruitment"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Recruitment/GetVacanciesByYear"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Recruitment/CheckDuplicateVacancy"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Recruitment/AddVacancy"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
