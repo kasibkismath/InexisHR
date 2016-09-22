@@ -62,4 +62,25 @@ public class RecruitmentController {
 		return vacancyService.checkDuplicateVacancy(vacancy);
 	}
 
+	// get vacancy by vacancy_id
+	@RequestMapping(value = "/Recruitment/GetVacancyByVacancyId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Vacancy getVacancyByVacancyId(@RequestBody Vacancy vacancy) {
+		return vacancyService.getVacancyByVacancyId(vacancy);
+	}
+
+	// update vacancy
+	@RequestMapping(value = "/Recruitment/UpdateVacancy", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateVacancy(@RequestBody Vacancy vacancy) throws ParseException {
+		vacancyService.updateVacancy(vacancy);
+	}
+
+	// delete vacancy
+	@RequestMapping(value = "/Recruitment/DeleteVacancy", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteVacancy(@RequestBody Vacancy vacancy) {
+		vacancyService.deleteVacancy(vacancy);
+	}
+
 }

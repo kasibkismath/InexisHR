@@ -129,4 +129,82 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		});
 	};
 	
+	// get vacancy by vacancy_id
+	$scope.getVacancyByVacancyId = function(vacancyId) {
+		
+		var vacancy = {
+			vacancy_id : vacancyId
+		};
+		
+		$http.post($scope.baseURL + '/Recruitment/GetVacancyByVacancyId', vacancy)
+		.success(function(result) {
+			$scope.updateVacancyTitle = result.vacancy_title;
+			$scope.updateVacancyJob = result.job_desc;
+			$scope.updateVacancyRolesAndResp = result.roles_responsibilities;
+			$scope.updateVacancyWorkExp = result.experience;
+			$scope.updateVacancyQualification = result.qualification;
+			$scope.updateVacancyExpiry = $filter('date')(result.expiry_date, "yyyy-MM-dd");
+			$scope.updateVacancyId = result.vacancy_id;
+			$scope.updateVacancyStatus = result.status;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// update vacancy
+	$scope.updateVacancy = function(vacancyId, title, jobDesc, roles, work, qualification, expiryDate, status) {
+		var vacancy = {
+			vacancy_id : vacancyId,
+			vacancy_title: title,
+			job_desc : jobDesc,
+			roles_responsibilities : roles,
+			experience : work,
+			qualification : qualification,
+			expiry_date : expiryDate,
+			status : status
+		};
+			
+		$http.post($scope.baseURL + '/Recruitment/UpdateVacancy', vacancy)
+		.success(function(result) {
+			$('#editVacancyModal').modal('hide');
+			toaster.pop('success', "Notification", "Vacancy Updated Successfully");
+			setTimeout(function () {
+	              window.location.reload();
+	        }, 1000);
+		})
+		.error(function(data, status) {
+			$('#editVacancyModal').modal('hide');
+			toaster.pop('error', "Notification", "Vacancy Updation Failed");
+			console.log(data);
+		});
+	};
+	
+	// called from vacancy.jsp page
+	$scope.deleteVacancyMain = function(vacancyId) {
+		$scope.deleteVacancyId = vacancyId;
+	};
+	
+	// actually delete vacancy from delete vacancy modal
+	$scope.deleteVacancy = function(vacancyId) {
+		
+		var vacancy = {
+			vacancy_id: vacancyId
+		};
+			
+		$http.post($scope.baseURL + '/Recruitment/DeleteVacancy', vacancy)
+		.success(function(result) {
+			$('#deleteVacancyModal').modal('hide');
+			toaster.pop('success', "Notification", "Vacancy Deleted Successfully");
+			setTimeout(function () {
+	              window.location.reload();
+	        }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteVacancyModal').modal('hide');
+			toaster.pop('error', "Notification", "Vacancy Deletion Failed");
+			console.log(data);
+		});
+	}
+	
 }]);

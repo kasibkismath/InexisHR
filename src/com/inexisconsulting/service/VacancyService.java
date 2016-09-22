@@ -26,4 +26,16 @@ public class VacancyService {
 	public void addVacancy(Vacancy vacancy) throws ParseException {
 		vacancyDao.addVacancy(vacancy);
 	}
+
+	public Vacancy getVacancyByVacancyId(Vacancy vacancy) {
+		return vacancyDao.getVacancyByVacancyId(vacancy);
+	}
+
+	public void updateVacancy(Vacancy vacancy) throws ParseException {
+		vacancyDao.updateVacancy(vacancy);
+	}
+
+	public void deleteVacancy(Vacancy vacancy) {
+		vacancyDao.deleteVacancy(vacancy);
+	}
 }

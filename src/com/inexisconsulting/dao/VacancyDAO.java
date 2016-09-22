@@ -6,9 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +75,39 @@ public class VacancyDAO {
 		vacancy.setExpiry_date(sdf.parse(stringExpiryDate));
 		
 		session().saveOrUpdate(vacancy);
+	}
+
+	public Vacancy getVacancyByVacancyId(Vacancy vacancy) {
+		Criteria crit = session().createCriteria(Vacancy.class);
+		crit.add(Restrictions.eq("vacancy_id", vacancy.getVacancy_id()));
+		Vacancy result = (Vacancy) crit.uniqueResult();
+		return result;
+	}
+
+	public void updateVacancy(Vacancy vacancy) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date expiryDate = vacancy.getExpiry_date();
+		String stringExpiryDate = sdf.format(expiryDate);
+		
+		Criteria crit = session().createCriteria(Vacancy.class);
+		crit.add(Restrictions.eq("vacancy_id", vacancy.getVacancy_id()));
+
+		Vacancy updatedVacancy = (Vacancy) crit.uniqueResult();
+		
+		updatedVacancy.setVacancy_title(vacancy.getVacancy_title());
+		updatedVacancy.setJob_desc(vacancy.getJob_desc());
+		updatedVacancy.setRoles_responsibilities(vacancy.getRoles_responsibilities());
+		updatedVacancy.setExperience(vacancy.getExperience());
+		updatedVacancy.setQualification(vacancy.getQualification());
+		updatedVacancy.setExpiry_date(sdf.parse(stringExpiryDate));
+		updatedVacancy.setStatus(vacancy.getStatus());
+	}
+
+	public void deleteVacancy(Vacancy vacancy) {
+		Query query = session().createQuery("delete from Vacancy where vacancy_id=:vacancyId");
+		query.setInteger("vacancyId", vacancy.getVacancy_id());
+		query.executeUpdate();
 	}
 
 }

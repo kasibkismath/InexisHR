@@ -29,13 +29,13 @@
 					<td ng-cloak>{{vacancy.expiry_date | date : 'yyyy-MM-dd'}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
-							data-target="#editProjectModal"
-							ng-click="getProjectByProjectId(project.project_id)">
+							data-target="#editVacancyModal"
+							ng-click="getVacancyByVacancyId(vacancy.vacancy_id)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
-							data-target="#deleteProjectModal" 
-							ng-click="deleteProjectMain(project.project_id)">
+							data-target="#deleteVacancyModal" 
+							ng-click="deleteVacancyMain(vacancy.vacancy_id)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>
