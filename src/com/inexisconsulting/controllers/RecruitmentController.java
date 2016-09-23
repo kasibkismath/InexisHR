@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.inexisconsulting.dao.Applicant;
 import com.inexisconsulting.dao.Vacancy;
+import com.inexisconsulting.service.ApplicantService;
 import com.inexisconsulting.service.VacancyService;
 
 @Controller
@@ -23,6 +25,9 @@ public class RecruitmentController {
 
 	@Autowired
 	private VacancyService vacancyService;
+
+	@Autowired
+	private ApplicantService applicantService;
 
 	@RequestMapping("/Recruitment")
 	@SuppressWarnings("unchecked")
@@ -83,4 +88,17 @@ public class RecruitmentController {
 		vacancyService.deleteVacancy(vacancy);
 	}
 
+	// get all applicants by current year of vacancy
+	@RequestMapping(value = "/Recruitment/GetApplicantsByCurrentYear", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Applicant> getAllApplicantsByCurrentYear() {
+		return applicantService.getAllApplicantsByCurrentYear();
+	}
+
+	// get all pending non expired vacancies
+	@RequestMapping(value = "/Recruitment/GetAllPendingNonExpiredVacancies", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Vacancy> getAllPendingNonExpiredVacancies() {
+		return vacancyService.getAllPendingNonExpiredVacancies();
+	}
 }

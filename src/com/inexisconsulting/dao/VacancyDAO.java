@@ -110,4 +110,17 @@ public class VacancyDAO {
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Vacancy> getAllPendingNonExpiredVacancies() {
+		
+		String hql = "from Vacancy as vacancy where vacancy.status=:status and vacancy.expiry_date>:currentDate";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("status", "Pending");
+		query.setParameter("currentDate", new Date());
+		
+		List<Vacancy> result = query.list();
+		return result;
+	}
+
 }

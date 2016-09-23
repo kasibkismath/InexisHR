@@ -25,10 +25,16 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		
 		// functions
 		$scope.getVacanciesByYear();
+		$scope.getAllApplicantsByCurrentYear();
+		$scope.getAllPendingNonExpiredVacancies();
 		
 		// set datatable configs
 		 // vacancy datatable
 		$scope.vacancyTableOptions = DTOptionsBuilder.newOptions()
+	    .withOption('order', [2, 'desc']);
+		
+		 // applicant datatable
+		$scope.applicantTableOptions = DTOptionsBuilder.newOptions()
 	    .withOption('order', [2, 'desc']);
 	};
 	
@@ -203,6 +209,30 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		.error(function(data, status) {
 			$('#deleteVacancyModal').modal('hide');
 			toaster.pop('error', "Notification", "Vacancy Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+	// get all applicants where vacancy_added_date year and vacancy_expiry_date year
+	// is equal to current year
+	$scope.getAllApplicantsByCurrentYear = function() {
+		$http.get($scope.baseURL + '/Recruitment/GetApplicantsByCurrentYear')
+		.success(function(result) {
+			$scope.getApplicantsByCurrentYearResult = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get all pending non expired vacancies 
+	$scope.getAllPendingNonExpiredVacancies = function() {
+		$http.get($scope.baseURL + '/Recruitment/GetAllPendingNonExpiredVacancies')
+		.success(function(result) {
+			$scope.getAllPendingNonExpiredVacanciesResult = result;
+			console.log(result);
+		})
+		.error(function(data, status) {
 			console.log(data);
 		});
 	}

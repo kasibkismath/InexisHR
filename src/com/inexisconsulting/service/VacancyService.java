@@ -38,4 +38,8 @@ public class VacancyService {
 	public void deleteVacancy(Vacancy vacancy) {
 		vacancyDao.deleteVacancy(vacancy);
 	}
+
+	public List<Vacancy> getAllPendingNonExpiredVacancies() {
+		return vacancyDao.getAllPendingNonExpiredVacancies();
+	}
 }

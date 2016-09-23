@@ -79,8 +79,6 @@
 							aria-controls="profile" role="tab" data-toggle="tab">Current Openings</a></li>
 						<li role="presentation"><a href="#applicants"
 							aria-controls="profile" role="tab" data-toggle="tab">Applicants</a></li>
-						<li role="presentation"><a href="#shortListedApplicants"
-							aria-controls="profile" role="tab" data-toggle="tab">Short Listed Applicants</a></li>
 					</ul>
 				</div>
 			</div>
@@ -97,10 +95,7 @@
 							<jsp:include page="CurrentOpening/vacancy.jsp"></jsp:include>						
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="applicants">
-						
-						</div>
-						<div role="tabpanel" class="tab-pane fade" id="shortListedApplicants">
-						
+							<jsp:include page="Applicants/applicant.jsp"></jsp:include>	
 						</div>
 					</div>
 				</div>
