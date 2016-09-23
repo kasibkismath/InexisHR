@@ -69,3 +69,18 @@ textarea {
 	height: 180px;
 }
 
+#deleteApplicantModal .modal-body {
+	height: 140px;
+}
+
+.selected-applicant {
+	background-color: #dff0d8 !important;
+}
+
+.rejected-applicant {
+	background-color: #f2dede !important;
+}
+
+.shortListed-applicant {
+	background-color: #fcf8e3 !important;	
+}

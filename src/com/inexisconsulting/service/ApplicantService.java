@@ -23,4 +23,16 @@ public class ApplicantService {
 		applicantDao.addApplicant(applicant);
 	}
 
+	public Applicant getApplicantByApplicantId(Applicant applicant) {
+		return applicantDao.getApplicantByApplicantId(applicant);
+	}
+
+	public void updateApplicant(Applicant applicant) throws ParseException {
+		applicantDao.updateApplicant(applicant);
+	}
+
+	public void deleteApplicant(Applicant applicant) {
+		applicantDao.deleteApplicant(applicant);
+	}
+
 }

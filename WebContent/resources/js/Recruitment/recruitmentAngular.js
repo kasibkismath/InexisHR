@@ -290,7 +290,93 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 			toaster.pop('error', "Notification", "Adding Applicant Failed");
 			console.log(data);
 		});
+	};
+	
+	// get applicant by applicant_id
+	$scope.getApplicantByApplicantId = function(applicantId) {
 		
+		var applicant = {applicant_id : applicantId};
+		
+		$http.post($scope.baseURL + '/Recruitment/GetApplicantByApplicantId', applicant)
+		.success(function(result) {
+			$scope.updateAppId = result.applicant_id;
+			$scope.updateAppFirstName = result.firstName;
+			$scope.updateAppLastName = result.lastName;
+			$scope.updateAppVacancy = result.vacancy.vacancy_id;
+			$scope.updateAppEmail = result.email;
+			$scope.updateAppContactNo = result.contact_no;
+			$scope.updateAppWorkExp = result.experience;
+			$scope.updateAppQualification = result.qualification;
+			$scope.updateAppApplied = $filter('date')(result.applied_date, "yyyy-MM-dd");
+			$scope.updateAppReferredBy = result.referred_by;
+			$scope.updateAppStatus = result.status;
+			$scope.updateAppExamResult = result.exam_result;
+			$scope.updateAppInterviewResult = result.interview_result;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// update applicant
+	$scope.updateApplicant = function(applicantId, firstName, lastName, vacancyId, email, contactNo, experience,
+			qualification, appliedDate, referredBy, status, examResult, interviewResult) {
+		
+		var applicant = {
+			applicant_id : applicantId,
+			firstName : firstName,
+			lastName : lastName,
+			vacancy : {vacancy_id : vacancyId},
+			email : email,
+			contact_no : contactNo,
+			status : status,
+			experience : experience,
+			qualification : qualification,
+			referred_by : referredBy,
+			applied_date : appliedDate,
+			exam_result : examResult,
+			interview_result : interviewResult
+		};
+			
+		$http.post($scope.baseURL + '/Recruitment/UpdateApplicant', applicant)
+		.success(function(result) {
+			$('#editApplicantModal').modal('hide');
+			toaster.pop('success', "Notification", "Applicant Updated Successfully");
+			setTimeout(function () {
+		            window.location.reload();
+		    }, 1000);
+		})
+		.error(function(data, status) {
+			$('#editApplicantModal').modal('hide');
+			toaster.pop('error', "Notification", "Applicant Updation Failed");
+			console.log(data);
+		});
+	};
+	
+	// called from applicant.jsp deleteMain
+	$scope.deleteApplicantMain = function(applicantId) {
+		$scope.deleteApplicantId = applicantId;
+	};
+	
+	// actually delete from delete applicant modal
+	$scope.deleteApplicant = function(applicantId) {
+		
+		var applicant = {applicant_id : applicantId};
+		
+		$http.post($scope.baseURL + '/Recruitment/DeleteApplicant', applicant)
+		.success(function(result) {
+			$('#deleteApplicantModal').modal('hide');
+			toaster.pop('success', "Notification", "Applicant Deleted Successfully");
+			setTimeout(function () {
+		            window.location.reload();
+		    }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteApplicantModal').modal('hide');
+			toaster.pop('error', "Notification", "Applicant Deletion Failed");
+			console.log(data);
+		});
 	};
 	
 }]);

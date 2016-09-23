@@ -108,4 +108,25 @@ public class RecruitmentController {
 	public void addApplicant(@RequestBody Applicant applicant) throws ParseException {
 		applicantService.addApplicant(applicant);
 	}
+
+	// get applicant by applicant_id
+	@RequestMapping(value = "/Recruitment/GetApplicantByApplicantId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Applicant getApplicantByApplicantId(@RequestBody Applicant applicant) {
+		return applicantService.getApplicantByApplicantId(applicant);
+	}
+
+	// update applicant
+	@RequestMapping(value = "/Recruitment/UpdateApplicant", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateApplicant(@RequestBody Applicant applicant) throws ParseException {
+		applicantService.updateApplicant(applicant);
+	}
+
+	// delete applicant
+	@RequestMapping(value = "/Recruitment/DeleteApplicant", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteApplicant(@RequestBody Applicant applicant) {
+		applicantService.deleteApplicant(applicant);
+	}
 }

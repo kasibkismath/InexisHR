@@ -6,7 +6,7 @@
         <h4 class="modal-title">Delete Vacancy</h4>
       </div>
       <div class="modal-body">
-   		<h3><i class="fa fa-question"></i> Do you really want to delete this Project?</h3>
+   		<h3><i class="fa fa-question"></i> Do you really want to delete this Vacancy?</h3>
    		<div style="padding-bottom: 20px; padding-top: 20px;">
 	          <h6>
 	          	<i class="fa fa-bullhorn fa-lg"></i> 

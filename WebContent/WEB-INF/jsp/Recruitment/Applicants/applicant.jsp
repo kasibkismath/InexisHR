@@ -21,7 +21,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				 <tr ng-repeat="applicant in getApplicantsByCurrentYearResult">
+				 <tr ng-repeat="applicant in getApplicantsByCurrentYearResult"
+				 	ng-class="{'selected-applicant': applicant.status == 'Selected' && 
+				 	applicant.exam_result == 'Pass' && applicant.interview_result == 'Pass', 
+				 	'rejected-applicant': applicant.status == 'Rejected', 
+				 	'shortListed-applicant': applicant.status == 'Short-Listed'}">
 				 	<td ng-cloak>{{applicant.firstName}} {{applicant.lastName}}</td>
 					<td ng-cloak>{{applicant.vacancy.vacancy_title}}</td>
 					<td ng-cloak>{{applicant.applied_date | date : 'yyyy-MM-dd'}}</td>
@@ -46,5 +50,7 @@
 		</table>
 		<!-- Modal -->
 		<jsp:include page="addApplicant.jsp"></jsp:include>
+		<jsp:include page="editApplicant.jsp"></jsp:include>
+		<jsp:include page="deleteApplicant.jsp"></jsp:include>
 	</div>
 </div>
