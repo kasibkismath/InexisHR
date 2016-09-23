@@ -123,4 +123,23 @@ public class VacancyDAO {
 		return result;
 	}
 
+	public int getExpiredVacanciesCount() {
+		String sql = "select count(*) from vacancy where (status=:status and expiry_date>:currentDate) and "
+				+ "(year(added_date)=:currentYear or "
+				+ "year(expiry_date)=:currentYear)";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("status", "Pending");
+		query.setParameter("currentDate", new Date());
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		
+		if (query.uniqueResult() == null) {
+			return 0;
+		} else {
+			int count = ((Number) query.uniqueResult()).intValue();
+			
+			return count;
+		}
+	}
+
 }

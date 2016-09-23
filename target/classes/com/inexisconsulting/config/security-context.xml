@@ -368,6 +368,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/DeleteApplicant"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Recruitment/GetApplicantLeads"
+			access="isAuthenticated()" />
+			<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

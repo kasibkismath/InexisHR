@@ -129,4 +129,18 @@ public class RecruitmentController {
 	public void deleteApplicant(@RequestBody Applicant applicant) {
 		applicantService.deleteApplicant(applicant);
 	}
+
+	// get applicant leads
+	@RequestMapping(value = "/Recruitment/GetApplicantLeads", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Object[]> getApplicantLeads() {
+		return applicantService.getApplicantLeads();
+	}
+	
+	// get expired vacancies count
+	@RequestMapping(value = "/Recruitment/GetExpiredVacanciesCount", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public int getExpiredVacanciesCount() {
+		return vacancyService.getExpiredVacanciesCount();
+	}
 }

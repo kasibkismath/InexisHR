@@ -28,6 +28,8 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		$scope.getVacanciesByYear();
 		$scope.getAllApplicantsByCurrentYear();
 		$scope.getAllPendingNonExpiredVacancies();
+		$scope.applicantLeadsSummaryChart();
+		$scope.expiredVacanciesCount();
 		
 		// set datatable configs
 		 // vacancy datatable
@@ -55,6 +57,34 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		
 		return def.promise;
 	};
+	
+	// get applicant lead - summary chart
+	$scope.applicantLeadsSummaryChart = function() {
+		$scope.applicantLeadData = [];
+		$scope.applicantLeadLabels = [];
+		
+		$http.get($scope.baseURL + '/Recruitment/GetApplicantLeads')
+		.success(function(result) {
+			angular.forEach(result, function(value, key) {
+				$scope.applicantLeadLabels.push(value[0]);
+				$scope.applicantLeadData.push(value[1]);
+			});
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get expired vacancies count
+	$scope.expiredVacanciesCount = function () {
+		$http.get($scope.baseURL + '/Recruitment/GetExpiredVacanciesCount')
+		.success(function(result) {
+			$scope.expiredVacanciesCountResult = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
 	
 	// get all vacancies by current year
 	$scope.getVacanciesByYear = function() {

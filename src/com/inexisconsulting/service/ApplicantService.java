@@ -35,4 +35,8 @@ public class ApplicantService {
 		applicantDao.deleteApplicant(applicant);
 	}
 
+	public List<Object[]> getApplicantLeads() {
+		return applicantDao.getApplicantLeads();
+	}
+
 }

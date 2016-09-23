@@ -84,3 +84,9 @@ textarea {
 .shortListed-applicant {
 	background-color: #fcf8e3 !important;	
 }
+
+.expiredVacancies {
+	height: 100px;
+    width: 250px;
+    margin-top: -20px;
+}

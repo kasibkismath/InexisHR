@@ -92,4 +92,18 @@ public class ApplicantDAO {
 		query.setInteger("applicantId", applicant.getApplicant_id());
 		query.executeUpdate();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getApplicantLeads() {
+		String sql = "select applicant.referred_by as Lead, count(*) as Count "
+				+ "from applicant join vacancy on applicant.vacancy_id = vacancy.vacancy_id "
+				+ "where year(vacancy.added_date)=:currentYear or year(vacancy.expiry_date)=:currentYear "
+				+ "group by applicant.referred_by";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+		
+		List<Object[]> result = query.list();
+		return result;
+	}
 }

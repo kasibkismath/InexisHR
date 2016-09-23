@@ -139,7 +139,8 @@
 				</div>
 				<label class="col-sm-2 control-label">Applied Date</label>
 				<div class="col-sm-10">
-					<datepicker date-format="yyyy-MM-dd" selector="form-control">
+					<datepicker date-format="yyyy-MM-dd" selector="form-control"
+					date-max-limit="{{currentDate | date:'yyyy-MM-dd'}}">
 						<div class="input-group">
 							<input ng-model="saveAppApplied" class="form-control" 
 							placeholder="Choose a date" name="appliedDate" required

@@ -89,7 +89,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="summary">
-						
+							<jsp:include page="Applicants/summary.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="currentOpenings">
 							<jsp:include page="CurrentOpening/vacancy.jsp"></jsp:include>						
