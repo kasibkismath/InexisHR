@@ -1,5 +1,6 @@
 package com.inexisconsulting.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class ApplicantService {
 
 	public List<Applicant> getAllApplicantsByCurrentYear() {
 		return applicantDao.getAllApplicantsByCurrentYear();
+	}
+
+	public void addApplicant(Applicant applicant) throws ParseException {
+		applicantDao.addApplicant(applicant);
 	}
 
 }

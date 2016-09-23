@@ -22,6 +22,7 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		// variables
 		$scope.checkMinDaysResult = false;
 		$scope.checkDuplicateVacancyResult = false;
+		$scope.checkAppliedDateResult = false;
 		
 		// functions
 		$scope.getVacanciesByYear();
@@ -138,12 +139,15 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 	// get vacancy by vacancy_id
 	$scope.getVacancyByVacancyId = function(vacancyId) {
 		
+		var def = $q.defer();
+		
 		var vacancy = {
 			vacancy_id : vacancyId
 		};
 		
 		$http.post($scope.baseURL + '/Recruitment/GetVacancyByVacancyId', vacancy)
 		.success(function(result) {
+			def.resolve(result);
 			$scope.updateVacancyTitle = result.vacancy_title;
 			$scope.updateVacancyJob = result.job_desc;
 			$scope.updateVacancyRolesAndResp = result.roles_responsibilities;
@@ -156,6 +160,7 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		.error(function(data, status) {
 			console.log(data);
 		});
+		return def.promise;
 	};
 	
 	// update vacancy
@@ -230,11 +235,62 @@ recruitment.controller('recruitmentMainController', ['$scope', '$http', '$q', 't
 		$http.get($scope.baseURL + '/Recruitment/GetAllPendingNonExpiredVacancies')
 		.success(function(result) {
 			$scope.getAllPendingNonExpiredVacanciesResult = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
-	}
+	};
+	
+	// check applicant applied date with vacancy added date
+	$scope.checkAppliedDate = function(appliedDate, vacancyId) {
+		if(appliedDate != undefined && vacancyId != undefined) {
+			$scope.getVacancyByVacancyId(vacancyId)
+			.then(function(vacancy) {
+				var added_date = $filter('date')(vacancy.added_date, "yyyy-MM-dd");
+				
+				if(appliedDate < added_date) {
+					$scope.checkAppliedDateResult = true;
+				} else {
+					$scope.checkAppliedDateResult = false;
+				}
+			});
+		} else {
+			$scope.checkAppliedDateResult = false;
+		}
+	};
+	
+	$scope.addApplicant = function(firstName, lastName, vacancyId, email, contactNo, 
+			experience, qualification, appliedDate, referredBy) {
+		
+		var status = "Pending";
+		
+		var applicant = {
+			firstName : firstName,
+			lastName : lastName,
+			vacancy : {vacancy_id : vacancyId},
+			email : email,
+			contact_no : contactNo,
+			status : status,
+			experience : experience,
+			qualification : qualification,
+			referred_by : referredBy,
+			applied_date : appliedDate
+		};
+		
+		$http.post($scope.baseURL + '/Recruitment/AddApplicant', applicant)
+		.success(function(result) {
+			$('#addApplicantModal').modal('hide');
+			toaster.pop('success', "Notification", "Applicant Added Successfully");
+			setTimeout(function () {
+	              window.location.reload();
+	        }, 1000);
+		})
+		.error(function(data, status) {
+			$('#addApplicantModal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Applicant Failed");
+			console.log(data);
+		});
+		
+	};
 	
 }]);

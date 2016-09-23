@@ -7,8 +7,9 @@
       </div>
       <div class="modal-body">
 		<form name="addApplicantForm" class="form-horizontal"
-			ng-submit="addApplicantForm.$valid && 
-				addApplicant()">
+			ng-submit="addApplicantForm.$valid && checkAppliedDateResult === false &&
+				addApplicant(saveAppFirstName, saveAppLastName, saveAppVacancy, saveAppEmail, saveAppContactNo, 
+				saveAppWorkExp, saveAppQualification, saveAppApplied, saveAppReferredBy)">
 			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
@@ -134,7 +135,7 @@
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkAppliedDateResult === true">
-					<strong>Error!</strong> Applied date should be equal or greater than the Vacancy Added Date
+					<strong>Error!</strong> Applied date should be equal to or greater than the Vacancy Added Date
 				</div>
 				<label class="col-sm-2 control-label">Applied Date</label>
 				<div class="col-sm-10">
@@ -142,7 +143,7 @@
 						<div class="input-group">
 							<input ng-model="saveAppApplied" class="form-control" 
 							placeholder="Choose a date" name="appliedDate" required
-							ng-change="checkAppliedDate(saveAppApplied)">
+							ng-change="checkAppliedDate(saveAppApplied, saveAppVacancy)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>

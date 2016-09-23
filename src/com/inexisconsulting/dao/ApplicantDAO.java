@@ -1,6 +1,9 @@
 package com.inexisconsulting.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -32,5 +35,17 @@ public class ApplicantDAO {
 		
 		List<Applicant> result = query.list();
 		return result;
+	}
+	
+	// adds new applicant
+	public void addApplicant(Applicant applicant) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date appliedDate = applicant.getApplied_date();
+		String stringAppliedDate = sdf.format(appliedDate);
+		
+		applicant.setApplied_date(sdf.parse(stringAppliedDate));
+		
+		session().saveOrUpdate(applicant);
 	}
 }

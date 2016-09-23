@@ -360,6 +360,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/GetAllPendingNonExpiredVacancies"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Recruitment/AddApplicant"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

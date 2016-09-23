@@ -101,4 +101,11 @@ public class RecruitmentController {
 	public List<Vacancy> getAllPendingNonExpiredVacancies() {
 		return vacancyService.getAllPendingNonExpiredVacancies();
 	}
+
+	// add applicant
+	@RequestMapping(value = "/Recruitment/AddApplicant", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addApplicant(@RequestBody Applicant applicant) throws ParseException {
+		applicantService.addApplicant(applicant);
+	}
 }
