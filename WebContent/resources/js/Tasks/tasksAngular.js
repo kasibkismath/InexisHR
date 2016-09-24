@@ -78,26 +78,40 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		 
 	};
 	
+	// HR and Lead Summary Chart
 	$scope.userHRLeadSummaryChart = function() {
+		// initialize chart data and label params.
 		 $scope.userHRLeadLabels = [];
 		 $scope.userHRLeadData = [];
 		 
+		 // get logged in employee id
 		 $scope.getLoggedInEmployee()
 		 .then(function(emp){
 			 var employee_id = emp.empId;
 			 
+			 // construct task object with logged in employee id
 			 var task = {
 				employee : {empId : employee_id}	 
 			 };
 			 
+			 // send request with task object to get chart data 
+			 // to controller which then contact the model
+			 // to fetch the data
 			$http.post($scope.baseURL + '/Tasks/GetTaskStatusAndCount', task)
+			// on success return
 			.success(function(result) {
+				// for each array element in returned result
 				angular.forEach(result, function(value, key) {
+					// insert first array value to as a label element
 					$scope.userHRLeadLabels.push(value[0]);
+					
+					// insert second value to as a data element
 					$scope.userHRLeadData.push(value[1]);
 				});
 			})
+			// on failed return
 			.error(function(data, status) {
+				// print error in browser console
 				console.log(data);
 			});
 		 });

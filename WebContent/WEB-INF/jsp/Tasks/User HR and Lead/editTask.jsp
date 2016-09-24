@@ -61,12 +61,14 @@
 					</datepicker>
 				</div>
 			</div>
+			<!-- Actual Task End Date -->
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="editMyTaskForm.actEndDate.$error.required 
 						&& editMyTaskForm.actEndDate.$dirty">
 					<strong>Error!</strong> Actual End Date is required.
 				</div>
+				<!-- IF Acutal End Date is less than Actual Start Date, error message is displayed -->
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkForActualStartEndDateResult === true">
 					<strong>Error!</strong> Actual End Date is cannot be less than Actual Start Date.
@@ -76,6 +78,7 @@
 					<datepicker date-format="yyyy-MM-dd" selector="form-control"
 					date-min-limit="{{actualStartDate | date:'yyyy-MM-dd'}}">
 						<div class="input-group">
+							<!-- Calls checkForActualStartEndDate() to validate actual start and end dates-->
 							<input ng-model="updateActEndDate" class="form-control" 
 							placeholder="Choose a date" name="actEndDate" required
 							ng-change="checkForActualStartEndDate(updateActStartDate, updateActEndDate)">

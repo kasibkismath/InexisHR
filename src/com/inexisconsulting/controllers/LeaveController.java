@@ -38,7 +38,8 @@ public class LeaveController {
 
 	@Autowired
 	private LeaveTypeService leaveTypeService;
-
+	
+	// leave main page
 	@RequestMapping("/Leave")
 	@SuppressWarnings("unchecked")
 	public String showLeaveMainPage(Model model, Principal principal) {
@@ -56,7 +57,8 @@ public class LeaveController {
 	}
 
 	// get all leave types
-	@RequestMapping(value = "/Leave/GetLeaveTypes", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/Leave/GetLeaveTypes", method = RequestMethod.GET, 
+			produces = "application/json")
 	@ResponseBody
 	public List<Leave_Type> getLeaveTypes() {
 		List<Leave_Type> leaveTypes = leaveTypeService.getLeaveTypes();
@@ -64,7 +66,8 @@ public class LeaveController {
 	}
 
 	// get all leaves for an employee for the current year.
-	@RequestMapping(value = "/Leave/GetLeavesForLoggedInEmployee", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/Leave/GetLeavesForLoggedInEmployee", method = RequestMethod.POST, 
+			produces = "application/json")
 	@ResponseBody
 	public List<Leave> getLeavesForLoggedInEmployeeByYear(@RequestBody Leave leave) {
 		List<Leave> leaves = leaveService.getLeavesForLoggedInEmployeeByYear(leave);
@@ -78,7 +81,9 @@ public class LeaveController {
 		List<Object[]> leaves = leaveService.getLeaveSummaryForCEO();
 		return leaves;
 	}
-
+	
+	// ****************** More Controller Methods **********************//
+	
 	// get pending leaves for CEO
 	@RequestMapping(value = "/Leave/GetPendingLeaveCountByYearForCEO", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -193,7 +198,8 @@ public class LeaveController {
 	}
 
 	// send mail to leave request
-	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/Leave/SendLeaveRequestMail", method = RequestMethod.POST, 
+			produces = "application/json")
 	@ResponseBody
 	public void sendLeaveRequestMail(@RequestBody Leave leave) {
 
@@ -214,13 +220,14 @@ public class LeaveController {
 			}
 		});
 
-		String ceoEmailId = "kasib@inexisconsulting.com";
+		String ceoEmailId = "kasibtest@gmail.com";
 		String empEmailId = "kasibkismath@gmail.com";
 
 		String fromDate = sdf.format(leave.getLeave_from());
 		String toDate = sdf.format(leave.getLeave_to());
-
+		
 		try {
+			// create message and set from and to email addresses
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("kasibtest@gmail.com", "Inexis Consulting"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ceoEmailId + "," + empEmailId));
@@ -259,7 +266,7 @@ public class LeaveController {
 			}
 		});
 
-		String ceoEmailId = "kasib@inexisconsulting.com";
+		String ceoEmailId = "kasibtest@gmail.com";
 		String empEmailId = "kasibkismath@gmail.com";
 
 		String fromDate = sdf.format(leave.getLeave_from());
@@ -304,7 +311,7 @@ public class LeaveController {
 			}
 		});
 
-		String ceoEmailId = "kasib@inexisconsulting.com";
+		String ceoEmailId = "kasibtest@gmail.com";
 		String empEmailId = "kasibkismath@gmail.com";
 
 		String fromDate = sdf.format(leave.getLeave_from());
@@ -349,7 +356,7 @@ public class LeaveController {
 			}
 		});
 
-		String ceoEmailId = "kasib@inexisconsulting.com";
+		String ceoEmailId = "kasibtest@gmail.com";
 		String empEmailId = "kasibkismath@gmail.com";
 
 		String fromDate = sdf.format(leave.getLeave_from());

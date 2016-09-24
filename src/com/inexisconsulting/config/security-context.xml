@@ -4,14 +4,19 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	
+	<!-- DataSource reference is set to identify the database -->
 	<security:authentication-manager>
 		<security:authentication-provider>
+		
+			<!-- Checks for correct match in typed in username - case sensitive, as well as the authority -->
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
 				authorities-by-username-query="select username, authority from users where binary username=?"
 				users-by-username-query="select username, password, enabled from users where binary username=?"
 				id="JDBCAuthManager" />
+				
+			<!-- Sets the password encoder -->
 			<security:password-encoder ref="passwordEncoder">
 			</security:password-encoder>
 		</security:authentication-provider>
@@ -370,29 +375,50 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/GetApplicantLeads"
 			access="isAuthenticated()" />
-			<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
+			
+		<!-- More Access Control Lists are above -->
+		
+		<!-- To access the below URLs the user must be authenticated
+			successfully
+		 -->
+		<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
 			access="isAuthenticated()" />
+		
+		<!-- All users have access to the home page - login page -->
 		<security:intercept-url pattern="/" access="permitAll" />
+		
+		<!-- Permit all users to have access to Resources directory -->
 		<security:intercept-url pattern="/static/**"
 			access="permitAll" />
+		
+		<!-- Deny all other URLs not listed  -->
 		<security:intercept-url pattern="/**" access="denyAll" />
 		
-		
+		<!-- Set login page url, on login success it will go to a handler
+			which then redirects the logged in user to main menu based on user role,
+			on failure redirect to home page - login screen
+		 -->
 		<security:form-login login-page="/"
 			authentication-failure-url="/?error=true"
 			authentication-success-handler-ref="customAuthenticationSuccessHandler" />
-
-		<security:logout logout-success-url="/"
-			invalidate-session="true" delete-cookies="JSESSIONID" />
+			
+		<!-- Remember Me functionality set with session -->
 		<security:remember-me key="HRAppKey"
 			user-service-ref="JDBCAuthManager" />
+		
+		<!-- When a user clicks on logout redirect the user back to login page
+			invalidate session and delete the cookie
+		 -->
+		<security:logout logout-success-url="/"
+			invalidate-session="true" delete-cookies="JSESSIONID" />
 			
 	</security:http>
-
+	
+	<!-- Password Encoder reference set to BCrypt Algorithm -->
 	<bean id="passwordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 	</bean>

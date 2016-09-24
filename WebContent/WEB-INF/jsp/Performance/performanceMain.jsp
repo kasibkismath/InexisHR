@@ -64,6 +64,7 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
+	<!-- Users with ROLE_ADMIN and ROLE_CEO can only access -->
 	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO')">
 		<div class="container-fluid">
 			<div class="row">

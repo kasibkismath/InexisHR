@@ -185,7 +185,8 @@ public class TaskDAO {
 			return count;
 		}
 	}
-
+	
+	// get overdue task count
 	public int getOverdueTaskCount(Task task) {
 		String sql = "select count(*) from task where assigned_by=:assignedBy and "
 				+ "expected_end_date<:currentDate and status=:pendingStatus or status=:onHoldStatus";

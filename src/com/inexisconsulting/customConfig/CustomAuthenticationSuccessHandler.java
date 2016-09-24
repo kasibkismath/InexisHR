@@ -43,14 +43,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
  
-    /** Builds the target URL according to the logic defined in the main class Javadoc. */
+    
     protected String determineTargetUrl(Authentication authentication) {
+    	// initialize role variables
         boolean isUser = false;
         boolean isAdmin = false;
         boolean isCeo = false;
         boolean isHRManager = false;
         boolean isTeamLead = false;
         
+        // checks the role of the logged in user matchs any specified user roles
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
@@ -70,7 +72,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 break;
             }
         }
- 
+        
+        // if a match is found redirect to the given address path
         if (isUser) {
             return "/user-main-menu";
         } else if (isAdmin) {
@@ -83,6 +86,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             return "/lead-main-menu";
         }
           else {
+        	 // else throw an exception
             throw new IllegalStateException();
         }
     }
