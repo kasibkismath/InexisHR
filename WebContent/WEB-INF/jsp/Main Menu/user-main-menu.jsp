@@ -87,8 +87,6 @@
 		<script>var currentUser = "${loggedInUser}"</script>
 		<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
 		<script
-			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
-		<script
 			src="${pageContext.request.contextPath}/static/js/Main Menu/user-dashboardScript.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>

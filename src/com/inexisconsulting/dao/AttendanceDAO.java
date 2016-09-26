@@ -139,7 +139,7 @@ public class AttendanceDAO {
 		
 		String sql = "select sum(time_spent) as weeklyHours "
 				+ "FROM attendance "
-				+ "WHERE week(date, 1) = week(CURDATE()) "
+				+ "WHERE week(date, 1) = week(CURDATE()-1) "
 				+ "and emp_id=:empId "
 				+ "and status=:status";
 		
@@ -160,7 +160,7 @@ public class AttendanceDAO {
 		String sql = "select project.project_name, sum(time_spent) as weeklyHours "
 				+ "FROM attendance "
 				+ "join project on attendance.project_id = project.project_id "
-				+ "WHERE week(date, 1) = week(CURDATE()) "
+				+ "WHERE week(date, 1) = week(CURDATE()-1) "
 				+ "and emp_id=:empId "
 				+ "group by project.project_name";
 		
@@ -178,7 +178,7 @@ public class AttendanceDAO {
 				+ "from attendance join employee "
 				+ "on attendance.emp_id = employee.emp_id "
 				+ "where attendance.status=:status and "
-				+ "week(date, 1) = week(CURDATE()) "
+				+ "week(date, 1) = week(CURDATE()-1) "
 				+ "group by week(date,1), EmpName "
 				+ "order by EmpName";
 		
@@ -200,5 +200,28 @@ public class AttendanceDAO {
 		List<Attendance> attendances = query.list();
 		return attendances;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Attendance> getAllAttendacesForReport(AllAttendanceReport allAttendaceReport) throws HibernateException, ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date fromDate = allAttendaceReport.getFromDate();
+		String stringFromDate = sdf.format(fromDate);
+		
+		Date toDate = allAttendaceReport.getToDate();
+		String stringToDate = sdf.format(toDate);
+		
+		String hql = "from Attendance as attendance where attendance.date>=:fromDate and "
+				+ "attendance.date<=:toDate";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("fromDate", sdf.parse(stringFromDate));
+		query.setParameter("toDate", sdf.parse(stringToDate));
+		
+		List<Attendance> attendances = query.list();
+		return attendances;
+		
+		
+	}
 }

@@ -27,12 +27,12 @@
 					<td ng-cloak>
 						<button class="btn btn-primary" id="editHRAppraisal" data-toggle="modal" 
 							data-target="#editHRAppraisalModal"
-							ng-click="editHRAppraisalMain(hrAppraisal[0].hr_appraisal_id, hrAppraisal[0].employee.empId, hrAppraisal[0].performance.date)">
+							ng-click="editHRAppraisalMain(hrAppraisal.hr_appraisal_id, hrAppraisal.employee.empId, hrAppraisal.performance.date)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" id="deleteHRAppraisal" data-toggle="modal" 
 							data-target="#deleteHRAppraisalModal" 
-							ng-click="deleteHRAppraisalMain(hrAppraisal[0].hr_appraisal_id, hrAppraisal[0].employee.empId, hrAppraisal[0].performance.date)">
+							ng-click="deleteHRAppraisalMain(hrAppraisal.hr_appraisal_id, hrAppraisal.employee.empId, hrAppraisal.performance.date)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>

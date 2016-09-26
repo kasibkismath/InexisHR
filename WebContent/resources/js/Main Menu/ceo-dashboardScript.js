@@ -1,19 +1,4 @@
 $(function() {
-	// loader
-	// Show full page Loading Overlay
-	$.LoadingOverlay("show", {
-		image : "",
-		fontawesome : "fa fa-spinner fa-spin"
-	});
-
-	// set on the browser cursor loading
-	$("body").css("cursor", "progress");
-
-	// Hide it after 2 seconds
-	setTimeout(function() {
-		$.LoadingOverlay("hide");
-		$("body").css("cursor", "default");
-	}, 2000);
 
 	// employee tile
 	$('#myProfile-tile').click(function() {
@@ -60,6 +45,14 @@ $(function() {
 		$(location).attr('href', contextPath + '/ProjectsAndTeams');
 	});
 	$('#projectTeamMember-tile').css({
+		"cursor" : "pointer"
+	});
+	
+	// reports tile
+	$('#reports-tile').click(function() {
+		$(location).attr('href', contextPath + '/Reports');
+	});
+	$('#reports-tile').css({
 		"cursor" : "pointer"
 	});
 	

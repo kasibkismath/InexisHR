@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inexisconsulting.dao.AllAttendanceReport;
 import com.inexisconsulting.dao.Attendance;
 import com.inexisconsulting.dao.AttendanceDAO;
 
@@ -58,6 +59,10 @@ public class AttendanceService {
 
 	public List<Attendance> getAttendancesForCurrentYear() {
 		return attendanceDao.getAttendancesForCurrentYear();
+	}
+
+	public List<Attendance> getAllAttendacesForReport(AllAttendanceReport allAttendaceReport) throws HibernateException, ParseException {
+		return attendanceDao.getAllAttendacesForReport(allAttendaceReport);
 	}
 
 }

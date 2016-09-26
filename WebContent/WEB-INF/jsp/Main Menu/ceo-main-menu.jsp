@@ -83,6 +83,13 @@
 					<i class="fa fa-users fa-3x icon-color"></i></span> <br> Projects &amp; Teams
 				</div>
 		  </div>
+		  <div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
+				id="reports-tile">
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-file-pdf-o fa-3x icon-color"></i></span>
+					<br> <span id="textSmall-two">Reports</span>
+				</div>
+		 </div>
 		</div>
 	</div>
 
@@ -98,8 +105,6 @@
 		</script>
 		<script>var currentUser = "${loggedInUser}"</script>
 		<script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/static/js/Loader/loadingoverlay.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/static/js/Main Menu/ceo-dashboardScript.js"></script>
 		<script

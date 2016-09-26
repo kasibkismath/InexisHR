@@ -372,6 +372,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$http.get($scope.baseURL + '/Performance/GetHRAppraisals')
 		.success(function(result) {
 			$scope.hrAppraisals = result;
+			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);

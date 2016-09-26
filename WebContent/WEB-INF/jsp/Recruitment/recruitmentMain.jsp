@@ -78,7 +78,7 @@
 						<li role="presentation"><a href="#currentOpenings"
 							aria-controls="profile" role="tab" data-toggle="tab">Current Openings</a></li>
 						<li role="presentation"><a href="#applicants"
-							aria-controls="profile" role="tab" data-toggle="tab">All Applicants</a></li>
+							aria-controls="profile" role="tab" data-toggle="tab">Applicants</a></li>
 					</ul>
 				</div>
 			</div>

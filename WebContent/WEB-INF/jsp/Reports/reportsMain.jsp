@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html lang="en" ng-modules="projectsAndTeams, adminHeader">
+<html lang="en" ng-modules="reports, adminHeader">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Projects and Teams</title>
+<title>Reports</title>
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
@@ -33,7 +33,7 @@
 	rel="stylesheet">
 	
 <link
-	href="${pageContext.request.contextPath}/static/css/Projects and Teams/projectsAndTeams.css"
+	href="${pageContext.request.contextPath}/static/css/Reports/reports.css"
 	rel="stylesheet">
 	
 <!-- Angular Toastar CSS -->
@@ -64,24 +64,28 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css">
 
 </head>
-<body ng-controller="projectsAndTeamsMainController" ng-init="init()" ng-cloak>
+<body ng-controller="reportsMainController" ng-init="init()" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
-	<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_ADMIN')">
+	<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_HR')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#summary"
-							aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
-						<li role="presentation"><a href="#projects"
-							aria-controls="profile" role="tab" data-toggle="tab">Projects</a></li>
-						<li role="presentation"><a href="#teams"
-							aria-controls="profile" role="tab" data-toggle="tab">Teams</a></li>
-						<li role="presentation"><a href="#teamMembers"
-							aria-controls="profile" role="tab" data-toggle="tab">Team Members</a></li>
+						<li role="presentation" class="active"><a href="#allAttendancesReport"
+							aria-controls="home" role="tab" data-toggle="tab">All Attendances Report</a></li>
+						<li role="presentation"><a href="#individualAttendanceReport"
+							aria-controls="home" role="tab" data-toggle="tab">Individual Attendance Report</a></li>
+						<li role="presentation"><a href="#allLeavesReport"
+							aria-controls="home" role="tab" data-toggle="tab">All Leaves Report</a></li>
+						<li role="presentation"><a href="#individualLeaveReport"
+							aria-controls="home" role="tab" data-toggle="tab">Individual Leave Report</a></li>
+						<li role="presentation"><a href="#allTasksReport"
+							aria-controls="home" role="tab" data-toggle="tab">All Tasks Report</a></li>
+						<li role="presentation"><a href="#individualTaskReport"
+							aria-controls="home" role="tab" data-toggle="tab">Individual Tasks Report</a></li>
 					</ul>
 				</div>
 			</div>
@@ -91,17 +95,23 @@
 				<div class="col-xs-6 col-lg-12">
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="summary">
-							<jsp:include page="Projects/summary.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in active" id="allAttendancesReport">
+							<jsp:include page="All Attendance Report/allAttendancesReport.jsp"></jsp:include>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="projects">
-							<jsp:include page="Projects/projects.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in" id="individualAttendanceReport">
+							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="teams">
-							<jsp:include page="Teams/teams.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in" id="allLeavesReport">
+							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
 						</div>
-						<div role="tabpanel" class="tab-pane fade" id="teamMembers">
-							<jsp:include page="Team Members/teamMembers.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in" id="individualLeaveReport">
+							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
+						</div>
+						<div role="tabpanel" class="tab-pane fade in" id="allTasksReport">
+							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
+						</div>
+						<div role="tabpanel" class="tab-pane fade in" id="individualTaskReport">
+							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
 						</div>
 					</div>
 				</div>
@@ -145,7 +155,7 @@
 	<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 	<script
-			src="${pageContext.request.contextPath}/static/js/Projects and Teams/projectsAndTeamsAngular.js">
+			src="${pageContext.request.contextPath}/static/js/Reports/reportsAngular.js">
 	</script>
 </body>
 </html>

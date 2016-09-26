@@ -375,13 +375,11 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/GetApplicantLeads"
 			access="isAuthenticated()" />
-			
-		<!-- More Access Control Lists are above -->
-		
-		<!-- To access the below URLs the user must be authenticated
-			successfully
-		 -->
 		<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Reports"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Reports/GetAllAttendacesForReport"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />

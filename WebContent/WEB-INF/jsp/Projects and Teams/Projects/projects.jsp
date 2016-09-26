@@ -8,7 +8,7 @@
 	<div class="col-sm-12">
 	
 		<!-- More codes above -->
-		<table datatable="ng" dt-options="" dt-column-defs=""
+		<table datatable="ng" dt-options="projectsOptions" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>
@@ -41,7 +41,6 @@
 			</tbody>
 		</table>
 		<!-- More codes below -->
-		
 		<!-- Modal -->
 		<jsp:include page="addProject.jsp"></jsp:include>
 		<jsp:include page="editProject.jsp"></jsp:include>
