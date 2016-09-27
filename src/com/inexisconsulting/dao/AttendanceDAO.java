@@ -224,4 +224,35 @@ public class AttendanceDAO {
 		
 		
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<EmployeeHoursWorked> getEmployeeHoursWorkedReport(AllAttendanceReport attendance) throws HibernateException, ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date fromDate = attendance.getFromDate();
+		String stringFromDate = sdf.format(fromDate);
+		
+		Date toDate = attendance.getToDate();
+		String stringToDate = sdf.format(toDate);
+		
+		String sql = "select concat(employee.firstName, ' ' ,employee.lastName) as EmployeeName,  "
+				+ ":fromDateString as 'FromDate', "
+				+ ":toDateString as 'ToDate', "
+				+ "round(sum(attendance.time_spent),1) as 'HoursWorked' "
+				+ "from attendance join employee "
+				+ "on employee.emp_id = attendance.emp_id "
+				+ "where attendance.date>=:fromDate and "
+				+ "attendance.date<=:toDate "
+				+ "group by EmployeeName";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("fromDate", sdf.parse(stringFromDate));
+		query.setParameter("toDate", sdf.parse(stringToDate));
+		query.setParameter("fromDateString", stringFromDate);
+		query.setParameter("toDateString", stringToDate);
+		
+		List<EmployeeHoursWorked> result = query.list();
+		return result;
+	}
 }

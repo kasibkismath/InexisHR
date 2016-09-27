@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.AllAttendanceReport;
 import com.inexisconsulting.dao.Attendance;
+import com.inexisconsulting.dao.EmployeeHoursWorked;
 import com.inexisconsulting.service.AttendanceService;
 
 @Controller
 public class ReportsController {
-	
+
 	@Autowired
 	private AttendanceService attendanceService;
 
@@ -45,8 +46,17 @@ public class ReportsController {
 	// get all attendances for report
 	@RequestMapping(value = "/Reports/GetAllAttendacesForReport", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<Attendance> getAllAttendacesForReport(@RequestBody AllAttendanceReport allAttendaceReport) throws HibernateException, ParseException {
+	public List<Attendance> getAllAttendacesForReport(@RequestBody AllAttendanceReport allAttendaceReport)
+			throws HibernateException, ParseException {
 		return attendanceService.getAllAttendacesForReport(allAttendaceReport);
+	}
+
+	// get employee hours worked report
+	@RequestMapping(value = "/Reports/GetEmployeeHoursWorkedReport", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<EmployeeHoursWorked> getEmployeeHoursWorkedReport(@RequestBody AllAttendanceReport attendance)
+			throws HibernateException, ParseException {
+		return attendanceService.getEmployeeHoursWorkedReport(attendance);
 	}
 
 }

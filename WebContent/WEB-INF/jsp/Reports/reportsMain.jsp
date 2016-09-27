@@ -78,6 +78,8 @@
 							aria-controls="home" role="tab" data-toggle="tab">All Attendances Report</a></li>
 						<li role="presentation"><a href="#individualAttendanceReport"
 							aria-controls="home" role="tab" data-toggle="tab">Individual Attendance Report</a></li>
+						<li role="presentation"><a href="#empHoursWorkedReport"
+							aria-controls="home" role="tab" data-toggle="tab">Employee Hours Worked Report</a></li>
 						<li role="presentation"><a href="#allLeavesReport"
 							aria-controls="home" role="tab" data-toggle="tab">All Leaves Report</a></li>
 						<li role="presentation"><a href="#individualLeaveReport"
@@ -100,6 +102,9 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="individualAttendanceReport">
 							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
+						</div>
+						<div role="tabpanel" class="tab-pane fade in" id="empHoursWorkedReport">
+							<jsp:include page="Employee Hours Worked Report/employeeHoursWorkedReport.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="allLeavesReport">
 							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>

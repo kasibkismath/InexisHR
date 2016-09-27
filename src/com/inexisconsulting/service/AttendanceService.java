@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.inexisconsulting.dao.AllAttendanceReport;
 import com.inexisconsulting.dao.Attendance;
 import com.inexisconsulting.dao.AttendanceDAO;
+import com.inexisconsulting.dao.EmployeeHoursWorked;
 
 @Service("attendanceService")
 public class AttendanceService {
@@ -63,6 +64,10 @@ public class AttendanceService {
 
 	public List<Attendance> getAllAttendacesForReport(AllAttendanceReport allAttendaceReport) throws HibernateException, ParseException {
 		return attendanceDao.getAllAttendacesForReport(allAttendaceReport);
+	}
+
+	public List<EmployeeHoursWorked> getEmployeeHoursWorkedReport(AllAttendanceReport attendance) throws HibernateException, ParseException {
+		return attendanceDao.getEmployeeHoursWorkedReport(attendance);
 	}
 
 }

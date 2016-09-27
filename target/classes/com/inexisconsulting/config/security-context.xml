@@ -348,7 +348,7 @@
 		<security:intercept-url pattern="/ProjectsAndTeams/GetProjectEmployeeSummary"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment"
-			access="isAuthenticated()" />
+			access="hasRole('ROLE_HR')" />
 		<security:intercept-url pattern="/Recruitment/GetVacanciesByYear"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/CheckDuplicateVacancy"
@@ -378,8 +378,10 @@
 		<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports"
-			access="isAuthenticated()" />
+			access="hasAnyRole('ROLE_CEO', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports/GetAllAttendacesForReport"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Reports/GetEmployeeHoursWorkedReport"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
