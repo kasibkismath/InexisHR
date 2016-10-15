@@ -59,7 +59,6 @@
 						</small>
 					</div>
 				</div>
-				<hr>
 			</li>
 		</ul>
 		<div class="text-center">

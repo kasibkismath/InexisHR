@@ -57,15 +57,20 @@ public class AttendanceDAO {
 			}
 		}
 	}
-
+	
+	// add new attendance
+	// throws method exception to catch date conversion exceptions
 	public void addAttendance(Attendance attendance) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+		
+		// convert attendance date to java date
 		Date date = attendance.getDate();
 		String stringDate = sdf.format(date);
 		
+		// set attendance date to java date
 		attendance.setDate(sdf.parse(stringDate));
 		
+		// save new attendance to database
 		session().saveOrUpdate(attendance);
 	}
 

@@ -418,24 +418,34 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	// checks for duplicate leaves for an employee within the given date range
 	$scope.checkDuplicateLeave = function(fromDate, toDate) {
 		
+		// when fromDate and toDate are not undefined
 		if(fromDate != undefined && toDate != undefined) {
 			$scope.getLoggedInEmployeeId()
 			.then(function(empId) {
+				//construct leave object
 				var leave = {
-						employee : {empId : empId},
-						leave_from : fromDate,
-						leave_to : toDate
-					};
+					// set loggedin emp_id
+					employee : {empId : empId},
+					leave_from : fromDate,
+					leave_to : toDate
+				};
 					
-					$http.post($scope.baseURL + '/Leave/CheckDuplicateLeave', leave)
-					.success(function(result){
-						$scope.duplicateLeaveResult = result;
-					})
-					.error(function(data, status){
-						console.log(data);
-					});
+				// send http post request to controller to check duplicate leaves	
+				$http.post($scope.baseURL + '/Leave/CheckDuplicateLeave', leave)
+				.success(function(result){
+					// on success result
+					// set returned result to a variable to be passed
+					// to the view
+					$scope.duplicateLeaveResult = result;
+				})
+				.error(function(data, status){
+					// on error print in browser console
+					console.log(data);
+				});
 			});
+		// when fromDate and toDate are undefined
 		} else {
+			// set the variable to false
 			$scope.duplicateLeaveResult = false;
 		}
 	};

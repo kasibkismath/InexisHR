@@ -20,12 +20,16 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		$scope.checkFromToDateResult = false;
 
 		// functions
+		
+		// all attendance report export configuration
 		$scope.getAllAttendanceReportOptions = DTOptionsBuilder.newOptions()
-        .withButtons([
+        .withButtons([	
+                      // print option
 		               {
 		            	   extend: 'print',
 		            	   title: 'All Attendance Report'
 		               },
+		               // export to csv option
 		               {
 		                   extend: 'excelHtml5',
 		                   title: 'All Attendance Report'
@@ -34,6 +38,7 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		                   extend: 'csvHtml5',
 		                   title: 'All Attendance Report'
 		               },
+		               // export to PDF and company logo
 		               {
 		                   extend: 'pdfHtml5',
 		                   title: 'All Attendance Report',

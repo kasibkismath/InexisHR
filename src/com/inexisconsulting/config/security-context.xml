@@ -377,6 +377,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Training"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports"
 			access="hasAnyRole('ROLE_CEO', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports/GetAllAttendacesForReport"

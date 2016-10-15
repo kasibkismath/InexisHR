@@ -9,6 +9,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,7 @@ public class UserSettingsController {
 
 	@RequestMapping(value = "/sendChangePasswordMail", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public void sendMessage(@RequestBody User data) {
+	public void sendMessage(@RequestBody User data, HttpSession sessionMain) {
 		final String username = "kasibtest@gmail.com";
 		final String password = "kasibtest@123";
 
@@ -88,6 +89,8 @@ public class UserSettingsController {
 			e.printStackTrace();
 			System.out.println("Sending email failed");
 		}
+		// invalidate the session when the password is changed.
+		sessionMain.invalidate();
 
 	}
 

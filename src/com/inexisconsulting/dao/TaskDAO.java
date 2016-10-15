@@ -188,20 +188,25 @@ public class TaskDAO {
 	
 	// get overdue task count
 	public int getOverdueTaskCount(Task task) {
+		// query string
 		String sql = "select count(*) from task where assigned_by=:assignedBy and "
 				+ "expected_end_date<:currentDate and status=:pendingStatus or status=:onHoldStatus";
 		
+		// pass the string to query object
 		Query query = session().createSQLQuery(sql);
+		
+		// set named parameters
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("pendingStatus", "Pending");
 		query.setParameter("onHoldStatus", "On-Hold");
 		query.setParameter("currentDate", Calendar.getInstance());
 		
+		// if result is null return 0
 		if (query.uniqueResult() == null) {
 			return 0;
 		} else {
+			// if not return the count
 			int count = ((Number) query.uniqueResult()).intValue();
-			
 			return count;
 		}
 	}

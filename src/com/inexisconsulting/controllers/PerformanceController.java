@@ -299,21 +299,27 @@ public class PerformanceController {
 	}
 
 	// get sum of total scores
-	@RequestMapping(value = "/Performance/FinalScoreCalculation", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/Performance/FinalScoreCalculation", method = RequestMethod.POST, 
+			produces = "application/json")
 	@ResponseBody
 	public double finalScoreCalculation(@RequestBody Performance performance)
 			throws HibernateException, ParseException {
-
+		
+		// get sum of all the total scores from Team Lead/s, HR Manager and CEO
 		long total_score = performanceService.getSumOfTotalScore(performance);
+		
+		// get total appraisal for the year for an employee
 		long appraisal_count = getTotalScoreCount(performance);
-
+		
+		// four distinct performance criteria
 		long distinct_criteria = 4;
 
 		// final score calculation
 		// final_score = total_score/(distinct_criteria * appraisal_count)
 		// round final_score to upper boundary value
 		double final_score = (((double) total_score) / ((double) distinct_criteria * appraisal_count));
-
+		
+		// return final calculated score
 		return final_score;
 	}
 
