@@ -243,7 +243,7 @@ public class LeaveDAO {
 	public List<Leave> getAllLeavesByYear() {
 		
 		String hql = "from Leave as leave where "
-				+ " year(leave.leave_from)=:currentYear order by leave.leave_from desc";
+				+ "year(leave.leave_from)=:currentYear order by leave.leave_from desc";
 
 		Query query = session().createQuery(hql);
 		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));

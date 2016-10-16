@@ -2,16 +2,30 @@ package com.inexisconsulting.controllers;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.inexisconsulting.dao.Training;
+import com.inexisconsulting.service.EmployeeTrainingService;
+import com.inexisconsulting.service.TrainingService;
 
 @Controller
 public class TrainingController {
 	
+	@Autowired
+	private TrainingService trainingService;
+	
+	@Autowired
+	private EmployeeTrainingService employeeTrainingService;
+
 	@RequestMapping("/Training")
 	@SuppressWarnings("unchecked")
 	public String showTrainingMainPage(Model model, Principal principal) {
@@ -26,6 +40,13 @@ public class TrainingController {
 		model.addAttribute("loggedInUserRole", authorities);
 
 		return "Training/trainingMain";
+	}
+
+	// get all trainings for current year
+	@RequestMapping(value = "/Trainings/GetAllTrainingsByYear", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Training> getAllTrainingsByYear() {
+		return trainingService.getAllTrainingsByYear();
 	}
 
 }

@@ -15,7 +15,7 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 	
 	
 	$scope.init = function(){
-		
+		$scope.getAllTrainings();
 	};
 	
 	// get logged in emp
@@ -34,5 +34,18 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		
 		return def.promise;
 	};
+	
+	// get trainings where expected start or end is current year
+	$scope.getAllTrainings = function() {
+		// http request for /GetAllTrainings
+		$http.get($scope.baseURL + '/Trainings/GetAllTrainingsByYear')
+		.success(function(result) {
+			$scope.allTrainings = result;
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
 	
 }]);

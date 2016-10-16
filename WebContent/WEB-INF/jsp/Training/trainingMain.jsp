@@ -92,7 +92,7 @@
 							<h3>Training Summary</h3>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="trainings">
-							<h3>Trainings</h3>
+							<jsp:include page="Trainings/trainings.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="employeeTrainings">
 							<h3>Employee Trainings</h3>
