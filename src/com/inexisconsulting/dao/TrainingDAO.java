@@ -23,24 +23,18 @@ public class TrainingDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<TrainingsAndAvailability> getAllTrainingsByYear() {
-		/*String sql = "select train.*, (train.max_candidates - "
-				+ "(select count(*) from emp_training as empTrain "
-				+ "where train.training_id = empTrain.training_id)) as 'Available Slots' "
+		String sql = "select train.*, "
+				+ "(train.max_candidates - COALESCE(empTrain.empTrainCount,0)) AS AvailableSlots "
 				+ "from training as train "
-				+ "left join emp_training as empTrain "
-				+ "on train.training_id = empTrain.training_id where "
-				+ "year(train.expected_start_date)=:currentYear or "
-				+ "year(train.expected_end_date)=:currentYear";*/
-		
-		String sql = "select train.*, COALESCE( empTrain.cnt, 0 ) AS AvailableSlots "
-				+ "from training train left join "
-				+ "( select emp_training.training_id, emp_training.count(*) as cnt from emp_training, training "
-				+ "where emp_training.training_id = training.training_id ) empTrain "
-				+ "on train.training_id = empTrain.training_id "
-				+ "where "
-				+ "year(train.expected_start_date)=:currentYear or "
+				+ "left join ( "
+				+ "select count(*) as empTrainCount, training_id as empTrainingId "
+				+ "from emp_training "
+				+ "group by training_id "
+				+ ") as empTrain "
+				+ "on empTrain.empTrainingId = train.training_id "
+				+ "where year(train.expected_start_date)=:currentYear or "
 				+ "year(train.expected_end_date)=:currentYear";
-
+		
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
 
