@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.inexisconsulting.dao.Training;
 import com.inexisconsulting.dao.TrainingDAO;
+import com.inexisconsulting.dao.TrainingsAndAvailability;
 
 @Service("trainingService")
 public class TrainingService {
@@ -14,7 +15,7 @@ public class TrainingService {
 	@Autowired
 	private TrainingDAO trainingDao;
 
-	public List<Training> getAllTrainingsByYear() {
+	public List<TrainingsAndAvailability> getAllTrainingsByYear() {
 		return trainingDao.getAllTrainingsByYear();
 	}
 

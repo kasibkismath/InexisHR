@@ -1,5 +1,6 @@
 package com.inexisconsulting.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -92,8 +93,9 @@ public class UserDAO {
 		session().saveOrUpdate(updatedUser);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String getUserRoleByEmpId(Employee employee) {
-		Criteria crit = session().createCriteria(User.class);
+		/*Criteria crit = session().createCriteria(User.class);
 		crit.add(Restrictions.eq("employee.emp_id", employee.getEmpId()));
 		User fetchedUser = (User)crit.uniqueResult();
 		
@@ -101,6 +103,36 @@ public class UserDAO {
 			return "";
 		}
 		
-		return fetchedUser.getAuthority();
+		return fetchedUser.getAuthority();*/
+		String hql = "from User as user where user.employee.emp_id=:empId";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", employee.getEmpId());
+		
+		List<User> fetchedUser = query.list();
+		
+		
+		if(fetchedUser == null) {
+			return "";
+		}
+		
+		List<String> userRoles = new ArrayList<String>();
+		
+		for(User user : fetchedUser)  {
+			userRoles.add(user.getAuthority());
+		}
+		
+		String roleReturn = "";
+		
+		for(String role : userRoles)  {
+			if(role.contains("ROLE_HR")){
+				roleReturn = role;
+				break;
+			} else {
+				roleReturn = role;
+			}
+		}
+		
+	   return roleReturn;
 	}
 }

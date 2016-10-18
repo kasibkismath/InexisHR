@@ -15,6 +15,7 @@
 					<th>Name</th>
 					<th>Difficulty Level</th>
 					<th>Type</th>
+					<th>Duration (In Days)</th>
 					<th>Trained By</th>
 					<th>Max Candidates</th>
 					<th>Available Slots</th>
@@ -25,25 +26,27 @@
 				</tr>
 			</thead>
 			<tbody>
-				 <tr ng-repeat="training in allTrainings">
-				 	<td ng-cloak>{{training.name}}</td>
-				 	<td ng-cloak>{{training.level_of_difficulty}}</td>
-				 	<td ng-cloak>{{training.type_of_training}}</td>
-				 	<td ng-cloak>{{training.trained_by}}</td>
-				 	<td ng-cloak>{{training.max_candidates}}</td>
-				 	<td ng-cloak>{{training.max_candidates}}</td>
-				 	<td ng-cloak>{{training.cost}}</td>
-					<td ng-cloak>{{training.expected_start_date | date : 'yyyy-MM-dd'}}</td>
-					<td ng-cloak>{{training.expected_end_date | date : 'yyyy-MM-dd'}}</td>
+				 <tr ng-repeat="training in allTrainings" 
+				 ng-class="{'training-full': {{training[11]}} == 0 && training[9] > currentDate}">
+				 	<td ng-cloak>{{training[1]}}</td>
+				 	<td ng-cloak>{{training[2]}}</td>
+				 	<td ng-cloak>{{training[4]}}</td>
+				 	<td ng-cloak>{{training[5]}}</td>
+				 	<td ng-cloak>{{training[6]}}</td>
+				 	<td ng-cloak>{{training[7]}}</td>
+				 	<td ng-cloak>{{training[11]}}</td>
+				 	<td ng-cloak>{{training[8]}}</td>
+					<td ng-cloak>{{training[9]}}</td>
+					<td ng-cloak>{{training[10]}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
 							data-target="#editTrainingModal"
-							ng-click="getTrainingByTrainingId(training.training_id)">
+							ng-click="getTrainingByTrainingId(training[0])">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
 							data-target="#deleteTrainingModal" 
-							ng-click="deleteTrainingMain(training.training_id)">
+							ng-click="deleteTrainingMain(training[0])">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>

@@ -49,7 +49,7 @@ public class HR_AppraisalDAO {
 		query.setParameter("date", sdf.parse(stringDate));
 		query.setParameter("status", "Completed");
 		
-		Long count = (Long)query.uniqueResult();
+		Long count = ((Number)query.uniqueResult()).longValue();
 		return count;
 	}
 

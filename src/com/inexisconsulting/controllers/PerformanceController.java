@@ -245,7 +245,7 @@ public class PerformanceController {
 
 		Long count = hrAppraisalService.checkHRAppraisalExists(hr_appraisal);
 		String userRole = userService.getUserRoleByEmpId(employee);
-
+		
 		// if HR Manager - HR Appraisal
 		if (userRole.equals("ROLE_HR") && count == 0) {
 			return true;

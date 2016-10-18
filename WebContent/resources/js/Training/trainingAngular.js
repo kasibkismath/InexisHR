@@ -13,6 +13,11 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 	$scope.baseURL = contextPath;
 	$scope.currentUser = currentUser;
 	
+	//current date
+	var currDate = new Date();
+	currDate.setDate(currDate.getDate()-1);
+	$scope.currentDate = $filter('date')(currDate, "yyyy-MM-dd");
+	
 	
 	$scope.init = function(){
 		$scope.getAllTrainings();
@@ -46,6 +51,23 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		.error(function(data, status) {
 			console.log(data);
 		});
-	}
+	};
+	
+	$scope.getEmpTrainingCount = function(trainingId) {
+		var def = $q.defer();
+		
+		var training = {
+			training_id : trainingId
+		};
+		
+		$http.post($scope.baseURL + '/Trainings/GetEmpTrainingCountByTrainingId', training)
+		.success(function(result) {
+			def.resolve(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		return def.promise;
+	};
 	
 }]);

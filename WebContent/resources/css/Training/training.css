@@ -60,3 +60,7 @@ textarea {
 	margin-right: 15px;
 	margin-bottom: 20px;
 }
+
+.training-full {
+	background-color: #f2dede !important;
+}

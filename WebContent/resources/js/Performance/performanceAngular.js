@@ -372,7 +372,6 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$http.get($scope.baseURL + '/Performance/GetHRAppraisals')
 		.success(function(result) {
 			$scope.hrAppraisals = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -418,6 +417,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		.success(function(result) {
 			def.resolve(result);
 			$scope.checkHRAppraisalExistsResult = result;
+			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -675,6 +675,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$http.get($scope.baseURL + '/Performance/GetLeadAppraisals')
 		.success(function(result) {
 			$scope.leadAppraisals = result;
+			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
@@ -929,6 +930,7 @@ performance.controller('performanceMainController', ['$scope', '$http', '$q', 't
 		$scope.checkHRAppraisalExists(empId, filteredDate)
 		.then(function(result) {
 			$scope.TeamLeadDeleteResult = result;
+			console.log(result);
 		});
 		
 	};
