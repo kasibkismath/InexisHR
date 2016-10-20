@@ -381,7 +381,7 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Trainings/GetAllTrainingsByYear"
 			access="isAuthenticated()" />
-		<security:intercept-url pattern="/Trainings/GetEmpTrainingCountByTrainingId"
+		<security:intercept-url pattern="/Trainings/CheckTrainingDuplicate"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports"
 			access="hasAnyRole('ROLE_CEO', 'ROLE_HR')" />

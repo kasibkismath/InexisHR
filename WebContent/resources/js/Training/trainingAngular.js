@@ -20,6 +20,15 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 	
 	
 	$scope.init = function(){
+		// variables
+		$scope.checkStartEndDateResult = false;
+		$scope.checkForDatesResult = false;
+		$scope.checkForDateRangeResult = false;
+		$scope.checkDurationErrorResult = false;
+		$scope.checkForMaxCandidatesResult = false;
+		$scope.checkForCostResult = false;
+		$scope.checkTrainingDuplicateResult = false;
+		
 		$scope.getAllTrainings();
 	};
 	
@@ -46,28 +55,92 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		$http.get($scope.baseURL + '/Trainings/GetAllTrainingsByYear')
 		.success(function(result) {
 			$scope.allTrainings = result;
-			console.log(result);
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
 	};
 	
-	$scope.getEmpTrainingCount = function(trainingId) {
-		var def = $q.defer();
-		
-		var training = {
-			training_id : trainingId
-		};
-		
-		$http.post($scope.baseURL + '/Trainings/GetEmpTrainingCountByTrainingId', training)
-		.success(function(result) {
-			def.resolve(result);
-		})
-		.error(function(data, status) {
-			console.log(data);
-		});
-		return def.promise;
+	// check if expected end date is more than expected start date
+	$scope.checkStartEndDate = function(startDate, endDate) {
+		if(startDate != undefined && endDate != undefined) {
+			if(startDate > endDate) {
+				$scope.checkStartEndDateResult = true;
+			} else {
+				$scope.checkStartEndDateResult = false;
+			}
+		}
 	};
 	
+	// check for date range
+	$scope.checkForDateRange = function(startDate, endDate, duration) {
+		
+		var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+		
+		var firstDate = new Date(startDate);
+		var secondDate = new Date(endDate);
+		
+		// if same day is selected the result is zero
+		var diffDays = Math.round(Math.abs((secondDate.getTime() - firstDate.getTime())/(oneDay)));
+		
+		// therefore add 1
+		var actualDiffDays = diffDays + 1;
+		
+		if(duration > actualDiffDays) {
+			$scope.checkForDateRangeResult = true;
+		} else {
+			$scope.checkForDateRangeResult = false;
+		}
+	};
+	
+	// check for duration errors
+	$scope.checkDurationError = function(duration) {
+		if(duration <= 0) {
+			$scope.checkDurationErrorResult = true;
+		} else {
+			$scope.checkDurationErrorResult = false;
+		}
+	};
+	
+	// check for max candidates errors
+	$scope.checkForMaxCandidates = function(maxCandidates) {
+		if(maxCandidates <= 0 ) {
+			$scope.checkForMaxCandidatesResult = true;
+		} else {
+			$scope.checkForMaxCandidatesResult = false;
+		}
+	}; 
+	
+	// check for cost errors
+	$scope.checkForCost = function(cost) {
+		if(cost < 0) {
+			$scope.checkForCostResult = true;
+		} else {
+			$scope.checkForCostResult = false;
+		}
+	};
+	
+	// check for training duplicate
+	$scope.checkTrainingDuplicate = function(trainingName, difficultyLevel, type, expStartDate, expEndDate) {
+		if(trainingName != undefined && difficultyLevel != undefined && type != undefined && 
+				expStartDate != undefined && expEndDate != undefined) {
+			
+			var training = {
+				name: trainingName,
+				level_of_difficulty: difficultyLevel,
+				type_of_training: type,
+				expected_start_date: expStartDate,
+				expected_end_date: expEndDate
+			};
+			
+			$http.post($scope.baseURL + '/Trainings/CheckTrainingDuplicate', training)
+			.success(function(result) {
+				$scope.checkTrainingDuplicateResult = result;
+				console.log(result);
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		}
+	};
 }]);

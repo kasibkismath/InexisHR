@@ -19,7 +19,7 @@
 					<th>Trained By</th>
 					<th>Max Candidates</th>
 					<th>Available Slots</th>
-					<th>Cost</th>
+					<th>Cost (In LKR)</th>
 					<th>Expected Start</th>
 					<th>Expected End</th>
 					<th>Actions</th>

@@ -1,9 +1,11 @@
 package com.inexisconsulting.controllers;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,12 +52,11 @@ public class TrainingController {
 	public List<TrainingsAndAvailability> getAllTrainingsByYear() {
 		return trainingService.getAllTrainingsByYear();
 	}
-
-	// get employee training count by training id
-	@RequestMapping(value = "/Trainings/GetEmpTrainingCountByTrainingId", method = RequestMethod.POST, produces = "application/json")
+	
+	// checks for duplicate trainings
+	@RequestMapping(value = "/Trainings/CheckTrainingDuplicate", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public int getEmpTrainingCount(@RequestBody Training training) {
-		return employeeTrainingService.getEmpTrainingCount(training);
+	public boolean checkDuplicateTraining(@RequestBody Training training) throws HibernateException, ParseException {
+		return trainingService.checkDuplicateTraining(training);
 	}
-
 }
