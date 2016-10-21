@@ -66,4 +66,18 @@ public class TrainingController {
 	public void addTraining(@RequestBody Training training) throws HibernateException, ParseException {
 		trainingService.addTraining(training);
 	}
+
+	// get training by training_id
+	@RequestMapping(value = "/Trainings/GetTrainingByTrainingId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Training getTrainingByTrainingId(@RequestBody Training training) {
+		return trainingService.getTrainingByTrainingId(training);
+	}
+
+	// add new training
+	@RequestMapping(value = "/Trainings/UpdateTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateTraining(@RequestBody Training training) throws HibernateException, ParseException {
+		trainingService.updateTraining(training);
+	}
 }

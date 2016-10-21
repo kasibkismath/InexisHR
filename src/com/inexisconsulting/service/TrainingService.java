@@ -29,4 +29,12 @@ public class TrainingService {
 		trainingDao.addTraining(training);
 	}
 
+	public Training getTrainingByTrainingId(Training training) {
+		return trainingDao.getTrainingByTrainingId(training);
+	}
+
+	public void updateTraining(Training training) throws ParseException {
+		trainingDao.updateTraining(training);
+	}
+
 }

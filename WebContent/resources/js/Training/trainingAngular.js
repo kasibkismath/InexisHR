@@ -27,10 +27,16 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		$scope.checkForMaxCandidatesResult = false;
 		$scope.checkForCostResult = false;
 		$scope.checkTrainingDuplicateResult = false;
+		$scope.checkMaxCandidatesEmpTrainingResult = false;
 		
 		// functions
 		$scope.getAllTrainings();
 	};
+	
+	// datatable configurations
+	// training datatable
+	$scope.trainingTableOptions = DTOptionsBuilder.newOptions()
+    .withOption('order', [8, 'desc']);
 	
 	// get logged in emp
 	$scope.getLoggedInEmployee = function() {
@@ -177,4 +183,96 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		});
 	};
 	
+	// get training by training_id
+	$scope.getTrainingByTrainingId = function(trainingId) {
+		
+		var training = {
+			training_id: trainingId
+		};
+		
+		$http.post($scope.baseURL + '/Trainings/GetTrainingByTrainingId', training)
+		.success(function(result) {
+			$scope.updateTrainingName = result.name;
+			$scope.updateDifficultyLevel = result.level_of_difficulty;
+			$scope.updateTrainingType = result.type_of_training;
+			$scope.updateExpStartDate = $filter('date')(result.expected_start_date, "yyyy-MM-dd");
+			$scope.updateExpEndDate = $filter('date')(result.expected_end_date, "yyyy-MM-dd");
+			$scope.updateDuration = result.duration;
+			$scope.updateTrainedBy = result.trained_by;
+			$scope.updateMaxCandidates = result.max_candidates;
+			$scope.updateCost = result.cost;
+			$scope.updateObjectives = result.objective;
+			$scope.updateTrainingId = result.training_id;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get max candidates by training_id
+	$scope.getMaxCandidatesByTrainingId = function(trainingId) {
+		var def = $q.defer();
+		
+		var training = {training_id: trainingId};
+		
+		$http.post($scope.baseURL + '/Trainings/GetTrainingByTrainingId', training)
+		.success(function(result) {
+			def.resolve(result.max_candidates);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		
+		return def.promise;
+	};
+	
+	/* Update Training Validations */
+	$scope.checkMaxCandidatesEmpTraining = function(trainingId, maxCandidates) {
+		if(trainingId != undefined && maxCandidates != undefined) {
+			$scope.getMaxCandidatesByTrainingId(trainingId)
+			.then(function(result) {
+				var actualMaxCandidates = result;
+				
+				if(maxCandidates < actualMaxCandidates) {
+					$scope.checkMaxCandidatesEmpTrainingResult = true;
+				} else {
+					$scope.checkMaxCandidatesEmpTrainingResult = false;
+				}
+			})
+		}
+	};
+	
+	// update training information
+	$scope.updateTraining = function(trainingId, name, difficultyLevel, trainingType, expStartDate, 
+			expEndDate, duration, trainedBy, maxCandidates, cost, objectives) {
+		
+		var training = {
+				training_id: trainingId,
+				name: name,
+				level_of_difficulty: difficultyLevel,
+				type_of_training: trainingType,
+				duration: duration,
+				trained_by: trainedBy,
+				max_candidates: maxCandidates,
+				cost: cost,
+				objective: objectives,
+				expected_start_date: expStartDate,
+				expected_end_date: expEndDate
+			};
+				
+			$http.post($scope.baseURL + '/Trainings/UpdateTraining', training)
+			.success(function(result) {
+				$('#updateTrainingModal').modal('hide');
+				toaster.pop('success', "Notification", "Training Updated Successfully");
+				setTimeout(function () {
+	                window.location.reload();
+	            }, 1000);
+			})
+			.error(function(data, status) {
+				$('#updateTrainingModal').modal('hide');
+				toaster.pop('error', "Notification", "Training Updation Failed");
+				console.log(data);
+			});
+		
+	};
 }]);

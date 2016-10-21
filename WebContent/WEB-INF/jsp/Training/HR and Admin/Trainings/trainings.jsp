@@ -8,7 +8,7 @@
 	<div class="col-sm-12">
 	
 		<!-- More codes above -->
-		<table datatable="ng" dt-options="" dt-column-defs=""
+		<table datatable="ng" dt-options="trainingTableOptions" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>
@@ -40,7 +40,7 @@
 					<td ng-cloak>{{training[10]}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
-							data-target="#editTrainingModal"
+							data-target="#updateTrainingModal"
 							ng-click="getTrainingByTrainingId(training[0])">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
