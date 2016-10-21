@@ -80,4 +80,11 @@ public class TrainingController {
 	public void updateTraining(@RequestBody Training training) throws HibernateException, ParseException {
 		trainingService.updateTraining(training);
 	}
+
+	// delete training
+	@RequestMapping(value = "/Trainings/DeleteTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteTraining(@RequestBody Training training) {
+		trainingService.deleteTraining(training);
+	}
 }

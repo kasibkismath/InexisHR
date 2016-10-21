@@ -133,4 +133,10 @@ public class TrainingDAO {
 		updatedTraining.setObjective(training.getObjective());
 	}
 
+	public void deleteTraining(Training training) {
+		Query query = session().createQuery("delete from Training where training_id=:trainingId");
+		query.setInteger("trainingId", training.getTraining_id());
+		query.executeUpdate();
+	}
+
 }

@@ -37,4 +37,8 @@ public class TrainingService {
 		trainingDao.updateTraining(training);
 	}
 
+	public void deleteTraining(Training training) {
+		trainingDao.deleteTraining(training);
+	}
+
 }

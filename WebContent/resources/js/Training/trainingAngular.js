@@ -273,6 +273,31 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 				toaster.pop('error', "Notification", "Training Updation Failed");
 				console.log(data);
 			});
-		
+	};
+	
+	// delete training
+	$scope.deleteTrainingMain = function(trainingId) {
+		$scope.deleteTrainingId = trainingId;
+	};
+	
+	// actually sends the request to delete training
+	$scope.deleteTraining = function(trainingId) {
+		var training = {
+			training_id: trainingId,
+		};
+				
+		$http.post($scope.baseURL + '/Trainings/DeleteTraining', training)
+		.success(function(result) {
+			$('#deleteTrainingModal').modal('hide');
+			toaster.pop('success', "Notification", "Training Deleted Successfully");
+			setTimeout(function () {
+	               window.location.reload();
+	        }, 1000);
+		 })
+		.error(function(data, status) {
+			$('#deleteTrainingModal').modal('hide');
+			toaster.pop('error', "Notification", "Training Deletion Failed");
+			console.log(data);
+		});
 	};
 }]);
