@@ -60,7 +60,7 @@ public class TrainingDAO {
 		
 		String sql = "select count(*) from training where name=:trainingName and "
 				+ "level_of_difficulty=:difficultyLevel and type_of_training=:trainingType and "
-				+ "(expected_start_date>=:expStartDate and expected_end_date<=:expEndDate)";
+				+ "(expected_start_date=:expStartDate and expected_end_date=:expEndDate)";
 		
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("trainingName", training.getName());
@@ -80,6 +80,24 @@ public class TrainingDAO {
 				return false;
 			}
 		}
+	}
+
+	public void addTraining(Training training) throws ParseException {
+		// format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// dates
+		Date expStartDate = training.getExpected_start_date();
+		Date expEndDate = training.getExpected_end_date();
+
+		// convert date to string
+		String stringExpStartDate = sdf.format(expStartDate);
+		String stringExpEndDate = sdf.format(expEndDate);
+		
+		training.setExpected_start_date(sdf.parse(stringExpStartDate));
+		training.setExpected_end_date(sdf.parse(stringExpEndDate));
+		
+		session().saveOrUpdate(training);
 	}
 
 }

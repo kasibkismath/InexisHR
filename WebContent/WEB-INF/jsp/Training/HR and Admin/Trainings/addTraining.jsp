@@ -7,12 +7,12 @@
       </div>
       <div class="modal-body">
 		<form name="addTrainingForm" class="form-horizontal"
-			ng-submit="addTrainingForm.$valid && checkStartEndDateResult === false">
-			
-			<div role="alert" class="alert alert-danger padded" 
-					ng-show="checkTrainingDuplicateResult === true">
-					<strong>Error!</strong> Duplicate Training.
-				</div>
+			ng-submit="addTrainingForm.$valid && checkStartEndDateResult === false &&
+			checkTrainingDuplicateResult === false && checkDurationErrorResult === false && 
+			checkForDateRangeResult === false && checkForMaxCandidatesResult === false && 
+			checkForCostResult === false && 
+			addTraining(saveTrainingName, saveDifficultyLevel, saveTrainingType, saveExpStartDate, 
+			saveExpEndDate, saveDuration, saveTrainedBy, saveMaxCandidates, saveCost, saveObjectives)">
 			
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
@@ -86,6 +86,11 @@
 						</div>
 					</datepicker>
 				</div>
+			</div>
+			<div role="alert" class="alert alert-danger padded" 
+					ng-show="checkTrainingDuplicateResult === true">
+					<strong>Error!</strong> Training already exists for this training name, 
+					level of difficulty, type of training and expected start and end dates.
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 

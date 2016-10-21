@@ -52,11 +52,18 @@ public class TrainingController {
 	public List<TrainingsAndAvailability> getAllTrainingsByYear() {
 		return trainingService.getAllTrainingsByYear();
 	}
-	
+
 	// checks for duplicate trainings
 	@RequestMapping(value = "/Trainings/CheckTrainingDuplicate", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public boolean checkDuplicateTraining(@RequestBody Training training) throws HibernateException, ParseException {
 		return trainingService.checkDuplicateTraining(training);
+	}
+
+	// add new training
+	@RequestMapping(value = "/Trainings/AddTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addTraining(@RequestBody Training training) throws HibernateException, ParseException {
+		trainingService.addTraining(training);
 	}
 }

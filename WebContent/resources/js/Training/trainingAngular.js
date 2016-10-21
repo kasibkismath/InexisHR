@@ -22,13 +22,13 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 	$scope.init = function(){
 		// variables
 		$scope.checkStartEndDateResult = false;
-		$scope.checkForDatesResult = false;
 		$scope.checkForDateRangeResult = false;
 		$scope.checkDurationErrorResult = false;
 		$scope.checkForMaxCandidatesResult = false;
 		$scope.checkForCostResult = false;
 		$scope.checkTrainingDuplicateResult = false;
 		
+		// functions
 		$scope.getAllTrainings();
 	};
 	
@@ -61,6 +61,7 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		});
 	};
 	
+	/* Add Training Validations Start */
 	// check if expected end date is more than expected start date
 	$scope.checkStartEndDate = function(startDate, endDate) {
 		if(startDate != undefined && endDate != undefined) {
@@ -136,11 +137,44 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 			$http.post($scope.baseURL + '/Trainings/CheckTrainingDuplicate', training)
 			.success(function(result) {
 				$scope.checkTrainingDuplicateResult = result;
-				console.log(result);
 			})
 			.error(function(data, status) {
 				console.log(data);
 			});
 		}
 	};
+	/* Add Training Validations End */
+	
+	// add new training
+	$scope.addTraining = function(name, difficultyLevel, trainingType, expStartDate, 
+			expEndDate, duration, trainedBy, maxCandidates, cost, objectives) {
+		
+		var training = {
+			name: name,
+			level_of_difficulty: difficultyLevel,
+			type_of_training: trainingType,
+			duration: duration,
+			trained_by: trainedBy,
+			max_candidates: maxCandidates,
+			cost: cost,
+			objective: objectives,
+			expected_start_date: expStartDate,
+			expected_end_date: expEndDate
+		};
+			
+		$http.post($scope.baseURL + '/Trainings/AddTraining', training)
+		.success(function(result) {
+			$('#addNewTrainingModal').modal('hide');
+			toaster.pop('success', "Notification", "Training Added Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#addNewTrainingModal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Training Failed");
+			console.log(data);
+		});
+	};
+	
 }]);

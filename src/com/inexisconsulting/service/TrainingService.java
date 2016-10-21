@@ -25,4 +25,8 @@ public class TrainingService {
 		return trainingDao.checkDuplicateTraining(training);
 	}
 
+	public void addTraining(Training training) throws ParseException {
+		trainingDao.addTraining(training);
+	}
+
 }
