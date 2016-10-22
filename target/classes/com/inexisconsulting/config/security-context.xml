@@ -403,6 +403,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Training/GetEmpTrainingByEmpTrainingId"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Training/UpdateEmpTraining"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Training/DeleteEmpTraining"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports"
 			access="hasAnyRole('ROLE_CEO', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports/GetAllAttendacesForReport"

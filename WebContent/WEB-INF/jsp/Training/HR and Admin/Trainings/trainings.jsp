@@ -40,7 +40,7 @@
 					<td ng-cloak>{{training[10]}}</td>
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
-							data-target="#updateTrainingModal"
+							data-target="#updateTrainingModal" id="updateTrainingBtn"
 							ng-click="getTrainingByTrainingId(training[0])">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>

@@ -396,10 +396,66 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		
 		$http.post($scope.baseURL + '/Training/GetEmpTrainingByEmpTrainingId', empTraining)
 		.success(function(result) {
-			console.log(result);
+			$scope.updateEmpTraining_Id = result.training.training_id;
+			$scope.updateEmpTrainingEmp = result.employee.empId;
+			$scope.updateEmpTrainingId = result.emp_training_id;
+			
+			if(result.remarks == null)
+				$scope.updateEmpTrainingRemarks = "";
+			else 
+				$scope.updateEmpTrainingRemarks = result.remarks;
 		})
 		.error(function(data, status) {
 			console.log(data);
 		});
-	}
+	};
+	
+	// update emp training info
+	$scope.updateEmpTraining = function(empTrainingId, remarks) {
+		var empTraining = {
+			emp_training_id: empTrainingId,
+			remarks: remarks
+		};
+		
+		$http.post($scope.baseURL + '/Training/UpdateEmpTraining', empTraining)
+		.success(function(result) {
+			$('#updateEmpTrainingModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee Training Updated Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#updateEmpTrainingModal').modal('hide');
+			toaster.pop('error', "Notification", "Employee Training Updation Failed");
+			console.log(data);
+		});
+	};
+	
+	// called from empTrainings.jsp
+	$scope.deleteEmpTrainingMain = function(empTrainingId) {
+		$scope.deleteEmpTrainingId = empTrainingId;
+	};
+	
+	// actually deletes the emp training
+	$scope.deleteEmpTraining = function(empTrainingId) {
+		
+		var empTraining = {
+			emp_training_id: empTrainingId,
+		};
+		
+		$http.post($scope.baseURL + '/Training/DeleteEmpTraining', empTraining)
+		.success(function(result) {
+			$('#deleteEmpTrainingModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee Training Deleted Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteEmpTrainingModal').modal('hide');
+			toaster.pop('error', "Notification", "Employee Training Deletion Failed");
+			console.log(data);
+		});
+	};
 }]);

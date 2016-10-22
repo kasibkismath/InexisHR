@@ -131,4 +131,18 @@ public class TrainingController {
 	public EmployeeTraining getEmpTrainingByEmpTrainingId(@RequestBody EmployeeTraining empTraining) {
 		return employeeTrainingService.getEmpTrainingByEmpTrainingId(empTraining);
 	}
+
+	// update emp training
+	@RequestMapping(value = "/Training/UpdateEmpTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateEmpTraining(@RequestBody EmployeeTraining empTraining) {
+		employeeTrainingService.updateEmpTraining(empTraining);
+	}
+
+	// delete emp training
+	@RequestMapping(value = "/Training/DeleteEmpTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteEmpTraining(@RequestBody EmployeeTraining empTraining) {
+		employeeTrainingService.deleteEmpTraining(empTraining);
+	}
 }

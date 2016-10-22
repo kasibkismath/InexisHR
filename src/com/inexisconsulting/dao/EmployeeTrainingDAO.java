@@ -114,4 +114,21 @@ public class EmployeeTrainingDAO {
 		EmployeeTraining result = (EmployeeTraining) crit.uniqueResult();
 		return result;
 	}
+
+	public void updateEmpTraining(EmployeeTraining empTraining) {
+		Criteria crit = session().createCriteria(EmployeeTraining.class);
+		crit.add(Restrictions.eq("emp_training_id", empTraining.getEmp_training_id()));
+
+		EmployeeTraining updatedEmpTraining= (EmployeeTraining) crit.uniqueResult();
+		updatedEmpTraining.setRemarks(empTraining.getRemarks());
+		
+		session().saveOrUpdate(updatedEmpTraining);
+	}
+
+	public void deleteEmpTraining(EmployeeTraining empTraining) {
+		Query query = session().createQuery("delete from EmployeeTraining where "
+				+ "emp_training_id=:empTrainingId");
+		query.setInteger("empTrainingId", empTraining.getEmp_training_id());
+		query.executeUpdate();
+	}
 }

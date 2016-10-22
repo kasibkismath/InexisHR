@@ -8,12 +8,14 @@
       <div class="modal-body">
 		<form name="updateEmpTrainingForm" class="form-horizontal"
 			ng-submit="updateEmpTrainingForm.$valid &&
-				updateEmpTraining(saveEmpTrainingEmp, saveEmpTraining)">
+				updateEmpTraining(updateEmpTrainingId, updateEmpTrainingRemarks)">
+			
+			<input type="hidden" ng-model="updateEmpTrainingId">
 			
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Training</label>
 				<div class="col-sm-10">
-					<select ng-model="updateEmpTraining" name="training" class="form-control"
+					<select ng-model="updateEmpTraining_Id" name="training" class="form-control"
 						ng-disabled="true" convert-to-number>
 						<option value="">Select a training</option>
 						<option value="{{training[0]}}" ng-repeat="training in allTrainings">
@@ -45,7 +47,7 @@
 				<label class="col-sm-2 control-label">Remarks</label>
 				<div class="col-sm-10">
 					<textarea rows="10" class="form-control" name="remarks" 
-						placeholder="Training Objectives" ng-model="updateEmpTrainingRemarks" 
+						placeholder="Remarks" ng-model="updateEmpTrainingRemarks" 
 						ng-maxlength="1000" 
 						required char-count warning-count="100" danger-count="50"></textarea>
 				</div>

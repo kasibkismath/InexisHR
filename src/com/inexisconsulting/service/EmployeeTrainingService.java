@@ -44,4 +44,12 @@ public class EmployeeTrainingService {
 		return employeeTrainingDao.getEmpTrainingByEmpTrainingId(empTraining);
 	}
 
+	public void updateEmpTraining(EmployeeTraining empTraining) {
+		employeeTrainingDao.updateEmpTraining(empTraining);
+	}
+
+	public void deleteEmpTraining(EmployeeTraining empTraining) {
+		employeeTrainingDao.deleteEmpTraining(empTraining);
+	}
+
 }

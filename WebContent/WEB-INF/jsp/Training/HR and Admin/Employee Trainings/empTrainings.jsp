@@ -38,12 +38,12 @@
 					<td ng-cloak>
 						<button class="btn btn-primary" data-toggle="modal" 
 							data-target="#updateEmpTrainingModal"
-							ng-click="getEmpTrainingByEmpTrainingId(training.emp_training_id)">
+							ng-click="getEmpTrainingByEmpTrainingId(empTraining.emp_training_id)">
 							<i class="fa fa-pencil fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" data-toggle="modal" 
 							data-target="#deleteEmpTrainingModal" 
-							ng-click="deleteEmpTrainingMain(training.emp_training_id)">
+							ng-click="deleteEmpTrainingMain(empTraining.emp_training_id)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</td>

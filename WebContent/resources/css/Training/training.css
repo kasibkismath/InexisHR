@@ -65,10 +65,18 @@ textarea {
 	background-color: #f2dede !important;
 }
 
+#updateTrainingBtn {
+	margin-bottom: 4px !important;
+}
+
 #deleteTrainingModal .modal-body {
 	height: 180px;
 }
 
 #addNewEmpTrainingModal .modal-body {
 	height: 330px;
+}
+
+#deleteEmpTrainingModal .modal-body {
+	height: 120px;
 }
