@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.EmployeeTraining;
 import com.inexisconsulting.dao.Training;
 import com.inexisconsulting.dao.TrainingsAndAvailability;
 import com.inexisconsulting.service.EmployeeTrainingService;
@@ -86,5 +88,47 @@ public class TrainingController {
 	@ResponseBody
 	public void deleteTraining(@RequestBody Training training) {
 		trainingService.deleteTraining(training);
+	}
+
+	// get all emp trainings for current year
+	@RequestMapping(value = "/Trainings/GetAllEmpTrainingsByYear", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<EmployeeTraining> getAllEmpTrainingsByYear() {
+		return employeeTrainingService.getAllEmpTrainingsByYear();
+	}
+
+	// get all emp trainings employees
+	@RequestMapping(value = "/Training/GetEmpTrainingEmployees", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Employee> getEmpTrainingEmployees() {
+		return employeeTrainingService.getEmpTrainingEmployees();
+	}
+
+	// checks for duplicate emp trainings
+	@RequestMapping(value = "/Training/CheckEmpTrainingDuplicate", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateEmpTraining(@RequestBody EmployeeTraining empTraining) {
+		return employeeTrainingService.checkDuplicateEmpTraining(empTraining);
+	}
+
+	// checks for training availability
+	@RequestMapping(value = "/Training/CheckEmpTrainingAvailability", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkEmpTrainingAvailability(@RequestBody EmployeeTraining empTraining) {
+		return employeeTrainingService.checkEmpTrainingAvailability(empTraining);
+	}
+
+	// add emp training
+	@RequestMapping(value = "/Training/AddEmpTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addEmpTraining(@RequestBody EmployeeTraining empTraining) {
+		employeeTrainingService.addEmpTraining(empTraining);
+	}
+
+	// get emp training by emp_training_id
+	@RequestMapping(value = "/Training/GetEmpTrainingByEmpTrainingId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public EmployeeTraining getEmpTrainingByEmpTrainingId(@RequestBody EmployeeTraining empTraining) {
+		return employeeTrainingService.getEmpTrainingByEmpTrainingId(empTraining);
 	}
 }

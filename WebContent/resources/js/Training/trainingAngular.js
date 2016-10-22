@@ -28,9 +28,12 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		$scope.checkForCostResult = false;
 		$scope.checkTrainingDuplicateResult = false;
 		$scope.checkMaxCandidatesEmpTrainingResult = false;
+		$scope.checkEmpTrainingDuplicateResult = false;
 		
 		// functions
 		$scope.getAllTrainings();
+		$scope.getAllEmpTrainings();
+		$scope.getEmpTrainingEmployees();
 	};
 	
 	// datatable configurations
@@ -55,7 +58,7 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		return def.promise;
 	};
 	
-	// get trainings where expected start or end is current year
+	// get all trainings where expected start or end is current year
 	$scope.getAllTrainings = function() {
 		// http request for /GetAllTrainings
 		$http.get($scope.baseURL + '/Trainings/GetAllTrainingsByYear')
@@ -300,4 +303,103 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 			console.log(data);
 		});
 	};
+	
+	/* Employee Trainings */
+	
+	// get all emp trainings where expected start or end is current year
+	$scope.getAllEmpTrainings = function() {
+		// http request for /GetAllEmpTrainings
+		$http.get($scope.baseURL + '/Trainings/GetAllEmpTrainingsByYear')
+		.success(function(result) {
+			$scope.allEmpTrainings = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get all emp training employees
+	$scope.getEmpTrainingEmployees = function() {
+		$http.get($scope.baseURL + '/Training/GetEmpTrainingEmployees')
+		.success(function(result) {
+			$scope.allEmpTrainingEmployees = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// check for duplicate emp training
+	$scope.checkEmpTrainingDuplicate = function(empId, trainingId) {
+		if(empId != undefined && trainingId != undefined) {
+			var empTraining = {
+				training: {training_id: trainingId},
+				employee: {empId: empId}
+			};
+			
+			$http.post($scope.baseURL + '/Training/CheckEmpTrainingDuplicate', empTraining)
+			.success(function(result) {
+				$scope.checkEmpTrainingDuplicateResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		}
+	};
+	
+	// check for emp training availability
+	$scope.checkEmpTrainingAvailability = function(trainingId) {
+		if(trainingId != undefined) {
+			var empTraining = {
+				training: {training_id: trainingId}
+			};
+			
+			$http.post($scope.baseURL + '/Training/CheckEmpTrainingAvailability', empTraining)
+			.success(function(result) {
+				$scope.checkEmpTrainingAvailabilityResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		}
+	};
+	
+	// add emp training
+	$scope.addEmpTraining = function(empId, trainingId) {
+		var empTraining = {
+			training: {training_id: trainingId},
+			employee: {empId: empId},
+			status: "Pending"
+		};
+		
+		$http.post($scope.baseURL + '/Training/AddEmpTraining', empTraining)
+		.success(function(result) {
+			$('#addNewEmpTrainingModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee Training Added Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#addNewEmpTrainingModal').modal('hide');
+			toaster.pop('error', "Notification", "Adding Employee Training Failed");
+			console.log(data);
+		});
+	};
+	
+	// get emp training info by emp_training_id
+	$scope.getEmpTrainingByEmpTrainingId = function(empTrainingId) {
+		
+		var empTraining = {
+			emp_training_id: empTrainingId
+		};
+		
+		$http.post($scope.baseURL + '/Training/GetEmpTrainingByEmpTrainingId', empTraining)
+		.success(function(result) {
+			console.log(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	}
 }]);

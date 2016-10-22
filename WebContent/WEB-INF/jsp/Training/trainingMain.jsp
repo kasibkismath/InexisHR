@@ -95,7 +95,7 @@
 							<jsp:include page="HR and Admin/Trainings/trainings.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="employeeTrainings">
-							<h3>Employee Trainings</h3>
+							<jsp:include page="HR and Admin/Employee Trainings/empTrainings.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>

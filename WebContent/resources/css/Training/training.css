@@ -68,3 +68,7 @@ textarea {
 #deleteTrainingModal .modal-body {
 	height: 180px;
 }
+
+#addNewEmpTrainingModal .modal-body {
+	height: 330px;
+}
