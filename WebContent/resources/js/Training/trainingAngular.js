@@ -34,6 +34,7 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		$scope.getAllTrainings();
 		$scope.getAllEmpTrainings();
 		$scope.getEmpTrainingEmployees();
+		$scope.getEmpTrainingsByEmpId();
 	};
 	
 	// datatable configurations
@@ -399,6 +400,9 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 			$scope.updateEmpTraining_Id = result.training.training_id;
 			$scope.updateEmpTrainingEmp = result.employee.empId;
 			$scope.updateEmpTrainingId = result.emp_training_id;
+			$scope.updateEmpTrainingStatus = result.status;
+			$scope.updateEmpTrainingActStartDate = $filter('date')(result.actual_start_date, "yyyy-MM-dd");
+			$scope.updateEmpTrainingActEndDate = $filter('date')(result.actual_end_date, "yyyy-MM-dd");
 			
 			if(result.remarks == null)
 				$scope.updateEmpTrainingRemarks = "";
@@ -455,6 +459,50 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 		.error(function(data, status) {
 			$('#deleteEmpTrainingModal').modal('hide');
 			toaster.pop('error', "Notification", "Employee Training Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+	/* User and Lead View */
+	
+	// get emp trainings by empId
+	$scope.getEmpTrainingsByEmpId = function(){
+		$scope.getLoggedInEmployee().then(function(employee) {
+			var empTraining = {
+				employee: {empId: employee.empId}
+			};
+			
+			$http.post($scope.baseURL + '/Training/GetEmpTrainingByEmpId', empTraining)
+			.success(function(result) {
+				$scope.myEmpTrainings = result;
+				console.log(result);
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		});
+	};
+	
+	// update user emp training
+	$scope.updateUserEmpTraining = function(empTrainingId, status, actStartDate, actEndDate) {
+		var empTraining = {
+			emp_training_id: empTrainingId,
+			status: status,
+			actual_start_date: actStartDate,
+			actual_end_date: actEndDate
+		};
+		
+		$http.post($scope.baseURL + '/Training/UpdateUserEmpTraining', empTraining)
+		.success(function(result) {
+			$('#updateEmpTrainingModalUser').modal('hide');
+			toaster.pop('success', "Notification", "Training Updated Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#updateEmpTrainingModalUser').modal('hide');
+			toaster.pop('error', "Notification", "Training Updation Failed");
 			console.log(data);
 		});
 	};

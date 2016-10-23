@@ -125,7 +125,7 @@
 							<h3>Training Summary</h3>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="myTrainings">
-							<h3>My Trainings</h3>
+							<jsp:include page="User and Lead/Employee Trainings/empTrainings.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>

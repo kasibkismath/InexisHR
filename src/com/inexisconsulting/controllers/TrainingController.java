@@ -145,4 +145,18 @@ public class TrainingController {
 	public void deleteEmpTraining(@RequestBody EmployeeTraining empTraining) {
 		employeeTrainingService.deleteEmpTraining(empTraining);
 	}
+
+	// get employee trainings by empId
+	@RequestMapping(value = "/Training/GetEmpTrainingByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<EmployeeTraining> getEmpTrainingsByEmpId(@RequestBody EmployeeTraining empTraining) {
+		return employeeTrainingService.getEmpTrainingsByEmpId(empTraining);
+	}
+
+	// update user emp training
+	@RequestMapping(value = "/Training/UpdateUserEmpTraining", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateUserEmpTraining(@RequestBody EmployeeTraining empTraining) throws ParseException {
+		employeeTrainingService.updateUserEmpTraining(empTraining);
+	}
 }

@@ -1,5 +1,6 @@
 package com.inexisconsulting.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,14 @@ public class EmployeeTrainingService {
 
 	public void deleteEmpTraining(EmployeeTraining empTraining) {
 		employeeTrainingDao.deleteEmpTraining(empTraining);
+	}
+
+	public List<EmployeeTraining> getEmpTrainingsByEmpId(EmployeeTraining empTraining) {
+		return employeeTrainingDao.getEmpTrainingsByEmpId(empTraining);
+	}
+
+	public void updateUserEmpTraining(EmployeeTraining empTraining) throws ParseException {
+		employeeTrainingDao.updateUserEmpTraining(empTraining);
 	}
 
 }

@@ -69,7 +69,7 @@
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="addTrainingForm.expStartDate.$error.required 
 						&& addTrainingForm.expStartDate.$dirty">
-					<strong>Error!</strong> Expected Start Date.
+					<strong>Error!</strong> Expected Start Date is required.
 				</div>
 				<label class="col-sm-2 control-label">Expected Start Date</label>
 				<div class="col-sm-10">
@@ -96,7 +96,7 @@
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="addTrainingForm.expEndDate.$error.required 
 						&& addTrainingForm.expEndDate.$dirty">
-					<strong>Error!</strong> Expected End Date.
+					<strong>Error!</strong> Expected End Date is required.
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkStartEndDateResult === true">

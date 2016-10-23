@@ -1,6 +1,9 @@
 package com.inexisconsulting.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -24,10 +27,10 @@ public class EmployeeTrainingDAO {
 
 	public int getEmpTrainingCount(Training training) {
 		String sql = "select count(*) from emp_training where training_id=:trainingId";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("trainingId", training.getTraining_id());
-		
+
 		if (query.uniqueResult() == null) {
 			return 0;
 		} else {
@@ -41,32 +44,32 @@ public class EmployeeTrainingDAO {
 		String hql = "from EmployeeTraining as empTraining "
 				+ "where year(empTraining.training.expected_start_date)=:currentYear or "
 				+ "year(empTraining.training.expected_end_date)=:currentYear";
-		
+
 		Query query = session().createQuery(hql);
 		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-		
+
 		List<EmployeeTraining> empTraining = query.list();
 		return empTraining;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Employee> getEmpTrainingEmployees() {
 		String hql = "from Employee where status=:status";
-		
+
 		Query query = session().createQuery(hql);
 		query.setParameter("status", true);
-		
+
 		List<Employee> empTrainingEmployees = query.list();
 		return empTrainingEmployees;
 	}
 
 	public boolean checkDuplicateEmpTraining(EmployeeTraining empTraining) {
 		String sql = "select count(*) from emp_training where emp_id=:empId and training_id=:trainingId";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("empId", empTraining.getEmployee().getEmpId());
 		query.setParameter("trainingId", empTraining.getTraining().getTraining_id());
-		
+
 		if (query.uniqueResult() == null) {
 			return false;
 		} else {
@@ -88,13 +91,12 @@ public class EmployeeTrainingDAO {
 		String sql = "select (train.max_candidates - COALESCE(empTrain.empTrainCount,0)) AS AvailableSlots "
 				+ "from training as train " + "left join ( "
 				+ "select count(*) as empTrainCount, training_id as empTrainingId " + "from emp_training "
-				+ "group by training_id " + ") as empTrain " 
-				+ "on empTrain.empTrainingId = train.training_id "
+				+ "group by training_id " + ") as empTrain " + "on empTrain.empTrainingId = train.training_id "
 				+ "where train.training_id=:trainingId";
 
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("trainingId", empTraining.getTraining().getTraining_id());
-		
+
 		if (query.uniqueResult() == null) {
 			return false;
 		} else {
@@ -119,16 +121,49 @@ public class EmployeeTrainingDAO {
 		Criteria crit = session().createCriteria(EmployeeTraining.class);
 		crit.add(Restrictions.eq("emp_training_id", empTraining.getEmp_training_id()));
 
-		EmployeeTraining updatedEmpTraining= (EmployeeTraining) crit.uniqueResult();
+		EmployeeTraining updatedEmpTraining = (EmployeeTraining) crit.uniqueResult();
 		updatedEmpTraining.setRemarks(empTraining.getRemarks());
-		
+
 		session().saveOrUpdate(updatedEmpTraining);
 	}
 
 	public void deleteEmpTraining(EmployeeTraining empTraining) {
-		Query query = session().createQuery("delete from EmployeeTraining where "
-				+ "emp_training_id=:empTrainingId");
+		Query query = session().createQuery("delete from EmployeeTraining where " + "emp_training_id=:empTrainingId");
 		query.setInteger("empTrainingId", empTraining.getEmp_training_id());
 		query.executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<EmployeeTraining> getEmpTrainingsByEmpId(EmployeeTraining empTraining) {
+		String hql = "from EmployeeTraining as empTraining where " + "employee.emp_id=:empId";
+
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", empTraining.getEmployee().getEmpId());
+
+		List<EmployeeTraining> myEmpTrainings = query.list();
+		return myEmpTrainings;
+	}
+
+	public void updateUserEmpTraining(EmployeeTraining empTraining) throws ParseException {
+		// format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// dates
+		Date actStartDate = empTraining.getActual_start_date();
+		Date actEndDate = empTraining.getActual_end_date();
+
+		// convert date to string
+		String stringActStartDate = sdf.format(actStartDate);
+		String stringActEndDate = sdf.format(actEndDate);
+		
+		Criteria crit = session().createCriteria(EmployeeTraining.class);
+		crit.add(Restrictions.eq("emp_training_id", empTraining.getEmp_training_id()));
+
+		EmployeeTraining updatedEmpTraining = (EmployeeTraining) crit.uniqueResult();
+		updatedEmpTraining.setStatus(empTraining.getStatus());
+		updatedEmpTraining.setActual_start_date(sdf.parse(stringActStartDate));
+		updatedEmpTraining.setActual_end_date(sdf.parse(stringActEndDate));;
+
+		session().saveOrUpdate(updatedEmpTraining);
 	}
 }
