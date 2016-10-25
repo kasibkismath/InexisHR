@@ -39,4 +39,12 @@ $(function() {
 	$('#training-tile').css({
 		"cursor" : "pointer"
 	});
+	
+	// contracts tile
+	$('#contracts-tile').click(function() {
+		$(location).attr('href', contextPath + '/Contracts');
+	});
+	$('#contracts-tile').css({
+		"cursor" : "pointer"
+	});
 });

@@ -42,7 +42,7 @@ $(function() {
 
 	// contracts tile
 	$('#contracts-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/Contracts');
 	});
 	$('#contracts-tile').css({
 		"cursor" : "pointer"

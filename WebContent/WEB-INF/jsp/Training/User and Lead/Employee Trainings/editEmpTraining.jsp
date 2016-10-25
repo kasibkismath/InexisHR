@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
 		<form name="updateEmpTrainingUserForm" class="form-horizontal"
-			ng-submit="updateEmpTrainingUserForm.$valid &&
+			ng-submit="updateEmpTrainingUserForm.$valid && checkStartEndDateResult === false && 
 				updateUserEmpTraining(updateEmpTrainingId, updateEmpTrainingStatus, 
 				updateEmpTrainingActStartDate, updateEmpTrainingActEndDate)">
 			
@@ -33,16 +33,16 @@
 			</div>
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
-					ng-show="updateEmpTrainingUserForm.actStartDate.$error.required 
-						&& updateEmpTrainingUserForm.actStartDate.$dirty">
-					<strong>Error!</strong> Actual Start Date is required.
+					ng-show="checkStartEndDateResult === true">
+					<strong>Error!</strong> Actual End Date should be less than Actual Start Date
 				</div>
 				<label class="col-sm-2 control-label">Actual Start Date</label>
 				<div class="col-sm-10">
 					<datepicker date-format="yyyy-MM-dd" selector="form-control">
 						<div class="input-group">
 							<input ng-model="updateEmpTrainingActStartDate" class="form-control" 
-							placeholder="Choose a date" name="actStartDate" required>
+							placeholder="Choose a date" name="actStartDate"
+							ng-change="checkStartEndDate">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>
@@ -51,18 +51,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div role="alert" class="alert alert-danger padded" 
-					ng-show="updateEmpTrainingUserForm.actEndDate.$error.required 
-						&& updateEmpTrainingUserForm.actEndDate.$dirty">
-					<strong>Error!</strong> Actual End Date is required.
-				</div>
-				<label class="col-sm-2 control-label">Actual Start Date</label>
+				<label class="col-sm-2 control-label">Actual End Date</label>
 				<div class="col-sm-10">
 					<datepicker date-format="yyyy-MM-dd" selector="form-control">
 						<div class="input-group">
 							<input ng-model="updateEmpTrainingActEndDate" class="form-control" 
-							placeholder="Choose a date" name="actEndDate" required
-							ng-change="">
+							placeholder="Choose a date" name="actEndDate"
+							ng-change="checkStartEndDate(updateEmpTrainingActStartDate, updateEmpTrainingActEndDate)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>

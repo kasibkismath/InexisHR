@@ -485,6 +485,9 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 	
 	// update user emp training
 	$scope.updateUserEmpTraining = function(empTrainingId, status, actStartDate, actEndDate) {
+		
+		console.log(actStartDate + " " + actEndDate);
+		
 		var empTraining = {
 			emp_training_id: empTrainingId,
 			status: status,

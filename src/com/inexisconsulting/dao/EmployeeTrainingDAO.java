@@ -145,25 +145,14 @@ public class EmployeeTrainingDAO {
 	}
 
 	public void updateUserEmpTraining(EmployeeTraining empTraining) throws ParseException {
-		// format
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		// dates
-		Date actStartDate = empTraining.getActual_start_date();
-		Date actEndDate = empTraining.getActual_end_date();
-
-		// convert date to string
-		String stringActStartDate = sdf.format(actStartDate);
-		String stringActEndDate = sdf.format(actEndDate);
-		
 		Criteria crit = session().createCriteria(EmployeeTraining.class);
 		crit.add(Restrictions.eq("emp_training_id", empTraining.getEmp_training_id()));
 
 		EmployeeTraining updatedEmpTraining = (EmployeeTraining) crit.uniqueResult();
 		updatedEmpTraining.setStatus(empTraining.getStatus());
-		updatedEmpTraining.setActual_start_date(sdf.parse(stringActStartDate));
-		updatedEmpTraining.setActual_end_date(sdf.parse(stringActEndDate));;
-
+		updatedEmpTraining.setActual_start_date(empTraining.getActual_start_date());
+		updatedEmpTraining.setActual_end_date(empTraining.getActual_end_date());
+		
 		session().saveOrUpdate(updatedEmpTraining);
 	}
 }

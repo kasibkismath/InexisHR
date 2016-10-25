@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html lang="en" ng-modules="training, adminHeader">
+<html lang="en" ng-modules="contracts, adminHeader">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Training</title>
+<title>Contracts</title>
 
 <!-- JS -->
 <script src="${pageContext.request.contextPath}/static/js/General/jquery-1.12.2.min.js"></script>
@@ -33,7 +33,7 @@
 	rel="stylesheet">
 	
 <link
-	href="${pageContext.request.contextPath}/static/css/Training/training.css"
+	href="${pageContext.request.contextPath}/static/css/Contracts/contracts.css"
 	rel="stylesheet">
 	
 <!-- Angular Toastar CSS -->
@@ -63,7 +63,7 @@
 
 
 </head>
-<body ng-controller="trainingMainController" ng-init="init()" ng-cloak>
+<body ng-controller="contractsMainController" ng-init="init()" ng-cloak>
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
@@ -73,10 +73,8 @@
 				<div class="col-lg-12">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#trainings"
-							aria-controls="profile" role="tab" data-toggle="tab">Trainings</a></li>
-						<li role="presentation"><a href="#employeeTrainings"
-							aria-controls="profile" role="tab" data-toggle="tab">Employee Trainings</a></li>
+						<li role="presentation" class="active"><a href="#contracts"
+							aria-controls="profile" role="tab" data-toggle="tab">Contracts</a></li>
 					</ul>
 				</div>
 			</div>
@@ -86,11 +84,8 @@
 				<div class="col-xs-6 col-lg-12">
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="trainings">
-							<jsp:include page="HR and Admin/Trainings/trainings.jsp"></jsp:include>
-						</div>
-						<div role="tabpanel" class="tab-pane fade" id="employeeTrainings">
-							<jsp:include page="HR and Admin/Employee Trainings/empTrainings.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in active" id="contracts">
+							<jsp:include page="HR/contracts-hr.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
@@ -103,8 +98,8 @@
 				<div class="col-lg-12">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#myTrainings"
-							aria-controls="profile" role="tab" data-toggle="tab">My Trainings</a></li>
+						<li role="presentation" class="active"><a href="#myContracts"
+							aria-controls="profile" role="tab" data-toggle="tab">My Contracts</a></li>
 					</ul>
 				</div>
 			</div>
@@ -114,8 +109,33 @@
 				<div class="col-xs-6 col-lg-12">
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="myTrainings">
-							<jsp:include page="User and Lead/Employee Trainings/empTrainings.jsp"></jsp:include>
+						<div role="tabpanel" class="tab-pane fade in active" id="myContracts">
+							<h3>User Lead My Contracts</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_CEO')">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#allContracts"
+							aria-controls="profile" role="tab" data-toggle="tab">All Contracts</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 col-lg-12">
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="allContracts">
+							<h3>All Contracts</h3>
 						</div>
 					</div>
 				</div>
@@ -148,10 +168,11 @@
 	<script src="${pageContext.request.contextPath}/static/js/General/dropdowns-enhancement.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-datepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/General/angular-convert-to-number.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/General/ng-file-upload.min.js"></script>
 	<script
 			src="${pageContext.request.contextPath}/static/js/Header/adminHeaderAngular.js"></script>
 	<script
-			src="${pageContext.request.contextPath}/static/js/Training/trainingAngular.js">
+			src="${pageContext.request.contextPath}/static/js/Contracts/contractsAngular.js">
 	</script>
 </body>
 </html>
