@@ -4,10 +4,10 @@ var contracts = angular.module('contracts', ['toaster', 'ngAnimate', 'chart.js',
 
 contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toaster', '$filter',
                                                 'DTOptionsBuilder', 'DTColumnDefBuilder', 
-                                                'DTColumnBuilder', 'Upload',
+                                                'DTColumnBuilder', 'Upload', '$location',
                                                 function($scope, $http, $q, toaster, $filter, 
                                                     		DTOptionsBuilder, DTColumnDefBuilder, 
-                                                    		DTColumnBuilder, Upload) {
+                                                    		DTColumnBuilder, Upload, $location)  {
 	
 	// declared variables
 	$scope.baseURL = contextPath;
@@ -122,8 +122,12 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 	$scope.uploadContracts = function(empId, files) {
 		angular.forEach(files, function(file) {
 			
+			// trim file name and get only the fileName without extension
+			var trimName = file.name.trim();
+			var uploadFileName = trimName.slice(0, trimName.length-4);
+			
 			// fileName and empId
-			$scope.fileName = file.name + "-" + empId + ".pdf";
+			$scope.fileName = uploadFileName + "-" + empId + ".pdf";
 			
 			var contract = {
 				employee: {empId: empId},
@@ -153,21 +157,8 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 		});
 	};
 	
-	// download contract
-	$scope.downloadContract = function(contractName) {
-		
-		var contract = {
-			contractURL: contractName
-		};
-		
-		$http.get($scope.baseURL + '/Contracts/DownloadContract')
-		.success(function(result) {
-			toaster.pop('success', "Notification", "Contract Download Successful");
-		})
-		.error(function(data, status) {
-			$('#addContractModal').modal('hide');
-			toaster.pop('error', "Notification", "Contract Download Failed");
-			console.log(data);
-		});
+	// delete contract
+	$scope.deleteContract = function(contractName) {
+		console.log(contractName);
 	}
 }]);

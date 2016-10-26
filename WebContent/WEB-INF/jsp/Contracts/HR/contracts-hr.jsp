@@ -23,21 +23,24 @@
 				 	<td ng-cloak>{{contract.employee.firstName}} {{contract.employee.lastName}}</td>
 				 	<td ng-cloak>{{contract.contractURL}}</td>
 					<td ng-cloak>
-						<a class="btn btn-primary" data-toggle="modal" 
+						<a class="btn btn-default"
+							href="<c:url value='/Contracts/ViewContract?fileName={{contract.contractURL}}'/>">
+							<i class="fa fa-eye fa-lg"></i>
+						</a>
+						<a class="btn btn-primary"
 							href="<c:url value='/Contracts/DownloadContract?fileName={{contract.contractURL}}'/>">
 							<i class="fa fa-download fa-lg"></i>
 						</a>
-						<button class="btn btn-danger" data-toggle="modal" 
-							data-target="#deleteEmpTrainingModal" 
-							ng-click="deleteEmpTrainingMain(empTraining.emp_training_id)">
+						<a class="btn btn-danger"
+							ng-href="<c:url value='/Contracts/DeleteContract?fileName={{contract.contractURL}}'/>"
+							ng-click="deleteContract(contract.contractURL)">
 							<i class="fa fa-trash fa-lg"></i>
-						</button>
+						</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<!-- Modal -->
 		<jsp:include page="addContract.jsp"></jsp:include>
-		<jsp:include page="deleteContract.jsp"></jsp:include>
 	</div>
 </div>

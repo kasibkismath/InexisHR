@@ -4,6 +4,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
@@ -105,22 +109,48 @@ public class ContractsController {
 	private File getFile(String fileName) throws FileNotFoundException {
 		File file = new File(FILE_PATH + fileName);
 		if (!file.exists()) {
-			throw new FileNotFoundException("file with path: " + FILE_PATH + "Declaration-2.pdf" + " was not found.");
+			throw new FileNotFoundException(fileName + " was not found.");
 		}
 		return file;
 	}
 
 	@RequestMapping(value = "/Contracts/DownloadContract", method = RequestMethod.GET, 
 			produces = "application/pdf")
-	
 	public @ResponseBody Resource downloadContract
-	(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileName") String fileName) throws FileNotFoundException {
-		
+	(HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam("fileName") String fileName) throws FileNotFoundException {
 		File file = getFile(fileName);
 	    response.setContentType(APPLICATION_PDF);
 	    response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
 	    response.setHeader("Content-Length", String.valueOf(file.length()));
 	    return new FileSystemResource(file);
 		
+	}
+	
+	@RequestMapping(value = "/Contracts/ViewContract", method = RequestMethod.GET, 
+			produces = "application/pdf")
+	public @ResponseBody Resource viewContract
+	(HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam("fileName") String fileName) throws FileNotFoundException {
+		File file = getFile(fileName);
+	    response.setContentType(APPLICATION_PDF);
+	    response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+	    response.setHeader("Content-Length", String.valueOf(file.length()));
+	    return new FileSystemResource(file);
+		
+	}
+	
+	@RequestMapping(value = "/Contracts/DeleteContract", method = RequestMethod.GET)
+	public void deleteContract
+	(@RequestParam("fileName") String fileName) throws IOException {
+		try{
+    		File file = new File(FILE_PATH + File.separator + fileName);
+    		if(file.exists()) {
+    			file.delete();
+    		}	
+
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
 	}
 }
