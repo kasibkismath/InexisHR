@@ -427,6 +427,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Contracts/DeleteContract"
 			access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')" />
+		<security:intercept-url pattern="/Contracts/DeleteContractInfoFromDB"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports"
 			access="hasAnyRole('ROLE_CEO', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports/GetAllAttendacesForReport"

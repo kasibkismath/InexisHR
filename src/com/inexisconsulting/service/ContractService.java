@@ -25,6 +25,10 @@ public class ContractService {
 	public List<Contract> getAllContracts() {
 		return contractDao.getAllContracts();
 	}
+
+	public void deleteContractInfoFromDB(Contract contract) {
+		contractDao.deleteContractInfoFromDB(contract);
+	}
 	
 	
 }

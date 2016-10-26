@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
@@ -79,6 +76,13 @@ public class ContractsController {
 		return contractService.getFilesCountByEmpId(contract);
 	}
 
+	// delete contract info from DB
+	@RequestMapping(value = "/Contracts/DeleteContractInfoFromDB", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteContractInfoFromDB(@RequestBody Contract contract) {
+		contractService.deleteContractInfoFromDB(contract);
+	}
+
 	@RequestMapping(value = "/Contracts/ContractsFileUpload", method = RequestMethod.POST)
 	@ResponseBody
 	public void fileUpload(@RequestParam("fileName") String fileName, @RequestParam("file") MultipartFile file,
@@ -114,43 +118,38 @@ public class ContractsController {
 		return file;
 	}
 
-	@RequestMapping(value = "/Contracts/DownloadContract", method = RequestMethod.GET, 
-			produces = "application/pdf")
-	public @ResponseBody Resource downloadContract
-	(HttpServletRequest request, HttpServletResponse response, 
+	@RequestMapping(value = "/Contracts/DownloadContract", method = RequestMethod.GET, produces = "application/pdf")
+	public @ResponseBody Resource downloadContract(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("fileName") String fileName) throws FileNotFoundException {
 		File file = getFile(fileName);
-	    response.setContentType(APPLICATION_PDF);
-	    response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-	    response.setHeader("Content-Length", String.valueOf(file.length()));
-	    return new FileSystemResource(file);
-		
-	}
-	
-	@RequestMapping(value = "/Contracts/ViewContract", method = RequestMethod.GET, 
-			produces = "application/pdf")
-	public @ResponseBody Resource viewContract
-	(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam("fileName") String fileName) throws FileNotFoundException {
-		File file = getFile(fileName);
-	    response.setContentType(APPLICATION_PDF);
-	    response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
-	    response.setHeader("Content-Length", String.valueOf(file.length()));
-	    return new FileSystemResource(file);
-		
-	}
-	
-	@RequestMapping(value = "/Contracts/DeleteContract", method = RequestMethod.GET)
-	public void deleteContract
-	(@RequestParam("fileName") String fileName) throws IOException {
-		try{
-    		File file = new File(FILE_PATH + File.separator + fileName);
-    		if(file.exists()) {
-    			file.delete();
-    		}	
+		response.setContentType(APPLICATION_PDF);
+		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+		response.setHeader("Content-Length", String.valueOf(file.length()));
+		return new FileSystemResource(file);
 
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
+	}
+
+	@RequestMapping(value = "/Contracts/ViewContract", method = RequestMethod.GET, produces = "application/pdf")
+	public @ResponseBody Resource viewContract(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("fileName") String fileName) throws FileNotFoundException {
+		File file = getFile(fileName);
+		response.setContentType(APPLICATION_PDF);
+		response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+		response.setHeader("Content-Length", String.valueOf(file.length()));
+		return new FileSystemResource(file);
+
+	}
+
+	@RequestMapping(value = "/Contracts/DeleteContract", method = RequestMethod.POST)
+	@ResponseBody
+	public void deleteContract(@RequestBody Contract contract) throws IOException {
+		try {
+			File file = new File(FILE_PATH + File.separator + contract.getContractURL());
+			if (file.exists()) {
+				file.delete();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

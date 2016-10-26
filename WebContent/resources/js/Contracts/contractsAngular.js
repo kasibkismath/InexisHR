@@ -157,8 +157,46 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 		});
 	};
 	
-	// delete contract
-	$scope.deleteContract = function(contractName) {
-		console.log(contractName);
-	}
+	$scope.downloadContract = function(contractName) {
+		window.open($scope.baseURL + '/Contracts/DownloadContract?fileName=' + contractName, '_self', 'location=yes');
+	};
+	
+	$scope.viewContract = function(contractName) {
+		window.open($scope.baseURL + '/Contracts/ViewContract?fileName=' + contractName, '_blank', 'location=yes');
+	};
+	
+	$scope.deleteContract = function(contractId, contractName) {
+		var contract = {
+			contractURL: contractName
+		};
+		
+		$http.post($scope.baseURL + '/Contracts/DeleteContract', contract)
+		.success(function(result) {
+			$scope.deleteContractInfoFromDB(contractId);
+			toaster.pop('success', "Notification", "Contract Deleted Successfully");
+			setTimeout(function () {
+				window.location.reload();
+	        }, 3000);
+		})
+		.error(function(data, status) {
+			toaster.pop('success', "Notification", "Contract Deletion Failed");
+			console.log(data);
+		});
+	};
+	
+	// send record deletion request to database
+	$scope.deleteContractInfoFromDB = function(contractId) {
+		
+		var contract = {
+			contract_id: contractId
+		};
+			
+		$http.post($scope.baseURL + '/Contracts/DeleteContractInfoFromDB', contract)
+		.success(function(result) {
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
 }]);

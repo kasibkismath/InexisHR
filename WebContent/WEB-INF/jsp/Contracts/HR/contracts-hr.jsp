@@ -23,17 +23,16 @@
 				 	<td ng-cloak>{{contract.employee.firstName}} {{contract.employee.lastName}}</td>
 				 	<td ng-cloak>{{contract.contractURL}}</td>
 					<td ng-cloak>
-						<a class="btn btn-default"
-							href="<c:url value='/Contracts/ViewContract?fileName={{contract.contractURL}}'/>">
+						<button class="btn btn-default"
+							ng-click="viewContract(contract.contractURL)">
 							<i class="fa fa-eye fa-lg"></i>
-						</a>
-						<a class="btn btn-primary"
-							href="<c:url value='/Contracts/DownloadContract?fileName={{contract.contractURL}}'/>">
+						</button>
+						<button class="btn btn-primary"
+							ng-click="downloadContract(contract.contractURL)">
 							<i class="fa fa-download fa-lg"></i>
-						</a>
+						</button>
 						<a class="btn btn-danger"
-							ng-href="<c:url value='/Contracts/DeleteContract?fileName={{contract.contractURL}}'/>"
-							ng-click="deleteContract(contract.contractURL)">
+							ng-click="deleteContract(contract.contract_id, contract.contractURL)">
 							<i class="fa fa-trash fa-lg"></i>
 						</a>
 					</td>

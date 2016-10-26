@@ -44,4 +44,10 @@ public class ContractDAO {
 		return session().createQuery("from Contract").list();
 	}
 
+	public void deleteContractInfoFromDB(Contract contract) {
+		Query query = session().createQuery("delete from Contract where contract_id=:contractId");
+		query.setInteger("contractId", contract.getContract_id());
+		query.executeUpdate();
+	}
+
 }
