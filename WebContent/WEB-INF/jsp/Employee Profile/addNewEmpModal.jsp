@@ -175,7 +175,8 @@
 						</div>
 						<label class="col-sm-2 control-label">Designation</label>
 						<div class="col-sm-10">
-							<select ng-model="saveNewDesignation" name="designation" class="form-control" required>
+							<select ng-model="saveNewDesignation" name="designation" class="form-control" 
+							required ng-change="">
 								<option value="" >Select a designation</option>
 								<option ng-repeat="designation in designations" value="{{designation.designationId}}">{{designation.name}}</option>
 							</select>
@@ -197,6 +198,11 @@
 					</div>
 					<div class="form-group">
 						<div ng-messages="addNewEmpForm.salary.$error" role="alert" ng-if="addNewEmpForm.salary.$dirty">
+							<div ng-message="required" class="alert alert-danger padded">
+								<strong>Error!</strong> Salary is required
+							</div>
+						</div>
+						<div ng-messages="addNewEmpForm.salary.$error" role="alert" ng-if="addNewEmpForm.salary.$dirty">
 							<div ng-message="pattern" class="alert alert-danger padded">
 								<strong>Error!</strong> Salary should be positive integer
 							</div>
@@ -204,7 +210,9 @@
 						<label class="col-sm-2 control-label">Salary</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" placeholder="Salary"
-								name="salary" ng-model="saveNewSalary" ng-pattern="/^(0|[1-9][0-9]*)$/">
+								name="salary" ng-model="saveNewSalary" required
+								ng-pattern="/^(0|[1-9][0-9]*)$/"
+								ng-change="">
 						</div>
 					</div>
 					<div class="form-group">

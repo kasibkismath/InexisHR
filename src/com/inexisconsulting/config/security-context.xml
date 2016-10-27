@@ -101,6 +101,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/MyProfile/getEmployee"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/addEmpHistory"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/designation/getDesignationById"

@@ -360,6 +360,12 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			// corrected image name with first name, last name and empId
 			$scope.updateImageName = firstName + "-" + lastName + "-" + result + ".jpg";
 			
+			var intDesignation = parseInt(designationId);
+			var intSalary = parseInt(salary);
+			
+			// add employment history when employee is created
+			$scope.addEmpHistoryAddingEmp(result, intDesignation, intSalary);
+			
 			// callupdateImageURL function
 			$scope.updateImageURL(result, $scope.updateImageName);
 			
@@ -379,6 +385,23 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			toaster.pop('error', "Notification", "Creating new employee failed");
 		});
 	 };
+	 
+	 // add employment history when adding employee
+	 $scope.addEmpHistoryAddingEmp = function(empId, designationId, salary) {
+		 var empHistory = {
+			employee: {empId: empId},
+			designation: {designationId: designationId},
+			salary: salary
+		 };
+		 
+		 $http.post(contextPath + '/employeeProfile/employee/addEmpHistory', empHistory)
+		 .success(function(result) {
+		 })
+		 .error(function(data, status){
+				console.log(data);
+		 });
+	 };
+	 
 	 
 	 $scope.editEmployee = function (empId) {
 		 

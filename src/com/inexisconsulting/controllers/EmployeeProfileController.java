@@ -1,6 +1,7 @@
 package com.inexisconsulting.controllers;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.EmploymentHistory;
 import com.inexisconsulting.dao.User;
 import com.inexisconsulting.service.EmployeeService;
+import com.inexisconsulting.service.EmploymentHistoryService;
 
 @Controller
 public class EmployeeProfileController {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private EmploymentHistoryService employmentHistoryService;
 
 	@RequestMapping(value="/employeeProfile")
 	public String showEmployeeProfilePage(Model model, Principal principal) {
@@ -112,6 +118,13 @@ public class EmployeeProfileController {
 	public Employee deleteEmployee(@RequestBody Employee employee) {
 		employeeService.deleteEmployee(employee);
 		return employee;
+	}
+	
+	// add emp history
+	@RequestMapping(value = "/employeeProfile/employee/addEmpHistory", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addEmploymentHistory(@RequestBody EmploymentHistory empHistory) throws ParseException {
+		employmentHistoryService.addEmploymentHistory(empHistory);
 	}
 	
 	@RequestMapping(value="/employeeProfile/employee/getEmpDesignationData", method=RequestMethod.GET, produces="application/json")

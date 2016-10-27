@@ -15,6 +15,9 @@
 			</div>
 			<div class="col-sm-offset-4 col-sm-2" id="addNewEmpBtn"> <button class="btn btn-success" data-toggle="modal" data-target="#addNewEmpModal"><i class="fa fa-plus-circle fa-lg"></i> Add New Employee</button></div>
 		</div>
+		<div class="row text-center">
+	          <dir-pagination-controls id="employeeDirPagination" boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>
+	    </div>
 		</div>
 		<!-- List Group Start -->
 		<ul class="list-group tpad">
@@ -61,9 +64,6 @@
 				</div>
 			</li>
 		</ul>
-		<div class="text-center">
-	          <dir-pagination-controls id="employeeDirPagination" boundary-links="true" template-url="${pageContext.request.contextPath}/static/js/General/dirPagination.tpl.html"></dir-pagination-controls>
-	    </div>
 		<jsp:include page="addNewEmpModal.jsp"></jsp:include>
 		<jsp:include page="employeeDeleteModal.jsp"></jsp:include>
 		<jsp:include page="employeeDisableModal.jsp"></jsp:include>
