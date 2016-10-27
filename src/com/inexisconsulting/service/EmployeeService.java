@@ -79,4 +79,8 @@ public class EmployeeService {
 	public List<Employee> getAllActiveEmployees(Employee employee) {
 		return employeeDao.getAllActiveEmployees(employee);
 	}
+
+	public Employee getEmployeeByEmpId(Employee employee) {
+		return employeeDao.getEmployeeByEmpId(employee);
+	}
 }

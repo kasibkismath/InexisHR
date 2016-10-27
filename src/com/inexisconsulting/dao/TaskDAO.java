@@ -106,6 +106,8 @@ public class TaskDAO {
 		updatedTask.setPriority(task.getPriority());
 		updatedTask.setExpected_start_date(sdf.parse(stringExpectedStartDate));
 		updatedTask.setExpected_end_date(sdf.parse(stringExpectedEndDate));
+		
+		session().saveOrUpdate(updatedTask);
 	}
 
 	public void deleteTask(Task task) {

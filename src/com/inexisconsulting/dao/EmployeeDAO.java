@@ -187,4 +187,11 @@ public class EmployeeDAO {
 		List<Employee> result = query.list();
 		return result;
 	}
+
+	public Employee getEmployeeByEmpId(Employee employee) {
+		Criteria crit = session().createCriteria(Employee.class);
+		crit.add(Restrictions.eq("emp_id", employee.getEmpId()));
+		Employee fetchedEmp = (Employee)crit.uniqueResult();
+		return fetchedEmp;
+	}
 }

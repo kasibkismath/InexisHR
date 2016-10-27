@@ -50,8 +50,10 @@ empProfile.directive('ngUniqueDesignation', ['$http', function (async) {
 /* Controllers */
 empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload', 'capitalizeFilter', 
                                          'toaster', 'DTOptionsBuilder', 'DTColumnBuilder', '$filter',
+                                         '$q',
                                          function($scope, $http, $compile, Upload, capitalizeFilter, toaster, 
-                                        		 DTOptionsBuilder, DTColumnBuilder, $filter){
+                                        		 DTOptionsBuilder, DTColumnBuilder, $filter,
+                                        		 $q){
 	// Angular Designation Data Table configuration
 	
 	$scope.dtColumns = [
@@ -60,8 +62,8 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 	                    DTColumnBuilder.newColumn("name", "Designation").withOption('name', 'name'),
 	                    DTColumnBuilder.newColumn(null).withTitle('Actions')
 	                    	.renderWith(function(data, type, full, meta) {
-	                        return '<button class="btn btn-primary" id="editDesig" data-toggle="modal" data-target="#editDesigModal" ng-click="editDesigMain('+ data.designationId +')"><i class="fa fa-pencil fa-lg"></i> Edit</button>' +
-	                            '<button class="btn btn-danger" id="deleteDesig" data-toggle="modal" data-target="#deleteDesigModal" ng-click="deleteDesigMain(' + data.designationId + ')"><i class="fa fa-trash fa-lg"></i> Delete</button>';
+	                        return '<button class="btn btn-primary" id="editDesig" data-toggle="modal" data-target="#editDesigModal" ng-click="editDesigMain('+ data.designationId +')"><i class="fa fa-pencil fa-lg"></i></button>' +
+	                            '<button class="btn btn-danger" id="deleteDesig" data-toggle="modal" data-target="#deleteDesigModal" ng-click="deleteDesigMain(' + data.designationId + ')"><i class="fa fa-trash fa-lg"></i></button>';
 	                    })
 	                ];
 	
@@ -75,6 +77,11 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
       })
      .withPaginationType('full_numbers')
      .withDisplayLength(10);
+	 
+	// datatable configurations
+	// emp history datatable
+	$scope.empHistoryTableOptions = DTOptionsBuilder.newOptions()
+	   .withOption('aaSorting', [[0, 'asc'], [3, 'desc']])
 	
 	// Main ng-init function
 	$scope.mainInit = function () {
@@ -82,6 +89,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		$scope.getAllDesignations();
 		$scope.getEmpDesigChartData();
 		$scope.changeToAll();
+		$scope.getEmpHisotry();
 	};
 	
 	// Pagination Page Size
@@ -118,7 +126,6 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 		// get chart labels
 		$http.get($scope.baseURL + '/employeeProfile/employee/getEmpDesignationData')
 		.success(function(result) {
-			console.log(result);
 			$scope.labels = [];
 			$scope.data = [];
 			angular.forEach(result, function(value, key) {
@@ -287,6 +294,74 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			console.log(data);
 		});
 	};
+	
+	//get employee by empId
+	$scope.getEmployeeByEmpId = function(empId) {
+		var def = $q.defer();
+		
+		var employee = {
+			empId: empId
+		};
+		
+		$http.post($scope.baseURL + '/employeeProfile/employee/getEmployeeByEmpId', employee)
+		.success(function(result) {
+			def.resolve(result);
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+		return def.promise;
+	};
+	
+	//get employee histories
+	$scope.getEmpHisotry = function() {
+		$http.get($scope.baseURL + '/employeeProfile/employee/getEmpHistory')
+		.success(function(result) {
+			$scope.empHistories = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	//get employee histories
+	$scope.getEmpHistoryById = function(empHistoryId) {
+		
+		var empHistory = {
+			emp_history_id:empHistoryId
+		};
+		
+		$http.post($scope.baseURL + '/employeeProfile/employee/getEmpHistoryById', empHistory)
+		.success(function(result) {
+			$scope.updateEmpHistoryId = result.emp_history_id;
+			$scope.updateEffectiveDate = $filter('date')(result.effectiveDate, "yyyy-MM-dd");
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	$scope.updateEmpHistory = function(empHistoryId, effectiveDate) {
+		
+		var empHistory = {
+			emp_history_id: empHistoryId,
+			effectiveDate: effectiveDate
+		};
+		
+		$http.post($scope.baseURL + '/employeeProfile/employee/updateEmpHistory', empHistory)
+		.success(function(result) {
+			$('#updateEmpHistoryModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee History Updated Successfully");
+			setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+		})
+		.error(function(data, status) {
+			$('#updateEmpHistoryModal').modal('hide');
+			toaster.pop('error', "Notification", "Employee History Updation Failed");
+			console.log(data);
+		});
+	}
 	
 	// add new employee
 	 $scope.addNewEmp = function(empId, firstName, lastName, nicNo, status, 
@@ -477,6 +552,18 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
 			birthday : birthday,
 			imageURL : imageURL
 		};
+		
+		// add employee history when updating
+		$scope.getEmployeeByEmpId(empId).then(function(employee) {
+			var oldDesignation = employee.designation.designationId;
+			var oldSalary = employee.salary;
+			
+			// update only if designation or the salary is changed
+			if(oldDesignation != designationId || oldSalary != salary) {
+				$scope.addEmpHistoryAddingEmp(empId, designationId, salary);
+			}
+		});
+		
 		
 		$http.post(contextPath + '/employeeProfile/employee/updateEditBasicInfoEmp', employee)
 		.success(function(result){

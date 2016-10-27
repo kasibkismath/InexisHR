@@ -157,13 +157,16 @@
   									<div class="form-group">
   										<div ng-messages="editEmpForm.salary.$error" role="alert" 
   										ng-if="editEmpForm.salary.$dirty">
+  											<div ng-message="required" class="alert alert-danger padded">
+												<strong>Error!</strong> Salary is required
+											</div>
 											<div ng-message="pattern" class="alert alert-danger padded">
 												<strong>Error!</strong> Salary should be positive integer
 											</div>
 										</div>
     									<label>Salary</label>
    										<input type="text" class="form-control" placeholder="Salary"
-   										ng-model="editGetSalary" name="salary">
+   										ng-model="editGetSalary" name="salary" required ng-pattern="/^(0|[1-9][0-9]*)$/">
   									</div>
   									<div class="form-group">
     									<label>Birthday</label>

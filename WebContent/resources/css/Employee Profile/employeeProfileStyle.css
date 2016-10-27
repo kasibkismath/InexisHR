@@ -123,6 +123,13 @@ button#filterBtn:hover {
 	float:right
 }
 
+/* employee pagination */
+.employeePagination {
+	margin-top: 10px;
+    margin-right: 25px;
+    margin-bottom: -30px;
+}
+
 /* Add Emp Modal */
 .modal-dialog{
     overflow-y: initial !important
@@ -247,7 +254,17 @@ button#filterBtn:hover {
 }
 
 #empDisableModal .modal-body {
-	height: 120px;;
+	height: 120px;
+}
+
+/* Employee History */
+
+.empHistoryTable {
+	padding-top: 20px;
+}
+
+#updateEmpHistoryModal .modal-body {
+	height: 400px !important;
 }
 
 

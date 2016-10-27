@@ -103,6 +103,14 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/employeeProfile/employee/addEmpHistory"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/getEmployeeByEmpId"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/getEmpHistory"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/getEmpHistoryById"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/employeeProfile/employee/updateEmpHistory"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/desgination/all"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/designation/getDesignationById"

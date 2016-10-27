@@ -82,6 +82,8 @@
 						aria-controls="empProfile" role="tab" data-toggle="tab">Employee Profile</a></li>
 					<li role="presentation"><a href="#designations"
 						aria-controls="designations" role="tab" data-toggle="tab">Designations</a></li>
+					<li role="presentation"><a href="#empHistory"
+						aria-controls="empHistory" role="tab" data-toggle="tab">Employment History</a></li>
 				</ul>
 		</div>
 		<!-- Tab panes -->
@@ -97,6 +99,9 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="designations" ng-cloak>
 							<jsp:include page="designations.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="empHistory" ng-cloak>
+							<jsp:include page="empHistory.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
