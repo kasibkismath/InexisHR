@@ -20,6 +20,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		$scope.saveProjectStatus = "In-Progress";
 		$scope.checkDuplicateTeamResult = false;
 		$scope.checkDuplicateTeamMemberResult = false;
+		$scope.checkFromToDateResult = false;
 		
 		// functions
 		$scope.getAllProjects();
@@ -489,6 +490,21 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 			toaster.pop('error', "Notification", "Team Member Deletion Failed");
 			console.log(data);
 		});
+	};
+	
+	// check for from date - To Date team member validation
+	$scope.checkFromToDate = function(fromDate, toDate) {
+		if(fromDate != undefined && toDate != undefined) {
+			
+			var formattedFromDate = new Date(fromDate);
+			var formattedToDate = new Date(toDate);
+			
+			if(formattedFromDate > formattedToDate) {
+				$scope.checkFromToDateResult = true;
+			} else {
+				$scope.checkFromToDateResult = false;
+			}
+		}
 	};
 	
 }]);  

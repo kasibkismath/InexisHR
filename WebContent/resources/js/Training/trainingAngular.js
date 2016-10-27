@@ -75,7 +75,12 @@ training.controller('trainingMainController', ['$scope', '$http', '$q', 'toaster
 	// check if expected end date is more than expected start date
 	$scope.checkStartEndDate = function(startDate, endDate) {
 		if(startDate != undefined && endDate != undefined) {
-			if(startDate > endDate) {
+			
+			var formattedStartDate = new Date(startDate);
+			var formattedEndDate = new Date(endDate);
+			
+			
+			if(formattedStartDate > formattedEndDate) {
 				$scope.checkStartEndDateResult = true;
 			} else {
 				$scope.checkStartEndDateResult = false;

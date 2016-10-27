@@ -20,6 +20,7 @@ import com.inexisconsulting.dao.Project;
 import com.inexisconsulting.dao.Team;
 import com.inexisconsulting.dao.Team_Employee;
 import com.inexisconsulting.dao.Team_Member_And_Lead_Appraisal;
+import com.inexisconsulting.service.EmployeeProjectHistoryService;
 import com.inexisconsulting.service.EmployeeService;
 import com.inexisconsulting.service.ProjectService;
 import com.inexisconsulting.service.TeamService;
@@ -39,6 +40,9 @@ public class ProjectsAndTeamController {
 
 	@Autowired
 	private Team_EmployeeService teamEmployeeService;
+	
+	@Autowired
+	private EmployeeProjectHistoryService employeeProjectHistoryService;
 
 	@RequestMapping("/ProjectsAndTeams")
 	@SuppressWarnings("unchecked")

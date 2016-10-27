@@ -49,7 +49,7 @@
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="addProjectForm.startDate.$error.required 
 						&& addProjectForm.startDate.$dirty">
-					<strong>Error!</strong> Start Date.
+					<strong>Error!</strong> Start Date is required.
 				</div>
 				<label class="col-sm-2 control-label">Start Date</label>
 				<div class="col-sm-10">

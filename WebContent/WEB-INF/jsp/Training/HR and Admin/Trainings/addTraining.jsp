@@ -100,7 +100,7 @@
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkStartEndDateResult === true">
-					<strong>Error!</strong> Expected Start Date should be more than or equal to 
+					<strong>Error!</strong> Expected Start Date should be less than or equal to 
 					Expected End Date
 				</div>
 				<label class="col-sm-2 control-label">Expected End Date</label>

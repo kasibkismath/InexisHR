@@ -81,6 +81,7 @@
 							<input ng-model="updateExpStartDate" class="form-control" 
 							placeholder="Choose a date" name="expStartDate" required
 							ng-change="checkStartEndDateRange(updateExpStartDate, updateExpEndDate); 
+							checkStartEndDate(updateExpStartDate, updateExpEndDate);
 							checkTrainingDuplicate(updateTrainingName, updateDifficultyLevel, 
 							updateTrainingType, updateExpStartDate, updateExpEndDate)">
 							<span class="input-group-addon" style="cursor: pointer">
@@ -103,7 +104,7 @@
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkStartEndDateResult === true">
-					<strong>Error!</strong> Expected Start Date should be more than or equal to 
+					<strong>Error!</strong> Expected Start Date should be less than or equal to 
 					Expected End Date
 				</div>
 				<label class="col-sm-2 control-label">Expected End Date</label>
@@ -113,6 +114,7 @@
 							<input ng-model="updateExpEndDate" class="form-control" 
 							placeholder="Choose a date" name="expEndDate" required
 							ng-change="checkStartEndDateRange(updateExpStartDate, updateExpEndDate); 
+							checkStartEndDate(updateExpStartDate, updateExpEndDate);
 							checkTrainingDuplicate(updateTrainingName, updateDifficultyLevel, 
 							updateTrainingType, updateExpStartDate, updateExpEndDate)">
 							<span class="input-group-addon" style="cursor: pointer">
