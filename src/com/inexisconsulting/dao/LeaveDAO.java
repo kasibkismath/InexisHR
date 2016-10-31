@@ -77,7 +77,7 @@ public class LeaveDAO {
 		String stringToDate = sdf.format(toDate);
 
 		String sql = "select count(leave_id) as count from leaves "
-				+ "where emp_id=:empId and leave_from>=:leaveFrom and leave_to<=:leaveTo and "
+				+ "where emp_id=:empId and leave_from<=:leaveTo and leave_to>=:leaveFrom and "
 				+ "leaves.status!=:rejectedStatus";
 
 		Query query = session().createSQLQuery(sql);

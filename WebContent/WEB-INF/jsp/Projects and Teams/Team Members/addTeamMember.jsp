@@ -7,8 +7,11 @@
       </div>
       <div class="modal-body">
 		<form name="addTeamMemberForm" class="form-horizontal"
-			ng-submit="addTeamMemberForm.$valid && checkDuplicateTeamMemberResult === false &&
-				addTeamMember(saveTeamMemberEmp, saveTeamMemberTeam)">
+			ng-submit="addTeamMemberForm.$valid && checkDuplicateTeamMemberResult === false && 
+				checkDuplicateEmpProjectHistoryResult === false &&
+				checkFromToDateResult === false &&
+				addTeamMember(saveTeamMemberEmp, saveTeamMemberTeam, saveTeamMemberFromDate, 
+				saveTeamMemberToDate)">
 				
 			<div class="form-group">
 				<div role="alert" class="alert alert-danger padded" 
@@ -18,13 +21,19 @@
 				</div>
 				<div role="alert" class="alert alert-danger padded" 
 					ng-show="checkDuplicateTeamMemberResult === true">
-					<strong>Error!</strong> Team Member already exists
+					<strong>Error!</strong> Team Member already exists.
+				</div>
+				<div role="alert" class="alert alert-danger padded" 
+					ng-show="checkDuplicateEmpProjectHistoryResult === true">
+					<strong>Error!</strong> An employee cannot belong to the same team with same date ranges twice.
 				</div>
 				<label class="col-sm-2 control-label">Employee</label>
 				<div class="col-sm-10">
 					<select ng-model="saveTeamMemberEmp" name="employee" class="form-control"
 						required
-						ng-change="checkTeamMemberDuplicate(saveTeamMemberEmp, saveTeamMemberTeam)">
+						ng-change="checkTeamMemberDuplicate(saveTeamMemberEmp, saveTeamMemberTeam);
+						checkDuplicateEmpProjectHistory(saveTeamMemberEmp, saveTeamMemberTeam, 
+						saveTeamMemberFromDate, saveTeamMemberToDate)">
 						<option value="">Select an Employee</option>
 						<option value="{{employee.empId}}" 
 							ng-repeat="employee in allLeadEmployees" ng-show="employee.status == true">
@@ -44,7 +53,9 @@
 					<select ng-model="saveTeamMemberProject" name="project" class="form-control"
 						required
 						ng-change="getActiveTeamsByProject(saveTeamMemberProject); 
-						checkTeamMemberDuplicate(saveTeamMemberEmp, saveTeamMemberTeam)">
+						checkTeamMemberDuplicate(saveTeamMemberEmp, saveTeamMemberTeam); 
+						checkDuplicateEmpProjectHistory(saveTeamMemberEmp, saveTeamMemberTeam, 
+						saveTeamMemberFromDate, saveTeamMemberToDate)">
 						<option value="">Select a Project</option>
 						<option value="{{project.project_id}}" 
 							ng-repeat="project in allInProgessAndOnHoldProjects">
@@ -63,7 +74,9 @@
 				<div class="col-sm-10">
 					<select ng-model="saveTeamMemberTeam" name="team" class="form-control"
 						required
-						ng-change="checkTeamMemberDuplicate(saveTeamMemberEmp, saveTeamMemberTeam)">
+						ng-change="checkTeamMemberDuplicate(saveTeamMemberEmp, saveTeamMemberTeam);
+						checkDuplicateEmpProjectHistory(saveTeamMemberEmp, saveTeamMemberTeam, 
+						saveTeamMemberFromDate, saveTeamMemberToDate)">
 						<option value="">Select a Team</option>
 						<option value="{{team.team_Id}}" 
 							ng-repeat="team in getActiveTeamsByProjectResult">
@@ -85,7 +98,9 @@
 							<input ng-model="saveTeamMemberFromDate" class="form-control" 
 							placeholder="Choose a date" name="fromDate" required
 							ng-change="checkFromToDate(saveTeamMemberFromDate, 
-							saveTeamMemberToDate)">
+							saveTeamMemberToDate); 
+							checkDuplicateEmpProjectHistory(saveTeamMemberEmp, saveTeamMemberTeam, 
+							saveTeamMemberFromDate, saveTeamMemberToDate)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>
@@ -110,7 +125,9 @@
 							<input ng-model="saveTeamMemberToDate" class="form-control" 
 							placeholder="Choose a date" name="toDate" required
 							ng-change="checkFromToDate(saveTeamMemberFromDate, 
-							saveTeamMemberToDate)">
+							saveTeamMemberToDate);
+							checkDuplicateEmpProjectHistory(saveTeamMemberEmp, saveTeamMemberTeam, 
+							saveTeamMemberFromDate, saveTeamMemberToDate)">
 							<span class="input-group-addon" style="cursor: pointer">
 								<i class="fa fa-lg fa-calendar"></i>
 							</span>

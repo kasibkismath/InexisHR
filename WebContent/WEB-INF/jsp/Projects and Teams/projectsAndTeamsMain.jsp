@@ -82,6 +82,8 @@
 							aria-controls="profile" role="tab" data-toggle="tab">Teams</a></li>
 						<li role="presentation"><a href="#teamMembers"
 							aria-controls="profile" role="tab" data-toggle="tab">Team Members</a></li>
+						<li role="presentation"><a href="#empProjectHistory"
+							aria-controls="profile" role="tab" data-toggle="tab">Employee Project Team History</a></li>
 					</ul>
 				</div>
 			</div>
@@ -102,6 +104,9 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="teamMembers">
 							<jsp:include page="Team Members/teamMembers.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="empProjectHistory">
+							<jsp:include page="Employee Project History/employeeProjectHistories.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>

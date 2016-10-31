@@ -21,6 +21,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		$scope.checkDuplicateTeamResult = false;
 		$scope.checkDuplicateTeamMemberResult = false;
 		$scope.checkFromToDateResult = false;
+		$scope.checkDuplicateEmpProjectHistoryResult = false;
 		
 		// functions
 		$scope.getAllProjects();
@@ -29,9 +30,13 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 		$scope.getLeadEmployees();
 		$scope.getAllTeamMembers();
 		$scope.projectEmployeeSummaryChart();
-				
+		$scope.getAllEmpProjectHistories();
 	};
 	
+	// datatable configurations
+	// emp project team history datatable
+	$scope.empProjectTableOption = DTOptionsBuilder.newOptions()
+	   .withOption('aaSorting', [[0, 'asc'], [1, 'asc'], [2, 'asc'], [3, 'desc']])
 	
 	// get logged in emp
 	$scope.getLoggedInEmployee = function() {
@@ -378,8 +383,6 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	// check team member duplicate
 	$scope.checkTeamMemberDuplicate = function(employee, teamId) {
 		 if(employee != undefined && teamId != undefined) {
-			 
-			 console.log(employee + " " + teamId);
 			
 			var teamMember = {
 				employee : {empId : employee},
@@ -399,12 +402,14 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	};
 	
 	// add team member
-	$scope.addTeamMember = function(employeeId, teamId) {
+	$scope.addTeamMember = function(employeeId, teamId, fromDate, toDate) {
 		
 		var teamMember = {
 			employee : {empId : employeeId},
 			team : {team_Id : teamId}
 		};
+		
+		$scope.addEmployeeProjectHistory(employeeId, teamId, fromDate, toDate);
 				
 		$http.post($scope.baseURL + '/ProjectsAndTeams/AddTeamMember', teamMember)
 		.success(function(result) {
@@ -505,6 +510,132 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 				$scope.checkFromToDateResult = false;
 			}
 		}
+	};
+	
+	// check for duplicate employee project history
+	$scope.checkDuplicateEmpProjectHistory = function(empId, teamId, fromDate, toDate) {
+		if(empId != undefined && teamId != undefined && fromDate != undefined && 
+				toDate != undefined && teamId != "") {
+			
+			var empProjectHistory = {
+				employee: {empId:empId},
+				team: {team_Id : teamId},
+				fromDate: fromDate,
+				toDate: toDate
+			};
+						
+			$http.post($scope.baseURL + '/ProjectsAndTeams/CheckDuplicateEmpProjectHistory', 
+					empProjectHistory)
+			.success(function(result) {
+				$scope.checkDuplicateEmpProjectHistoryResult = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
+		}
+	};
+	
+	// add employee project history
+	$scope.addEmployeeProjectHistory = function(empId, teamId, fromDate, toDate) {
+		
+		var empProjectHistory = {
+				employee: {empId:empId},
+				team: {team_Id : teamId},
+				fromDate: fromDate,
+				toDate: toDate
+		};
+						
+		$http.post($scope.baseURL + '/ProjectsAndTeams/AddEmployeeProjectHistory', 
+				empProjectHistory)
+		.success(function(result) {
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get all employee project histories
+	$scope.getAllEmpProjectHistories = function() {
+		$http.get($scope.baseURL + '/ProjectsAndTeams/GetAllEmployeeProjectHistories')
+		.success(function(result) {
+			$scope.allEmpProjectHistories = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// get emp project by id
+	$scope.getEmpProjectById = function(empProjectId) {
+		
+		var empProjectHistory = {
+			emp_proj_history_id: empProjectId
+		};
+						
+		$http.post($scope.baseURL + '/ProjectsAndTeams/GetEmployeeProjectById', 
+				empProjectHistory)
+		.success(function(result) {
+			$scope.updateEmpProjectHistId = result.emp_proj_history_id;
+			$scope.updateEmpProjectHistTeam = result.team.team_Id;
+			$scope.updateEmpProjectHistEmp = result.employee.empId;
+			$scope.updateEmpProjectHistFromDate = $filter('date')(result.fromDate, "yyyy-MM-dd");
+			$scope.updateEmpProjectHistToDate = $filter('date')(result.toDate, "yyyy-MM-dd");
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	//update emp project history
+	$scope.updateEmpProjectHistory = function(empProjectHistoryId, fromDate, toDate) {
+		var empProjectHistory = {
+			emp_proj_history_id: empProjectHistoryId,
+			fromDate: fromDate,
+			toDate: toDate
+		};
+							
+		$http.post($scope.baseURL + '/ProjectsAndTeams/UpdateEmployeeProjectHistory', 
+				empProjectHistory)
+		.success(function(result) {
+			$('#editEmpProjectHistoryModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee Project Team History Updated Successfully");
+			setTimeout(function () {
+			      window.location.reload();
+			 }, 1000);
+		})
+		.error(function(data, status) {
+			$('#editEmpProjectHistoryModal').modal('hide');
+			toaster.pop('error', "Notification", "Employee Project Team History Updation Failed");
+			console.log(data);
+		});
+	};
+	
+	// mock delete emp project history 
+	$scope.deleteEmpHistoryMain = function(empProjectHistoryId) {
+		$scope.deleteEmpProjHistoryId = empProjectHistoryId;
+	};
+	
+	//actually delete emp project history
+	$scope.deleteEmpProjectHistory =  function(empProjectHistoryId) {
+		
+		var empProjectHistory = {
+			emp_proj_history_id: empProjectHistoryId,
+		};
+		
+		$http.post($scope.baseURL + '/ProjectsAndTeams/DeleteEmployeeProjectHistory', 
+				empProjectHistory)
+		.success(function(result) {
+			$('#deleteEmpProjectHistoryModal').modal('hide');
+			toaster.pop('success', "Notification", "Employee Project Team History Deleted Successfully");
+			setTimeout(function () {
+			      window.location.reload();
+			 }, 1000);
+		})
+		.error(function(data, status) {
+			$('#deleteEmpProjectHistoryModal').modal('hide');
+			toaster.pop('error', "Notification", "Employee Project Team History Deletion Failed");
+			console.log(data);
+		});
 	};
 	
 }]);  

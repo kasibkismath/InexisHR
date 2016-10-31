@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.Employee;
+import com.inexisconsulting.dao.EmployeeProjectHistory;
 import com.inexisconsulting.dao.Project;
 import com.inexisconsulting.dao.Team;
 import com.inexisconsulting.dao.Team_Employee;
@@ -40,7 +41,7 @@ public class ProjectsAndTeamController {
 
 	@Autowired
 	private Team_EmployeeService teamEmployeeService;
-	
+
 	@Autowired
 	private EmployeeProjectHistoryService employeeProjectHistoryService;
 
@@ -212,5 +213,48 @@ public class ProjectsAndTeamController {
 	@ResponseBody
 	public List<Object[]> getProjectEmployeeSummary() {
 		return projectService.getProjectEmployeeSummary();
+	}
+
+	// add employee project history
+	@RequestMapping(value = "/ProjectsAndTeams/AddEmployeeProjectHistory", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void addEmployeeProjectHistory(@RequestBody EmployeeProjectHistory empProjectHistory) throws ParseException {
+		employeeProjectHistoryService.addEmployeeProjectHistory(empProjectHistory);
+	}
+
+	// check for duplicate employee project history
+	@RequestMapping(value = "/ProjectsAndTeams/CheckDuplicateEmpProjectHistory", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public boolean checkDuplicateEmpProjectHistory(@RequestBody EmployeeProjectHistory empProjectHistory)
+			throws ParseException {
+		return employeeProjectHistoryService.checkDuplicateEmpProjectHistory(empProjectHistory);
+	}
+
+	// get all employee project histories
+	@RequestMapping(value = "/ProjectsAndTeams/GetAllEmployeeProjectHistories", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<EmployeeProjectHistory> getAllEmpProjectHistories() {
+		return employeeProjectHistoryService.getAllEmpProjectHistories();
+	}
+
+	// get emp project by id
+	@RequestMapping(value = "/ProjectsAndTeams/GetEmployeeProjectById", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public EmployeeProjectHistory getEmpProjectById(@RequestBody EmployeeProjectHistory empProjectHistory) {
+		return employeeProjectHistoryService.getEmpProjectById(empProjectHistory);
+	}
+
+	// update employee project history
+	@RequestMapping(value = "/ProjectsAndTeams/UpdateEmployeeProjectHistory", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void updateEmpProjectHistory(@RequestBody EmployeeProjectHistory empProjectHistory) throws ParseException {
+		employeeProjectHistoryService.updateEmpProjectHistory(empProjectHistory);
+	}
+
+	// delete employee project history
+	@RequestMapping(value = "/ProjectsAndTeams/DeleteEmployeeProjectHistory", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteEmpProjectHistory(@RequestBody EmployeeProjectHistory empProjectHistory) {
+		employeeProjectHistoryService.deleteEmpProjectHistory(empProjectHistory);
 	}
 }

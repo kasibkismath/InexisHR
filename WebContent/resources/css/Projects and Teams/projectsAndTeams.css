@@ -78,3 +78,15 @@ textarea {
 #deleteProjectModal .modal-body {
 	height: 200px;
 }
+
+#editEmpProjectHistoryModal .modal-body {
+	height: 350px;
+}
+
+#deleteEmpProjectHistoryModal .modal-body {
+	height: 150px;
+}
+
+.empProjectTable {
+	margin-top: 25px;
+}
