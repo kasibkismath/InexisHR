@@ -67,7 +67,7 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
-	<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_LEAD', 'ROLE_ADMIN')">
+	<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_LEAD')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
@@ -99,7 +99,7 @@
 	</sec:authorize>
 	
 	<!-- CEO, HR Attendance Page -->
-	<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_HR')">
+	<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_HR', 'ROLE_ADMIN')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">

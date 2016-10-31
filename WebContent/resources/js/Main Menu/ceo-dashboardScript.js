@@ -56,14 +56,6 @@ $(function() {
 		"cursor" : "pointer"
 	});
 	
-	// training tile
-	$('#training-tile').click(function() {
-		$(location).attr('href', contextPath + '/Training');
-	});
-	$('#training-tile').css({
-		"cursor" : "pointer"
-	});
-	
 	// contracts tile
 	$('#contracts-tile').click(function() {
 		$(location).attr('href', contextPath + '/Contracts');

@@ -99,7 +99,7 @@
 	</sec:authorize>
 	
 	<!-- CEO, Lead Tasks Page -->
-	<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_LEAD')">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO', 'ROLE_LEAD')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">

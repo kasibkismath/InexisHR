@@ -68,7 +68,7 @@
 	<!-- Header -->
 	<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
-	<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_HR')">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO', 'ROLE_HR')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
@@ -76,18 +76,12 @@
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#allAttendancesReport"
 							aria-controls="home" role="tab" data-toggle="tab">All Attendances Report</a></li>
-						<li role="presentation"><a href="#individualAttendanceReport"
-							aria-controls="home" role="tab" data-toggle="tab">Individual Attendance Report</a></li>
 						<li role="presentation"><a href="#empHoursWorkedReport"
 							aria-controls="home" role="tab" data-toggle="tab">Employee Hours Worked Report</a></li>
 						<li role="presentation"><a href="#allLeavesReport"
 							aria-controls="home" role="tab" data-toggle="tab">All Leaves Report</a></li>
-						<li role="presentation"><a href="#individualLeaveReport"
-							aria-controls="home" role="tab" data-toggle="tab">Individual Leave Report</a></li>
 						<li role="presentation"><a href="#allTasksReport"
 							aria-controls="home" role="tab" data-toggle="tab">All Tasks Report</a></li>
-						<li role="presentation"><a href="#individualTaskReport"
-							aria-controls="home" role="tab" data-toggle="tab">Individual Tasks Report</a></li>
 					</ul>
 				</div>
 			</div>
@@ -100,22 +94,13 @@
 						<div role="tabpanel" class="tab-pane fade in active" id="allAttendancesReport">
 							<jsp:include page="All Attendance Report/allAttendancesReport.jsp"></jsp:include>
 						</div>
-						<div role="tabpanel" class="tab-pane fade in" id="individualAttendanceReport">
-							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
-						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="empHoursWorkedReport">
 							<jsp:include page="Employee Hours Worked Report/employeeHoursWorkedReport.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="allLeavesReport">
 							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
 						</div>
-						<div role="tabpanel" class="tab-pane fade in" id="individualLeaveReport">
-							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
-						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="allTasksReport">
-							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
-						</div>
-						<div role="tabpanel" class="tab-pane fade in" id="individualTaskReport">
 							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
 						</div>
 					</div>

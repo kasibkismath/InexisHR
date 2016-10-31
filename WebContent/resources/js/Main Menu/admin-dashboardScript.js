@@ -10,7 +10,7 @@ $(function() {
 
 	// leave tile
 	$('#leave-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/Leave');
 	});
 	$('#leave-tile').css({
 		"cursor" : "pointer"
@@ -26,7 +26,7 @@ $(function() {
 
 	// projects and team member tile
 	$('#projectTeamMember-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/ProjectsAndTeams');
 	});
 	$('#projectTeamMember-tile').css({
 		"cursor" : "pointer"
@@ -34,7 +34,7 @@ $(function() {
 
 	// recruitment tile
 	$('#recruitment-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/Recruitment');
 	});
 	$('#recruitment-tile').css({
 		"cursor" : "pointer"
@@ -50,7 +50,7 @@ $(function() {
 
 	// reports tile
 	$('#reports-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/Reports');
 	});
 	$('#reports-tile').css({
 		"cursor" : "pointer"
@@ -66,7 +66,7 @@ $(function() {
 
 	// attendance tile
 	$('#attendance-tile').click(function() {
-		$(location).attr('href', contextPath + '/admin-main-menu');
+		$(location).attr('href', contextPath + '/Attendance');
 	});
 	$('#attendance-tile').css({
 		"cursor" : "pointer"

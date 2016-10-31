@@ -103,13 +103,6 @@
 					<br> <span id="textSmall">Recruitment</span>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
-				id="reports-tile">
-				<div class="dashboard-title">
-					<span id="icon"><i class="fa fa-file-pdf-o fa-3x icon-color"></i></span>
-					<br> <span id="textSmall-two">Reports</span>
-				</div>
-			</div>
 			<div class="col-md-3 col-sm-12 col-lg-4 dashboard-tile"
 				id="tasks-tile">
 				<div class="dashboard-title">
@@ -122,6 +115,13 @@
 				<div class="dashboard-title">
 					<span id="icon"><i class="fa fa-table fa-3x icon-color"></i></span>
 					<br>  <span id="textSmall-two">Training</span>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
+				id="reports-tile">
+				<div class="dashboard-title">
+					<span id="icon"><i class="fa fa-file-pdf-o fa-3x icon-color"></i></span>
+					<br> <span id="textSmall-two">Reports</span>
 				</div>
 			</div>
 		</div>

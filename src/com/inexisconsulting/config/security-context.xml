@@ -50,11 +50,11 @@
 		<security:intercept-url pattern="/sendChangePasswordMail"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/backupDatabase"
-			access="isAuthenticated()" />
+			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/restoreDatabase"
-			access="isAuthenticated()" />
+			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/administration"
-			access="isAuthenticated()" />
+			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/administration/user/currentUser"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/administration/user/all"
@@ -124,7 +124,7 @@
 		<security:intercept-url pattern="/designation/addDesignation"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance"
-			access="isAuthenticated()" />
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO', 'ROLE_HR', 'ROLE_LEAD')" />
 		<security:intercept-url pattern="/Performance/CheckPerformanceExists"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Performance/AllPerformanceAppraisals"
@@ -312,7 +312,7 @@
 		<security:intercept-url pattern="/Tasks/GetCompletedTaskPercentageByEmployee"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams"
-			access="isAuthenticated()" />
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO')" />
 		<security:intercept-url pattern="/ProjectsAndTeams/GetAllProjects"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams/CheckDuplicateProject"
@@ -370,7 +370,7 @@
 		<security:intercept-url pattern="/ProjectsAndTeams/DeleteEmployeeProjectHistory"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment"
-			access="hasRole('ROLE_HR')" />
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Recruitment/GetVacanciesByYear"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Recruitment/CheckDuplicateVacancy"
@@ -400,7 +400,7 @@
 		<security:intercept-url pattern="/Recruitment/GetExpiredVacanciesCount"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Training"
-			access="isAuthenticated()" />
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR', 'ROLE_LEAD', 'ROLE_USER')" />
 		<security:intercept-url pattern="/Trainings/GetAllTrainingsByYear"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Trainings/CheckTrainingDuplicate"
@@ -454,7 +454,7 @@
 		<security:intercept-url pattern="/Contracts/DeleteContractInfoFromDB"
 			access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports"
-			access="hasAnyRole('ROLE_CEO', 'ROLE_HR')" />
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO', 'ROLE_HR')" />
 		<security:intercept-url pattern="/Reports/GetAllAttendacesForReport"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports/GetEmployeeHoursWorkedReport"

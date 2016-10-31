@@ -82,14 +82,7 @@
 				<div class="dashboard-title"><span id="icon">
 					<i class="fa fa-users fa-3x icon-color"></i></span> <br> Projects &amp; Teams
 				</div>
-		  </div>
-		 <div class="col-md-3 col-sm-12 col-lg-4 dashboard-tile"
-				id="training-tile">
-				<div class="dashboard-title">
-					<span id="icon"><i class="fa fa-table fa-3x icon-color"></i></span>
-					<br>  <span id="textSmall-two">Training</span>
-				</div>
-		</div>
+		 </div>
 		<div class="col-sm-12 col-md-3 col-lg-4 dashboard-tile"
 				id="contracts-tile">
 				<div class="dashboard-title">

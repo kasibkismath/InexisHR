@@ -99,7 +99,7 @@
 	</sec:authorize>
 	
 	<!-- CEO Leave Page -->
-	<sec:authorize access="hasRole('ROLE_CEO')">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO')">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
