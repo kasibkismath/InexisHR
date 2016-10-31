@@ -52,7 +52,7 @@
 	rel="stylesheet">
 
 </head>
-<body ng-controller="mainController">
+<body ng-controller="mainController" ng-init="init()">
 	<!-- Header -->
 		<jsp:include page="../Header/admin-header.jsp"></jsp:include>
 	
@@ -82,30 +82,38 @@
 							<!-- Add New User Modal : JSP  -->
 							<jsp:include page="addNewUserModal.jsp"></jsp:include>
 						</div>
-						<table datatable="" dt-options="dtOptions" dt-columns="dtColumns"
+						<table datatable="ng" dt-options="" dt-column-defs=""
 							class="table table-hover userList-Table">
 							<thead>
 							<tr>
+								<th>Employee Name</th>
 								<th>Username</th>
 								<th>Email</th>
-								<th>Enabled</th>
+								<th>Status</th>
 								<th>Role</th>
-								<th></th>
 								<th></th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="users in user">
+							<tr ng-repeat="user in users">
+								<td ng-cloak>{{user.employee.firstName}} {{user.employee.lastName}}</td>
 								<td ng-cloak>{{user.username}}</td>
 								<td ng-cloak>{{user.email}}</td>
 								<td ng-cloak>
-									<input type="checkbox" ng-if="user.enabled == true" checked disabled>
-									<input type="checkbox" ng-if="user.enabled == false" disabled>
+									<span ng-if="user.enabled == true">Enabled</span>
+									<span ng-if="user.enabled == false">Disabled</span>
 								</td>
-								<td ng-cloak>{{user.authority}}</td>
-								<td ng-cloak>{{user.employee.firstName}}</td>
-								<td ng-cloak><button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain(user.username)"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
-								<td ng-cloak><button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(user.username)" ng-if="user.authority != 'ROLE_ADMIN'"><i class="fa fa-trash fa-lg"></i> Delete</button></td>							
+								<td ng-cloak>
+									<span ng-if="user.authority == 'ROLE_ADMIN'">Administrator</span>
+									<span ng-if="user.authority == 'ROLE_CEO'">CEO</span>
+									<span ng-if="user.authority == 'ROLE_HR'">HR Manager</span>
+									<span ng-if="user.authority == 'ROLE_LEAD'">Team Lead</span>
+									<span ng-if="user.authority == 'ROLE_USER'">User</span>
+								</td>
+								<td ng-cloak>
+									<button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain(user.id)"><i class="fa fa-pencil fa-lg"></i></button>
+									<button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(user.id)" ng-disabled="(user.authority == 'ROLE_ADMIN') || (user.authority == 'ROLE_CEO') || (user.authority == 'ROLE_HR')"><i class="fa fa-trash fa-lg"></i></button>
+								</td>
 							</tr>
 							</tbody>
 						</table>

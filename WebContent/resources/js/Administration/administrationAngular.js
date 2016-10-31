@@ -29,7 +29,7 @@ administration.controller('mainController',
 				
 	// Angular Data Table configuration
 				
-	$scope.dtColumns = [
+	/*$scope.dtColumns = [
 	                    //here We will add .withOption('name','column_name') for send column name to the server 
 	                    DTColumnBuilder.newColumn("username", "Username").withOption('name', 'username'),
 	                    DTColumnBuilder.newColumn("email", "Email").withOption('name', 'email'),
@@ -38,8 +38,8 @@ administration.controller('mainController',
 	                    DTColumnBuilder.newColumn("employee.firstName", "Employee").withOption('name', 'employee'),
 	                    DTColumnBuilder.newColumn(null).withTitle('Actions')
 	                    	.renderWith(function(data, type, full, meta) {
-	                        return '<button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain('+ data.id +')"><i class="fa fa-pencil fa-lg"></i> Edit</button>&nbsp;' +
-	                            '<button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(' + data.id + ')"><i class="fa fa-trash fa-lg"></i> Delete</button>';
+	                        return '<button class="btn btn-primary" id="editUser" data-toggle="modal" data-target="#editUserModal" ng-click="editUserMain('+ data.id +')"><i class="fa fa-pencil fa-lg"></i></button>&nbsp;' +
+	                            '<button class="btn btn-danger" id="deleteUser1" data-toggle="modal" data-target="#deleteUserModal" ng-click="deleteUserMain(' + data.id + ')"><i class="fa fa-trash fa-lg"></i></button>';
 	                    })
 	                ];
 	
@@ -52,11 +52,15 @@ administration.controller('mainController',
               $compile(angular.element(row).contents())($scope);
       })
      .withPaginationType('full_numbers')
-     .withDisplayLength(10);
+     .withDisplayLength(10);*/
 	 
 	 /**
 	  * Custom Angular Codes
 	  */	 
+				
+	$scope.init = function() {
+		$scope.getAllUsers();
+	};
 	 
 	// gets all users
 	$scope.getAllUsers = function () {
@@ -64,7 +68,6 @@ administration.controller('mainController',
 		$http.get(contextPath + '/administration/user/all')
 		.success(function(result){
 			$scope.users = result;
-			console.log($scope.users);
 		})
 		.error(function(data, status){
 			console.log(data);
@@ -75,7 +78,6 @@ administration.controller('mainController',
 	$http.get(contextPath + '/employeeProfile/employee/all')
 	.success(function(result) {
 		$scope.employees = result;
-		console.log($scope.employees);
 	})
 	.error(function(data, status) {
 		console.log(data);
@@ -197,6 +199,4 @@ administration.controller('mainController',
 			toaster.pop('error', "Notification", "Database restore FAILED");
 		});
 	};
-	
-	$scope.getAllUsers();
 }]);

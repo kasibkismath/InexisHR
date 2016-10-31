@@ -56,7 +56,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
                                         		 $q){
 	// Angular Designation Data Table configuration
 	
-	$scope.dtColumns = [
+	/*$scope.dtColumns = [
 	                    //here We will add .withOption('name','column_name') for send column name to the server 
 	                    DTColumnBuilder.newColumn("designationId", "ID").withOption('name', 'designationId'),
 	                    DTColumnBuilder.newColumn("name", "Designation").withOption('name', 'name'),
@@ -76,7 +76,7 @@ empProfile.controller('mainController', ['$scope', '$http', '$compile', 'Upload'
               $compile(angular.element(row).contents())($scope);
       })
      .withPaginationType('full_numbers')
-     .withDisplayLength(10);
+     .withDisplayLength(10);*/
 	 
 	// datatable configurations
 	// emp history datatable
