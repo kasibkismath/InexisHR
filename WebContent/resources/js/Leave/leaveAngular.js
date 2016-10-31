@@ -13,8 +13,12 @@ leave.controller('leaveMainController', ['$scope', '$http', '$q', 'toaster', '$f
 	$scope.baseURL = contextPath;
 	$scope.currentUser = currentUser;
 
-	$scope.fromLeaveDate = new Date();
-	
+	// from date min limit
+	 var fromSelectedDate = new Date();
+	 fromSelectedDate.setDate(fromSelectedDate.getDate()-1);
+	 
+	 $scope.fromLeaveDate = fromSelectedDate;
+	 
 	// initialize errors
 	$scope.remoteLeaveOptionError = false;
 	$scope.specialLeaveOptionError = false;
