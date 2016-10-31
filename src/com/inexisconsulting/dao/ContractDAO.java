@@ -50,4 +50,15 @@ public class ContractDAO {
 		query.executeUpdate();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Contract> getContractsByEmpId(Contract contract) {
+		String hql = "from Contract where employee.emp_id=:empId";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("empId", contract.getEmployee().getEmpId());
+		
+		List<Contract> contracts = query.list();
+		return contracts;
+	}
+
 }

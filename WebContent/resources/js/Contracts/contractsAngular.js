@@ -27,6 +27,7 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 		// functions
 		$scope.getAllEmployees();
 		$scope.getAllContracts();
+		$scope.getContractsByEmpId();
 	};
 	
 	// get logged in emp
@@ -65,6 +66,24 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 		})
 		.error(function(data, status) {
 			console.log(data);
+		});
+	};
+	
+	// get contracts by emp_id
+	$scope.getContractsByEmpId = function() {
+		$scope.getLoggedInEmployee().
+		then(function(employee) {
+			var contract = {
+				employee: {empId: employee.empId}
+			};
+				
+			$http.post($scope.baseURL + '/Contracts/GetContractsByEmpId', contract)
+			.success(function(result) {
+				$scope.myContracts = result;
+			})
+			.error(function(data, status) {
+				console.log(data);
+			});
 		});
 	}
 	
@@ -165,6 +184,13 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 		window.open($scope.baseURL + '/Contracts/ViewContract?fileName=' + contractName, '_blank', 'location=yes');
 	};
 	
+	// mock contract deletion
+	$scope.deleteContractMain =  function(contractId, contractName) {
+		$scope.deleteContractId = contractId;
+		$scope.deleteContractName = contractName;
+	};
+	
+	// actually delete the contract
 	$scope.deleteContract = function(contractId, contractName) {
 		var contract = {
 			contractURL: contractName
@@ -173,12 +199,14 @@ contracts.controller('contractsMainController', ['$scope', '$http', '$q', 'toast
 		$http.post($scope.baseURL + '/Contracts/DeleteContract', contract)
 		.success(function(result) {
 			$scope.deleteContractInfoFromDB(contractId);
+			$('#deleteEmpContractModal').modal('hide');
 			toaster.pop('success', "Notification", "Contract Deleted Successfully");
 			setTimeout(function () {
 				window.location.reload();
 	        }, 3000);
 		})
 		.error(function(data, status) {
+			$('#deleteEmpContractModal').modal('hide');
 			toaster.pop('success', "Notification", "Contract Deletion Failed");
 			console.log(data);
 		});

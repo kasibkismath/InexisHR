@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.inexisconsulting.dao.Contract;
 import com.inexisconsulting.dao.ContractDAO;
@@ -28,6 +29,10 @@ public class ContractService {
 
 	public void deleteContractInfoFromDB(Contract contract) {
 		contractDao.deleteContractInfoFromDB(contract);
+	}
+
+	public List<Contract> getContractsByEmpId(Contract contract) {
+		return contractDao.getContractsByEmpId(contract);
 	}
 	
 	

@@ -62,6 +62,13 @@ public class ContractsController {
 		return contractService.getAllContracts();
 	}
 
+	// get contracts by empId
+	@RequestMapping(value = "/Contracts/GetContractsByEmpId", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Contract> getContractsByEmpId(@RequestBody Contract contract) {
+		return contractService.getContractsByEmpId(contract);
+	}
+
 	// add new contract
 	@RequestMapping(value = "/Contracts/AddContract", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

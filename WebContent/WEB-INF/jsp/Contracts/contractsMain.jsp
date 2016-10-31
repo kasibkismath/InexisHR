@@ -110,7 +110,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="myContracts">
-							<h3>User Lead My Contracts</h3>
+							<jsp:include page="User and Lead/contracts-user-lead.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
@@ -135,7 +135,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane fade in active" id="allContracts">
-							<h3>All Contracts</h3>
+							<jsp:include page="CEO/contracts-ceo.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
