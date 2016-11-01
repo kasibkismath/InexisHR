@@ -77,4 +77,8 @@ public class LeaveService {
 	public float getPendingLeaveCountByYearForCEO() {
 		return leaveDao.getPendingLeaveCountByYearForCEO();
 	}
+
+	public List<Leave> generateLeavesReport(Leave leave) throws HibernateException, ParseException {
+		return leaveDao.generateLeavesReport(leave);
+	}
 }

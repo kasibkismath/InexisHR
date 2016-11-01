@@ -75,13 +75,13 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#allAttendancesReport"
-							aria-controls="home" role="tab" data-toggle="tab">All Attendances Report</a></li>
+							aria-controls="home" role="tab" data-toggle="tab">Attendances Report</a></li>
 						<li role="presentation"><a href="#empHoursWorkedReport"
-							aria-controls="home" role="tab" data-toggle="tab">Employee Hours Worked Report</a></li>
+							aria-controls="home" role="tab" data-toggle="tab">Hours Worked Report</a></li>
 						<li role="presentation"><a href="#allLeavesReport"
-							aria-controls="home" role="tab" data-toggle="tab">All Leaves Report</a></li>
+							aria-controls="home" role="tab" data-toggle="tab">Leaves Report</a></li>
 						<li role="presentation"><a href="#allTasksReport"
-							aria-controls="home" role="tab" data-toggle="tab">All Tasks Report</a></li>
+							aria-controls="home" role="tab" data-toggle="tab">Tasks Report</a></li>
 					</ul>
 				</div>
 			</div>
@@ -98,7 +98,7 @@
 							<jsp:include page="Employee Hours Worked Report/employeeHoursWorkedReport.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="allLeavesReport">
-							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
+							<jsp:include page="Leaves Report/leavesReport.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="allTasksReport">
 							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>

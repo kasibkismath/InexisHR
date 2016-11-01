@@ -48,5 +48,5 @@
 					</datepicker>
 				</div>
 			</div>
-			<button type="submit" class="col-sm-offset-2 col-sm-3 btn btn-primary">Get All Attendace Data</button>
+			<button type="submit" class="col-sm-offset-2 col-sm-3 btn btn-primary">Generate Attendance Report</button>
       	</form>	

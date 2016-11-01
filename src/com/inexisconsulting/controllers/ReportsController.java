@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.inexisconsulting.dao.AllAttendanceReport;
 import com.inexisconsulting.dao.Attendance;
 import com.inexisconsulting.dao.EmployeeHoursWorked;
+import com.inexisconsulting.dao.Leave;
 import com.inexisconsulting.service.AttendanceService;
+import com.inexisconsulting.service.LeaveService;
 
 @Controller
 public class ReportsController {
@@ -27,9 +29,12 @@ public class ReportsController {
 	@Autowired
 	private AttendanceService attendanceService;
 
+	@Autowired
+	private LeaveService leaveService;
+
 	@RequestMapping("/Reports")
 	@SuppressWarnings("unchecked")
-	public String showAttendanceMainPage(Model model, Principal principal) {
+	public String showReportsMainPage(Model model, Principal principal) {
 
 		// get current role
 		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder
@@ -57,6 +62,14 @@ public class ReportsController {
 	public List<EmployeeHoursWorked> getEmployeeHoursWorkedReport(@RequestBody AllAttendanceReport attendance)
 			throws HibernateException, ParseException {
 		return attendanceService.getEmployeeHoursWorkedReport(attendance);
+	}
+
+	// get all leaves for report
+	@RequestMapping(value = "/Reports/GenerateLeavesReport", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Leave> generateLeavesReport(@RequestBody Leave leave)
+			throws HibernateException, ParseException {
+		return leaveService.generateLeavesReport(leave);
 	}
 
 }

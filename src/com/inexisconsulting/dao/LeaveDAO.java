@@ -306,5 +306,30 @@ public class LeaveDAO {
 			return count;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Leave> generateLeavesReport(Leave leave) throws HibernateException, ParseException {
+		// format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// get dates from leave object
+		Date fromDate = leave.getLeave_from();
+		Date toDate = leave.getLeave_to();
+
+		// convert Date type to String
+		String stringFromDate = sdf.format(fromDate);
+		String stringToDate = sdf.format(toDate);
+		
+		String hql = "from Leave as leave where leave.leave_from>=:leaveFrom and "
+				+ "leave.leave_to<=:leaveTo "
+				+ "order by leave.leave_from desc, leave.leave_to desc";
+		
+		Query query = session().createQuery(hql);
+		query.setParameter("leaveFrom", sdf.parse(stringFromDate));
+		query.setParameter("leaveTo", sdf.parse(stringToDate));
+		
+		List<Leave> result = query.list();
+		return result;
+	}
 
 }
