@@ -46,4 +46,8 @@ public class VacancyService {
 	public int getExpiredVacanciesCount() {
 		return vacancyDao.getExpiredVacanciesCount();
 	}
+
+	public List<Vacancy> generateVacanciesReport() {
+		return vacancyDao.generateVacanciesReport();
+	}
 }

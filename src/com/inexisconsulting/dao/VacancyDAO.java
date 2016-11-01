@@ -142,4 +142,14 @@ public class VacancyDAO {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Vacancy> generateVacanciesReport() {
+		String hql = "from Vacancy";
+		
+		Query query = session().createQuery(hql);
+		
+		List<Vacancy> result = query.list();
+		return result;
+	}
+
 }

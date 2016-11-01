@@ -84,6 +84,8 @@
 							aria-controls="home" role="tab" data-toggle="tab">Tasks Report</a></li>
 						<li role="presentation"><a href="#appraisalsReport"
 							aria-controls="home" role="tab" data-toggle="tab">Appraisals Report</a></li>
+						<li role="presentation"><a href="#vacanciesReport"
+							aria-controls="home" role="tab" data-toggle="tab">Current Openings Report</a></li>
 					</ul>
 				</div>
 			</div>
@@ -107,6 +109,9 @@
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="appraisalsReport">
 							<jsp:include page="Appraisals Report/appraisalsReport.jsp"></jsp:include>
+						</div>
+						<div role="tabpanel" class="tab-pane fade in" id="vacanciesReport">
+							<jsp:include page="Vacancies Report/vacanciesReport.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>

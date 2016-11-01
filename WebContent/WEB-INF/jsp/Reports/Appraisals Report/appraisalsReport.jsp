@@ -3,7 +3,7 @@
 		<jsp:include page="appraisalsReportForm.jsp"></jsp:include>
 	</div>
 	<div class="col-sm-12">
-		<table datatable="ng" dt-options="" dt-column-defs=""
+		<table datatable="ng" dt-options="appraisalsReportOption" dt-column-defs=""
 			class="table table-hover">
 			<thead>
 				<tr>

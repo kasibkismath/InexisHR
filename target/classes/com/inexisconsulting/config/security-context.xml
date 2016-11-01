@@ -465,6 +465,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports/GenerateAppraisalsReport"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Reports/GenerateVacanciesReport"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO', 'ROLE_HR')" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"
