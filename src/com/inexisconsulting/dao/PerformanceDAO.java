@@ -306,5 +306,31 @@ public class PerformanceDAO {
 
 		List<Object[]> result = query.list();
 		return result;
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	public List<AppraisalReport> generateAppraisalsReport(Performance performance) 
+			throws HibernateException, ParseException {
+		// format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+
+		// date from performance object
+		Date date = performance.getDate();
+		String stringDate = sdf.format(date);
+		
+		String sql = "select emp.firstName, emp.lastName, perf.date, perf.status, "
+				+ "perf.final_score, ceoPerf.description "
+				+ "from performance_appraisal as perf "
+				+ "join ceo_appraisal as ceoPerf "
+				+ "on ceoPerf.performance_id=perf.performance_id "
+				+ "join employee as emp "
+				+ "on emp.emp_id=perf.emp_id "
+				+ "where year(perf.date)=:performanceYear";
+		
+		Query query = session().createSQLQuery(sql);
+		query.setParameter("performanceYear", sdf.parse(stringDate));
+		
+		List<AppraisalReport> result = query.list();
+		return result;
 	};
 }

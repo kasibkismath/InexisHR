@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inexisconsulting.dao.AllAttendanceReport;
+import com.inexisconsulting.dao.AppraisalReport;
 import com.inexisconsulting.dao.Attendance;
 import com.inexisconsulting.dao.EmployeeHoursWorked;
 import com.inexisconsulting.dao.Leave;
+import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Task;
 import com.inexisconsulting.service.AttendanceService;
 import com.inexisconsulting.service.LeaveService;
+import com.inexisconsulting.service.PerformanceService;
 import com.inexisconsulting.service.TaskService;
 
 @Controller
@@ -33,9 +36,12 @@ public class ReportsController {
 
 	@Autowired
 	private LeaveService leaveService;
-	
+
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private PerformanceService performanceService;
 
 	@RequestMapping("/Reports")
 	@SuppressWarnings("unchecked")
@@ -81,6 +87,14 @@ public class ReportsController {
 	@ResponseBody
 	public List<Task> generateTasksReport(@RequestBody Task task) throws HibernateException, ParseException {
 		return taskService.generateTasksReport(task);
+	}
+
+	// get all appraisals for report
+	@RequestMapping(value = "/Reports/GenerateAppraisalsReport", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<AppraisalReport> generateAppraisalsReport(@RequestBody Performance performance) 
+			throws HibernateException, ParseException {
+		return performanceService.generateAppraisalsReport(performance);
 	}
 
 }

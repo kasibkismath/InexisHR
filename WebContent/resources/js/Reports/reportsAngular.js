@@ -20,6 +20,7 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		$scope.checkFromToDateResult = false;
 
 		// functions
+		 $scope.listAppraisalYears();
 		
 		// all attendance report export configuration
 		$scope.getAllAttendanceReportOptions = DTOptionsBuilder.newOptions()
@@ -133,7 +134,6 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		           ]);
 	};
 	
-	
 	// get logged in emp
 	$scope.getLoggedInEmployee = function() {
 		var def = $q.defer();
@@ -149,6 +149,20 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		});
 		return def.promise;
 	};
+	
+	// list appraisal year
+	  $scope.listAppraisalYears = function() {
+		  var startYear = '2011';
+		  var endYear = new Date().getFullYear();
+		  $scope.years = [];
+		  
+		  for(var i=startYear; i<=endYear; i++) {
+			  $scope.years.push(i);
+		  }; 
+		  
+		  // reverse array to list from the current year
+		  $scope.years.reverse();
+	  }
 	
 	// check all attendance From - To Dates 
 	$scope.checkFromToDate = function(fromDate, toDate) {
@@ -223,6 +237,24 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		.success(function(result) {
 			console.log(result);
 			$scope.generateTasksReportResult = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
+		});
+	};
+	
+	// generate appraisals report
+	$scope.generateAppraisalsReport = function(year) {
+		// create date obj
+		var date = year + "-12-31";
+		
+		var appraisal = {
+			date: date
+		};
+		
+		$http.post($scope.baseURL + '/Reports/GenerateAppraisalsReport', appraisal)
+		.success(function(result) {
+			$scope.generateAppraisalsReportResult = result;
 		})
 		.error(function(data, status) {
 			console.log(data);

@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inexisconsulting.dao.AppraisalReport;
 import com.inexisconsulting.dao.CEO_Appraisal;
 import com.inexisconsulting.dao.Lead_Appraisal;
 import com.inexisconsulting.dao.Performance;
@@ -57,5 +58,10 @@ public class PerformanceService {
 
 	public List<Object[]> getFinalScoreEmployeeByCEO(Performance performance) throws ParseException {
 		return performanceDao.getFinalScoreEmployeeByCEO(performance);
+	}
+
+	public List<AppraisalReport> generateAppraisalsReport(Performance performance) 
+			throws HibernateException, ParseException {
+		return performanceDao.generateAppraisalsReport(performance);
 	}
 }
