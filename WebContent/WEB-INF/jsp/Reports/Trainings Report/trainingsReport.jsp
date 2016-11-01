@@ -38,6 +38,7 @@
 					<td></td>
 					<td></td>
 					<td style="font-weight: bold;">Total Cost (LKR): {{getTotal()}}</td>
+					<td></td>
 				</tr>
 			</tfoot>
 		</table>

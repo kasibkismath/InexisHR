@@ -370,7 +370,7 @@ reports.controller('reportsMainController', ['$scope', '$http', '$q', 'toaster',
 		        	total += $scope.generateTrainingsReportResult[i].cost;
 		        }
 		        return total;
-		    }
+		    };
 		})
 		.error(function(data, status) {
 			console.log(data);
