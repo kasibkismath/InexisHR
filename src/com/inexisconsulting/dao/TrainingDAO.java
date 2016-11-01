@@ -116,12 +116,12 @@ public class TrainingDAO {
 		// convert date to string
 		String stringExpStartDate = sdf.format(expStartDate);
 		String stringExpEndDate = sdf.format(expEndDate);
-		
+
 		Criteria crit = session().createCriteria(Training.class);
 		crit.add(Restrictions.eq("training_id", training.getTraining_id()));
 
-		Training updatedTraining= (Training) crit.uniqueResult();
-		
+		Training updatedTraining = (Training) crit.uniqueResult();
+
 		updatedTraining.setName(training.getName());
 		updatedTraining.setLevel_of_difficulty(training.getLevel_of_difficulty());
 		updatedTraining.setType_of_training(training.getType_of_training());
@@ -137,6 +137,105 @@ public class TrainingDAO {
 		Query query = session().createQuery("delete from Training where training_id=:trainingId");
 		query.setInteger("trainingId", training.getTraining_id());
 		query.executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Training> generateTrainingsReport(TrainingReportSentData trainingReportData)
+			throws HibernateException, ParseException {
+		
+		if (trainingReportData.getType_of_budget().equals("High Budget")) {
+			// format
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			// get dates from leave object
+			Date fromDate = trainingReportData.getFromDate();
+			Date toDate = trainingReportData.getToDate();
+
+			// convert Date type to String
+			String stringFromDate = sdf.format(fromDate);
+			String stringToDate = sdf.format(toDate);
+
+			String hql = "from Training where expected_start_date>=:expStart and "
+					+ "expected_end_date<=:expEnd and cost>=:budget";
+
+			Query query = session().createQuery(hql);
+			query.setParameter("expStart", sdf.parse(stringFromDate));
+			query.setParameter("expEnd", sdf.parse(stringToDate));
+			query.setParameter("budget", 100000);
+
+			List<Training> result = query.list();
+			return result;
+
+		} else if (trainingReportData.getType_of_budget().equals("Medium Budget")) {
+			// format
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			// get dates from leave object
+			Date fromDate = trainingReportData.getFromDate();
+			Date toDate = trainingReportData.getToDate();
+
+			// convert Date type to String
+			String stringFromDate = sdf.format(fromDate);
+			String stringToDate = sdf.format(toDate);
+
+			String hql = "from Training where expected_start_date>=:expStart and "
+					+ "expected_end_date<=:expEnd and (cost>=:lowAmount and cost<:highAmount)";
+
+			Query query = session().createQuery(hql);
+			query.setParameter("expStart", sdf.parse(stringFromDate));
+			query.setParameter("expEnd", sdf.parse(stringToDate));
+			query.setParameter("lowAmount", 50000);
+			query.setParameter("highAmount", 100000);
+
+			List<Training> result = query.list();
+			return result;
+
+		} else if (trainingReportData.getType_of_budget().equals("Low Budget")) {
+			// format
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			// get dates from leave object
+			Date fromDate = trainingReportData.getFromDate();
+			Date toDate = trainingReportData.getToDate();
+
+			// convert Date type to String
+			String stringFromDate = sdf.format(fromDate);
+			String stringToDate = sdf.format(toDate);
+
+			String hql = "from Training where expected_start_date>=:expStart and "
+					+ "expected_end_date<=:expEnd and (cost>=:lowAmount and cost<:highAmount)";
+
+			Query query = session().createQuery(hql);
+			query.setParameter("expStart", sdf.parse(stringFromDate));
+			query.setParameter("expEnd", sdf.parse(stringToDate));
+			query.setParameter("lowAmount", 0);
+			query.setParameter("highAmount", 50000);
+
+			List<Training> result = query.list();
+			return result;
+
+		} else {
+			// format
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			// get dates from leave object
+			Date fromDate = trainingReportData.getFromDate();
+			Date toDate = trainingReportData.getToDate();
+
+			// convert Date type to String
+			String stringFromDate = sdf.format(fromDate);
+			String stringToDate = sdf.format(toDate);
+
+			String hql = "from Training where expected_start_date>=:expStart and "
+					+ "expected_end_date<=:expEnd";
+
+			Query query = session().createQuery(hql);
+			query.setParameter("expStart", sdf.parse(stringFromDate));
+			query.setParameter("expEnd", sdf.parse(stringToDate));
+
+			List<Training> result = query.list();
+			return result;
+		}
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.inexisconsulting.dao.Training;
 import com.inexisconsulting.dao.TrainingDAO;
+import com.inexisconsulting.dao.TrainingReportSentData;
 import com.inexisconsulting.dao.TrainingsAndAvailability;
 
 @Service("trainingService")
@@ -39,6 +40,10 @@ public class TrainingService {
 
 	public void deleteTraining(Training training) {
 		trainingDao.deleteTraining(training);
+	}
+
+	public List<Training> generateTrainingsReport(TrainingReportSentData trainingReportData) throws HibernateException, ParseException {
+		return trainingDao.generateTrainingsReport(trainingReportData);
 	}
 
 }

@@ -23,11 +23,14 @@ import com.inexisconsulting.dao.EmployeeHoursWorked;
 import com.inexisconsulting.dao.Leave;
 import com.inexisconsulting.dao.Performance;
 import com.inexisconsulting.dao.Task;
+import com.inexisconsulting.dao.Training;
+import com.inexisconsulting.dao.TrainingReportSentData;
 import com.inexisconsulting.dao.Vacancy;
 import com.inexisconsulting.service.AttendanceService;
 import com.inexisconsulting.service.LeaveService;
 import com.inexisconsulting.service.PerformanceService;
 import com.inexisconsulting.service.TaskService;
+import com.inexisconsulting.service.TrainingService;
 import com.inexisconsulting.service.VacancyService;
 
 @Controller
@@ -47,6 +50,9 @@ public class ReportsController {
 
 	@Autowired
 	private VacancyService vacancyService;
+
+	@Autowired
+	private TrainingService trainingService;
 
 	@RequestMapping("/Reports")
 	@SuppressWarnings("unchecked")
@@ -103,11 +109,18 @@ public class ReportsController {
 	}
 
 	// get all vacancies for report
-	@RequestMapping(value = "/Reports/GenerateVacanciesReport", 
-			method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/Reports/GenerateVacanciesReport", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<Vacancy> generateVacanciesReport() {
 		return vacancyService.generateVacanciesReport();
+	}
+
+	// get all trainings for report
+	@RequestMapping(value = "/Reports/GenerateTrainingsReport", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Training> generateTrainingsReport(@RequestBody TrainingReportSentData trainingReportData) 
+			throws HibernateException, ParseException {
+		return trainingService.generateTrainingsReport(trainingReportData);
 	}
 
 }
