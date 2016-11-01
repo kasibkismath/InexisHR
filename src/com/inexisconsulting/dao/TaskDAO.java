@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,14 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component("taskDao")
 public class TaskDAO {
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	public Session session() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Task> getAllTasks() {
 		return session().createQuery("from Tasks tasks order by tasks.expected_start_date desc").list();
@@ -36,23 +37,23 @@ public class TaskDAO {
 
 		Date expectedStartDate = task.getExpected_start_date();
 		String stringExpectedStartDate = sdf.format(expectedStartDate);
-		
+
 		Date expectedEndDate = task.getExpected_end_date();
 		String stringExpectedEndDate = sdf.format(expectedEndDate);
-		
+
 		task.setExpected_start_date(sdf.parse(stringExpectedStartDate));
 		task.setExpected_end_date(sdf.parse(stringExpectedEndDate));
-		
+
 		session().saveOrUpdate(task);
 	}
 
 	public boolean checkDuplicateTask(Task task) {
 		String sql = "select count(*) from task where task.emp_id=:empId and task_title=:taskTitle";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("empId", task.getEmployee().getEmpId());
 		query.setParameter("taskTitle", task.getTask_title());
-		
+
 		if (query.uniqueResult() == null) {
 			return false;
 		} else {
@@ -70,13 +71,13 @@ public class TaskDAO {
 	public List<Task> getAssignedTasksByLeadId(Task task) {
 		String hql = "from Task as task where task.assigned_by.emp_id=:assignedBy and "
 				+ "(year(task.expected_start_date)=:expStartDate or year(task.expected_end_date)=:expEndDate)";
-		
+
 		Query query = session().createQuery(hql);
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
 		query.setParameter("expEndDate", Calendar.getInstance().get(Calendar.YEAR));
-		
-		List<Task> result= query.list();
+
+		List<Task> result = query.list();
 		return result;
 	}
 
@@ -89,24 +90,24 @@ public class TaskDAO {
 
 	public void updateTask(Task task) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Date expectedStartDate = task.getExpected_start_date();
 		String stringExpectedStartDate = sdf.format(expectedStartDate);
-		
+
 		Date expectedEndDate = task.getExpected_end_date();
 		String stringExpectedEndDate = sdf.format(expectedEndDate);
-		
+
 		Criteria crit = session().createCriteria(Task.class);
 		crit.add(Restrictions.eq("task_id", task.getTask_id()));
 
 		Task updatedTask = (Task) crit.uniqueResult();
-		
+
 		updatedTask.setTask_title(task.getTask_title());
 		updatedTask.setTask_desc(task.getTask_desc());
 		updatedTask.setPriority(task.getPriority());
 		updatedTask.setExpected_start_date(sdf.parse(stringExpectedStartDate));
 		updatedTask.setExpected_end_date(sdf.parse(stringExpectedEndDate));
-		
+
 		session().saveOrUpdate(updatedTask);
 	}
 
@@ -119,17 +120,17 @@ public class TaskDAO {
 	public int getPendingTaskCount(Task task) {
 		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
 				+ "year(expected_start_date)=:expStartDate";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("status", "Pending");
 		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
-		
+
 		if (query.uniqueResult() == null) {
 			return 0;
 		} else {
 			int count = ((Number) query.uniqueResult()).intValue();
-			
+
 			return count;
 		}
 	}
@@ -137,17 +138,17 @@ public class TaskDAO {
 	public int getOnHoldTaskCount(Task task) {
 		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
 				+ "year(expected_start_date)=:expStartDate";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("status", "On-Hold");
 		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
-		
+
 		if (query.uniqueResult() == null) {
 			return 0;
 		} else {
 			int count = ((Number) query.uniqueResult()).intValue();
-			
+
 			return count;
 		}
 	}
@@ -155,17 +156,17 @@ public class TaskDAO {
 	public int getCompletedTaskCount(Task task) {
 		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
 				+ "year(expected_start_date)=:expStartDate";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("status", "Completed");
 		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
-		
+
 		if (query.uniqueResult() == null) {
 			return 0;
 		} else {
 			int count = ((Number) query.uniqueResult()).intValue();
-			
+
 			return count;
 		}
 	}
@@ -173,36 +174,36 @@ public class TaskDAO {
 	public int getTerminatedTaskCount(Task task) {
 		String sql = "select count(*) from task where assigned_by=:assignedBy and status=:status and "
 				+ "year(expected_start_date)=:expStartDate";
-		
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("status", "Terminated");
 		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
-		
+
 		if (query.uniqueResult() == null) {
 			return 0;
 		} else {
 			int count = ((Number) query.uniqueResult()).intValue();
-			
+
 			return count;
 		}
 	}
-	
+
 	// get overdue task count
 	public int getOverdueTaskCount(Task task) {
 		// query string
 		String sql = "select count(*) from task where assigned_by=:assignedBy and "
 				+ "expected_end_date<:currentDate and status=:pendingStatus or status=:onHoldStatus";
-		
+
 		// pass the string to query object
 		Query query = session().createSQLQuery(sql);
-		
+
 		// set named parameters
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("pendingStatus", "Pending");
 		query.setParameter("onHoldStatus", "On-Hold");
 		query.setParameter("currentDate", Calendar.getInstance());
-		
+
 		// if result is null return 0
 		if (query.uniqueResult() == null) {
 			return 0;
@@ -216,35 +217,21 @@ public class TaskDAO {
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getEmployeeTaskCompletionPercentage(Task task) {
 		String sql = "select Result1.EmpName as 'Emp Name', "
-				+ "round((Result1.completedCount/Result2.totalCount) * 100,0) as 'Completion Percentage' "
-				+ "from "
-				+ "( "
-				+ "select concat(emp.firstName, ' ' ,emp.lastName) as EmpName, count(*) as completedCount, "
-				+ "emp.emp_id "
-				+ "from task "
-				+ "join employee as emp "
-				+ "on task.emp_id = emp.emp_id "
+				+ "round((Result1.completedCount/Result2.totalCount) * 100,0) as 'Completion Percentage' " + "from "
+				+ "( " + "select concat(emp.firstName, ' ' ,emp.lastName) as EmpName, count(*) as completedCount, "
+				+ "emp.emp_id " + "from task " + "join employee as emp " + "on task.emp_id = emp.emp_id "
 				+ "where task.assigned_by=:assignedBy and year(task.expected_start_date)=:currentYear "
-				+ "and task.status=:status  "
-				+ "group by emp.emp_id "
-				+ ") as Result1 "
-				+ "inner join " 
-				+ "( "
-				+ "select concat(emp.firstName, ' ' ,emp.lastName) as EmpName, count(*) as totalCount, "
-				+ "emp.emp_id "
-				+ "from task  "
-				+ "join employee as emp "
-				+ "on task.emp_id = emp.emp_id "
+				+ "and task.status=:status  " + "group by emp.emp_id " + ") as Result1 " + "inner join " + "( "
+				+ "select concat(emp.firstName, ' ' ,emp.lastName) as EmpName, count(*) as totalCount, " + "emp.emp_id "
+				+ "from task  " + "join employee as emp " + "on task.emp_id = emp.emp_id "
 				+ "where task.assigned_by=:assignedBy and year(task.expected_start_date)=:currentYear "
-				+ "group by emp.emp_id "
-				+ ") as Result2 "
-				+ "on Result1.emp_id = Result2.emp_id";
-		
+				+ "group by emp.emp_id " + ") as Result2 " + "on Result1.emp_id = Result2.emp_id";
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("assignedBy", task.getAssigned_by().getEmpId());
 		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
 		query.setParameter("status", "Completed");
-		
+
 		List<Object[]> result = query.list();
 		return result;
 	}
@@ -253,30 +240,30 @@ public class TaskDAO {
 	public List<Task> getMyTasks(Task task) {
 		String hql = "from Task as task where task.employee.emp_id=:employee and "
 				+ "(year(task.expected_start_date)=:expStartDate or year(task.expected_end_date)=:expEndDate)";
-		
+
 		Query query = session().createQuery(hql);
 		query.setParameter("employee", task.getEmployee().getEmpId());
 		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
 		query.setParameter("expEndDate", Calendar.getInstance().get(Calendar.YEAR));
-		
-		List<Task> result= query.list();
+
+		List<Task> result = query.list();
 		return result;
 	}
 
 	public void updateMyTask(Task task) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Date actualStartDate = task.getActual_start_date();
 		String stringAcutalStartDate = sdf.format(actualStartDate);
-		
+
 		Date actualEndDate = task.getActual_end_date();
 		String stringAcutalEndDate = sdf.format(actualEndDate);
-		
+
 		Criteria crit = session().createCriteria(Task.class);
 		crit.add(Restrictions.eq("task_id", task.getTask_id()));
 
 		Task updatedMyTask = (Task) crit.uniqueResult();
-		
+
 		updatedMyTask.setStatus(task.getStatus());
 		updatedMyTask.setActual_start_date(sdf.parse(stringAcutalStartDate));
 		updatedMyTask.setActual_end_date(sdf.parse(stringAcutalEndDate));
@@ -285,50 +272,60 @@ public class TaskDAO {
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getTaskStatusAndCount(Task task) {
 		String sql = "select status, count(*) as count from task where emp_id=:empId and "
-				+ "year(expected_start_date)=:currentYear "
-				+ "group by status";
-		
+				+ "year(expected_start_date)=:currentYear " + "group by status";
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("empId", task.getEmployee().getEmpId());
 		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-		
+
 		List<Object[]> result = query.list();
 		return result;
 	}
-	
+
 	public int getCompletedTaskPercentageByEmployee(Task task) {
 		String sql = "select "
-				+ "round((Result1.completedCount/Result2.totalCount) * 100,0) as 'Completion Percentage' "
-				+ "from "
-				+ "( "
-				+ "select count(*) as completedCount, emp.emp_id "
-				+ "from task "
-				+ "join employee as emp "
+				+ "round((Result1.completedCount/Result2.totalCount) * 100,0) as 'Completion Percentage' " + "from "
+				+ "( " + "select count(*) as completedCount, emp.emp_id " + "from task " + "join employee as emp "
 				+ "on task.emp_id = emp.emp_id "
 				+ "where task.emp_id=:loggedInEmp and year(task.expected_start_date)=:currentYear "
-				+ "and task.status=:status  "
-				+ "group by emp.emp_id "
-				+ ") as Result1 "
-				+ "inner join " 
-				+ "( "
-				+ "select count(*) as totalCount, emp.emp_id "
-				+ "from task  "
-				+ "join employee as emp "
+				+ "and task.status=:status  " + "group by emp.emp_id " + ") as Result1 " + "inner join " + "( "
+				+ "select count(*) as totalCount, emp.emp_id " + "from task  " + "join employee as emp "
 				+ "on task.emp_id = emp.emp_id "
 				+ "where task.emp_id=:loggedInEmp and year(task.expected_start_date)=:currentYear "
-				+ "group by emp.emp_id "
-				+ ") as Result2 "
-				+ "on Result1.emp_id = Result2.emp_id";
-		
+				+ "group by emp.emp_id " + ") as Result2 " + "on Result1.emp_id = Result2.emp_id";
+
 		Query query = session().createSQLQuery(sql);
 		query.setParameter("loggedInEmp", task.getEmployee().getEmpId());
 		query.setParameter("currentYear", Calendar.getInstance().get(Calendar.YEAR));
 		query.setParameter("status", "Completed");
-		
-		if(query.uniqueResult() == null)
+
+		if (query.uniqueResult() == null)
 			return 0;
-		
+
 		int completedPercentage = ((Number) query.uniqueResult()).intValue();
-		return completedPercentage; 
+		return completedPercentage;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Task> generateTasksReport(Task task) throws HibernateException, ParseException {
+		// format
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		// get dates from leave object
+		Date fromDate = task.getExpected_start_date();
+		Date toDate = task.getExpected_end_date();
+
+		// convert Date type to String
+		String stringFromDate = sdf.format(fromDate);
+		String stringToDate = sdf.format(toDate);
+
+		String hql = "from Task where expected_start_date>=:expStart and expected_end_date<=:expEnd";
+
+		Query query = session().createQuery(hql);
+		query.setParameter("expStart", sdf.parse(stringFromDate));
+		query.setParameter("expEnd", sdf.parse(stringToDate));
+
+		List<Task> result = query.list();
+		return result;
 	}
 }

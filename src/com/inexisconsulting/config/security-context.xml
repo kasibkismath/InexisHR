@@ -461,6 +461,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Reports/GenerateLeavesReport"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Reports/GenerateTasksReport"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/FileUpload"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/header"

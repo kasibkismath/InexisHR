@@ -20,8 +20,10 @@ import com.inexisconsulting.dao.AllAttendanceReport;
 import com.inexisconsulting.dao.Attendance;
 import com.inexisconsulting.dao.EmployeeHoursWorked;
 import com.inexisconsulting.dao.Leave;
+import com.inexisconsulting.dao.Task;
 import com.inexisconsulting.service.AttendanceService;
 import com.inexisconsulting.service.LeaveService;
+import com.inexisconsulting.service.TaskService;
 
 @Controller
 public class ReportsController {
@@ -31,6 +33,9 @@ public class ReportsController {
 
 	@Autowired
 	private LeaveService leaveService;
+	
+	@Autowired
+	private TaskService taskService;
 
 	@RequestMapping("/Reports")
 	@SuppressWarnings("unchecked")
@@ -67,9 +72,15 @@ public class ReportsController {
 	// get all leaves for report
 	@RequestMapping(value = "/Reports/GenerateLeavesReport", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public List<Leave> generateLeavesReport(@RequestBody Leave leave)
-			throws HibernateException, ParseException {
+	public List<Leave> generateLeavesReport(@RequestBody Leave leave) throws HibernateException, ParseException {
 		return leaveService.generateLeavesReport(leave);
+	}
+
+	// get all tasks for report
+	@RequestMapping(value = "/Reports/GenerateTasksReport", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public List<Task> generateTasksReport(@RequestBody Task task) throws HibernateException, ParseException {
+		return taskService.generateTasksReport(task);
 	}
 
 }

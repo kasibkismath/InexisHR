@@ -101,7 +101,7 @@
 							<jsp:include page="Leaves Report/leavesReport.jsp"></jsp:include>
 						</div>
 						<div role="tabpanel" class="tab-pane fade in" id="allTasksReport">
-							<%-- <jsp:include page="Projects/summary.jsp"></jsp:include> --%>
+							<jsp:include page="Tasks Report/tasksReport.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
