@@ -86,6 +86,13 @@ public class TasksController {
 		return taskService.getAssignedTasksByLeadId(task);
 	}
 
+	// get all tasks by year
+	@RequestMapping(value = "/Tasks/GetAllTasksByYear", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<Task> getAllTasksByYear() {
+		return taskService.getAllTasksByYear();
+	}
+
 	// get task by task_id
 	@RequestMapping(value = "/Tasks/GetTaskByTaskId", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

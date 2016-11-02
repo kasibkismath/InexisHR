@@ -105,15 +105,21 @@
 				<div class="col-lg-12">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#leadCeoSummary"
-							aria-controls="home" role="tab" data-toggle="tab">Assigned Task Summary</a></li>
-						<li role="presentation"><a href="#leadCeoTasks"
-							aria-controls="profile" role="tab" data-toggle="tab">Assigned Tasks</a></li>
+						<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_LEAD')">
+							<li role="presentation" class="active"><a href="#leadCeoSummary"
+								aria-controls="home" role="tab" data-toggle="tab">Assigned Task Summary</a></li>
+							<li role="presentation"><a href="#leadCeoTasks"
+								aria-controls="profile" role="tab" data-toggle="tab">Assigned Tasks</a></li>
+						</sec:authorize>
 						<sec:authorize access="hasRole('ROLE_LEAD')">
-						<li role="presentation"><a href="#myLeadSummary"
-							aria-controls="home" role="tab" data-toggle="tab">My Summary</a></li>
-						<li role="presentation"><a href="#myLeadTasks"
-							aria-controls="profile" role="tab" data-toggle="tab">My Tasks</a></li>
+							<li role="presentation"><a href="#myLeadSummary"
+								aria-controls="home" role="tab" data-toggle="tab">My Summary</a></li>
+							<li role="presentation"><a href="#myLeadTasks"
+								aria-controls="profile" role="tab" data-toggle="tab">My Tasks</a></li>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<li role="presentation" class="active"><a href="#tasks"
+							aria-controls="profile" role="tab" data-toggle="tab">Tasks</a></li>
 						</sec:authorize>
 					</ul>
 				</div>
@@ -124,18 +130,25 @@
 				<div class="col-xs-6 col-lg-12">
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="leadCeoSummary">
-							<jsp:include page="Lead and CEO/summary.jsp"></jsp:include>
-						</div>
-						<div role="tabpanel" class="tab-pane fade" id="leadCeoTasks">
-							<jsp:include page="Lead and CEO/tasks.jsp"></jsp:include>
-						</div>
+						<sec:authorize access="hasAnyRole('ROLE_CEO', 'ROLE_LEAD')">
+							<div role="tabpanel" class="tab-pane fade in active" id="leadCeoSummary">
+								<jsp:include page="Lead and CEO/summary.jsp"></jsp:include>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="leadCeoTasks">
+								<jsp:include page="Lead and CEO/tasks.jsp"></jsp:include>
+							</div>
+						</sec:authorize>
 						<sec:authorize access="hasRole('ROLE_LEAD')">
-						<div role="tabpanel" class="tab-pane fade" id="myLeadSummary">
-							<jsp:include page="User HR and Lead/summary.jsp"></jsp:include>
-						</div>
-						<div role="tabpanel" class="tab-pane fade" id="myLeadTasks">
-							<jsp:include page="User HR and Lead/tasks.jsp"></jsp:include>
+							<div role="tabpanel" class="tab-pane fade" id="myLeadSummary">
+								<jsp:include page="User HR and Lead/summary.jsp"></jsp:include>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="myLeadTasks">
+								<jsp:include page="User HR and Lead/tasks.jsp"></jsp:include>
+							</div>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<div role="tabpanel" class="tab-pane fade in active" id="tasks">
+							<jsp:include page="Admin/tasks.jsp"></jsp:include>
 						</div>
 						</sec:authorize>
 					</div>

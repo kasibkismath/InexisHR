@@ -44,6 +44,7 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 		$scope.getMyTask();
 		$scope.userHRLeadSummaryChart();
 		$scope.getCompletedTaskPercentageByEmployee();
+		$scope.getAllTasksByYear();
 		
 		// set datatable configs
 		 // user and lead datatable
@@ -228,6 +229,17 @@ tasks.controller('tasksMainController', ['$scope', '$http', '$q', 'toaster', '$f
 			.error(function(data, status) {
 				console.log(data);
 			});
+		});
+	};
+	
+	// get all tasks by year
+	$scope.getAllTasksByYear = function() {
+		$http.get($scope.baseURL + '/Tasks/GetAllTasksByYear')
+		.success(function(result) {
+			$scope.getAllTasksByYearResult = result;
+		})
+		.error(function(data, status) {
+			console.log(data);
 		});
 	};
 	

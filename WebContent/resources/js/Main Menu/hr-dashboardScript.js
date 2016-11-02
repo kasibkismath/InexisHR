@@ -63,4 +63,12 @@ $(function() {
 	$('#contracts-tile').css({
 		"cursor" : "pointer"
 	});
+	
+	// reports tile
+	$('#reports-tile').click(function() {
+		$(location).attr('href', contextPath + '/Reports');
+	});
+	$('#reports-tile').css({
+		"cursor" : "pointer"
+	});
 });

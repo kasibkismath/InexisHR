@@ -328,4 +328,18 @@ public class TaskDAO {
 		List<Task> result = query.list();
 		return result;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Task> getAllTasksByYear() {
+		String hql = "from Task as task where "
+				+ "(year(task.expected_start_date)=:expStartDate or "
+				+ "year(task.expected_end_date)=:expEndDate)";
+
+		Query query = session().createQuery(hql);
+		query.setParameter("expStartDate", Calendar.getInstance().get(Calendar.YEAR));
+		query.setParameter("expEndDate", Calendar.getInstance().get(Calendar.YEAR));
+
+		List<Task> result = query.list();
+		return result;
+	}
 }

@@ -311,6 +311,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/Tasks/GetCompletedTaskPercentageByEmployee"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/Tasks/GetAllTasksByYear"
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/ProjectsAndTeams"
 			access="hasAnyRole('ROLE_ADMIN', 'ROLE_CEO')" />
 		<security:intercept-url pattern="/ProjectsAndTeams/GetAllProjects"

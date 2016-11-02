@@ -87,4 +87,8 @@ public class TaskService {
 	public List<Task> generateTasksReport(Task task) throws HibernateException, ParseException {
 		return taskDao.generateTasksReport(task);
 	}
+
+	public List<Task> getAllTasksByYear() {
+		return taskDao.getAllTasksByYear();
+	}
 }

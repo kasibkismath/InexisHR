@@ -125,3 +125,11 @@ textarea {
 	background-color: #f2dede !important;
 	color: #a94442 !important;
 }
+
+.allTasks {
+	margin-top: 25px;
+}
+
+#editAllaskModal .modal-body {
+	height: 220px;
+}
