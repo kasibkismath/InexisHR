@@ -18,6 +18,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 	$scope.init = function(){
 		// variables
 		$scope.saveProjectStatus = "In-Progress";
+		$scope.checkDuplicateProjectResult = false;
 		$scope.checkDuplicateTeamResult = false;
 		$scope.checkDuplicateTeamMemberResult = false;
 		$scope.checkFromToDateResult = false;
@@ -153,7 +154,7 @@ projectsAndTeams.controller('projectsAndTeamsMainController', ['$scope', '$http'
 				project_start : startDate,
 				project_client : projectClient
 			};
-				
+		
 			$http.post($scope.baseURL + '/ProjectsAndTeams/UpdateProject', project)
 			.success(function(result) {
 				$('#editProjectModal').modal('hide');

@@ -8,7 +8,8 @@
       <div class="modal-body">
 		<form name="editProjectForm" class="form-horizontal"
 			ng-submit="editProjectForm.$valid && checkDuplicateProjectResult === false &&
-				updateProject(updateProjectId, updateProjectName, updateProjectStatus, updateProjectStartDate, 
+				updateProject(updateProjectId, updateProjectName, updateProjectStatus, 
+				updateProjectStartDate, 
 				updateProjectClient)">
 				
 			<input type="hidden" ng-model="updateProjectId">

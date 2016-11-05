@@ -45,10 +45,12 @@ public class Team_EmployeeDAO {
 	}
 
 	public Long getTeamCountForLeadByLeadEmpId(Team team) {
-		String hql = "select count(team.team_Id) from Team as team where " + "team.employee.emp_id=:empId";
+		String hql = "select count(team.team_Id) from Team as team where " + "team.employee.emp_id=:empId"
+				+ " and team.status=:status";
 
 		Query query = session().createQuery(hql);
 		query.setParameter("empId", team.getEmployee().getEmpId());
+		query.setParameter("status", "Active");
 
 		Long count = (Long) query.uniqueResult();
 		return count;
