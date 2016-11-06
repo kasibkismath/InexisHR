@@ -124,7 +124,7 @@ public class VacancyDAO {
 	}
 
 	public int getExpiredVacanciesCount() {
-		String sql = "select count(*) from vacancy where (status=:status and expiry_date>:currentDate) and "
+		String sql = "select count(*) from vacancy where (status=:status and expiry_date<:currentDate) and "
 				+ "(year(added_date)=:currentYear or "
 				+ "year(expiry_date)=:currentYear)";
 		
